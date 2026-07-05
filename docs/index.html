@@ -6,7 +6,7 @@
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;background:#F6F4EF;color:var(--charcoal)}
 header{background:var(--charcoal);color:#fff;padding:22px 28px;border-bottom:5px solid var(--olive)}
 header h1{margin:0;font-size:22px}header p{margin:6px 0 0;color:var(--stoned);font-size:13px}
-main{max-width:1020px;margin:0 auto;padding:24px 20px 60px}
+main{max-width:1040px;margin:0 auto;padding:24px 20px 60px}
 h2{color:var(--olive);font-size:15px;margin:32px 0 10px;text-transform:uppercase;letter-spacing:1px}
 .deals{display:flex;gap:12px;flex-wrap:wrap}
 .deal{background:#2E6B3E;color:#fff;border-radius:10px;padding:14px 18px;flex:1 1 240px}
@@ -15,35 +15,93 @@ table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;ove
 th{background:var(--stoned);text-align:left;padding:9px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.6px}
 td{padding:9px 12px;border-top:1px solid var(--stone)}
 tr.buy{background:#EAF2EA}a{color:#2C5F8A}
+tr.owned td{opacity:.35}tr.owned td.item{text-decoration:line-through}
 .badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;color:#fff;white-space:nowrap}
+.tier{font-size:9.5px;font-weight:700;letter-spacing:.5px;padding:3px 8px;border-radius:4px;color:#fff;white-space:nowrap}
+.tier-budget{background:var(--olive)}.tier-mid{background:var(--navy)}.tier-premium{background:var(--charcoal)}
+.chk{width:17px;height:17px;accent-color:var(--olive);cursor:pointer}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:13px;color:var(--taupe);flex-wrap:wrap;gap:8px}
+.toolbar label{cursor:pointer;margin-left:14px}
 footer{text-align:center;color:var(--taupe);font-size:12px;margin-top:40px}
 </style></head><body>
 <header><h1>THE CAPSULE — LIVE</h1><p id="meta">Loading…</p></header>
 <main>
+<div class="toolbar">
+  <span>Tick = bought (greys out, saved in this browser). Filter tiers →</span>
+  <span>
+    <label><input type="checkbox" class="tf" value="budget" checked> budget</label>
+    <label><input type="checkbox" class="tf" value="mid" checked> mid</label>
+    <label><input type="checkbox" class="tf" value="premium" checked> premium</label>
+    <label><input type="checkbox" id="hideOwned"> hide bought</label>
+  </span>
+</div>
 <h2>Buy signals</h2><div class="deals" id="deals"></div>
-<h2>The £430 Build</h2><table id="build"><tr><th>Item</th><th>Size</th><th>Price</th><th>Target</th><th>Status</th></tr></table>
-<h2>Upgrades &amp; Bench</h2><table id="bench"><tr><th>Item</th><th>Size</th><th>Price</th><th>Target</th><th>Status</th></tr></table>
-<footer>Checked automatically every morning via GitHub Actions. Shopify retailers are stock-checked to the exact size; Uniqlo / M&amp;S / John Lewis block bots and show last-known prices flagged “check manually”.</footer>
+<div id="findsWrap" style="display:none"><h2>New finds — curated by the daily scrub</h2>
+<table id="finds"><tr><th>Date</th><th>Find</th><th>Why</th><th>Price</th><th>Size</th></tr></table></div>
+<div id="cats"></div>
+<footer>Checked every morning via GitHub Actions. Shopify retailers are stock-checked to your exact size; Uniqlo / M&amp;S / John Lewis block bots — those show last-known prices flagged “check manually”. Tiers: <span class="tier tier-budget">BUDGET</span> under ~£70 · <span class="tier tier-mid">MID</span> ~£70–140 · <span class="tier tier-premium">PREMIUM</span> buy-once. “Bought” ticks live in your browser — tell Claude too and it comes off the watch permanently.</footer>
 </main>
 <script>
 const COLOR={BUY:"#2E6B3E","SOLD OUT":"#9C3B2E",SALE:"#8A6A1F",WATCHING:"#8A8070","CHECK MANUALLY":"#B36A1F","LINK ERROR":"#9C3B2E"};
-fetch("data.json?"+Date.now()).then(r=>r.json()).then(d=>{
+const TIER_ORDER={budget:0,mid:1,premium:2};
+const owned=new Set(JSON.parse(localStorage.getItem("capsule-owned")||"[]"));
+const save=()=>localStorage.setItem("capsule-owned",JSON.stringify([...owned]));
+let DATA=null;
+
+function activeTiers(){return new Set([...document.querySelectorAll(".tf:checked")].map(c=>c.value));}
+
+function render(){
+  if(!DATA)return;
+  const hide=document.getElementById("hideOwned").checked;
+  const tiers=activeTiers();
+  const d=DATA;
   document.getElementById("meta").innerHTML=
-    `Don · Bangor NI · last checked <b>${new Date(d.generated).toLocaleString("en-GB")}</b> · sizes: top ${d.sizes.top}, ${d.sizes.waist} ${d.sizes.leg}`;
-  const deals=document.getElementById("deals");
-  const buys=d.items.filter(i=>i.signal==="BUY");
-  deals.innerHTML=buys.length?buys.map(i=>`<div class="deal"><b><a href="${i.url}" target="_blank">${i.name}</a></b><br>${i.size} · £${i.price}</div>`).join(""):"<div class='deal'>No buy signals right now.</div>";
-  for(const grp of["build","bench"]){
-    const t=document.getElementById(grp);
-    d.items.filter(i=>i.group===grp).forEach(i=>{
+    `Don · Bangor NI · last checked <b>${new Date(d.generated).toLocaleString("en-GB")}</b> · sizes: top ${d.sizes.top}, ${d.sizes.waist} ${d.sizes.leg} · ${owned.size} bought`;
+  const buys=d.items.filter(i=>i.signal==="BUY"&&!owned.has(i.id)&&tiers.has(i.tier));
+  document.getElementById("deals").innerHTML=buys.length
+    ?buys.map(i=>`<div class="deal"><b><a href="${i.url}" target="_blank">${i.name}</a></b><br>${i.size} · £${i.price}</div>`).join("")
+    :"<div class='deal'>No buy signals right now.</div>";
+  const cats=document.getElementById("cats"); cats.innerHTML="";
+  const seen=[];
+  d.items.forEach(i=>{if(!seen.includes(i.category))seen.push(i.category);});
+  for(const cat of seen){
+    const items=d.items.filter(i=>i.category===cat&&tiers.has(i.tier))
+      .sort((a,b)=>(TIER_ORDER[a.tier]-TIER_ORDER[b.tier])||((a.price??999)-(b.price??999)));
+    if(!items.length)continue;
+    const h=document.createElement("h2"); h.textContent=cat; cats.appendChild(h);
+    const t=document.createElement("table");
+    t.innerHTML="<tr><th></th><th>Tier</th><th>Item</th><th>Size</th><th>Price</th><th>Target</th><th>Status</th></tr>";
+    items.forEach(i=>{
+      const isOwned=owned.has(i.id);
+      if(hide&&isOwned)return;
       const tr=document.createElement("tr");
-      if(i.signal==="BUY")tr.className="buy";
-      tr.innerHTML=`<td><a href="${i.url}" target="_blank">${i.name}</a></td><td>${i.size}</td>`+
+      tr.className=isOwned?"owned":(i.signal==="BUY"?"buy":"");
+      tr.innerHTML=`<td><input type="checkbox" class="chk" ${isOwned?"checked":""}></td>`+
+        `<td><span class="tier tier-${i.tier}">${i.tier.toUpperCase()}</span></td>`+
+        `<td class="item"><a href="${i.url}" target="_blank">${i.name}</a></td><td>${i.size}</td>`+
         `<td><b>${i.price!=null?"£"+i.price:"—"}</b>${i.discount_pct?` <small>(−${i.discount_pct}%)</small>`:""}</td>`+
         `<td style="color:#8A8070">£${i.target}</td>`+
-        `<td><span class="badge" style="background:${COLOR[i.signal]||"#8A8070"}">${i.signal}</span></td>`;
+        `<td><span class="badge" style="background:${COLOR[i.signal]||"#8A8070"}">${isOwned?"BOUGHT":i.signal}</span></td>`;
+      tr.querySelector(".chk").addEventListener("change",e=>{
+        e.target.checked?owned.add(i.id):owned.delete(i.id); save(); render();
+      });
       t.appendChild(tr);
     });
+    cats.appendChild(t);
   }
-});
+}
+document.getElementById("hideOwned").addEventListener("change",render);
+document.querySelectorAll(".tf").forEach(c=>c.addEventListener("change",render));
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(d=>{DATA=d;render();});
+fetch("finds.json?"+Date.now()).then(r=>r.ok?r.json():null).then(f=>{
+  if(!f||!f.finds||!f.finds.length)return;
+  document.getElementById("findsWrap").style.display="block";
+  const t=document.getElementById("finds");
+  f.finds.forEach(x=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${x.date}</td><td><a href="${x.url}" target="_blank">${x.name}</a></td>`+
+      `<td>${x.why||""}</td><td><b>£${x.price}</b></td><td>${x.size||""}</td>`;
+    t.appendChild(tr);
+  });
+}).catch(()=>{});
 </script></body></html>

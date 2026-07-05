@@ -23,13 +23,16 @@ A tiny site that checks your watch-list stock/prices **every morning automatical
 
 Your site appears at `https://<your-username>.github.io/capsule/` a minute later.
 
-## Maintaining it
-- Add/remove items: edit `items.json` (or ask Claude to). `"check": "shopify"` items are
-  auto-verified to your exact size; `"check": "manual"` items just display.
-- Bought something? Delete its entry from `items.json` (or ask Claude).
-- The "auto-discover similar clothes" part stays with Claude's daily scrub — taste-matching
-  needs judgement, not just a script. New finds land in the tracker/dashboard; promote the
-  keepers into `items.json` so the site watches them too.
+## Maintaining it (mostly hands-off)
+- **Bought something?** Tick the checkbox on the site — it greys out and drops off buy
+  signals (saved in your browser). Also tell Claude so the item comes off the watch
+  permanently (repo-side).
+- **Add/remove items:** ask Claude — with the GitHub connector authorised in Claude's
+  settings, Claude commits `items.json` changes straight to this repo. Without it, Claude
+  edits the local copy in your STYLE folder and you drag-and-drop the file to GitHub.
+- **New finds:** the daily Claude scrub curates taste-matched alternatives; they publish to
+  the site's "New finds" section via `docs/finds.json` (auto-committed once the GitHub
+  connector is authorised; until then Claude hands you the updated file to upload).
 
 ## Notes
 - Private repo still gives you a public Pages URL (fine — it's just clothes).
