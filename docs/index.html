@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Capsule — Live</title>
+<style>
+:root{--charcoal:#2B2D2F;--olive:#5C6349;--stone:#EDE9E0;--stoned:#D8D2C4;--navy:#2C3A4F;--taupe:#8A8070}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;background:#F6F4EF;color:var(--charcoal)}
+header{background:var(--charcoal);color:#fff;padding:22px 28px;border-bottom:5px solid var(--olive)}
+header h1{margin:0;font-size:22px}header p{margin:6px 0 0;color:var(--stoned);font-size:13px}
+main{max-width:1020px;margin:0 auto;padding:24px 20px 60px}
+h2{color:var(--olive);font-size:15px;margin:32px 0 10px;text-transform:uppercase;letter-spacing:1px}
+.deals{display:flex;gap:12px;flex-wrap:wrap}
+.deal{background:#2E6B3E;color:#fff;border-radius:10px;padding:14px 18px;flex:1 1 240px}
+.deal a{color:#fff}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);font-size:13.5px}
+th{background:var(--stoned);text-align:left;padding:9px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+td{padding:9px 12px;border-top:1px solid var(--stone)}
+tr.buy{background:#EAF2EA}a{color:#2C5F8A}
+.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;color:#fff;white-space:nowrap}
+footer{text-align:center;color:var(--taupe);font-size:12px;margin-top:40px}
+</style></head><body>
+<header><h1>THE CAPSULE — LIVE</h1><p id="meta">Loading…</p></header>
+<main>
+<h2>Buy signals</h2><div class="deals" id="deals"></div>
+<h2>The £430 Build</h2><table id="build"><tr><th>Item</th><th>Size</th><th>Price</th><th>Target</th><th>Status</th></tr></table>
+<h2>Upgrades &amp; Bench</h2><table id="bench"><tr><th>Item</th><th>Size</th><th>Price</th><th>Target</th><th>Status</th></tr></table>
+<footer>Checked automatically every morning via GitHub Actions. Shopify retailers are stock-checked to the exact size; Uniqlo / M&amp;S / John Lewis block bots and show last-known prices flagged “check manually”.</footer>
+</main>
+<script>
+const COLOR={BUY:"#2E6B3E","SOLD OUT":"#9C3B2E",SALE:"#8A6A1F",WATCHING:"#8A8070","CHECK MANUALLY":"#B36A1F","LINK ERROR":"#9C3B2E"};
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(d=>{
+  document.getElementById("meta").innerHTML=
+    `Don · Bangor NI · last checked <b>${new Date(d.generated).toLocaleString("en-GB")}</b> · sizes: top ${d.sizes.top}, ${d.sizes.waist} ${d.sizes.leg}`;
+  const deals=document.getElementById("deals");
+  const buys=d.items.filter(i=>i.signal==="BUY");
+  deals.innerHTML=buys.length?buys.map(i=>`<div class="deal"><b><a href="${i.url}" target="_blank">${i.name}</a></b><br>${i.size} · £${i.price}</div>`).join(""):"<div class='deal'>No buy signals right now.</div>";
+  for(const grp of["build","bench"]){
+    const t=document.getElementById(grp);
+    d.items.filter(i=>i.group===grp).forEach(i=>{
+      const tr=document.createElement("tr");
+      if(i.signal==="BUY")tr.className="buy";
+      tr.innerHTML=`<td><a href="${i.url}" target="_blank">${i.name}</a></td><td>${i.size}</td>`+
+        `<td><b>${i.price!=null?"£"+i.price:"—"}</b>${i.discount_pct?` <small>(−${i.discount_pct}%)</small>`:""}</td>`+
+        `<td style="color:#8A8070">£${i.target}</td>`+
+        `<td><span class="badge" style="background:${COLOR[i.signal]||"#8A8070"}">${i.signal}</span></td>`;
+      t.appendChild(tr);
+    });
+  }
+});
+</script></body></html>

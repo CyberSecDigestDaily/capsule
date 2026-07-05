@@ -1,0 +1,31 @@
+{
+  "sizes": {"top": "L", "waist": "W34", "leg": "L32", "sock": "M/L", "boxer": "L"},
+  "items": [
+    {"id": 1,  "group": "build", "name": "Uniqlo Utility Blouson, olive", "url": "https://www.uniqlo.com/uk/en/products/E459592-000/00", "check": "manual", "size": "L", "last_price": 19.90, "target": 40},
+    {"id": 2,  "group": "build", "name": "Lee Workwear Overshirt, khaki", "url": "https://jeanstore.co.uk/products/lee-workwear-relaxed-overshirt-perfect-khaki", "check": "shopify", "size": "L", "target": 65},
+    {"id": 3,  "group": "build", "name": "CC Raglan Sweatshirt, grey marl", "url": "https://communityclothing.co.uk/products/mens-raglan-sweatshirt-grey-marl", "check": "shopify", "size": "L", "target": 52},
+    {"id": 4,  "group": "build", "name": "CC T-Shirt, charcoal", "url": "https://communityclothing.co.uk/products/mens-short-sleeve-t-shirt-charcoal-1", "check": "shopify", "size": "L", "target": 28},
+    {"id": 5,  "group": "build", "name": "Colorful Standard Tee, navy", "url": "https://jeanstore.co.uk/products/colorful-standard-classic-organic-tee-navy-blue", "check": "shopify", "size": "L", "target": 22},
+    {"id": 6,  "group": "build", "name": "Levi's 502 'Feelin Free'", "url": "https://jeanstore.co.uk/products/levis%C2%AE-502-regular-tapered-mens-jeans-feelin-free", "check": "shopify", "size": "W34 L32", "target": 70},
+    {"id": 7,  "group": "build", "name": "Levi's XX Chino, Bunker Olive", "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-taper-fit-mens-chinos-bunker-olive-shady", "check": "shopify", "size": "W34 L32", "target": 60},
+    {"id": 8,  "group": "build", "name": "M&S Stretch Chinos, stone", "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138", "check": "manual", "size": "34/32", "last_price": 35, "target": 28},
+    {"id": 9,  "group": "build", "name": "CC rib socks, RAF blue", "url": "https://communityclothing.co.uk/products/premium-cotton-sock-rib-navy-blue", "check": "shopify", "size": "M/L", "target": 8},
+    {"id": 10, "group": "build", "name": "FCUK Boxers 7-pack", "url": "https://www.frenchconnection.com/products/7-pack-fcuk-boxers-fcuk14", "check": "shopify", "size": "L", "target": 24},
+    {"id": 11, "group": "bench", "name": "UW Bakers Jacket, light olive", "url": "https://universalworks.com/products/universal-works-bakers-jacket-in-light-olive-twill", "check": "shopify", "size": "L", "target": 135},
+    {"id": 12, "group": "bench", "name": "UW Parachute Field Jacket, navy", "url": "https://universalworks.com/products/navy-recycled-poly-tech-parachute-field-jacket", "check": "shopify", "size": "L", "target": 170},
+    {"id": 13, "group": "bench", "name": "UW Wool Fleece Field Jacket, black", "url": "https://universalworks.com/products/universal-works-field-jacket-in-black-wool-fleece-2", "check": "shopify", "size": "L", "target": 150},
+    {"id": 14, "group": "bench", "name": "UW Wool Fleece Cardigan, black", "url": "https://universalworks.com/products/universal-works-cardigan-in-black-wool-fleece-5", "check": "shopify", "size": "L", "target": 115},
+    {"id": 15, "group": "bench", "name": "Finisterre Barents Jumper, oatmeal", "url": "https://finisterre.com/products/mens-barents-jumper-wool-oatmeal", "check": "shopify", "size": "L", "target": 90},
+    {"id": 16, "group": "bench", "name": "Barbour Ripstop Overshirt, navy", "url": "https://jeanstore.co.uk/products/barbour-heritage-endurance-ripstop-overshirt-navy", "check": "shopify", "size": "L", "target": 105},
+    {"id": 17, "group": "bench", "name": "Lee 101 Wool Overshirt, black (RESTOCK WATCH)", "url": "https://jeanstore.co.uk/products/lee-101-wool-overshirt-black", "check": "shopify", "size": "L", "target": 60},
+    {"id": 18, "group": "bench", "name": "Uniqlo Fleece Half-Zip, olive (RESTOCK WATCH)", "url": "https://www.uniqlo.com/uk/en/products/E471233-000/00", "check": "manual", "size": "L", "last_price": 9.90, "target": 9.90},
+    {"id": 19, "group": "bench", "name": "Uniqlo Corduroy Overshirt, olive", "url": "https://www.uniqlo.com/uk/en/products/E475270-000/00", "check": "manual", "size": "L", "last_price": 12, "target": 15},
+    {"id": 20, "group": "bench", "name": "Levi's 502 'Jack Of All Trades'", "url": "https://jeanstore.co.uk/products/levis%C2%AE-502-regular-tapered-mens-jeans-jack-of-all-trades", "check": "shopify", "size": "W34 L32", "target": 70},
+    {"id": 21, "group": "bench", "name": "Levi's XX Chino, Baltic Navy", "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-taper-fit-mens-chinos-baltic-navy-shady", "check": "shopify", "size": "W34 L32", "target": 60},
+    {"id": 22, "group": "bench", "name": "CC Relaxed Chinos, khaki", "url": "https://communityclothing.co.uk/products/mens-relaxed-chino-khaki", "check": "shopify", "size": "34", "target": 64},
+    {"id": 23, "group": "bench", "name": "UW Military Chino, light olive", "url": "https://universalworks.com/products/universal-works-military-chino-in-light-olive-twill", "check": "shopify", "size": "34", "target": 115},
+    {"id": 24, "group": "bench", "name": "Oliver Spencer Morton, charcoal (watch size 34)", "url": "https://oliverspencer.co.uk/products/morton-pleated-trousers-richards-charcoal", "check": "shopify", "size": "34", "target": 174},
+    {"id": 25, "group": "bench", "name": "CDLP 3-pack Boxer Brief, dark navy", "url": "https://cdlp.com/products/3-mens-boxer-brief-dark-navy", "check": "shopify", "size": "L", "target": 70},
+    {"id": 26, "group": "bench", "name": "Barbour Ashby waxed, olive", "url": "https://www.johnlewis.com/barbour-ashby-waxed-cotton-field-jacket-olive/p819957", "check": "manual", "size": "L", "last_price": 269, "target": 200}
+  ]
+}
