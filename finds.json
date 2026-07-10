@@ -1,0 +1,8 @@
+{
+  "finds": [
+    {"date": "2026-07-10", "name": "British Wool 'Richmond' Shawl Collar Cardigan, navy/charcoal, 100% British wool", "url": "https://shop.britishwool.org.uk/product/shawl-collar-cardigan/", "why": "Matches request (c) styling and fabric brief but £195 vs the £80 ask — reject", "price": 195, "size": "L in stock"},
+    {"date": "2026-07-09", "name": "WoolOvers Logan Cable Shawl Collar Cardigan, charcoal, 100% wool", "url": "https://www.woolovers.com/mens/cardigans/logan-cable-shawl-collar-cardigan-grey-30699", "why": "On-palette, pure wool, £72 — well under £80, but size L is sold out (only M/XL/XXL in stock as of 10 Jul); hold for L restock before buying", "price": 72, "size": "L sold out"},
+    {"date": "2026-07-05", "name": "Paul James midweight cotton shawl-collar cardigan, navy/black", "url": "https://www.pauljamesknitwear.com/products/mens-cotton-shawl-collar-cardigan", "why": "Answers the budget shawl-cardigan hunt but £150 vs the £80 ask — hold unless budget flexes", "price": 150, "size": "L in stock"},
+    {"date": "2026-07-06", "name": "Croft House ribbed shawl-collar wool cardigan, charcoal", "url": "https://www.thecrofthouse.com/products/mens-shawl-collar-cardigan-charcoal-grey-ribbed-jacket", "why": "Matches request (c) styling but sold out in all sizes and £300 vs the £80 ask — reject", "price": 300, "size": "sold out all sizes"}
+  ]
+}
