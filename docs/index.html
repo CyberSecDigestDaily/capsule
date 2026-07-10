@@ -1,107 +1,345 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Capsule — Live</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Capsule — Daily Wardrobe Watch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--charcoal:#2B2D2F;--olive:#5C6349;--stone:#EDE9E0;--stoned:#D8D2C4;--navy:#2C3A4F;--taupe:#8A8070}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;background:#F6F4EF;color:var(--charcoal)}
-header{background:var(--charcoal);color:#fff;padding:22px 28px;border-bottom:5px solid var(--olive)}
-header h1{margin:0;font-size:22px}header p{margin:6px 0 0;color:var(--stoned);font-size:13px}
-main{max-width:1040px;margin:0 auto;padding:24px 20px 60px}
-h2{color:var(--olive);font-size:15px;margin:32px 0 10px;text-transform:uppercase;letter-spacing:1px}
-.deals{display:flex;gap:12px;flex-wrap:wrap}
-.deal{background:#2E6B3E;color:#fff;border-radius:10px;padding:14px 18px;flex:1 1 240px}
-.deal a{color:#fff}
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);font-size:13.5px}
-th{background:var(--stoned);text-align:left;padding:9px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.6px}
-td{padding:9px 12px;border-top:1px solid var(--stone)}
-tr.buy{background:#EAF2EA}a{color:#2C5F8A}
-tr.owned td{opacity:.35}tr.owned td.item{text-decoration:line-through}
-.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;color:#fff;white-space:nowrap}
-.tier{font-size:9.5px;font-weight:700;letter-spacing:.5px;padding:3px 8px;border-radius:4px;color:#fff;white-space:nowrap}
-.tier-budget{background:var(--olive)}.tier-mid{background:var(--navy)}.tier-premium{background:var(--charcoal)}
-.chk{width:17px;height:17px;accent-color:var(--olive);cursor:pointer}
-.toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:13px;color:var(--taupe);flex-wrap:wrap;gap:8px}
-.toolbar label{cursor:pointer;margin-left:14px}
-footer{text-align:center;color:var(--taupe);font-size:12px;margin-top:40px}
-</style></head><body>
-<header><h1>THE CAPSULE — LIVE</h1><p id="meta">Loading…</p></header>
-<main>
-<div class="toolbar">
-  <span>Tick = bought (greys out, saved in this browser). Filter tiers →</span>
-  <span>
-    <label><input type="checkbox" class="tf" value="budget" checked> budget</label>
-    <label><input type="checkbox" class="tf" value="mid" checked> mid</label>
-    <label><input type="checkbox" class="tf" value="premium" checked> premium</label>
-    <label><input type="checkbox" id="hideOwned"> hide bought</label>
-  </span>
+  *{box-sizing:border-box}
+  body{margin:0;background:#6E6A5E;min-height:100vh;font-family:'IBM Plex Sans',sans-serif;
+       padding:clamp(14px,4vw,52px);display:flex;justify-content:center}
+  a{color:inherit;text-decoration:none}
+  input{font-family:inherit}
+  ::selection{background:#D9CFB4}
+  @keyframes cap-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.3}}
+  @keyframes cap-rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  .shell{width:100%;max-width:960px;background:#F6F1E6;border:1px solid #E2D9C6;border-radius:5px;
+         overflow:hidden;box-shadow:0 30px 70px -34px rgba(40,34,20,.6)}
+
+  header.mast{padding:clamp(26px,4vw,44px) clamp(20px,4vw,48px) 30px;border-bottom:1px solid #E2D9C6}
+  .mast-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:20px}
+  .eyebrow{font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.34em;color:#9A8F72;text-transform:uppercase;margin-bottom:14px}
+  h1.title{margin:0;font-family:'Newsreader',serif;font-weight:500;font-size:clamp(40px,7vw,58px);line-height:.94;color:#2B2A20;letter-spacing:-.01em}
+  .sub{margin:14px 0 0;font-family:'Newsreader',serif;font-style:italic;font-size:19px;color:#6E6852;max-width:48ch}
+  .mast-meta{text-align:right;flex-shrink:0}
+  .mast-meta .gen{font:500 12px/1.5 'IBM Plex Mono',monospace;color:#8A7F62}
+  .mast-meta .slabel{margin-top:12px;font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#B0A488;text-transform:uppercase}
+  .mast-meta .sizes{margin-top:6px;font:500 14px/1.4 'IBM Plex Mono',monospace;color:#4A4534}
+  .budget-line{margin-top:28px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:baseline}
+  .bl-k{font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#9A8F72;text-transform:uppercase;margin-right:9px}
+  .bl-v{font-family:'Newsreader',serif;font-size:26px;font-weight:500}
+
+  .chips{display:flex;flex-wrap:wrap;border-bottom:1px solid #E2D9C6}
+  .chip{flex:1 1 130px;background:#F6F1E6;border:none;border-right:1px solid #E2D9C6;border-top:2px solid transparent;
+        padding:16px 15px;text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
+  .chip:hover{background:#FBF8F0}
+  .chip.on{background:#EFE9DB}
+  .chip .cdot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:middle}
+  .chip .clabel{font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8A7F62;text-transform:uppercase;vertical-align:middle}
+  .chip .cval{margin-top:9px;font-family:'Newsreader',serif;font-size:32px;font-weight:500;color:#2B2A20;line-height:1}
+
+  .controls{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;justify-content:space-between;
+            padding:15px clamp(20px,4vw,48px);background:#EFE9DB;border-bottom:1px solid #E2D9C6}
+  .search{display:flex;align-items:center;gap:10px;flex:1 1 220px;max-width:320px;background:#F6F1E6;border:1px solid #DDD3BC;border-radius:4px;padding:9px 12px}
+  .search span{font:600 13px/1 'IBM Plex Mono',monospace;color:#A89C7E}
+  .search input{border:none;background:none;outline:none;width:100%;font:500 13px/1.2 'IBM Plex Sans',sans-serif;color:#2B2A20}
+  .tiers{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .tiers .tlab{font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#9A8F72;text-transform:uppercase;margin-right:2px}
+  .pill{font:500 11px/1 'IBM Plex Mono',monospace;padding:7px 11px;border-radius:3px;cursor:pointer;border:1px solid #D6CBB0;background:#F6F1E6;color:#7A7058;transition:all .18s;user-select:none}
+  .pill.on{background:#5B7A2E;border-color:#5B7A2E;color:#F6F1E6}
+  .pill.grey.on{background:#6B6552;border-color:#6B6552}
+  .sortwrap{display:flex;align-items:center;gap:6px}
+  .sortwrap .slab{font:500 11px/1 'IBM Plex Mono',monospace;color:#9A8F72;margin-right:2px}
+
+  .finds{padding:6px clamp(20px,4vw,48px) 4px;border-bottom:1px solid #EBE3D2;background:#F6F1E6}
+  .finds h3{font-family:'Newsreader',serif;font-weight:500;font-size:20px;color:#2B2A20;margin:18px 0 4px}
+  .finds .fnote{font:500 11px/1.4 'IBM Plex Mono',monospace;color:#A89C7E;margin-bottom:10px}
+  .find{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;padding:10px 0;border-top:1px solid #EFE9DB}
+  .find .fdate{font:500 11px/1 'IBM Plex Mono',monospace;color:#B0A488;min-width:74px}
+  .find .fname{font:500 14px/1.35 'IBM Plex Sans',sans-serif;color:#2B2A20;flex:1 1 260px}
+  .find .fwhy{font-family:'Newsreader',serif;font-style:italic;font-size:13.5px;color:#6E6852;flex:2 1 100%}
+  .find .fprice{font:600 14px/1 'IBM Plex Mono',monospace;color:#3D4222}
+
+  .groups{padding:6px 0 8px}
+  .grp{border-bottom:1px solid #EBE3D2}
+  .grp-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+            padding:18px clamp(20px,4vw,48px) 14px;background:none;border:none;cursor:pointer;text-align:left}
+  .grp-head .gname{font-family:'Newsreader',serif;font-size:23px;font-weight:500;color:#2B2A20}
+  .grp-head .gcount{font:500 12px/1 'IBM Plex Mono',monospace;color:#A89C7E;margin-left:12px}
+  .grp-head .gsub{font:500 12px/1 'IBM Plex Mono',monospace;color:#7A7058;margin-right:16px}
+  .grp-head .gchev{font-family:'Newsreader',serif;font-size:20px;color:#9A8F72;width:16px;text-align:center}
+  .grp-body{overflow:hidden}
+
+  .row{display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:15px;
+       padding:13px clamp(20px,4vw,48px);border-top:1px solid #EFE9DB;transition:background .16s,opacity .25s;animation:cap-rise .3s ease both}
+  .row:hover{background:#FBF8F0}
+  .row.bought{opacity:.42}
+  .chk{width:20px;height:20px;border-radius:3px;border:1.5px solid #C7BC9E;background:transparent;color:#F6F1E6;
+       font:700 12px/1 'IBM Plex Mono',monospace;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0}
+  .chk.on{background:#5B7A2E;border-color:#5B7A2E}
+  .rname{font:500 15px/1.3 'IBM Plex Sans',sans-serif;color:#2B2A20}
+  .rmeta{margin-top:6px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+  .sig{display:inline-flex;align-items:center;gap:6px;font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:3px}
+  .sig .sdot{width:6px;height:6px;border-radius:50%}
+  .rtier,.rsize{font:500 11px/1 'IBM Plex Mono',monospace;color:#A89C7E;letter-spacing:.04em}
+  .rprice-wrap{text-align:right;white-space:nowrap}
+  .rprice-top{display:flex;align-items:baseline;justify-content:flex-end;gap:8px}
+  .rdisc{font:600 10px/1 'IBM Plex Mono',monospace;color:#C4653A}
+  .rprice{font:600 18px/1 'IBM Plex Mono',monospace;color:#3D4222}
+  .rdelta{margin-top:5px;font:500 11px/1 'IBM Plex Mono',monospace}
+  .empty{padding:44px;text-align:center;font-family:'Newsreader',serif;font-style:italic;font-size:18px;color:#9A8F72}
+  .empty a{color:#5B7A2E;cursor:pointer;text-decoration:underline}
+
+  footer.foot{padding:20px clamp(20px,4vw,48px);background:#EFE9DB;font:500 11px/1.7 'IBM Plex Mono',monospace;color:#9A8F72;
+              display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+  @media(max-width:560px){
+    .mast-meta{text-align:left}
+    .row{grid-template-columns:22px 1fr;gap:10px}
+    .rprice-wrap{grid-column:2;text-align:left;margin-top:2px}
+    .rprice-top{justify-content:flex-start}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="mast">
+    <div class="mast-top">
+      <div style="min-width:260px">
+        <div class="eyebrow">Daily Wardrobe Watch</div>
+        <h1 class="title">The Capsule</h1>
+        <p class="sub">A quiet, complete wardrobe — tracked automatically each morning until every piece hits its price.</p>
+      </div>
+      <div class="mast-meta">
+        <div class="gen" id="gen">checking…</div>
+        <div class="slabel">Sizes</div>
+        <div class="sizes" id="sizes">—</div>
+      </div>
+    </div>
+    <div class="budget-line">
+      <div><span class="bl-k">Target budget</span><span class="bl-v" id="bTarget" style="color:#3D4222">—</span></div>
+      <div><span class="bl-k">Live total</span><span class="bl-v" id="bLive" style="color:#8A7F62">—</span></div>
+      <div><span class="bl-k">Gap to target</span><span class="bl-v" id="bGap" style="color:#A85A3C">—</span></div>
+    </div>
+  </header>
+
+  <div class="chips" id="chips"></div>
+
+  <div class="controls">
+    <div class="search"><span>&#8981;</span><input id="q" placeholder="Search pieces…" autocomplete="off"></div>
+    <div class="tiers">
+      <span class="tlab">Tier</span>
+      <span class="pill on" data-tier="budget">budget</span>
+      <span class="pill on" data-tier="mid">mid</span>
+      <span class="pill on" data-tier="premium">premium</span>
+      <span class="pill grey" data-hide="1">hide bought</span>
+    </div>
+    <div class="sortwrap">
+      <span class="slab">Sort</span>
+      <span class="pill on" data-sort="default">default</span>
+      <span class="pill" data-sort="price">price</span>
+      <span class="pill" data-sort="delta">closest</span>
+    </div>
+  </div>
+
+  <div class="finds" id="findsWrap" style="display:none">
+    <h3>New finds — curated by the daily scrub</h3>
+    <div class="fnote">Adjacent pieces Claude surfaced while checking your list. Not on the core watch yet.</div>
+    <div id="findsList"></div>
+  </div>
+
+  <div class="groups" id="groups"></div>
+
+  <footer class="foot">
+    <span>Prices checked automatically each morning via GitHub Actions.</span>
+    <span>Tick a piece to mark it bought — saved on this device.</span>
+  </footer>
 </div>
-<h2>Buy signals</h2><div class="deals" id="deals"></div>
-<div id="findsWrap" style="display:none"><h2>New finds — curated by the daily scrub</h2>
-<table id="finds"><tr><th>Date</th><th>Find</th><th>Why</th><th>Price</th><th>Size</th></tr></table></div>
-<div id="cats"></div>
-<footer>Checked every morning via GitHub Actions. Shopify retailers are stock-checked to your exact size; Uniqlo / M&amp;S / John Lewis block bots — those show last-known prices flagged “check manually”. Tiers: <span class="tier tier-budget">BUDGET</span> under ~£70 · <span class="tier tier-mid">MID</span> ~£70–140 · <span class="tier tier-premium">PREMIUM</span> buy-once. “Bought” ticks live in your browser — tell Claude too and it comes off the watch permanently.</footer>
-</main>
+
 <script>
-const COLOR={BUY:"#2E6B3E","SOLD OUT":"#9C3B2E",SALE:"#8A6A1F",WATCHING:"#8A8070","CHECK MANUALLY":"#B36A1F","LINK ERROR":"#9C3B2E"};
+const ROLE={
+  buy:  {bg:"#E4EAD2",fg:"#3B4A1E",dot:"#5B7A2E",label:"Buy now"},
+  sale: {bg:"#F3E2D5",fg:"#8A4A28",dot:"#C4653A",label:"On sale"},
+  watch:{bg:"#ECE7DA",fg:"#6B6552",dot:"#9A9276",label:"Watching"},
+  out:  {bg:"#EFDEDB",fg:"#7E4A44",dot:"#B5645C",label:"Sold out"},
+  check:{bg:"#E3E7EC",fg:"#4A5A6B",dot:"#7A8CA0",label:"Check"}
+};
+const ROLE_ORDER=["buy","sale","watch","check","out"];
 const TIER_ORDER={budget:0,mid:1,premium:2};
-const owned=new Set(JSON.parse(localStorage.getItem("capsule-owned")||"[]"));
-const save=()=>localStorage.setItem("capsule-owned",JSON.stringify([...owned]));
-let DATA=null;
 
-function activeTiers(){return new Set([...document.querySelectorAll(".tf:checked")].map(c=>c.value));}
+const state={
+  items:[], sizes:{}, generated:null,
+  bought:load(), tiers:new Set(["budget","mid","premium"]),
+  hideBought:false, role:null, sort:"default", query:"", collapsed:{}
+};
 
-function render(){
-  if(!DATA)return;
-  const hide=document.getElementById("hideOwned").checked;
-  const tiers=activeTiers();
-  const d=DATA;
-  document.getElementById("meta").innerHTML=
-    `Don · Bangor NI · last checked <b>${new Date(d.generated).toLocaleString("en-GB")}</b> · sizes: top ${d.sizes.top}, ${d.sizes.waist} ${d.sizes.leg} · ${owned.size} bought`;
-  const buys=d.items.filter(i=>i.signal==="BUY"&&!owned.has(i.id)&&tiers.has(i.tier));
-  document.getElementById("deals").innerHTML=buys.length
-    ?buys.map(i=>`<div class="deal"><b><a href="${i.url}" target="_blank">${i.name}</a></b><br>${i.size} · £${i.price}</div>`).join("")
-    :"<div class='deal'>No buy signals right now.</div>";
-  const cats=document.getElementById("cats"); cats.innerHTML="";
-  const seen=[];
-  d.items.forEach(i=>{if(!seen.includes(i.category))seen.push(i.category);});
-  for(const cat of seen){
-    const items=d.items.filter(i=>i.category===cat&&tiers.has(i.tier))
-      .sort((a,b)=>(TIER_ORDER[a.tier]-TIER_ORDER[b.tier])||((a.price??999)-(b.price??999)));
-    if(!items.length)continue;
-    const h=document.createElement("h2"); h.textContent=cat; cats.appendChild(h);
-    const t=document.createElement("table");
-    t.innerHTML="<tr><th></th><th>Tier</th><th>Item</th><th>Size</th><th>Price</th><th>Target</th><th>Status</th></tr>";
-    items.forEach(i=>{
-      const isOwned=owned.has(i.id);
-      if(hide&&isOwned)return;
-      const tr=document.createElement("tr");
-      tr.className=isOwned?"owned":(i.signal==="BUY"?"buy":"");
-      tr.innerHTML=`<td><input type="checkbox" class="chk" ${isOwned?"checked":""}></td>`+
-        `<td><span class="tier tier-${i.tier}">${i.tier.toUpperCase()}</span></td>`+
-        `<td class="item"><a href="${i.url}" target="_blank">${i.name}</a></td><td>${i.size}</td>`+
-        `<td><b>${i.price!=null?"£"+i.price:"—"}</b>${i.discount_pct?` <small>(−${i.discount_pct}%)</small>`:""}</td>`+
-        `<td style="color:#8A8070">£${i.target}</td>`+
-        `<td><span class="badge" style="background:${COLOR[i.signal]||"#8A8070"}">${isOwned?"BOUGHT":i.signal}</span></td>`;
-      tr.querySelector(".chk").addEventListener("change",e=>{
-        e.target.checked?owned.add(i.id):owned.delete(i.id); save(); render();
-      });
-      t.appendChild(tr);
-    });
-    cats.appendChild(t);
+function load(){try{return JSON.parse(localStorage.getItem("capsule-bought")||"{}")}catch(e){return{}}}
+function saveBought(){try{localStorage.setItem("capsule-bought",JSON.stringify(state.bought))}catch(e){}}
+function money(n){if(n==null)return"—";return"£"+(Number.isInteger(n)?n:Number(n).toFixed(2))}
+function roleOf(sig){
+  if(sig==="BUY")return"buy";
+  if(sig==="SALE")return"sale";
+  if(sig==="SOLD OUT")return"out";
+  if(sig==="CHECK MANUALLY")return"check";
+  return"watch";
+}
+
+function passesFilters(it){
+  if(!state.tiers.has(it.tier))return false;
+  if(state.hideBought&&state.bought[it.id])return false;
+  if(state.role&&roleOf(it.signal)!==state.role)return false;
+  if(state.query){
+    const q=state.query.toLowerCase();
+    if(!((it.name||"").toLowerCase().includes(q)||(it.category||"").toLowerCase().includes(q)))return false;
+  }
+  return true;
+}
+
+function renderMeta(){
+  const s=state.sizes||{};
+  document.getElementById("sizes").textContent=
+    ["top "+(s.top||"L"),(s.waist||"W34")+" "+(s.leg||"L32"),"sock "+(s.sock||"M/L")].join("  ·  ");
+  document.getElementById("gen").textContent= state.generated
+    ? "updated "+new Date(state.generated).toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})
+    : "—";
+  let tgt=0,live=0,liveKnown=false;
+  state.items.forEach(i=>{
+    if(state.bought[i.id])return;
+    if(i.target!=null)tgt+=i.target;
+    if(i.price!=null){live+=i.price;liveKnown=true;}
+  });
+  document.getElementById("bTarget").textContent=money(Math.round(tgt));
+  document.getElementById("bLive").textContent=liveKnown?money(Math.round(live)):"—";
+  const gap=Math.round(live-tgt);
+  const gEl=document.getElementById("bGap");
+  gEl.textContent=liveKnown?(gap<=0?money(Math.abs(gap))+" under":money(gap)+" over"):"—";
+  gEl.style.color=gap<=0?"#5B7A2E":"#A85A3C";
+}
+
+function renderChips(){
+  const counts={buy:0,sale:0,watch:0,out:0,check:0};
+  state.items.forEach(i=>{if(!state.bought[i.id])counts[roleOf(i.signal)]++;});
+  const el=document.getElementById("chips");el.innerHTML="";
+  ROLE_ORDER.forEach(r=>{
+    const c=ROLE[r];
+    const b=document.createElement("button");
+    b.className="chip"+(state.role===r?" on":"");
+    b.style.borderTopColor=state.role===r?c.dot:"transparent";
+    b.innerHTML=`<div><span class="cdot" style="background:${c.dot}"></span><span class="clabel">${c.label}</span></div><div class="cval">${counts[r]}</div>`;
+    b.onclick=()=>{state.role=state.role===r?null:r;renderAll();};
+    el.appendChild(b);
+  });
+}
+
+function catOrder(){const seen=[];state.items.forEach(i=>{if(!seen.includes(i.category))seen.push(i.category);});return seen;}
+
+function itemRow(it){
+  const role=roleOf(it.signal),c=ROLE[role];
+  const bought=!!state.bought[it.id];
+  const soldOut=it.in_stock===false;
+  const a=document.createElement("a");
+  a.href=it.url;a.target="_blank";a.rel="noopener";
+  a.className="row"+(bought?" bought":"");
+  let delta="",dgood=true;
+  if(it.price!=null&&it.target!=null){
+    const d=it.price-it.target;
+    if(d<=0.001){delta=money(Math.abs(d))+" under";dgood=true;}
+    else{delta=money(d)+" over";dgood=false;}
+  }
+  const tierLabel=it.tier?it.tier[0].toUpperCase()+it.tier.slice(1):"";
+  a.innerHTML=
+    `<button class="chk${bought?" on":""}" title="Mark bought">${bought?"&#10003;":""}</button>`+
+    `<div style="min-width:0">
+       <div class="rname">${it.name}</div>
+       <div class="rmeta">
+         <span class="sig" style="background:${c.bg};color:${c.fg}"><span class="sdot" style="background:${c.dot};animation:${role==="buy"?"cap-pulse 1.4s ease-in-out infinite":"none"}"></span>${c.label}</span>
+         <span class="rtier">${tierLabel}</span>
+         <span class="rsize">${it.size||""}</span>
+       </div>
+     </div>`+
+    `<div class="rprice-wrap">
+       <div class="rprice-top">
+         ${it.discount_pct?`<span class="rdisc">−${it.discount_pct}%</span>`:""}
+         <span class="rprice" style="color:${soldOut?"#B5645C":(dgood?"#3D4222":"#2B2A20")};text-decoration:${soldOut?"line-through":"none"}">${money(it.price)}</span>
+       </div>
+       <div class="rdelta" style="color:${dgood?"#5B7A2E":"#A85A3C"}">${delta} <span style="color:#B0A488">· tgt ${money(it.target)}</span></div>
+     </div>`;
+  a.querySelector(".chk").addEventListener("click",e=>{
+    e.preventDefault();e.stopPropagation();
+    if(state.bought[it.id])delete state.bought[it.id];else state.bought[it.id]=true;
+    saveBought();renderAll();
+  });
+  return a;
+}
+
+function renderGroups(){
+  const wrap=document.getElementById("groups");wrap.innerHTML="";
+  let any=false;
+  catOrder().forEach(cat=>{
+    let items=state.items.filter(i=>i.category===cat&&passesFilters(i));
+    if(!items.length)return;
+    any=true;
+    if(state.sort==="price")items.sort((a,b)=>(a.price??1e9)-(b.price??1e9));
+    else if(state.sort==="delta")items.sort((a,b)=>((a.price??1e9)-(a.target??0))-((b.price??1e9)-(b.target??0)));
+    else items.sort((a,b)=>(TIER_ORDER[a.tier]-TIER_ORDER[b.tier])||((a.price??1e9)-(b.price??1e9)));
+    let sub=0,known=false;items.forEach(i=>{if(!state.bought[i.id]&&i.price!=null){sub+=i.price;known=true;}});
+    const collapsed=!!state.collapsed[cat];
+    const grp=document.createElement("div");grp.className="grp";
+    const head=document.createElement("button");head.className="grp-head";
+    head.innerHTML=`<div><span class="gname">${cat}</span><span class="gcount">${items.length}</span></div>`+
+      `<div style="display:flex;align-items:center"><span class="gsub">${known?money(Math.round(sub)):""}</span><span class="gchev">${collapsed?"+":"–"}</span></div>`;
+    const body=document.createElement("div");body.className="grp-body";
+    if(!collapsed)items.forEach(i=>body.appendChild(itemRow(i)));
+    head.onclick=()=>{state.collapsed[cat]=!state.collapsed[cat];renderGroups();};
+    grp.appendChild(head);grp.appendChild(body);wrap.appendChild(grp);
+  });
+  if(!any){
+    const d=document.createElement("div");d.className="empty";
+    d.innerHTML=`Nothing matches — <a id="clr">clear filters</a>.`;
+    wrap.appendChild(d);
+    d.querySelector("#clr").onclick=()=>{
+      state.tiers=new Set(["budget","mid","premium"]);state.hideBought=false;state.role=null;state.query="";
+      document.getElementById("q").value="";syncPills();renderAll();
+    };
   }
 }
-document.getElementById("hideOwned").addEventListener("change",render);
-document.querySelectorAll(".tf").forEach(c=>c.addEventListener("change",render));
-fetch("data.json?"+Date.now()).then(r=>r.json()).then(d=>{DATA=d;render();});
+
+function renderAll(){renderMeta();renderChips();renderGroups();}
+
+function syncPills(){
+  document.querySelectorAll(".pill[data-tier]").forEach(p=>p.classList.toggle("on",state.tiers.has(p.dataset.tier)));
+  document.querySelector(".pill[data-hide]").classList.toggle("on",state.hideBought);
+  document.querySelectorAll(".pill[data-sort]").forEach(p=>p.classList.toggle("on",p.dataset.sort===state.sort));
+}
+
+document.querySelectorAll(".pill[data-tier]").forEach(p=>p.onclick=()=>{
+  const t=p.dataset.tier;state.tiers.has(t)?state.tiers.delete(t):state.tiers.add(t);syncPills();renderAll();});
+document.querySelector(".pill[data-hide]").onclick=()=>{state.hideBought=!state.hideBought;syncPills();renderAll();};
+document.querySelectorAll(".pill[data-sort]").forEach(p=>p.onclick=()=>{state.sort=p.dataset.sort;syncPills();renderGroups();});
+document.getElementById("q").addEventListener("input",e=>{state.query=e.target.value.trim();renderGroups();});
+
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(d=>{
+  state.items=d.items||[];state.sizes=d.sizes||{};state.generated=d.generated||null;renderAll();
+}).catch(()=>{document.getElementById("gen").textContent="data unavailable";});
+
 fetch("finds.json?"+Date.now()).then(r=>r.ok?r.json():null).then(f=>{
   if(!f||!f.finds||!f.finds.length)return;
   document.getElementById("findsWrap").style.display="block";
-  const t=document.getElementById("finds");
+  const list=document.getElementById("findsList");
   f.finds.forEach(x=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${x.date}</td><td><a href="${x.url}" target="_blank">${x.name}</a></td>`+
-      `<td>${x.why||""}</td><td><b>£${x.price}</b></td><td>${x.size||""}</td>`;
-    t.appendChild(tr);
+    const row=document.createElement(x.url?"a":"div");
+    if(x.url){row.href=x.url;row.target="_blank";row.rel="noopener";}
+    row.className="find";
+    row.innerHTML=`<span class="fdate">${x.date||""}</span>`+
+      `<span class="fname">${x.name||""}${x.size?` <span style="color:#A89C7E;font-family:'IBM Plex Mono',monospace;font-size:11px">(${x.size})</span>`:""}</span>`+
+      `<span class="fprice">${x.price!=null?money(x.price):""}</span>`+
+      (x.why?`<span class="fwhy">${x.why}</span>`:"");
+    list.appendChild(row);
   });
 }).catch(()=>{});
-</script></body></html>
+</script>
+</body>
+</html>
