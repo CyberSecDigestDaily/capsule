@@ -43,11 +43,12 @@
    "id": 4,
    "category": "Jackets & Overshirts",
    "tier": "mid",
-   "name": "Barbour Ripstop Overshirt, navy",
-   "url": "https://jeanstore.co.uk/products/barbour-heritage-endurance-ripstop-overshirt-navy",
+   "name": "Barbour Endurance Ripstop Overshirt, navy (Parasol Store)",
+   "url": "https://www.parasolstore.co.uk/products/barbour-endurance-ripstop-overshirt-navy",
    "check": "shopify",
    "size": "L",
-   "target": 105
+   "target": 105,
+   "last_price": 120.0
   },
   {
    "id": 5,
@@ -204,9 +205,9 @@
   {
    "id": 20,
    "category": "Jeans",
-   "tier": "budget",
-   "name": "Levi's 502 'Feelin Free', light-mid wash",
-   "url": "https://jeanstore.co.uk/products/levis%C2%AE-502-regular-tapered-mens-jeans-feelin-free",
+   "tier": "mid",
+   "name": "Levi's 502 'Rock Cod', dark indigo (Feelin Free discontinued)",
+   "url": "https://jeanstore.co.uk/products/levis%C2%AE-502-regular-tapered-mens-jeans-rock-cod",
    "check": "shopify",
    "size": "W34 L32",
    "target": 70
