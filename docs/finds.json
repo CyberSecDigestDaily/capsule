@@ -1,8 +1,84 @@
 {
   "finds": [
-    {"date": "2026-07-10", "name": "British Wool 'Richmond' Shawl Collar Cardigan, navy/charcoal, 100% British wool", "url": "https://shop.britishwool.org.uk/product/shawl-collar-cardigan/", "why": "Matches request (c) styling and fabric brief but £195 vs the £80 ask — reject", "price": 195, "size": "L in stock"},
-    {"date": "2026-07-09", "name": "WoolOvers Logan Cable Shawl Collar Cardigan, charcoal, 100% wool", "url": "https://www.woolovers.com/mens/cardigans/logan-cable-shawl-collar-cardigan-grey-30699", "why": "On-palette, pure wool, £72 — well under £80, but size L is sold out (only M/XL/XXL in stock as of 10 Jul); hold for L restock before buying", "price": 72, "size": "L sold out"},
-    {"date": "2026-07-05", "name": "Paul James midweight cotton shawl-collar cardigan, navy/black", "url": "https://www.pauljamesknitwear.com/products/mens-cotton-shawl-collar-cardigan", "why": "Answers the budget shawl-cardigan hunt but £150 vs the £80 ask — hold unless budget flexes", "price": 150, "size": "L in stock"},
-    {"date": "2026-07-06", "name": "Croft House ribbed shawl-collar wool cardigan, charcoal", "url": "https://www.thecrofthouse.com/products/mens-shawl-collar-cardigan-charcoal-grey-ribbed-jacket", "why": "Matches request (c) styling but sold out in all sizes and £300 vs the £80 ask — reject", "price": 300, "size": "sold out all sizes"}
+    {
+      "date": "2026-07-22",
+      "name": "Regatta Thompson Half-Zip Fleece, Olive Night",
+      "url": "https://www.charlies.co.uk/regatta-men-s-thompson-half-zip-fleece-olive-night/",
+      "why": "Best budget lead in weeks for standing request (a) - a plain olive funnel-neck half-zip, roughly GBP16-26, also stocked at Decathlon, SportsDirect and Mountain Warehouse. Two caveats: it carries a small embroidered Regatta chest logo, and size L stock plus exact price could not be confirmed from Charlies' AJAX (WooCommerce) markup this run - hold, confirm L and branding before promoting",
+      "price": 26,
+      "size": "L unconfirmed"
+    },
+    {
+      "date": "2026-07-22",
+      "name": "Real Hoxton Olive M-65 Field Jacket",
+      "url": "https://www.realhoxton.com/product/olive-m-65-field-jacket/",
+      "why": "Surfaced as a new budget/mid outerwear candidate against the brief's M-65 reference, but the product page returns HTTP 403 (bot-blocked) so price and size L stock are unverifiable this run - reject as unverifiable, retry next pass",
+      "price": 0,
+      "size": "403 blocked"
+    },
+    {
+      "date": "2026-07-21",
+      "name": "CC Men's Field Jacket, olive (M-65 pattern, 7oz waterproofed cotton)",
+      "url": "https://communityclothing.co.uk/products/mens-field-jacket-olive",
+      "why": "Closest match yet to the brief's stated M-65 reference - on-palette, zero branding, UK-made - but size L is sold out (only XS and S live) and it is full price at GBP100 with no discount - reject, worth a restock watch",
+      "price": 100,
+      "size": "L sold out"
+    },
+    {
+      "date": "2026-07-21",
+      "name": "CC Men's George Lightweight Collarless Overshirt, olive",
+      "url": "https://communityclothing.co.uk/products/mens-george-lightweight-collarless-overshirt-olive",
+      "why": "On-palette, no logos, UK-made and L is freely available (XS-XXL all live), but GBP109 at full price with no discount puts it GBP29 over the sub-GBP80 preference - reject, watch for a sale",
+      "price": 109,
+      "size": "L in stock"
+    },
+    {
+      "date": "2026-07-21",
+      "name": "CC Men's Chore Jacket, olive (320g cotton canvas)",
+      "url": "https://communityclothing.co.uk/products/mens-chore-jacket-olive",
+      "why": "Correct workwear silhouette and palette with L in stock, but GBP140 full price is well over the preference and above the target set for the already-tracked UW Bakers chore jacket - reject",
+      "price": 140,
+      "size": "L in stock"
+    },
+    {
+      "date": "2026-07-21",
+      "name": "Lee 101 Heavyweight Wool Overshirt, black - Statement Store",
+      "url": "https://statement-store.com/products/lee-101-heavyweight-wool-overshirt-black",
+      "why": "Fifth stockist checked against request (b); product page and .js endpoint both return HTTP 404 - reject. Request (b) is now dead at 5 of 5 stockists, leaving jeanstore (S-only) as the last live listing anywhere",
+      "price": 0,
+      "size": "404 dead"
+    },
+    {
+      "date": "2026-07-21",
+      "name": "Lee 101 Wool Overshirt, black - Butterscotch LB",
+      "url": "https://butterscotchlb.com/products/lee-101-wool-overshirt-black",
+      "why": "Fourth stockist checked against request (b); product page and .js endpoint both return HTTP 404, listing gone - reject",
+      "price": 0,
+      "size": "404 dead"
+    },
+    {
+      "date": "2026-07-20",
+      "name": "Community Clothing Men's Lambswool Cardigan, charcoal (UK-knitted, Hawick)",
+      "url": "https://communityclothing.co.uk/products/mens-lambswool-cardigan-charcoal",
+      "why": "On-palette and UK-made against request (c), but it is a plain button cardigan rather than shawl-collar, GBP19 over the GBP80 cap, and size L is sold out (only S and 3XL live) - reject",
+      "price": 99,
+      "size": "L sold out"
+    },
+    {
+      "date": "2026-07-20",
+      "name": "Lee 101 Wool Overshirt, black - Cultizm",
+      "url": "https://cultizm.com/products/lee-101-wool-overshirt-black",
+      "why": "Alternate stockist for the tracked #17 row against request (b), discounted 32% from GBP160 - but every size S-XXL is sold out - reject",
+      "price": 109,
+      "size": "all sizes sold out"
+    },
+    {
+      "date": "2026-07-20",
+      "name": "Lee 101 Wool Blend Overshirt, black - John Lewis",
+      "url": "https://www.johnlewis.com/lee-101-wool-blend-overshirt-black/p112106804",
+      "why": "Third stockist checked against request (b); the product page still resolves but serves no price and no size selector, so it is effectively delisted - reject",
+      "price": 0,
+      "size": "no buy box"
+    }
   ]
 }
