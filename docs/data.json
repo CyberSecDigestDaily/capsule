@@ -1,5 +1,5 @@
 {
- "generated": "2026-07-23T09:11:59.569967Z",
+ "generated": "2026-07-24T09:06:06.226086Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -7,7 +7,7 @@
   "sock": "M/L",
   "boxer": "L"
  },
- "errors": 0,
+ "errors": 31,
  "items": [
   {
    "id": 1,
@@ -19,7 +19,7 @@
    "size": "L",
    "target": 40,
    "last_price": 19.9,
-   "checked": "2026-07-23",
+   "checked": "2026-07-24",
    "price": 19.9,
    "in_stock": null,
    "signal": "CHECK MANUALLY"
@@ -34,7 +34,7 @@
    "size": "L",
    "target": 15,
    "last_price": 12,
-   "checked": "2026-07-23",
+   "checked": "2026-07-24",
    "price": 12,
    "in_stock": null,
    "signal": "CHECK MANUALLY"
@@ -48,11 +48,9 @@
    "check": "shopify",
    "size": "L",
    "target": 65,
-   "checked": "2026-07-23",
-   "price": 71.25,
-   "in_stock": true,
-   "discount_pct": 25,
-   "signal": "SALE"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 4,
@@ -64,11 +62,9 @@
    "size": "L",
    "target": 105,
    "last_price": 120.0,
-   "checked": "2026-07-23",
-   "price": 120.0,
-   "in_stock": true,
-   "discount_pct": 25,
-   "signal": "SALE"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 5,
@@ -79,11 +75,9 @@
    "check": "shopify",
    "size": "L",
    "target": 60,
-   "checked": "2026-07-23",
-   "price": 59.7,
-   "in_stock": false,
-   "discount_pct": 70,
-   "signal": "SOLD OUT"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 6,
@@ -94,11 +88,9 @@
    "check": "shopify",
    "size": "L",
    "target": 135,
-   "checked": "2026-07-23",
-   "price": 170.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 7,
@@ -109,11 +101,9 @@
    "check": "shopify",
    "size": "L",
    "target": 170,
-   "checked": "2026-07-23",
-   "price": 109.0,
-   "in_stock": true,
-   "discount_pct": 49,
-   "signal": "BUY"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 8,
@@ -124,11 +114,9 @@
    "check": "shopify",
    "size": "L",
    "target": 150,
-   "checked": "2026-07-23",
-   "price": 189.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 9,
@@ -140,7 +128,7 @@
    "size": "L",
    "target": 200,
    "last_price": 269,
-   "checked": "2026-07-23",
+   "checked": "2026-07-24",
    "price": 269,
    "in_stock": null,
    "signal": "CHECK MANUALLY"
@@ -154,11 +142,9 @@
    "check": "shopify",
    "size": "L",
    "target": 52,
-   "checked": "2026-07-23",
-   "price": 65.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 11,
@@ -169,11 +155,9 @@
    "check": "shopify",
    "size": "L",
    "target": 52,
-   "checked": "2026-07-23",
-   "price": 65.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 12,
@@ -185,7 +169,7 @@
    "size": "L",
    "target": 9.9,
    "last_price": 9.9,
-   "checked": "2026-07-23",
+   "checked": "2026-07-24",
    "price": 9.9,
    "in_stock": null,
    "signal": "CHECK MANUALLY"
@@ -199,11 +183,9 @@
    "check": "shopify",
    "size": "L",
    "target": 56,
-   "checked": "2026-07-23",
-   "price": 70.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 14,
@@ -214,11 +196,9 @@
    "check": "shopify",
    "size": "L",
    "target": 90,
-   "checked": "2026-07-23",
-   "price": 120.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 15,
@@ -229,11 +209,9 @@
    "check": "shopify",
    "size": "L",
    "target": 115,
-   "checked": "2026-07-23",
-   "price": 150.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 16,
@@ -244,11 +222,9 @@
    "check": "shopify",
    "size": "L",
    "target": 22,
-   "checked": "2026-07-23",
-   "price": 29.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 17,
@@ -259,11 +235,9 @@
    "check": "shopify",
    "size": "L",
    "target": 28,
-   "checked": "2026-07-23",
-   "price": 35.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 18,
@@ -274,11 +248,9 @@
    "check": "shopify",
    "size": "L",
    "target": 28,
-   "checked": "2026-07-23",
-   "price": 35.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 19,
@@ -289,11 +261,9 @@
    "check": "shopify",
    "size": "L",
    "target": 28,
-   "checked": "2026-07-23",
-   "price": 35.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 20,
@@ -304,11 +274,9 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 70,
-   "checked": "2026-07-23",
-   "price": 95.0,
-   "in_stock": true,
-   "discount_pct": 5,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 21,
@@ -319,11 +287,9 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 70,
-   "checked": "2026-07-23",
-   "price": 75.0,
-   "in_stock": true,
-   "discount_pct": 25,
-   "signal": "SALE"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 22,
@@ -334,11 +300,9 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 75,
-   "checked": "2026-07-23",
-   "price": 95.0,
-   "in_stock": true,
-   "discount_pct": 5,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 23,
@@ -350,7 +314,7 @@
    "size": "34/32",
    "target": 28,
    "last_price": 35,
-   "checked": "2026-07-23",
+   "checked": "2026-07-24",
    "price": 35,
    "in_stock": null,
    "signal": "CHECK MANUALLY"
@@ -364,11 +328,9 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 60,
-   "checked": "2026-07-23",
-   "price": 75.0,
-   "in_stock": true,
-   "discount_pct": 6,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 25,
@@ -379,11 +341,9 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 60,
-   "checked": "2026-07-23",
-   "price": 75.0,
-   "in_stock": true,
-   "discount_pct": 6,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 26,
@@ -394,11 +354,9 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 60,
-   "checked": "2026-07-23",
-   "price": 75.0,
-   "in_stock": true,
-   "discount_pct": 6,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 27,
@@ -409,11 +367,9 @@
    "check": "shopify",
    "size": "34",
    "target": 64,
-   "checked": "2026-07-23",
-   "price": 75.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 28,
@@ -424,11 +380,9 @@
    "check": "shopify",
    "size": "34",
    "target": 80,
-   "checked": "2026-07-23",
-   "price": 95.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 29,
@@ -439,11 +393,9 @@
    "check": "shopify",
    "size": "34",
    "target": 105,
-   "checked": "2026-07-23",
-   "price": 125.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 30,
@@ -454,11 +406,9 @@
    "check": "shopify",
    "size": "34",
    "target": 115,
-   "checked": "2026-07-23",
-   "price": 150.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 31,
@@ -469,11 +419,9 @@
    "check": "shopify",
    "size": "34",
    "target": 115,
-   "checked": "2026-07-23",
-   "price": 150.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 32,
@@ -484,11 +432,9 @@
    "check": "shopify",
    "size": "34",
    "target": 174,
-   "checked": "2026-07-23",
-   "price": 174.0,
-   "in_stock": false,
-   "discount_pct": 30,
-   "signal": "SOLD OUT"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 33,
@@ -499,11 +445,9 @@
    "check": "shopify",
    "size": "M/L",
    "target": 8,
-   "checked": "2026-07-23",
-   "price": 10.3,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 34,
@@ -514,11 +458,9 @@
    "check": "shopify",
    "size": "M/L",
    "target": 8,
-   "checked": "2026-07-23",
-   "price": 10.3,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 35,
@@ -529,11 +471,9 @@
    "check": "shopify",
    "size": "L",
    "target": 24,
-   "checked": "2026-07-23",
-   "price": 24.0,
-   "in_stock": true,
-   "discount_pct": 49,
-   "signal": "BUY"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   },
   {
    "id": 36,
@@ -544,11 +484,9 @@
    "check": "shopify",
    "size": "L",
    "target": 70,
-   "checked": "2026-07-23",
-   "price": 120.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "signal": "WATCHING"
+   "checked": "2026-07-24",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden"
   }
  ]
 }
