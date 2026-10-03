@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/data.json docs/history.json docs/finds.json
+          git add docs/data.json docs/history.json docs/finds.json docs/drop.html
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Price/stock update $(date -u +%Y-%m-%dT%H:%MZ)"
           # Rebase onto anything pushed meanwhile (Claude's weekly review, manual edits).
