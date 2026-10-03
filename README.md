@@ -12,7 +12,7 @@ A zero-cost tracker for Don's capsule wardrobe. It checks every watched piece fo
 | Deal finder | Scans the sale collections in `finder.json`; keeps logo-free, on-palette pieces in L / W34 L32 / UK 10 at 25%+ off (premium brands 40%+) | same run | same |
 | History | `docs/history.json` — one price/stock point per item per day (backfilled from Jul 2026) | same run | same |
 | On-time trigger | `cloudflare/` Worker calls the workflow's `workflow_dispatch` at exact times (GitHub's own cron is a fallback that skips if data is <4h old) | Cloudflare (free) | 07:15, 13:15, 19:15 UK |
-| Judgement | Claude's weekly review fixes broken links, re-sources dead and off-brief items, adds fit notes, writes `picks.json` (the shortlist) | Claude scheduled task | Sundays ~08:55 UK |
+| Judgement | Claude's weekly review fixes broken links, re-sources dead and off-brief items, adds fit notes, writes `picks.json` (the shortlist) | Claude scheduled task | daily ~09:00 UK |
 | Site | `docs/index.html` (static): Watch list, Outfits, Deals tabs | GitHub Pages | always |
 
 Uniqlo, M&S and John Lewis block bots, so their items are `"check": "manual"`: they show the last checked price and are excluded from totals.
