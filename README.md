@@ -8,14 +8,19 @@ A zero-cost tracker for Don's capsule wardrobe. It checks every watched piece fo
 
 | Layer | What | Where | When |
 |---|---|---|---|
-| Price/stock checker | `scraper.py` reads Shopify `/products/<handle>.js` for each item: price, was-price, stock **in your size only** | GitHub Actions | when triggered (below) and on every edit to the config files |
+| Price/stock checker | `scraper.py` checks each item's price, was-price and stock **in your size only**: Shopify `/products/<handle>.js`, Uniqlo's UK product API, M&S product data and barbour.com's size endpoint | GitHub Actions | when triggered (below) and on every edit to the config files |
 | Deal finder | Scans the sale collections in `finder.json`; keeps logo-free, on-palette pieces in L / W34 L32 / UK 10 at 25%+ off (premium brands 40%+) | same run | same |
 | History | `docs/history.json` — one price/stock point per item per day (backfilled from Jul 2026) | same run | same |
 | On-time trigger | `cloudflare/` Worker calls the workflow's `workflow_dispatch` at exact times (GitHub's own cron is a fallback that skips if data is <4h old) | Cloudflare (free) | 07:15, 13:15, 19:15 UK |
-| Judgement | Claude's weekly review fixes broken links, re-sources dead and off-brief items, adds fit notes, writes `picks.json` (the shortlist) | Claude scheduled task | daily ~09:00 UK |
+| Judgement | Claude's daily review fixes broken links, re-sources dead and off-brief items, adds fit notes, writes `picks.json` (the shortlist) | Claude scheduled task | daily ~09:00 UK |
+| Daily Drop email | `scraper.py` writes `docs/drop.html` every run; the daily review emails it to Don via the Gmail connector | Claude scheduled task | daily ~09:05 UK |
 | Site | `docs/index.html` (static): Watch list, Outfits, Deals tabs | GitHub Pages | always |
 
-Uniqlo, M&S and John Lewis block bots, so their items are `"check": "manual"`: they show the last checked price and are excluded from totals.
+Uniqlo (`"check": "uniqlo"`), M&S (`"mands"`) and Barbour (`"barbour"`, barbour.com URLs) are checked live like Shopify. If one of them refuses a run, its items show the last good price as "Price not live" for that run instead of a broken link. John Lewis still blocks bots: link to the brand's own site instead, or use `"check": "manual"` with `last_price` + `checked_on`.
+
+## Daily Drop email
+
+Every run writes `docs/drop.html` (also viewable at the site's `/drop.html`): today's edit, what changed since yesterday (price drops, restocks, sell-outs), what's at or under target, and new deals. Claude's 09:00 review sends it to Don's Gmail. Nothing to set up: it uses the Gmail connector already attached to the scheduled task.
 
 ## Fit notes
 
@@ -54,7 +59,7 @@ Repo → Settings → Secrets and variables → Actions → New repository secre
 - **On sale** — in stock, 10%+ off, still above target
 - **Watching** — in stock, above target
 - **Sold out** — not available in your size (the row lists sizes that are)
-- **Check** — manual-check retailer
+- **Not live** — manual-check retailer, or a live shop that refused this one run (shows the last good price)
 - **Link broken** — product URL changed or vanished; the weekly review re-sources it
 
 ## Don't

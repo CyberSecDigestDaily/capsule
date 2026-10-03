@@ -1,5 +1,5 @@
 {
- "_about": "The watch list. size: your size exactly as the shop labels it ('L', 'W34 L32', 'UK 10'; 'L|XL' = either). target: buy-at price. variant: colour when one listing holds several. bought: true stops tracking everywhere. restock_watch: true keeps a sold-out piece on the list. brand + name are shown separately on the site. role: what it is for outfits (jacket, overshirt, knit, cardigan, sweat, fleece, tee, jeans, chino, trouser, trainer, wallabee, boot, socks, underwear). fit.verdict: good | check | avoid (avoid = off-brief cut, never suggested). fit.reach: centre-back-to-cuff in cm per size. sizes.reach_cm: your own centre-back-to-wrist measurement, used to flag short sleeves.",
+ "_about": "The watch list. size: your size exactly as the shop labels it ('L', 'W34 L32', 'UK 10'; 'L|XL' = either). target: buy-at price. variant: colour when one listing holds several. bought: true stops tracking everywhere. restock_watch: true keeps a sold-out piece on the list. brand + name are shown separately on the site. check: shopify | uniqlo | mands | barbour are checked live; manual = shop blocks bots (keep last_price + checked_on current by hand). role: what it is for outfits (jacket, overshirt, knit, cardigan, sweat, fleece, tee, jeans, chino, trouser, trainer, wallabee, boot, socks, underwear). fit.verdict: good | check | avoid (avoid = off-brief cut, never suggested). fit.reach: centre-back-to-cuff in cm per size. sizes.reach_cm: your own centre-back-to-wrist measurement, used to flag short sleeves.",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -16,35 +16,35 @@
    "role": "jacket",
    "tier": "budget",
    "brand": "Uniqlo",
-   "name": "Utility Blouson, olive",
-   "url": "https://www.uniqlo.com/uk/en/products/E459592-000/00",
-   "check": "manual",
+   "name": "Denim Trucker Jacket, olive",
+   "url": "https://www.uniqlo.com/uk/en/products/E488726-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 40,
-   "last_price": 19.9,
-   "checked_on": "2026-07-22",
+   "target": 35,
    "fit": {
     "verdict": "check",
-    "note": "Blouson cut finishes at the waistband: make sure it isn't cropped above the belt on you. Uniqlo blocks bots, so check the size-chart sleeve against your reach."
-   }
+    "note": "Uniqlo list it as a regular fit with a shorter length, like every trucker: it should finish at your belt, not above it. Size XL if you'll layer a knit under it."
+   },
+   "variant": "Olive",
+   "note": "Replaces the sold-out Utility Blouson (end of season)."
   },
   {
    "id": 2,
-   "category": "Jackets & Overshirts",
-   "role": "overshirt",
+   "category": "Mid-layers & Knits",
+   "role": "cardigan",
    "tier": "budget",
    "brand": "Uniqlo",
-   "name": "Corduroy Overshirt, olive",
-   "url": "https://www.uniqlo.com/uk/en/products/E475270-000/00",
-   "check": "manual",
+   "name": "Milano Ribbed Shirt Collar Cardigan, olive",
+   "url": "https://www.uniqlo.com/uk/en/products/E478550-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 15,
-   "last_price": 12,
-   "checked_on": "2026-07-22",
+   "target": 30,
    "fit": {
-    "verdict": "check",
-    "note": "Shirt-weight cord overshirt. No measurements here (bot-blocked): check the size-chart sleeve before buying."
-   }
+    "verdict": "good",
+    "note": "Regular fit in a dense Milano rib that holds its shape. Buttoned it reads as a smart knit for the office; open it layers over a tee."
+   },
+   "variant": "Olive",
+   "note": "Replaces the sold-out Corduroy Overshirt (end of season)."
   },
   {
    "id": 3,
@@ -148,12 +148,10 @@
    "tier": "premium",
    "brand": "Barbour",
    "name": "Ashby Waxed Jacket, olive",
-   "url": "https://www.johnlewis.com/barbour-ashby-waxed-cotton-field-jacket-olive/p819957",
-   "check": "manual",
+   "url": "https://www.barbour.com/gb/ashby-waxed-jacket-MWX0339OL71.html",
+   "check": "barbour",
    "size": "L",
    "target": 200,
-   "last_price": 269,
-   "checked_on": "2026-07-22",
    "fit": {
     "verdict": "check",
     "note": "Barbour list the Ashby as a tailored (slimmer) cut. If you'll layer a knit underneath or need more sleeve, XL is the safer size."
@@ -197,18 +195,17 @@
    "role": "fleece",
    "tier": "budget",
    "brand": "Uniqlo",
-   "name": "Fleece Half-Zip, olive",
-   "url": "https://www.uniqlo.com/uk/en/products/E471233-000/00",
-   "check": "manual",
+   "name": "Fleece Full-Zip Jacket, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E450195-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 9.9,
-   "last_price": 9.9,
-   "checked_on": "2026-07-22",
-   "restock_watch": true,
+   "target": 20,
    "fit": {
-    "verdict": "check",
-    "note": "No measurements available here (bot-blocked): check the size-chart sleeve against your reach."
-   }
+    "verdict": "good",
+    "note": "Uniqlo's classic regular-fit fleece with a stand collar. Unisex sizing runs about true: L for a close layer under the field jacket."
+   },
+   "variant": "Navy",
+   "note": "Replaces the sold-out Fleece Half-Zip (end of season)."
   },
   {
    "id": 13,
@@ -384,17 +381,16 @@
    "role": "chino",
    "tier": "budget",
    "brand": "M&S",
-   "name": "Regular Fit Stretch Chinos, stone",
-   "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138",
-   "check": "manual",
-   "size": "34/32",
+   "name": "Regular Fit Stretch Chinos, fawn",
+   "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138?color=FAWN",
+   "check": "mands",
+   "size": "W34 L31|W34 L33",
    "target": 28,
-   "last_price": 35,
-   "checked_on": "2026-07-22",
    "fit": {
     "verdict": "good",
-    "note": "Regular fit with stretch. Check the rise in store if you can."
-   }
+    "note": "Regular fit with stretch. Stone is no longer made; fawn is the nearest shade. M&S only cut 31in or 33in legs: 31 for a clean break, 33 for a slight stack."
+   },
+   "variant": "Fawn"
   },
   {
    "id": 24,
