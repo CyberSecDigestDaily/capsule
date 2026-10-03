@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-03T12:15:15.506403Z",
+ "generated": "2026-10-03T18:15:15.947499Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -59,25 +59,6 @@
    "why": "60% off at Jeanstore · L in stock · khaki · jackets & overshirts"
   },
   {
-   "key": "goodhoodstore.com/snow-peak-thermo-control-zip-up-parka-dark-brown",
-   "first_seen": "2026-10-03",
-   "store": "Goodhood",
-   "brand": "Snow Peak",
-   "name": "Thermo Control Zip Up Parka, Dark Brown",
-   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/SnowPeakThermoControlZipUpParka-DarkBrown.jpg?v=1758211783",
-   "url": "https://goodhoodstore.com/products/snow-peak-thermo-control-zip-up-parka-dark-brown",
-   "category": "Jackets & Overshirts",
-   "price": 64.0,
-   "was": 160.0,
-   "discount_pct": 60,
-   "size": "L",
-   "colour": "brown",
-   "tier": "deal",
-   "score": 65.0,
-   "role": "jacket",
-   "why": "60% off at Goodhood · L in stock · brown · jackets & overshirts"
-  },
-  {
    "key": "goodhoodstore.com/clarks-originals-wallabee-brown-interest",
    "first_seen": "2026-10-03",
    "store": "Goodhood",
@@ -133,6 +114,25 @@
    "score": 63.6,
    "role": "knit",
    "why": "60% off at Goodhood · L in stock · grey · mid-layers & knits"
+  },
+  {
+   "key": "goodhoodstore.com/beams-down-military-liner-jacket-olive",
+   "first_seen": "2026-10-03",
+   "store": "Goodhood",
+   "brand": "Beams",
+   "name": "Down Military Liner Jacket, Olive",
+   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/1118-3311-120-67_1.jpg?v=1765557519",
+   "url": "https://goodhoodstore.com/products/beams-down-military-liner-jacket-olive",
+   "category": "Jackets & Overshirts",
+   "price": 106.0,
+   "was": 265.0,
+   "discount_pct": 60,
+   "size": "L",
+   "colour": "olive",
+   "tier": "deal",
+   "score": 63.0,
+   "role": "jacket",
+   "why": "60% off at Goodhood · L in stock · olive · jackets & overshirts"
   },
   {
    "key": "folkclothing.com/folk-drawcord-assembly-pant-mid-blue-moleskin",
