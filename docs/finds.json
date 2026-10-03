@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-03T11:23:34.938158Z",
+ "generated": "2026-10-03T12:15:15.506403Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -76,6 +76,25 @@
    "score": 65.0,
    "role": "jacket",
    "why": "60% off at Goodhood · L in stock · brown · jackets & overshirts"
+  },
+  {
+   "key": "goodhoodstore.com/clarks-originals-wallabee-brown-interest",
+   "first_seen": "2026-10-03",
+   "store": "Goodhood",
+   "brand": "Clarks Originals",
+   "name": "Wallabee, Brown Interest",
+   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/Levels_11_1d83d216-0800-4697-a067-434cc18fad0b.jpg?v=1754563595",
+   "url": "https://goodhoodstore.com/products/clarks-originals-wallabee-brown-interest",
+   "category": "Footwear",
+   "price": 66.0,
+   "was": 165.0,
+   "discount_pct": 60,
+   "size": "UK 10",
+   "colour": "brown",
+   "tier": "deal",
+   "score": 64.5,
+   "role": "wallabee",
+   "why": "60% off at Goodhood · UK 10 in stock · brown · footwear"
   },
   {
    "key": "stuartslondon.com/snow-peak-breathable-quick-dry-jacket-dark-navy",
@@ -285,25 +304,6 @@
    "score": 47.9,
    "role": "trainer",
    "why": "50% off at Urban Industry · UK 10 in stock · sage · footwear"
-  },
-  {
-   "key": "urbanindustry.co.uk/new-balance-1906lae-shoes-silver-shadow-grey-turtledove-1906lae",
-   "first_seen": "2026-10-03",
-   "store": "Urban Industry",
-   "brand": "New Balance",
-   "name": "1906LAE Shoes",
-   "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/NewBalance_1906LAE_Shoes_SilverShadowGreyTurtledove_01.jpg?v=1754665817",
-   "url": "https://urbanindustry.co.uk/products/new-balance-1906lae-shoes-silver-shadow-grey-turtledove-1906lae",
-   "category": "Footwear",
-   "price": 59.95,
-   "was": 119.95,
-   "discount_pct": 50,
-   "size": "UK 10",
-   "colour": "grey",
-   "tier": "deal",
-   "score": 46.8,
-   "role": "trainer",
-   "why": "50% off at Urban Industry · UK 10 in stock · grey · footwear"
   }
  ],
  "picks": [
