@@ -1,13 +1,21 @@
 {
- "generated": "2026-10-02T13:05:44.073067Z",
+ "generated": "2026-10-03T08:49:39.290526Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
   "leg": "L32",
   "sock": "M/L",
-  "boxer": "L"
+  "boxer": "L",
+  "shoe": "UK 10"
  },
- "errors": 2,
+ "errors": 0,
+ "counts": {
+  "CHECK MANUALLY": 5,
+  "SOLD OUT": 10,
+  "SALE": 2,
+  "WATCHING": 25,
+  "BUY": 6
+ },
  "items": [
   {
    "id": 1,
@@ -19,9 +27,11 @@
    "size": "L",
    "target": 40,
    "last_price": 19.9,
-   "checked": "2026-10-02",
+   "checked_on": "2026-07-22",
+   "checked": "2026-10-03",
    "price": 19.9,
    "in_stock": null,
+   "stale_days": 73,
    "signal": "CHECK MANUALLY"
   },
   {
@@ -34,9 +44,11 @@
    "size": "L",
    "target": 15,
    "last_price": 12,
-   "checked": "2026-10-02",
+   "checked_on": "2026-07-22",
+   "checked": "2026-10-03",
    "price": 12,
    "in_stock": null,
+   "stale_days": 73,
    "signal": "CHECK MANUALLY"
   },
   {
@@ -48,11 +60,21 @@
    "check": "shopify",
    "size": "L",
    "target": 65,
-   "checked": "2026-10-02",
+   "note": "L sold out at Jeanstore; XL in stock if you want the longer sleeve.",
+   "checked": "2026-10-03",
    "price": 57.0,
-   "in_stock": true,
+   "was": 95.0,
    "discount_pct": 40,
-   "signal": "BUY"
+   "in_stock": false,
+   "alt_sizes": [
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "signal": "SOLD OUT",
+   "low": 57.0,
+   "low_date": "2026-07-31",
+   "change": 0.0
   },
   {
    "id": 4,
@@ -64,24 +86,16 @@
    "size": "L",
    "target": 105,
    "last_price": 120.0,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 115.0,
-   "in_stock": true,
+   "was": 159.0,
    "discount_pct": 28,
-   "signal": "SALE"
-  },
-  {
-   "id": 5,
-   "category": "Jackets & Overshirts",
-   "tier": "mid",
-   "name": "Lee 101 Wool Overshirt, black (restock watch)",
-   "url": "https://jeanstore.co.uk/products/lee-101-wool-overshirt-black",
-   "check": "shopify",
-   "size": "L",
-   "target": 60,
-   "checked": "2026-10-02",
-   "signal": "LINK ERROR",
-   "error": "HTTP Error 404: Not Found"
+   "in_stock": true,
+   "alt_sizes": [],
+   "signal": "SALE",
+   "low": 115.0,
+   "low_date": "2026-09-29",
+   "change": 0.0
   },
   {
    "id": 6,
@@ -92,11 +106,22 @@
    "check": "shopify",
    "size": "L",
    "target": 135,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 170.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "signal": "WATCHING",
+   "low": 170.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 7,
@@ -107,11 +132,20 @@
    "check": "shopify",
    "size": "L",
    "target": 170,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 89.0,
-   "in_stock": true,
+   "was": 215.0,
    "discount_pct": 59,
-   "signal": "BUY"
+   "in_stock": true,
+   "alt_sizes": [
+    "S",
+    "M",
+    "XL"
+   ],
+   "signal": "BUY",
+   "low": 89.0,
+   "low_date": "2026-08-06",
+   "change": 0.0
   },
   {
    "id": 8,
@@ -122,11 +156,21 @@
    "check": "shopify",
    "size": "L",
    "target": 150,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 189.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "S",
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "signal": "WATCHING",
+   "low": 189.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 9,
@@ -138,9 +182,11 @@
    "size": "L",
    "target": 200,
    "last_price": 269,
-   "checked": "2026-10-02",
+   "checked_on": "2026-07-22",
+   "checked": "2026-10-03",
    "price": 269,
    "in_stock": null,
+   "stale_days": 73,
    "signal": "CHECK MANUALLY"
   },
   {
@@ -152,11 +198,21 @@
    "check": "shopify",
    "size": "L",
    "target": 52,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 52.0,
-   "in_stock": true,
+   "was": 65.0,
    "discount_pct": 20,
-   "signal": "BUY"
+   "in_stock": false,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "XL",
+    "XXL"
+   ],
+   "signal": "SOLD OUT",
+   "low": 52.0,
+   "low_date": "2026-09-25",
+   "change": 0.0
   },
   {
    "id": 11,
@@ -167,11 +223,22 @@
    "check": "shopify",
    "size": "L",
    "target": 52,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 52.0,
-   "in_stock": true,
+   "was": 65.0,
    "discount_pct": 20,
-   "signal": "BUY"
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "signal": "BUY",
+   "low": 52.0,
+   "low_date": "2026-09-25",
+   "change": 0.0
   },
   {
    "id": 12,
@@ -183,9 +250,11 @@
    "size": "L",
    "target": 9.9,
    "last_price": 9.9,
-   "checked": "2026-10-02",
+   "checked_on": "2026-07-22",
+   "checked": "2026-10-03",
    "price": 9.9,
    "in_stock": null,
+   "stale_days": 73,
    "signal": "CHECK MANUALLY"
   },
   {
@@ -197,11 +266,22 @@
    "check": "shopify",
    "size": "L",
    "target": 56,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 70.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "signal": "WATCHING",
+   "low": 70.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 14,
@@ -212,11 +292,22 @@
    "check": "shopify",
    "size": "L",
    "target": 90,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 120.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "signal": "WATCHING",
+   "low": 120.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 15,
@@ -227,11 +318,23 @@
    "check": "shopify",
    "size": "L",
    "target": 115,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 150.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "XXXL"
+   ],
+   "signal": "WATCHING",
+   "low": 150.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 16,
@@ -242,11 +345,20 @@
    "check": "shopify",
    "size": "L",
    "target": 22,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 29.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "S",
+    "M",
+    "XL"
+   ],
+   "signal": "WATCHING",
+   "low": 29.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 17,
@@ -257,11 +369,21 @@
    "check": "shopify",
    "size": "L",
    "target": 28,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 35.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL"
+   ],
+   "signal": "WATCHING",
+   "low": 35.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 18,
@@ -272,11 +394,21 @@
    "check": "shopify",
    "size": "L",
    "target": 28,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 35.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": false,
+   "alt_sizes": [
+    "XS",
+    "XL",
+    "3XL",
+    "4XL"
+   ],
+   "signal": "SOLD OUT",
+   "low": 35.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 19,
@@ -287,11 +419,23 @@
    "check": "shopify",
    "size": "L",
    "target": 28,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 35.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "signal": "WATCHING",
+   "low": 35.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 20,
@@ -302,11 +446,23 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 70,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 95.0,
-   "in_stock": true,
+   "was": 100.0,
    "discount_pct": 5,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "W28 L32",
+    "W30 L30",
+    "W30 L32",
+    "W31 L30",
+    "W31 L32",
+    "W31 L34"
+   ],
+   "signal": "WATCHING",
+   "low": 95.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 21,
@@ -317,11 +473,20 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 70,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 60.0,
-   "in_stock": false,
+   "was": 100.0,
    "discount_pct": 40,
-   "signal": "SOLD OUT"
+   "in_stock": false,
+   "alt_sizes": [
+    "W29 L32",
+    "W31 L32",
+    "W31 L34"
+   ],
+   "signal": "SOLD OUT",
+   "low": 60.0,
+   "low_date": "2026-07-31",
+   "change": 0.0
   },
   {
    "id": 22,
@@ -332,11 +497,23 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 75,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 95.0,
-   "in_stock": false,
+   "was": 100.0,
    "discount_pct": 5,
-   "signal": "SOLD OUT"
+   "in_stock": false,
+   "alt_sizes": [
+    "W29 L32",
+    "W30 L32",
+    "W31 L32",
+    "W31 L34",
+    "W32 L30",
+    "W32 L32"
+   ],
+   "signal": "SOLD OUT",
+   "low": 95.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 23,
@@ -348,9 +525,11 @@
    "size": "34/32",
    "target": 28,
    "last_price": 35,
-   "checked": "2026-10-02",
+   "checked_on": "2026-07-22",
+   "checked": "2026-10-03",
    "price": 35,
    "in_stock": null,
+   "stale_days": 73,
    "signal": "CHECK MANUALLY"
   },
   {
@@ -362,11 +541,23 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 60,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 75.0,
-   "in_stock": true,
+   "was": 80.0,
    "discount_pct": 6,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "W28 L32",
+    "W29 L32",
+    "W30 L30",
+    "W30 L32",
+    "W30 L34",
+    "W31 L30"
+   ],
+   "signal": "WATCHING",
+   "low": 75.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 25,
@@ -377,11 +568,23 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 60,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 75.0,
-   "in_stock": true,
+   "was": 80.0,
    "discount_pct": 6,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "W28 L32",
+    "W29 L32",
+    "W30 L30",
+    "W30 L32",
+    "W30 L34",
+    "W31 L30"
+   ],
+   "signal": "WATCHING",
+   "low": 75.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 26,
@@ -392,11 +595,23 @@
    "check": "shopify",
    "size": "W34 L32",
    "target": 60,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 75.0,
-   "in_stock": true,
+   "was": 80.0,
    "discount_pct": 6,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "W28 L32",
+    "W29 L32",
+    "W30 L30",
+    "W30 L32",
+    "W30 L34",
+    "W31 L30"
+   ],
+   "signal": "WATCHING",
+   "low": 75.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 27,
@@ -405,13 +620,25 @@
    "name": "CC Relaxed Chinos, khaki (UK-made)",
    "url": "https://communityclothing.co.uk/products/mens-relaxed-chino-khaki",
    "check": "shopify",
-   "size": "34",
+   "size": "W34 L32",
    "target": 64,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 37.5,
-   "in_stock": true,
+   "was": 125.0,
    "discount_pct": 70,
-   "signal": "BUY"
+   "in_stock": false,
+   "alt_sizes": [
+    "28W 32L",
+    "30W 32L",
+    "38W 32L",
+    "30W 34L",
+    "32W 34L",
+    "34W 34L"
+   ],
+   "signal": "SOLD OUT",
+   "low": 37.5,
+   "low_date": "2026-09-25",
+   "change": 0.0
   },
   {
    "id": 28,
@@ -420,13 +647,25 @@
    "name": "CC Relaxed Chinos, navy",
    "url": "https://communityclothing.co.uk/products/mens-relaxed-chinos-navy-01",
    "check": "shopify",
-   "size": "34",
+   "size": "W34 L32",
    "target": 80,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 59.5,
-   "in_stock": true,
+   "was": 119.0,
    "discount_pct": 50,
-   "signal": "BUY"
+   "in_stock": true,
+   "alt_sizes": [
+    "28W 32L",
+    "30W 32L",
+    "32W 32L",
+    "38W 32L",
+    "30W 34L",
+    "32W 34L"
+   ],
+   "signal": "BUY",
+   "low": 59.5,
+   "low_date": "2026-09-25",
+   "change": 0.0
   },
   {
    "id": 29,
@@ -435,13 +674,25 @@
    "name": "CC Heavyweight Pleated Chinos, dark navy",
    "url": "https://communityclothing.co.uk/products/mens-heavyweight-pleated-chino-navy",
    "check": "shopify",
-   "size": "34",
+   "size": "W34 L32",
    "target": 105,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 125.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "30W 30L",
+    "32W 30L",
+    "34W 30L",
+    "36W 30L",
+    "28W 32L",
+    "30W 32L"
+   ],
+   "signal": "WATCHING",
+   "low": 125.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 30,
@@ -452,11 +703,23 @@
    "check": "shopify",
    "size": "34",
    "target": 115,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 150.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "26",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32"
+   ],
+   "signal": "WATCHING",
+   "low": 150.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 31,
@@ -467,24 +730,385 @@
    "check": "shopify",
    "size": "34",
    "target": 115,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 150.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": false,
+   "alt_sizes": [
+    "26",
+    "28",
+    "30",
+    "32",
+    "36",
+    "38"
+   ],
+   "signal": "SOLD OUT",
+   "low": 150.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 32,
    "category": "Chinos & Trousers",
    "tier": "premium",
-   "name": "Oliver Spencer Morton, charcoal wool (watching 34; 36 live)",
-   "url": "https://oliverspencer.co.uk/products/morton-pleated-trousers-richards-charcoal",
+   "name": "Oliver Spencer Morton pleated trouser, Purdon charcoal wool",
+   "url": "https://oliverspencer.co.uk/products/morton-pleated-trousers-purdon-charcoal",
    "check": "shopify",
    "size": "34",
-   "target": 174,
-   "checked": "2026-10-02",
-   "signal": "LINK ERROR",
-   "error": "HTTP Error 404: Not Found"
+   "target": 155,
+   "note": "Premium: only a buy at 40%+ off (archive sale).",
+   "checked": "2026-10-03",
+   "price": 259.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "28",
+    "30",
+    "32",
+    "36"
+   ],
+   "signal": "WATCHING",
+   "low": 259.0,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 37,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Vans Skate Era Stub, fade olive/black",
+   "url": "https://routeone.co.uk/products/vans-skate-era-stub-shoes-fade-olive-black-001189285",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 56,
+   "note": "Padded-collar Era, flat vulc sole. On-palette olive.",
+   "checked": "2026-10-03",
+   "price": 69.95,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "5",
+    "8",
+    "11",
+    "12"
+   ],
+   "signal": "WATCHING",
+   "low": 69.95,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 38,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Vans Skate Era Wafflecup, two-tone grey",
+   "url": "https://routeone.co.uk/products/vans-skate-era-wafflecup-shoes-2-tone-grey-001194518",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 55,
+   "note": "Most versatile Era colour: goes with every bottom in the capsule.",
+   "checked": "2026-10-03",
+   "price": 68.95,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "6",
+    "7",
+    "8",
+    "9",
+    "11",
+    "12"
+   ],
+   "signal": "WATCHING",
+   "low": 68.95,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 39,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "Nike SB Zoom Blazer Mid, black spruce/corduroy brown",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-blazer-mid-skate-shoes-black-spruce-corduroy-brown-black-spruce-001198396",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 68,
+   "note": "Earthy, tonal Blazer: the least logo-loud colourway available in 10.",
+   "checked": "2026-10-03",
+   "price": 84.95,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "6",
+    "7",
+    "7.5",
+    "8",
+    "8.5",
+    "9"
+   ],
+   "signal": "WATCHING",
+   "low": 84.95,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 40,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Nike SB Zoom Blazer Low Pro GT, blue void/sail (restock watch)",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-blazer-low-pro-gt-skate-shoes-blue-void-sail-blue-void-001186588",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 60,
+   "note": "Navy low Blazer at £60: UK 10 sold out, alerts if it comes back.",
+   "checked": "2026-10-03",
+   "price": 59.95,
+   "was": 74.95,
+   "discount_pct": 20,
+   "in_stock": false,
+   "alt_sizes": [
+    "5",
+    "6",
+    "7",
+    "8",
+    "8.5",
+    "9"
+   ],
+   "signal": "SOLD OUT",
+   "low": 59.95,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 41,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Nike SB Zoom Janoski OG+, cool grey",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-janoski-og-plus-skate-shoes-cool-grey-white-cool-grey-001184047",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 60,
+   "note": "Tonal grey suede Janoski, already reduced from £85.",
+   "checked": "2026-10-03",
+   "price": 69.95,
+   "was": 84.95,
+   "discount_pct": 18,
+   "in_stock": true,
+   "alt_sizes": [
+    "5",
+    "6",
+    "7",
+    "7.5",
+    "8",
+    "8.5"
+   ],
+   "signal": "SALE",
+   "low": 69.95,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 42,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Nike SB Zoom Janoski OG+, navy/gum (restock watch)",
+   "url": "https://slamcity.com/products/nike-sb-zoom-janoski-og-navy-white-navy-gum-light-brown",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 45,
+   "note": "£40 (was £85) but UK 10 sold out: alerts on restock.",
+   "checked": "2026-10-03",
+   "price": 39.99,
+   "was": 84.99,
+   "discount_pct": 53,
+   "in_stock": false,
+   "alt_sizes": [
+    "UK6.5"
+   ],
+   "signal": "SOLD OUT",
+   "low": 39.99,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 43,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "Nike Air Max 90 'Shadow Brown' leather (restock watch)",
+   "url": "https://footpatrol.com/products/815273",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 110,
+   "note": "Full-grain tonal brown: the on-brief AM90. UK 10 sold out.",
+   "checked": "2026-10-03",
+   "price": 135.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": false,
+   "alt_sizes": [
+    "6.5",
+    "7",
+    "7.5",
+    "8",
+    "8.5",
+    "9"
+   ],
+   "signal": "SOLD OUT",
+   "low": 135.0,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 44,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "adidas Handball Spezial, olive strata/shadow olive",
+   "url": "https://urbanindustry.co.uk/products/adidas-originals-handball-spezial-olive-stratashadow-oliveolive-strata-2260896",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 72,
+   "note": "Samba-adjacent: tonal olive suede, gum sole. Different enough from your Sambas.",
+   "checked": "2026-10-03",
+   "price": 89.95,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "UK8",
+    "UK9",
+    "UK11",
+    "UK12"
+   ],
+   "signal": "WATCHING",
+   "low": 89.95,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 45,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "Clarks Originals Wallabee, maple suede",
+   "url": "https://www.parasolstore.co.uk/products/clarks-wallabee-shoe-maple-suede",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 80,
+   "note": "The classic. Spray with suede protector before Bangor weather.",
+   "checked": "2026-10-03",
+   "price": 99.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "11",
+    "7",
+    "8",
+    "9"
+   ],
+   "signal": "WATCHING",
+   "low": 99.0,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 46,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "Clarks Originals Wallabee Boot, maple suede",
+   "url": "https://stuartslondon.com/products/clarks-originals-wallabee-boot-suede-maple",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 90,
+   "note": "Autumn/winter Wallabee: £109 here vs £140 elsewhere.",
+   "checked": "2026-10-03",
+   "price": 109.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "UK 7",
+    "UK 7.5",
+    "UK 8",
+    "UK 8.5",
+    "UK 9",
+    "UK 9.5"
+   ],
+   "signal": "WATCHING",
+   "low": 109.0,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 47,
+   "category": "Footwear",
+   "tier": "premium",
+   "name": "Clarks Originals Wallabee GTX, maple suede",
+   "url": "https://goodhoodstore.com/products/clarks-originals-wallabee-gtx-maple-suede-mens-aw21",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 114,
+   "note": "GORE-TEX: the rain-proof Wallabee. Premium, so only a buy at 40% off.",
+   "checked": "2026-10-03",
+   "price": 190.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "UK7",
+    "UK8",
+    "UK11"
+   ],
+   "signal": "WATCHING",
+   "low": 190.0,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 48,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "John White Byrne Chelsea, dark brown leather",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-boot",
+   "check": "shopify",
+   "size": "UK 10",
+   "variant": "Dark Brown",
+   "target": 130,
+   "note": "Sleek office Chelsea on a Vibram sole (grips in rain). £120, was £280.",
+   "checked": "2026-10-03",
+   "price": 120.0,
+   "was": 280.0,
+   "discount_pct": 57,
+   "in_stock": true,
+   "alt_sizes": [
+    "UK 7",
+    "UK 8",
+    "UK 9",
+    "UK 11",
+    "UK 12"
+   ],
+   "signal": "BUY",
+   "low": 120.0,
+   "low_date": "2026-10-03"
+  },
+  {
+   "id": 49,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "John White Byrne Chelsea, brown suede",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
+   "check": "shopify",
+   "size": "UK 10",
+   "variant": "Brown Suede",
+   "target": 130,
+   "note": "Same boot in suede: more texture, needs protector spray. £120, was £280.",
+   "checked": "2026-10-03",
+   "price": 120.0,
+   "was": 280.0,
+   "discount_pct": 57,
+   "in_stock": true,
+   "alt_sizes": [
+    "UK 7",
+    "UK 8",
+    "UK 9",
+    "UK 11",
+    "UK 12"
+   ],
+   "signal": "BUY",
+   "low": 120.0,
+   "low_date": "2026-10-03"
   },
   {
    "id": 33,
@@ -495,11 +1119,18 @@
    "check": "shopify",
    "size": "M/L",
    "target": 8,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 10.5,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "S/M (UK 3-7)"
+   ],
+   "signal": "WATCHING",
+   "low": 10.3,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 34,
@@ -510,11 +1141,18 @@
    "check": "shopify",
    "size": "M/L",
    "target": 8,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 10.5,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "S/M (UK 3-7)"
+   ],
+   "signal": "WATCHING",
+   "low": 10.3,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 35,
@@ -525,11 +1163,18 @@
    "check": "shopify",
    "size": "L",
    "target": 24,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 24.0,
-   "in_stock": true,
+   "was": 47.0,
    "discount_pct": 49,
-   "signal": "BUY"
+   "in_stock": true,
+   "alt_sizes": [
+    "S"
+   ],
+   "signal": "BUY",
+   "low": 24.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   },
   {
    "id": 36,
@@ -540,11 +1185,22 @@
    "check": "shopify",
    "size": "L",
    "target": 70,
-   "checked": "2026-10-02",
+   "checked": "2026-10-03",
    "price": 135.0,
-   "in_stock": true,
+   "was": null,
    "discount_pct": 0,
-   "signal": "WATCHING"
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "signal": "WATCHING",
+   "low": 120.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
   }
  ]
 }

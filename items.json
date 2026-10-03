@@ -1,10 +1,12 @@
 {
+ "_about": "The watch list. Edit to add/remove pieces. size: your size as the shop labels it (use 'L|XL' for either). target: buy-at price. variant: colour name when one listing holds several colours. bought: true stops tracking everywhere. check: 'shopify' (live) or 'manual' (shop blocks bots).",
  "sizes": {
   "top": "L",
   "waist": "W34",
   "leg": "L32",
   "sock": "M/L",
-  "boxer": "L"
+  "boxer": "L",
+  "shoe": "UK 10"
  },
  "items": [
   {
@@ -16,7 +18,8 @@
    "check": "manual",
    "size": "L",
    "target": 40,
-   "last_price": 19.9
+   "last_price": 19.9,
+   "checked_on": "2026-07-22"
   },
   {
    "id": 2,
@@ -27,7 +30,8 @@
    "check": "manual",
    "size": "L",
    "target": 15,
-   "last_price": 12
+   "last_price": 12,
+   "checked_on": "2026-07-22"
   },
   {
    "id": 3,
@@ -37,7 +41,8 @@
    "url": "https://jeanstore.co.uk/products/lee-workwear-relaxed-overshirt-perfect-khaki",
    "check": "shopify",
    "size": "L",
-   "target": 65
+   "target": 65,
+   "note": "L sold out at Jeanstore; XL in stock if you want the longer sleeve."
   },
   {
    "id": 4,
@@ -49,16 +54,6 @@
    "size": "L",
    "target": 105,
    "last_price": 120.0
-  },
-  {
-   "id": 5,
-   "category": "Jackets & Overshirts",
-   "tier": "mid",
-   "name": "Lee 101 Wool Overshirt, black (restock watch)",
-   "url": "https://jeanstore.co.uk/products/lee-101-wool-overshirt-black",
-   "check": "shopify",
-   "size": "L",
-   "target": 60
   },
   {
    "id": 6,
@@ -99,7 +94,8 @@
    "check": "manual",
    "size": "L",
    "target": 200,
-   "last_price": 269
+   "last_price": 269,
+   "checked_on": "2026-07-22"
   },
   {
    "id": 10,
@@ -130,7 +126,8 @@
    "check": "manual",
    "size": "L",
    "target": 9.9,
-   "last_price": 9.9
+   "last_price": 9.9,
+   "checked_on": "2026-07-22"
   },
   {
    "id": 13,
@@ -241,7 +238,8 @@
    "check": "manual",
    "size": "34/32",
    "target": 28,
-   "last_price": 35
+   "last_price": 35,
+   "checked_on": "2026-07-22"
   },
   {
    "id": 24,
@@ -280,7 +278,7 @@
    "name": "CC Relaxed Chinos, khaki (UK-made)",
    "url": "https://communityclothing.co.uk/products/mens-relaxed-chino-khaki",
    "check": "shopify",
-   "size": "34",
+   "size": "W34 L32",
    "target": 64
   },
   {
@@ -290,7 +288,7 @@
    "name": "CC Relaxed Chinos, navy",
    "url": "https://communityclothing.co.uk/products/mens-relaxed-chinos-navy-01",
    "check": "shopify",
-   "size": "34",
+   "size": "W34 L32",
    "target": 80
   },
   {
@@ -300,7 +298,7 @@
    "name": "CC Heavyweight Pleated Chinos, dark navy",
    "url": "https://communityclothing.co.uk/products/mens-heavyweight-pleated-chino-navy",
    "check": "shopify",
-   "size": "34",
+   "size": "W34 L32",
    "target": 105
   },
   {
@@ -327,11 +325,157 @@
    "id": 32,
    "category": "Chinos & Trousers",
    "tier": "premium",
-   "name": "Oliver Spencer Morton, charcoal wool (watching 34; 36 live)",
-   "url": "https://oliverspencer.co.uk/products/morton-pleated-trousers-richards-charcoal",
+   "name": "Oliver Spencer Morton pleated trouser, Purdon charcoal wool",
+   "url": "https://oliverspencer.co.uk/products/morton-pleated-trousers-purdon-charcoal",
    "check": "shopify",
    "size": "34",
-   "target": 174
+   "target": 155,
+   "note": "Premium: only a buy at 40%+ off (archive sale)."
+  },
+  {
+   "id": 37,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Vans Skate Era Stub, fade olive/black",
+   "url": "https://routeone.co.uk/products/vans-skate-era-stub-shoes-fade-olive-black-001189285",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 56,
+   "note": "Padded-collar Era, flat vulc sole. On-palette olive."
+  },
+  {
+   "id": 38,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Vans Skate Era Wafflecup, two-tone grey",
+   "url": "https://routeone.co.uk/products/vans-skate-era-wafflecup-shoes-2-tone-grey-001194518",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 55,
+   "note": "Most versatile Era colour: goes with every bottom in the capsule."
+  },
+  {
+   "id": 39,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "Nike SB Zoom Blazer Mid, black spruce/corduroy brown",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-blazer-mid-skate-shoes-black-spruce-corduroy-brown-black-spruce-001198396",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 68,
+   "note": "Earthy, tonal Blazer: the least logo-loud colourway available in 10."
+  },
+  {
+   "id": 40,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Nike SB Zoom Blazer Low Pro GT, blue void/sail (restock watch)",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-blazer-low-pro-gt-skate-shoes-blue-void-sail-blue-void-001186588",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 60,
+   "note": "Navy low Blazer at £60: UK 10 sold out, alerts if it comes back."
+  },
+  {
+   "id": 41,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Nike SB Zoom Janoski OG+, cool grey",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-janoski-og-plus-skate-shoes-cool-grey-white-cool-grey-001184047",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 60,
+   "note": "Tonal grey suede Janoski, already reduced from £85."
+  },
+  {
+   "id": 42,
+   "category": "Footwear",
+   "tier": "budget",
+   "name": "Nike SB Zoom Janoski OG+, navy/gum (restock watch)",
+   "url": "https://slamcity.com/products/nike-sb-zoom-janoski-og-navy-white-navy-gum-light-brown",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 45,
+   "note": "£40 (was £85) but UK 10 sold out: alerts on restock."
+  },
+  {
+   "id": 43,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "Nike Air Max 90 'Shadow Brown' leather (restock watch)",
+   "url": "https://footpatrol.com/products/815273",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 110,
+   "note": "Full-grain tonal brown: the on-brief AM90. UK 10 sold out."
+  },
+  {
+   "id": 44,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "adidas Handball Spezial, olive strata/shadow olive",
+   "url": "https://urbanindustry.co.uk/products/adidas-originals-handball-spezial-olive-stratashadow-oliveolive-strata-2260896",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 72,
+   "note": "Samba-adjacent: tonal olive suede, gum sole. Different enough from your Sambas."
+  },
+  {
+   "id": 45,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "Clarks Originals Wallabee, maple suede",
+   "url": "https://www.parasolstore.co.uk/products/clarks-wallabee-shoe-maple-suede",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 80,
+   "note": "The classic. Spray with suede protector before Bangor weather."
+  },
+  {
+   "id": 46,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "Clarks Originals Wallabee Boot, maple suede",
+   "url": "https://stuartslondon.com/products/clarks-originals-wallabee-boot-suede-maple",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 90,
+   "note": "Autumn/winter Wallabee: £109 here vs £140 elsewhere."
+  },
+  {
+   "id": 47,
+   "category": "Footwear",
+   "tier": "premium",
+   "name": "Clarks Originals Wallabee GTX, maple suede",
+   "url": "https://goodhoodstore.com/products/clarks-originals-wallabee-gtx-maple-suede-mens-aw21",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 114,
+   "note": "GORE-TEX: the rain-proof Wallabee. Premium, so only a buy at 40% off."
+  },
+  {
+   "id": 48,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "John White Byrne Chelsea, dark brown leather",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-boot",
+   "check": "shopify",
+   "size": "UK 10",
+   "variant": "Dark Brown",
+   "target": 130,
+   "note": "Sleek office Chelsea on a Vibram sole (grips in rain). £120, was £280."
+  },
+  {
+   "id": 49,
+   "category": "Footwear",
+   "tier": "mid",
+   "name": "John White Byrne Chelsea, brown suede",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
+   "check": "shopify",
+   "size": "UK 10",
+   "variant": "Brown Suede",
+   "target": 130,
+   "note": "Same boot in suede: more texture, needs protector spray. £120, was £280."
   },
   {
    "id": 33,
