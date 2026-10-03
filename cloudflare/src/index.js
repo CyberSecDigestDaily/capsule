@@ -20,17 +20,20 @@ export default {
 };
 
 async function dispatch(env, cron) {
-  if (!env.GITHUB_TOKEN) {
+  const repo = env.REPO || "CyberSecDigestDaily/capsule";
+  const workflow = env.WORKFLOW || "update.yml";
+  const token = (env.GITHUB_TOKEN || "").trim();
+  if (!token) {
     console.log("GITHUB_TOKEN secret missing");
-    return alert(env, "capsule-cron has no GITHUB_TOKEN secret, so no runs are being started. Run cloudflare/setup.ps1 again.");
+    return alert(env, "capsule-cron has no GITHUB_TOKEN secret, so no runs are being started. Run the setup again (cloudflare/setup.cmd).");
   }
-  const url = `https://api.github.com/repos/${env.REPO}/actions/workflows/${env.WORKFLOW}/dispatches`;
+  const url = `https://api.github.com/repos/${repo}/actions/workflows/${workflow}/dispatches`;
   let last = "";
   for (let attempt = 1; attempt <= 3; attempt++) {
     const res = await fetch(url, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
         "User-Agent": "capsule-cron",
@@ -39,7 +42,7 @@ async function dispatch(env, cron) {
       body: JSON.stringify({ ref: env.REF || "main" }),
     });
     if (res.status === 204) {
-      console.log(`dispatched ${env.WORKFLOW} (cron ${cron})`);
+      console.log(`dispatched ${workflow} (cron ${cron})`);
       return;
     }
     last = `${res.status} ${(await res.text()).slice(0, 200)}`;
@@ -48,7 +51,7 @@ async function dispatch(env, cron) {
     await new Promise((r) => setTimeout(r, 4000 * attempt));
   }
   const hint = last.startsWith("401")
-    ? " The GitHub token has expired or been revoked: make a new one and run cloudflare/setup.ps1 again."
+    ? " The GitHub token has expired or been revoked: make a new one and run the setup again (cloudflare/setup.cmd)."
     : "";
   await alert(env, `capsule-cron couldn't start the price check (${last.split(" ")[0]}).${hint}`);
 }

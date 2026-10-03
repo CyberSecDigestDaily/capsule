@@ -27,9 +27,14 @@ Every item in `items.json` has `fit.verdict` (`good` / `check` / `avoid`) and a 
 
 ## On-time runs (one-off, ~3 minutes)
 
-1. Create the token (fields pre-filled): [new fine-grained token](https://github.com/settings/personal-access-tokens/new?name=capsule-cron&description=Lets+the+capsule-cron+Cloudflare+Worker+start+the+price-check+workflow&target_name=CyberSecDigestDaily&expires_in=366&actions=write). Under **Repository access** choose **Only select repositories → capsule**, check **Actions: Read and write** is set, then **Generate token** and copy it.
-2. Download this repo (Code → Download ZIP), open the `cloudflare` folder, right-click `setup.ps1` → **Run with PowerShell** (or `powershell -ExecutionPolicy Bypass -File .\setup.ps1`). It deploys the Worker (logs you into Cloudflare if needed), asks for the token, and optionally a Discord webhook for failure alerts.
-3. Done. Uses 1 of the 5 cron triggers on Cloudflare's free plan. When the token expires in a year, the Worker posts a Discord alert (if set) and GitHub's fallback schedule keeps things running; re-run step 1–2.
+GitHub's own scheduler often runs hours late. A tiny Cloudflare Worker (`cloudflare/`) starts the price check at 07:15, 13:15 and 19:15 UK time instead. It needs a GitHub token that is only allowed to start this repo's workflow.
+
+1. **Create the token:** open this [pre-filled token page](https://github.com/settings/personal-access-tokens/new?name=capsule-cron&description=Lets+the+capsule-cron+Cloudflare+Worker+start+the+price-check+workflow&target_name=CyberSecDigestDaily&expires_in=366&actions=write). Under **Repository access** choose **Only select repositories** and tick **capsule**. Check **Permissions → Repository permissions → Actions** says **Read and write**. Click **Generate token** and copy it. Don't paste it anywhere except the setup window.
+2. **Run the setup:** double-click `cloudflare\setup.cmd` (a copy lives in `Documents\Claude\Projects\STYLE\site-github\cloudflare`). Or open **Windows PowerShell** from the Start menu and paste:
+   `irm https://raw.githubusercontent.com/CyberSecDigestDaily/capsule/main/cloudflare/setup.ps1 | iex`
+3. **Follow the prompts:** paste the token (it stays hidden); the script proves it works by starting one price check. If a browser tab opens, log in to Cloudflare and click **Allow**. It then deploys the Worker and stores the token in Cloudflare (encrypted). Optional: a Discord webhook for failure alerts.
+
+Re-run the same setup when the token expires (366 days). GitHub's own schedule stays as a fallback and skips itself when the data is less than 4 hours old. Uses 1 of the 5 cron triggers on Cloudflare's free plan.
 
 ## Common edits (all in GitHub's web editor, phone works)
 

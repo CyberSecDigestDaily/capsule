@@ -210,6 +210,39 @@ def evaluate_variants(variants, size, variant_filter=None, cents=True):
             "in_stock": bool(live), "alt_sizes": alt[:6]}
 
 
+# --------------------------------------------------------------- images etc
+STORES = {
+    "jeanstore.co.uk": "Jeanstore", "universalworks.com": "Universal Works", "communityclothing.co.uk": "Community Clothing",
+    "parasolstore.co.uk": "Parasol Store", "finisterre.com": "Finisterre", "oliverspencer.co.uk": "Oliver Spencer",
+    "frenchconnection.com": "French Connection", "cdlp.com": "CDLP", "routeone.co.uk": "Route One", "slamcity.com": "Slam City",
+    "footpatrol.com": "Footpatrol", "urbanindustry.co.uk": "Urban Industry", "stuartslondon.com": "Stuarts London",
+    "goodhoodstore.com": "Goodhood", "johnwhiteshoes.com": "John White", "oipolloi.com": "Oi Polloi", "uniqlo.com": "Uniqlo",
+    "marksandspencer.com": "M&S", "johnlewis.com": "John Lewis", "folkclothing.com": "Folk", "albamclothing.com": "Albam",
+    "uskees.co.uk": "Uskees", "walklondonshoes.co.uk": "Walk London",
+}
+
+
+def store_label(url):
+    host = urllib.parse.urlsplit(url).netloc.lower().removeprefix("www.")
+    return STORES.get(host, host)
+
+
+def https(src):
+    if not src:
+        return None
+    src = src if isinstance(src, str) else (src.get("src") or "")
+    return ("https:" + src) if src.startswith("//") else (src or None)
+
+
+def pick_image(d, variant_filter=None):
+    """Product image, preferring the tracked colour's own photo."""
+    if variant_filter:
+        for v in d.get("variants", []):
+            if passes_filter(v, variant_filter) and v.get("featured_image"):
+                return https(v["featured_image"])
+    return https(d.get("featured_image") or (d.get("images") or [None])[0])
+
+
 # ------------------------------------------------------------- watch list
 def check_item(item):
     if item.get("check") != "shopify":
@@ -220,6 +253,7 @@ def check_item(item):
     if res is None:
         offered = sorted({size_label(v) for v in d.get("variants", [])})[:12]
         raise ValueError(f"size '{item['size']}' not offered (has: {', '.join(offered)})")
+    res["image"] = pick_image(d, item.get("variant"))
     return res
 
 
@@ -285,6 +319,16 @@ def infer_role(title, category):
     return None
 
 
+def clean_title(title, brand):
+    """'Levi's® Polk Jacket - Vintage Khaki' -> 'Polk Jacket, Vintage Khaki'."""
+    t = re.sub(r"^(men's|mens)\s+", "", (title or "").strip(), flags=re.I)
+    for b in {brand, brand.replace("®", "").strip()}:
+        if b and t.lower().startswith(b.lower() + " "):
+            t = t[len(b):].strip()
+    t = re.sub(r"\s+[-–]\s+", ", ", t)
+    return t[:1].upper() + t[1:] if t else t
+
+
 def words_in(text, words):
     return [w for w in words if re.search(r"(?<![a-z])" + re.escape(w) + r"(?![a-z])", text)]
 
@@ -293,6 +337,7 @@ def run_finder(cfg, watched_handles, prev_finds):
     first_seen = {f.get("key"): f.get("first_seen", TODAY) for f in prev_finds.get("finds", [])}
     cands, errors = {}, []
     palette = [p.lower() for p in cfg.get("palette", [])]
+    blocked = {re.sub(r"^https?://(www\.)?", "", u).split("?")[0].rstrip("/") for u in cfg.get("block", [])}
     excl = [w.lower() for w in cfg.get("exclude", [])]
     gender_excl = [w.lower() for w in cfg.get("exclude_gender", [])]
     for src in cfg.get("sources", []):
@@ -327,8 +372,12 @@ def run_finder(cfg, watched_handles, prev_finds):
                     break
                 if not cat:
                     continue
-                blocked = cat.get("exclude_brands", []) if cat.get("allow_brands_any") else cfg.get("exclude_brands", [])
-                if words_in(f"{brand} {title}", [b.lower() for b in blocked]):
+                if words_in(f"{title} {ptype}", [w.lower() for w in cat.get("exclude", [])]):
+                    continue
+                if f"{store}/products/{p.get('handle')}" in blocked:
+                    continue
+                brand_block = cat.get("exclude_brands", []) if cat.get("allow_brands_any") else cfg.get("exclude_brands", [])
+                if words_in(f"{brand} {title}", [b.lower() for b in brand_block]):
                     continue
                 pal = words_in(f"{title} {colours}", palette + [x.lower() for x in cat.get("extra_palette", [])])
                 if not pal:
@@ -347,9 +396,16 @@ def run_finder(cfg, watched_handles, prev_finds):
                 key = f"{store}/{p['handle']}"
                 score = disc + (8 if words_in(title, palette) else 0) - 10 * price / cat.get("premium_cap", cat["cap"])
                 label = src.get("label", store)
+                vendor = (p.get("vendor") or "").strip()
+                if not vendor or vendor.lower() in ("men's", "mens", "men", "women's", "unisex"):
+                    vendor = label
+                if vendor.isupper() and len(vendor) > 4:
+                    vendor = vendor.title()
+                imgs = p.get("images") or []
                 rec = {
                     "key": key, "first_seen": first_seen.get(key, TODAY), "store": label,
-                    "brand": p.get("vendor") or "", "name": p.get("title"),
+                    "brand": vendor, "name": clean_title(p.get("title"), vendor),
+                    "image": https(imgs[0].get("src")) if imgs else None,
                     "url": f"https://{store}/products/{p['handle']}", "category": cat["name"],
                     "price": price, "was": res["was"], "discount_pct": disc,
                     "size": cat["size"].split("|")[0], "colour": pal[0], "tier": tier, "score": round(score, 1),
@@ -389,9 +445,12 @@ def verify_picks(picks):
             try:
                 d = fetch_json(re.sub(r"(\?.*)?$", "", url).rstrip("/") + ".js")
                 res = evaluate_variants(d.get("variants", []), pk["size"], pk.get("variant"), cents=True)
+                rec["image"] = pick_image(d, pk.get("variant"))
+                rec["store"] = store_label(url)
+                rec.setdefault("brand", d.get("vendor") if (d.get("vendor") or "").lower() not in ("men's", "mens", "") else rec["store"])
                 if res:
                     rec.update({"price_now": res["price"], "in_stock": res["in_stock"],
-                                "discount_pct": res["discount_pct"], "verified": TODAY})
+                                "discount_pct": res["discount_pct"], "was": res["was"], "verified": TODAY})
                 else:
                     rec.update({"in_stock": False, "verified": TODAY})
             except Exception as e:
@@ -445,6 +504,9 @@ def main():
     for item in cfg["items"]:
         rec = dict(item)
         rec["checked"] = TODAY
+        rec["store"] = store_label(item["url"])
+        if prev_by_id.get(str(item["id"]), {}).get("image"):
+            rec["image"] = prev_by_id[str(item["id"])]["image"]
         key = str(item["id"])
         try:
             if not item.get("bought"):
@@ -482,20 +544,24 @@ def main():
 
     # ---- alerts: only changes since the previous run
     lines = []
+
+    def full(r):
+        return f"{r.get('brand', '')} {r['name']}".strip()
+
     for r in results:
         p = prev_by_id.get(str(r["id"]))
         if r["signal"] in ("BOUGHT", "LINK ERROR", "CHECK MANUALLY"):
             continue
         if r["signal"] == "BUY" and (not p or p.get("signal") != "BUY"):
-            lines.append(f"🟢 **BUY** {r['name']} — {money(r.get('price'))} (target {money(r['target'])}) {r['url']}")
+            lines.append(f"🟢 **BUY** {full(r)} — {money(r.get('price'))} (target {money(r['target'])}) {r['url']}")
         elif p and r.get("in_stock") and p.get("in_stock") is False:
-            lines.append(f"🔁 Back in your size: {r['name']} — {money(r.get('price'))} {r['url']}")
+            lines.append(f"🔁 Back in your size: {full(r)} — {money(r.get('price'))} {r['url']}")
         elif p and r.get("in_stock") and p.get("price") and r.get("price") and p["price"] - r["price"] >= 5:
-            lines.append(f"⬇️ Price drop: {r['name']} {money(p['price'])} → {money(r['price'])} {r['url']}")
+            lines.append(f"⬇️ Price drop: {full(r)} {money(p['price'])} → {money(r['price'])} {r['url']}")
     prev_keys = {f.get("key") for f in prev_finds.get("finds", [])}
     fresh = [f for f in finds if f["key"] not in prev_keys][:5]
     for f in fresh:
-        lines.append(f"🆕 Deal: {f['name']} — {money(f['price'])} (−{f['discount_pct']}%, {f['store']}) {f['url']}")
+        lines.append(f"🆕 Deal: {f['brand']} {f['name']} — {money(f['price'])} (−{f['discount_pct']}%, {f['store']}) {f['url']}")
 
     DOCS.mkdir(exist_ok=True)
     counts = {}

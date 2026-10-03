@@ -4,31 +4,34 @@
  "picks": [
   {
    "date": "2026-10-03",
-   "name": "John White Byrne Chelsea, dark brown leather",
+   "name": "Byrne Chelsea Boot, dark brown leather",
    "url": "https://johnwhiteshoes.com/products/byrne-chelsea-boot",
    "size": "UK 10",
    "variant": "Dark Brown",
    "price": 120,
    "category": "Footwear",
-   "why": "Answers the 'less clunky than Docs' office boot: slim Chelsea profile, storm welt and a Vibram sole that grips on wet Bangor pavements. Dark brown leather shrugs off rain better than suede. Wear with the pleated trousers or stone chinos, hem just kissing the boot. £120 vs £280 RRP."
+   "why": "Answers the 'less clunky than Docs' office boot: slim Chelsea profile, storm welt and a Vibram sole that grips on wet Bangor pavements. Dark brown leather shrugs off rain better than suede. Wear with the pleated trousers or stone chinos, hem just kissing the boot. £120 vs £280 RRP.",
+   "brand": "John White"
   },
   {
    "date": "2026-10-03",
-   "name": "Community Clothing Chore Jacket, putty",
+   "name": "Chore Jacket, putty",
    "url": "https://communityclothing.co.uk/products/mens-chore-jacket-putty",
    "size": "L",
    "price": 42,
    "category": "Jackets & Overshirts",
-   "why": "The chore/field jacket is a cornerstone of the brief and this one is UK-made, logo-free cotton canvas. Putty sits in the stone/taupe family, so it pairs tonally with navy and olive. The olive version was rejected at £140 in July; at £42 this is the best value on the board."
+   "why": "The chore/field jacket is a cornerstone of the brief and this one is UK-made, logo-free cotton canvas. Putty sits in the stone/taupe family, so it pairs tonally with navy and olive. The olive version was rejected at £140 in July; at £42 this is the best value on the board.",
+   "brand": "Community Clothing"
   },
   {
    "date": "2026-10-03",
-   "name": "Community Clothing Relaxed Chinos, navy",
+   "name": "Relaxed Chinos, navy",
    "url": "https://communityclothing.co.uk/products/mens-relaxed-chinos-navy-01",
    "size": "W34 L32",
    "price": 59.5,
    "category": "Chinos & Trousers",
-   "why": "Only chino on the list that is genuinely in stock in W34 L32 and under target today. Navy is the workhorse colour: office with the Chelsea boots, weekends with the Era or Wallabees."
+   "why": "Only chino on the list that is genuinely in stock in W34 L32 and under target today. Navy is the workhorse colour: office with the Chelsea boots, weekends with the Era or Wallabees.",
+   "brand": "Community Clothing"
   }
  ]
 }

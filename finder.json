@@ -1,5 +1,5 @@
 {
- "_about": "Rules for the automatic deal finder in scraper.py. It scans these sale collections every run and keeps on-brief pieces that are in YOUR size, in the palette, logo-free and genuinely discounted. Edit freely: add a store (Shopify only) or tweak caps.",
+ "_about": "Rules for the automatic deal finder in scraper.py. It scans these sale collections every run and keeps on-brief pieces that are in YOUR size, in the palette, logo-free and genuinely discounted. Edit freely: add a store (Shopify only) or tweak caps. block: product URLs to never show (off-brief logos or cuts the filters can't see); the daily review may add to it.",
  "min_discount": 25,
  "premium_min_discount": 40,
  "max_finds": 16,
@@ -125,7 +125,11 @@
   "drop shoulder",
   "drop-shoulder",
   "cropped",
-  "crop"
+  "crop",
+  "maroon",
+  "wine",
+  "oxblood",
+  "cherry"
  ],
  "exclude_brands": [
   "stone island",
@@ -249,7 +253,16 @@
     "heelys",
     "crocs",
     "skechers",
-    "ugg"
+    "ugg",
+    "hoka",
+    "salomon",
+    "on running",
+    "merrell",
+    "keen",
+    "the north face",
+    "altra",
+    "brooks",
+    "saucony endorphin"
    ]
   },
   {
@@ -321,7 +334,18 @@
    ],
    "size": "W34 L32",
    "cap": 85,
-   "premium_cap": 140
+   "premium_cap": 140,
+   "exclude": [
+    "relaxed",
+    "painter",
+    "carpenter",
+    "loose",
+    "baggy",
+    "wide",
+    "balloon",
+    "skate",
+    "dad"
+   ]
   },
   {
    "name": "Chinos & Trousers",
@@ -433,5 +457,8 @@
    "collection": "mens-sale",
    "label": "Walk London"
   }
+ ],
+ "block": [
+  "https://uskees.co.uk/products/3052-coach-jacket-navy"
  ]
 }

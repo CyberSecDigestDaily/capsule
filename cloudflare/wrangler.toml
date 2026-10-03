@@ -1,7 +1,8 @@
 name = "capsule-cron"
 main = "src/index.js"
 compatibility_date = "2026-09-01"
-workers_dev = true
+workers_dev = false
+preview_urls = false
 
 # One cron trigger (the free plan allows 5 per account). Cloudflare cron runs in UTC:
 # 06:15, 12:15, 18:15 UTC = 07:15, 13:15, 19:15 UK summer time (06:15, 12:15, 18:15 in winter).

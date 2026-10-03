@@ -21,7 +21,7 @@
  "staples": [
   {
    "id": "s1",
-   "name": "adidas Samba OG",
+   "name": "adidas Samba OG, white",
    "role": "trainer",
    "owned": true
   },
@@ -33,43 +33,62 @@
   },
   {
    "id": "s3",
-   "name": "Plain tee you already have (on-palette)",
-   "role": "tee"
+   "name": "Dr. Martens, black",
+   "role": "boot",
+   "owned": true
   },
   {
    "id": "s4",
+   "name": "Vans Era, black/white",
+   "role": "trainer",
+   "owned": true
+  },
+  {
+   "id": "s5",
+   "name": "Nike Air Max 95, black",
+   "role": "trainer",
+   "owned": true
+  },
+  {
+   "id": "s6",
+   "name": "5-panel cap",
+   "role": "cap",
+   "owned": true
+  },
+  {
+   "id": "s7",
+   "name": "Plain tee you already have",
+   "role": "tee"
+  },
+  {
+   "id": "s8",
    "name": "Dark indigo jeans you already have",
    "role": "jeans"
   },
   {
-   "id": "s5",
+   "id": "s9",
    "name": "Crew-neck knit you already have",
    "role": "knit"
   },
   {
-   "id": "s6",
+   "id": "s10",
    "name": "Hoodie or sweatshirt you already have",
    "role": "sweat"
   },
   {
-   "id": "s7",
+   "id": "s11",
    "name": "Chinos you already have",
    "role": "chino"
   },
   {
-   "id": "s8",
+   "id": "s12",
    "name": "Joggers",
    "role": "jogger"
   },
   {
-   "id": "s9",
+   "id": "s13",
    "name": "Birkenstock Boston or slippers",
    "role": "clog"
-  },
-  {
-   "id": "s10",
-   "name": "5-panel cap",
-   "role": "cap"
   }
  ],
  "formulas": [
