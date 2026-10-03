@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-03T11:02:15.280231Z",
+ "generated": "2026-10-03T11:22:14.865027Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -11,11 +11,10 @@
  },
  "errors": 0,
  "counts": {
-  "CHECK MANUALLY": 5,
+  "WATCHING": 29,
   "SOLD OUT": 10,
   "SALE": 2,
-  "WATCHING": 25,
-  "BUY": 6
+  "BUY": 7
  },
  "items": [
   {
@@ -24,47 +23,70 @@
    "role": "jacket",
    "tier": "budget",
    "brand": "Uniqlo",
-   "name": "Utility Blouson, olive",
-   "url": "https://www.uniqlo.com/uk/en/products/E459592-000/00",
-   "check": "manual",
+   "name": "Denim Trucker Jacket, olive",
+   "url": "https://www.uniqlo.com/uk/en/products/E488726-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 40,
-   "last_price": 19.9,
-   "checked_on": "2026-07-22",
+   "target": 35,
    "fit": {
     "verdict": "check",
-    "note": "Blouson cut finishes at the waistband: make sure it isn't cropped above the belt on you. Uniqlo blocks bots, so check the size-chart sleeve against your reach."
+    "note": "Uniqlo list it as a regular fit with a shorter length, like every trucker: it should finish at your belt, not above it. Size XL if you'll layer a knit under it."
    },
+   "variant": "Olive",
+   "note": "Replaces the sold-out Utility Blouson (end of season).",
    "checked": "2026-10-03",
    "store": "Uniqlo",
-   "price": 19.9,
-   "in_stock": null,
-   "stale_days": 73,
-   "signal": "CHECK MANUALLY"
+   "price": 49.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/488726/item/gbgoods_57_488726_3x4.jpg",
+   "signal": "WATCHING",
+   "low": 49.9,
+   "low_date": "2026-10-03"
   },
   {
    "id": 2,
-   "category": "Jackets & Overshirts",
-   "role": "overshirt",
+   "category": "Mid-layers & Knits",
+   "role": "cardigan",
    "tier": "budget",
    "brand": "Uniqlo",
-   "name": "Corduroy Overshirt, olive",
-   "url": "https://www.uniqlo.com/uk/en/products/E475270-000/00",
-   "check": "manual",
+   "name": "Milano Ribbed Shirt Collar Cardigan, olive",
+   "url": "https://www.uniqlo.com/uk/en/products/E478550-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 15,
-   "last_price": 12,
-   "checked_on": "2026-07-22",
+   "target": 30,
    "fit": {
-    "verdict": "check",
-    "note": "Shirt-weight cord overshirt. No measurements here (bot-blocked): check the size-chart sleeve before buying."
+    "verdict": "good",
+    "note": "Regular fit in a dense Milano rib that holds its shape. Buttoned it reads as a smart knit for the office; open it layers over a tee."
    },
+   "variant": "Olive",
+   "note": "Replaces the sold-out Corduroy Overshirt (end of season).",
    "checked": "2026-10-03",
    "store": "Uniqlo",
-   "price": 12,
-   "in_stock": null,
-   "stale_days": 73,
-   "signal": "CHECK MANUALLY"
+   "price": 39.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/478550/item/gbgoods_57_478550_3x4.jpg",
+   "signal": "WATCHING",
+   "low": 39.9,
+   "low_date": "2026-10-03"
   },
   {
    "id": 3,
@@ -247,22 +269,32 @@
    "tier": "premium",
    "brand": "Barbour",
    "name": "Ashby Waxed Jacket, olive",
-   "url": "https://www.johnlewis.com/barbour-ashby-waxed-cotton-field-jacket-olive/p819957",
-   "check": "manual",
+   "url": "https://www.barbour.com/gb/ashby-waxed-jacket-MWX0339OL71.html",
+   "check": "barbour",
    "size": "L",
    "target": 200,
-   "last_price": 269,
-   "checked_on": "2026-07-22",
    "fit": {
     "verdict": "check",
     "note": "Barbour list the Ashby as a tailored (slimmer) cut. If you'll layer a knit underneath or need more sleeve, XL is the safer size."
    },
    "checked": "2026-10-03",
-   "store": "John Lewis",
-   "price": 269,
-   "in_stock": null,
-   "stale_days": 73,
-   "signal": "CHECK MANUALLY"
+   "store": "Barbour",
+   "price": 269.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "XXXL"
+   ],
+   "image": "https://www.barbour.com/dw/image/v2/blcl_prd/on/demandware.static/-/Sites-master-catalog/default/dwb0955f72/images/MWX0339OL71/MWX0339OL71_01front.jpg?sw=900&q=70&strip=false",
+   "signal": "WATCHING",
+   "low": 269.0,
+   "low_date": "2026-10-03"
   },
   {
    "id": 10,
@@ -337,24 +369,35 @@
    "role": "fleece",
    "tier": "budget",
    "brand": "Uniqlo",
-   "name": "Fleece Half-Zip, olive",
-   "url": "https://www.uniqlo.com/uk/en/products/E471233-000/00",
-   "check": "manual",
+   "name": "Fleece Full-Zip Jacket, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E450195-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 9.9,
-   "last_price": 9.9,
-   "checked_on": "2026-07-22",
-   "restock_watch": true,
+   "target": 20,
    "fit": {
-    "verdict": "check",
-    "note": "No measurements available here (bot-blocked): check the size-chart sleeve against your reach."
+    "verdict": "good",
+    "note": "Uniqlo's classic regular-fit fleece with a stand collar. Unisex sizing runs about true: L for a close layer under the field jacket."
    },
+   "variant": "Navy",
+   "note": "Replaces the sold-out Fleece Half-Zip (end of season).",
    "checked": "2026-10-03",
    "store": "Uniqlo",
-   "price": 9.9,
-   "in_stock": null,
-   "stale_days": 73,
-   "signal": "CHECK MANUALLY"
+   "price": 29.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450195/item/gbgoods_69_450195_3x4.jpg",
+   "signal": "WATCHING",
+   "low": 29.9,
+   "low_date": "2026-10-03"
   },
   {
    "id": 13,
@@ -708,23 +751,34 @@
    "role": "chino",
    "tier": "budget",
    "brand": "M&S",
-   "name": "Regular Fit Stretch Chinos, stone",
-   "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138",
-   "check": "manual",
-   "size": "34/32",
+   "name": "Regular Fit Stretch Chinos, fawn",
+   "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138?color=FAWN",
+   "check": "mands",
+   "size": "W34 L31|W34 L33",
    "target": 28,
-   "last_price": 35,
-   "checked_on": "2026-07-22",
    "fit": {
     "verdict": "good",
-    "note": "Regular fit with stretch. Check the rise in store if you can."
+    "note": "Regular fit with stretch. Stone is no longer made; fawn is the nearest shade. M&S only cut 31in or 33in legs: 31 for a clean break, 33 for a slight stack."
    },
+   "variant": "Fawn",
    "checked": "2026-10-03",
    "store": "M&S",
-   "price": 35,
-   "in_stock": null,
-   "stale_days": 73,
-   "signal": "CHECK MANUALLY"
+   "price": 26.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "W32 L29",
+    "W32 L31",
+    "W32 L33",
+    "W34 L29",
+    "W36 L29",
+    "W36 L31"
+   ],
+   "image": "https://assets.digitalcontent.marksandspencer.app/images/w_900,q_auto,f_auto/SD_03_T17_6614M_GD_X_EC_90/image",
+   "signal": "BUY",
+   "low": 26.0,
+   "low_date": "2026-10-03"
   },
   {
    "id": 24,
