@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-03T11:22:14.865027Z",
+ "generated": "2026-10-03T11:23:34.938158Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -36,6 +36,7 @@
    "note": "Replaces the sold-out Utility Blouson (end of season).",
    "checked": "2026-10-03",
    "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/488726/item/gbgoods_57_488726_3x4.jpg",
    "price": 49.9,
    "was": null,
    "discount_pct": 0,
@@ -47,7 +48,6 @@
     "XL",
     "XXL"
    ],
-   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/488726/item/gbgoods_57_488726_3x4.jpg",
    "signal": "WATCHING",
    "low": 49.9,
    "low_date": "2026-10-03"
@@ -71,6 +71,7 @@
    "note": "Replaces the sold-out Corduroy Overshirt (end of season).",
    "checked": "2026-10-03",
    "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/478550/item/gbgoods_57_478550_3x4.jpg",
    "price": 39.9,
    "was": null,
    "discount_pct": 0,
@@ -83,7 +84,6 @@
     "XXL",
     "3XL"
    ],
-   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/478550/item/gbgoods_57_478550_3x4.jpg",
    "signal": "WATCHING",
    "low": 39.9,
    "low_date": "2026-10-03"
@@ -279,6 +279,7 @@
    },
    "checked": "2026-10-03",
    "store": "Barbour",
+   "image": "https://www.barbour.com/dw/image/v2/blcl_prd/on/demandware.static/-/Sites-master-catalog/default/dwb0955f72/images/MWX0339OL71/MWX0339OL71_01front.jpg?sw=900&q=70&strip=false",
    "price": 269.0,
    "was": null,
    "discount_pct": 0,
@@ -291,7 +292,6 @@
     "XXL",
     "XXXL"
    ],
-   "image": "https://www.barbour.com/dw/image/v2/blcl_prd/on/demandware.static/-/Sites-master-catalog/default/dwb0955f72/images/MWX0339OL71/MWX0339OL71_01front.jpg?sw=900&q=70&strip=false",
    "signal": "WATCHING",
    "low": 269.0,
    "low_date": "2026-10-03"
@@ -382,6 +382,7 @@
    "note": "Replaces the sold-out Fleece Half-Zip (end of season).",
    "checked": "2026-10-03",
    "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450195/item/gbgoods_69_450195_3x4.jpg",
    "price": 29.9,
    "was": null,
    "discount_pct": 0,
@@ -394,7 +395,6 @@
     "XXL",
     "3XL"
    ],
-   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450195/item/gbgoods_69_450195_3x4.jpg",
    "signal": "WATCHING",
    "low": 29.9,
    "low_date": "2026-10-03"
@@ -763,6 +763,7 @@
    "variant": "Fawn",
    "checked": "2026-10-03",
    "store": "M&S",
+   "image": "https://assets.digitalcontent.marksandspencer.app/images/w_900,q_auto,f_auto/SD_03_T17_6614M_GD_X_EC_90/image",
    "price": 26.0,
    "was": null,
    "discount_pct": 0,
@@ -775,7 +776,6 @@
     "W36 L29",
     "W36 L31"
    ],
-   "image": "https://assets.digitalcontent.marksandspencer.app/images/w_900,q_auto,f_auto/SD_03_T17_6614M_GD_X_EC_90/image",
    "signal": "BUY",
    "low": 26.0,
    "low_date": "2026-10-03"
