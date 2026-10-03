@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-03T08:51:54.469826Z",
+ "generated": "2026-10-03T09:11:39.905989Z",
  "finds": [
   {
    "key": "uskees.co.uk/3052-coach-jacket-navy",
@@ -16,6 +16,7 @@
    "colour": "navy",
    "tier": "deal",
    "score": 76.6,
+   "role": "jacket",
    "why": "70% off at Uskees · L in stock · navy · jackets & overshirts"
   },
   {
@@ -33,6 +34,7 @@
    "colour": "putty",
    "tier": "deal",
    "score": 76.0,
+   "role": "jacket",
    "why": "70% off at Community Clothing · L in stock · putty · jackets & overshirts"
   },
   {
@@ -50,6 +52,7 @@
    "colour": "black",
    "tier": "deal",
    "score": 67.2,
+   "role": "boot",
    "why": "70% off at Walk London · UK 10 in stock · black · footwear"
   },
   {
@@ -67,6 +70,7 @@
    "colour": "taupe",
    "tier": "deal",
    "score": 66.1,
+   "role": "sweat",
    "why": "60% off at Uskees · L in stock · taupe · mid-layers & knits"
   },
   {
@@ -84,6 +88,7 @@
    "colour": "khaki",
    "tier": "deal",
    "score": 65.9,
+   "role": "jacket",
    "why": "60% off at Jeanstore · L in stock · khaki · jackets & overshirts"
   },
   {
@@ -101,6 +106,7 @@
    "colour": "brown",
    "tier": "deal",
    "score": 65.0,
+   "role": "jacket",
    "why": "60% off at Goodhood · L in stock · brown · jackets & overshirts"
   },
   {
@@ -118,6 +124,7 @@
    "colour": "grey",
    "tier": "deal",
    "score": 63.6,
+   "role": "knit",
    "why": "60% off at Goodhood · L in stock · grey · mid-layers & knits"
   },
   {
@@ -135,6 +142,7 @@
    "colour": "mid blue",
    "tier": "deal",
    "score": 55.3,
+   "role": "chino",
    "why": "52% off at Folk · W34 L32 in stock · mid blue · chinos & trousers"
   },
   {
@@ -152,6 +160,7 @@
    "colour": "navy",
    "tier": "deal",
    "score": 55.2,
+   "role": "sweat",
    "why": "50% off at Jeanstore · L in stock · navy · mid-layers & knits"
   },
   {
@@ -169,6 +178,7 @@
    "colour": "stone",
    "tier": "deal",
    "score": 54.6,
+   "role": "jeans",
    "why": "50% off at Jeanstore · W34 L32 in stock · stone · jeans"
   },
   {
@@ -186,6 +196,7 @@
    "colour": "navy",
    "tier": "deal",
    "score": 54.3,
+   "role": "trouser",
    "why": "50% off at Community Clothing · W34 L32 in stock · navy · chinos & trousers"
   },
   {
@@ -203,6 +214,7 @@
    "colour": "putty",
    "tier": "deal",
    "score": 53.9,
+   "role": "trouser",
    "why": "50% off at Community Clothing · W34 L32 in stock · putty · chinos & trousers"
   },
   {
@@ -220,6 +232,7 @@
    "colour": "sage",
    "tier": "deal",
    "score": 53.6,
+   "role": "trouser",
    "why": "50% off at Folk · W34 L32 in stock · sage · chinos & trousers"
   },
   {
@@ -237,6 +250,7 @@
    "colour": "oatmeal",
    "tier": "deal",
    "score": 53.4,
+   "role": "sweat",
    "why": "50% off at Goodhood · L in stock · oatmeal · mid-layers & knits"
   },
   {
@@ -254,6 +268,7 @@
    "colour": "stone",
    "tier": "deal",
    "score": 53.3,
+   "role": "jeans",
    "why": "50% off at Community Clothing · W34 L32 in stock · stone · jeans"
   },
   {
@@ -271,6 +286,7 @@
    "colour": "sage",
    "tier": "deal",
    "score": 47.9,
+   "role": "trainer",
    "why": "50% off at Urban Industry · UK 10 in stock · sage · footwear"
   }
  ],

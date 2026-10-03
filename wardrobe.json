@@ -1,0 +1,239 @@
+{
+ "_about": "Outfit formulas from the STYLE brief + staples you may already own. The site's Outfits tab ticks these against what you own (watch-list items marked bought + staples ticked). Edit freely; roles must match items.json roles.",
+ "role_labels": {
+  "jacket": "Jackets",
+  "overshirt": "Overshirts",
+  "knit": "Knits",
+  "cardigan": "Cardigans",
+  "sweat": "Sweatshirts & hoodies",
+  "fleece": "Fleece",
+  "tee": "Tees",
+  "jeans": "Jeans",
+  "chino": "Chinos",
+  "trouser": "Smart trousers",
+  "jogger": "Joggers",
+  "trainer": "Trainers",
+  "wallabee": "Wallabees",
+  "boot": "Boots",
+  "clog": "Clogs & slippers",
+  "cap": "Caps"
+ },
+ "staples": [
+  {
+   "id": "s1",
+   "name": "adidas Samba OG",
+   "role": "trainer",
+   "owned": true
+  },
+  {
+   "id": "s2",
+   "name": "Dr. Martens, brushed brown leather",
+   "role": "boot",
+   "owned": true
+  },
+  {
+   "id": "s3",
+   "name": "Plain tee you already have (on-palette)",
+   "role": "tee"
+  },
+  {
+   "id": "s4",
+   "name": "Dark indigo jeans you already have",
+   "role": "jeans"
+  },
+  {
+   "id": "s5",
+   "name": "Crew-neck knit you already have",
+   "role": "knit"
+  },
+  {
+   "id": "s6",
+   "name": "Hoodie or sweatshirt you already have",
+   "role": "sweat"
+  },
+  {
+   "id": "s7",
+   "name": "Chinos you already have",
+   "role": "chino"
+  },
+  {
+   "id": "s8",
+   "name": "Joggers",
+   "role": "jogger"
+  },
+  {
+   "id": "s9",
+   "name": "Birkenstock Boston or slippers",
+   "role": "clog"
+  },
+  {
+   "id": "s10",
+   "name": "5-panel cap",
+   "role": "cap"
+  }
+ ],
+ "formulas": [
+  {
+   "id": "office",
+   "name": "Office",
+   "when": "autumn/winter workdays",
+   "slots": [
+    {
+     "label": "Trousers",
+     "roles": [
+      "chino",
+      "trouser"
+     ]
+    },
+    {
+     "label": "Knit or cardigan",
+     "roles": [
+      "knit",
+      "cardigan"
+     ]
+    },
+    {
+     "label": "Tee underneath",
+     "roles": [
+      "tee"
+     ]
+    },
+    {
+     "label": "Shoes",
+     "roles": [
+      "boot",
+      "wallabee"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "date",
+   "name": "Date night",
+   "when": "with Phoebe",
+   "slots": [
+    {
+     "label": "Tapered denim",
+     "roles": [
+      "jeans"
+     ]
+    },
+    {
+     "label": "Cardigan or knit",
+     "roles": [
+      "cardigan",
+      "knit"
+     ]
+    },
+    {
+     "label": "Tee",
+     "roles": [
+      "tee"
+     ]
+    },
+    {
+     "label": "Shoes",
+     "roles": [
+      "boot",
+      "wallabee"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "outdoor",
+   "name": "Outdoor & photography",
+   "when": "walks, shoots, trips",
+   "slots": [
+    {
+     "label": "Utility jacket",
+     "roles": [
+      "jacket"
+     ]
+    },
+    {
+     "label": "Mid-layer",
+     "roles": [
+      "fleece",
+      "sweat",
+      "knit"
+     ]
+    },
+    {
+     "label": "Denim or chinos",
+     "roles": [
+      "jeans",
+      "chino"
+     ]
+    },
+    {
+     "label": "Trainers",
+     "roles": [
+      "trainer"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "everyday",
+   "name": "Everyday",
+   "when": "weekends, errands",
+   "slots": [
+    {
+     "label": "Tee",
+     "roles": [
+      "tee"
+     ]
+    },
+    {
+     "label": "Overshirt or sweat",
+     "roles": [
+      "overshirt",
+      "sweat"
+     ]
+    },
+    {
+     "label": "Denim or chinos",
+     "roles": [
+      "jeans",
+      "chino"
+     ]
+    },
+    {
+     "label": "Trainers or Wallabees",
+     "roles": [
+      "trainer",
+      "wallabee"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lounge",
+   "name": "Lounging",
+   "when": "home",
+   "slots": [
+    {
+     "label": "Hoodie, sweat or fleece",
+     "roles": [
+      "sweat",
+      "fleece"
+     ]
+    },
+    {
+     "label": "Joggers or relaxed chinos",
+     "roles": [
+      "jogger",
+      "chino"
+     ]
+    },
+    {
+     "label": "Clogs or slippers",
+     "roles": [
+      "clog"
+     ]
+    }
+   ]
+  }
+ ]
+}

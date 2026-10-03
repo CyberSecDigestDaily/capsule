@@ -13,16 +13,16 @@
   body{margin:0;background:#6E6A5E;min-height:100vh;font-family:'IBM Plex Sans',sans-serif;
        padding:clamp(10px,4vw,52px);display:flex;justify-content:center}
   a{color:inherit;text-decoration:none}
-  input{font-family:inherit}
-  button{font-family:inherit}
+  input,button{font-family:inherit}
   ::selection{background:#D9CFB4}
+  [hidden]{display:none!important}
   @keyframes cap-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.3}}
   @keyframes cap-rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
   .shell{width:100%;max-width:980px;background:#F6F1E6;border:1px solid #E2D9C6;border-radius:5px;
-         overflow:hidden;box-shadow:0 30px 70px -34px rgba(40,34,20,.6)}
+         overflow:clip;box-shadow:0 30px 70px -34px rgba(40,34,20,.6)}
 
-  header.mast{padding:clamp(24px,4vw,44px) clamp(18px,4vw,48px) 28px;border-bottom:1px solid #E2D9C6}
+  header.mast{padding:clamp(24px,4vw,44px) clamp(18px,4vw,48px) 26px;border-bottom:1px solid #E2D9C6}
   .mast-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:20px}
   .eyebrow{font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.34em;color:#9A8F72;text-transform:uppercase;margin-bottom:14px}
   h1.title{margin:0;font-family:'Newsreader',serif;font-weight:500;font-size:clamp(40px,7vw,58px);line-height:.94;color:#2B2A20;letter-spacing:-.01em}
@@ -34,10 +34,17 @@
   .stale{margin-top:18px;padding:10px 14px;border:1px solid #E7C9A8;background:#F8E9D9;border-radius:4px;
          font:500 12px/1.5 'IBM Plex Mono',monospace;color:#8A4A28;display:none}
   .stale a{text-decoration:underline}
-  .budget-line{margin-top:26px;display:flex;flex-wrap:wrap;gap:18px 36px;align-items:baseline}
+  .budget-line{margin-top:24px;display:flex;flex-wrap:wrap;gap:18px 36px;align-items:baseline}
   .bl-k{font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#9A8F72;text-transform:uppercase;margin-right:9px}
   .bl-v{font-family:'Newsreader',serif;font-size:26px;font-weight:500}
   .bl-note{flex-basis:100%;font:500 11px/1.4 'IBM Plex Mono',monospace;color:#B0A488;margin-top:-6px}
+
+  nav.tabs{position:sticky;top:0;z-index:5;display:flex;background:#2F2D24;border-bottom:1px solid #2F2D24}
+  .tab{flex:1;border:none;background:none;color:#B9B096;padding:14px 10px 13px;cursor:pointer;
+       font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid transparent}
+  .tab .tn{display:inline-block;margin-left:7px;padding:3px 6px;border-radius:3px;background:#46432F;color:#E8E0C8;letter-spacing:.02em}
+  .tab.on{color:#F6F1E6;border-bottom-color:#9DB86A}
+  .tab:hover{color:#F6F1E6}
 
   .chips{display:flex;flex-wrap:wrap;border-bottom:1px solid #E2D9C6}
   .chip{flex:1 1 110px;background:#F6F1E6;border:none;border-right:1px solid #E2D9C6;border-top:2px solid transparent;
@@ -60,8 +67,8 @@
   .pill.grey.on{background:#6B6552;border-color:#6B6552}
   .sortwrap{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 
-  section.panel{padding:4px clamp(18px,4vw,48px) 10px;border-bottom:1px solid #E2D9C6}
-  section.panel.picks{background:#F2EEE2}
+  section.panel{padding:4px clamp(18px,4vw,48px) 12px;border-bottom:1px solid #E2D9C6}
+  section.panel.alt{background:#F2EEE2}
   .panel-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 14px;margin:18px 0 4px}
   .panel-head h3{font-family:'Newsreader',serif;font-weight:500;font-size:21px;color:#2B2A20;margin:0}
   .panel-head .pmeta{font:500 11px/1.4 'IBM Plex Mono',monospace;color:#A89C7E}
@@ -74,14 +81,14 @@
   .find .fprice b{font:600 15px/1 'IBM Plex Mono',monospace;color:#3D4222}
   .was{font:500 11px/1 'IBM Plex Mono',monospace;color:#B0A488;text-decoration:line-through;margin-left:6px}
   .disc{font:600 11px/1 'IBM Plex Mono',monospace;color:#C4653A;margin-right:6px}
-  .tag{font:600 9.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:3px 6px;border-radius:3px;background:#ECE7DA;color:#6B6552}
+  .tag{font:600 9.5px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:3px 6px;border-radius:3px;background:#ECE7DA;color:#6B6552;white-space:nowrap}
   .tag.new{background:#C4653A;color:#F6F1E6}
-  .tag.ok{background:#E4EAD2;color:#3B4A1E}
-  .tag.bad{background:#EFDEDB;color:#7E4A44}
+  .tag.ok,.tag.good{background:#E4EAD2;color:#3B4A1E}
+  .tag.bad,.tag.avoid{background:#EFDEDB;color:#7E4A44}
+  .tag.check{background:#F3E8D2;color:#7A5A1E}
   .more{display:block;width:100%;margin:6px 0 4px;padding:10px;border:1px dashed #D6CBB0;background:none;border-radius:4px;
         font:500 12px/1 'IBM Plex Mono',monospace;color:#7A7058;cursor:pointer}
 
-  .groups{padding:6px 0 8px}
   .grp{border-bottom:1px solid #EBE3D2}
   .grp-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
             padding:18px clamp(18px,4vw,48px) 14px;background:none;border:none;cursor:pointer;text-align:left}
@@ -106,6 +113,11 @@
   .ralt{color:#8A7F62}
   .rnote{margin-top:5px;font-family:'Newsreader',serif;font-style:italic;font-size:13.5px;line-height:1.35;color:#857C63;
          display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .rfit{margin-top:6px;font:500 11.5px/1.45 'IBM Plex Sans',sans-serif;color:#6E6852;
+        display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .rfit .tag{margin-right:7px;vertical-align:1px}
+  .rfit b{font-weight:600;color:#8A4A28}
+  .rfit b.okr{color:#3B4A1E}
   .rerr{margin-top:5px;font:500 11px/1.35 'IBM Plex Mono',monospace;color:#7E4A44}
   .rprice-wrap{text-align:right;white-space:nowrap}
   .rprice-top{display:flex;align-items:baseline;justify-content:flex-end;gap:6px}
@@ -115,6 +127,44 @@
   .chg-down{color:#5B7A2E}.chg-up{color:#A85A3C}
   .empty{padding:44px;text-align:center;font-family:'Newsreader',serif;font-style:italic;font-size:18px;color:#9A8F72}
   .empty a{color:#5B7A2E;cursor:pointer;text-decoration:underline}
+
+  /* outfits */
+  .o-hero{display:flex;flex-wrap:wrap;gap:18px 40px;align-items:flex-end;justify-content:space-between;padding:22px clamp(18px,4vw,48px) 18px;border-bottom:1px solid #E2D9C6}
+  .o-score{font-family:'Newsreader',serif;font-size:44px;line-height:1;color:#2B2A20}
+  .o-score small{font-size:20px;color:#8A7F62;margin-left:6px}
+  .o-score-k{font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#9A8F72;text-transform:uppercase;margin-bottom:8px}
+  .o-tools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+  .reach{display:flex;align-items:center;gap:8px;font:500 11px/1.3 'IBM Plex Mono',monospace;color:#7A7058}
+  .reach input{width:68px;padding:7px 8px;border:1px solid #D6CBB0;border-radius:3px;background:#FBF8F0;font:600 13px/1 'IBM Plex Mono',monospace;color:#2B2A20}
+  .reach a{text-decoration:underline;cursor:pointer;color:#8A7F62}
+  .btn{font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.06em;padding:9px 12px;border-radius:3px;border:1px solid #5B7A2E;background:#5B7A2E;color:#F6F1E6;cursor:pointer}
+  .btn.ghost{background:none;color:#5B7A2E}
+  .howto{flex-basis:100%;font:500 11px/1.5 'IBM Plex Mono',monospace;color:#8A7F62;background:#EFE9DB;border-radius:4px;padding:10px 12px}
+  .nb{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:12px 0;border-top:1px solid #E8E0CD}
+  .nb .nbn{font:500 14.5px/1.35 'IBM Plex Sans',sans-serif;color:#2B2A20}
+  .nb .nbw{grid-column:1/-1;font:500 11.5px/1.45 'IBM Plex Mono',monospace;color:#5B7A2E}
+  .nb .nbp{text-align:right;white-space:nowrap;font:600 15px/1 'IBM Plex Mono',monospace;color:#3D4222}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;padding:16px clamp(18px,4vw,48px) 20px;border-bottom:1px solid #E2D9C6}
+  .card{border:1px solid #E2D9C6;border-radius:5px;background:#FBF8F0;padding:14px 15px 10px}
+  .card.done{border-color:#B9C99A;background:#F3F5EA}
+  .card-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .card-h h4{margin:0;font-family:'Newsreader',serif;font-weight:500;font-size:20px;color:#2B2A20}
+  .card-w{font:500 11px/1.3 'IBM Plex Mono',monospace;color:#A89C7E;margin:3px 0 8px}
+  .slot{padding:8px 0;border-top:1px solid #EDE6D6}
+  .slot-l{font:600 9.5px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#9A8F72;margin-bottom:5px}
+  .slot-own{font:500 13.5px/1.35 'IBM Plex Sans',sans-serif;color:#2B2A20}
+  .slot-own::before{content:"✓ ";color:#5B7A2E;font-weight:700}
+  .slot-miss{font:500 13px/1.35 'IBM Plex Sans',sans-serif;color:#7E4A44}
+  .slot-miss a{color:#2B2A20;text-decoration:underline;text-decoration-color:#C7BC9E}
+  .slot-miss .sp{font:600 12px/1 'IBM Plex Mono',monospace;color:#3D4222;margin-left:4px}
+  .own-grid{padding:6px clamp(18px,4vw,48px) 18px}
+  .own-g{margin-top:14px}
+  .own-g h5{margin:0 0 6px;font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#9A8F72}
+  .own{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid #EFE9DB;cursor:pointer;font:500 13.5px/1.3 'IBM Plex Sans',sans-serif;color:#2B2A20}
+  .own .src{font:500 10px/1 'IBM Plex Mono',monospace;color:#B0A488;margin-left:auto;white-space:nowrap}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#2F2D24;color:#F6F1E6;padding:11px 16px;border-radius:4px;
+         font:500 12px/1.3 'IBM Plex Mono',monospace;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transition:opacity .25s;pointer-events:none;z-index:10}
+  .toast.on{opacity:1}
 
   footer.foot{padding:20px clamp(18px,4vw,48px);background:#EFE9DB;font:500 11px/1.7 'IBM Plex Mono',monospace;color:#9A8F72;
               display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
@@ -129,6 +179,9 @@
     .search{max-width:none}
     .budget-line{gap:10px 22px}
     .bl-v{font-size:22px}
+    .tab{letter-spacing:.06em;padding:13px 6px 12px}
+    .tab .tn{margin-left:5px}
+    .cards{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -139,7 +192,7 @@
       <div style="min-width:240px">
         <div class="eyebrow">Daily Wardrobe Watch</div>
         <h1 class="title">The Capsule</h1>
-        <p class="sub">A quiet, complete wardrobe — prices, stock in your size and fresh deals, checked automatically three times a day.</p>
+        <p class="sub">A quiet, complete wardrobe: prices, stock in your size, fit notes and fresh deals, checked automatically through the day.</p>
       </div>
       <div class="mast-meta">
         <div class="gen" id="gen">checking…</div>
@@ -156,44 +209,80 @@
     </div>
   </header>
 
-  <div class="chips" id="chips"></div>
+  <nav class="tabs" role="tablist">
+    <button class="tab on" data-tab="watch" role="tab">Watch list<span class="tn" id="tnWatch">–</span></button>
+    <button class="tab" data-tab="outfits" role="tab">Outfits<span class="tn" id="tnOutfits">–</span></button>
+    <button class="tab" data-tab="deals" role="tab">Deals<span class="tn" id="tnDeals">–</span></button>
+  </nav>
 
-  <div class="controls">
-    <div class="search"><span>&#8981;</span><input id="q" placeholder="Search pieces…" autocomplete="off"></div>
-    <div class="tiers">
-      <span class="tlab">Tier</span>
-      <span class="pill on" data-tier="budget">budget</span>
-      <span class="pill on" data-tier="mid">mid</span>
-      <span class="pill on" data-tier="premium">premium</span>
-      <span class="pill grey" data-hide="1">hide bought</span>
+  <!-- WATCH -->
+  <div id="tab-watch">
+    <div class="chips" id="chips"></div>
+    <div class="controls">
+      <div class="search"><span>&#8981;</span><input id="q" placeholder="Search pieces…" autocomplete="off"></div>
+      <div class="tiers">
+        <span class="tlab">Tier</span>
+        <span class="pill on" data-tier="budget">budget</span>
+        <span class="pill on" data-tier="mid">mid</span>
+        <span class="pill on" data-tier="premium">premium</span>
+        <span class="pill grey" data-hide="1">hide bought</span>
+      </div>
+      <div class="sortwrap">
+        <span class="tlab">Sort</span>
+        <span class="pill on" data-sort="default">default</span>
+        <span class="pill" data-sort="price">price</span>
+        <span class="pill" data-sort="delta">closest</span>
+      </div>
     </div>
-    <div class="sortwrap">
-      <span class="tlab">Sort</span>
-      <span class="pill on" data-sort="default">default</span>
-      <span class="pill" data-sort="price">price</span>
-      <span class="pill" data-sort="delta">closest</span>
-    </div>
+    <section class="panel alt" id="picksWrap" hidden>
+      <div class="panel-head"><h3>Claude's shortlist</h3><span class="pmeta" id="picksMeta"></span></div>
+      <div class="pnote">If you only buy a few things this month, buy these. Stock re-verified on every run.</div>
+      <div id="picksList"></div>
+    </section>
+    <div id="groups"></div>
   </div>
 
-  <section class="panel picks" id="picksWrap" style="display:none">
-    <div class="panel-head"><h3>Claude's shortlist</h3><span class="pmeta" id="picksMeta"></span></div>
-    <div class="pnote">If you only buy a few things this month, buy these. Stock re-verified on every run.</div>
-    <div id="picksList"></div>
-  </section>
+  <!-- OUTFITS -->
+  <div id="tab-outfits" hidden>
+    <div class="o-hero">
+      <div>
+        <div class="o-score-k">Outfits you can wear today</div>
+        <div class="o-score" id="oScore">–</div>
+      </div>
+      <div class="o-tools">
+        <label class="reach">Sleeve reach <input id="reachIn" type="number" min="70" max="110" step="0.5" placeholder="cm"> cm <a id="reachHow">how?</a></label>
+        <button class="btn ghost" id="shareBtn">Copy wardrobe link</button>
+      </div>
+      <div class="howto" id="howto" hidden>Measure from the bone at the back of your neck, across the top of your shoulder and down to your wrist bone, arm hanging relaxed. Or lay a jacket whose sleeves fit you flat and measure collar-centre to cuff. The watch list then flags anything short in the sleeve at your size.</div>
+    </div>
+    <section class="panel alt" id="nbWrap">
+      <div class="panel-head"><h3>Best next buys</h3><span class="pmeta">in stock in your size, fit-checked</span></div>
+      <div class="pnote">Pieces that complete or unlock the most outfits, from your watch list and the deals radar.</div>
+      <div id="nbList"></div>
+    </section>
+    <div class="cards" id="cards"></div>
+    <section class="panel">
+      <div class="panel-head"><h3>What you own</h3><span class="pmeta">saved on this device · copy the link to use it on your phone</span></div>
+      <div class="pnote">Tick what's already in your wardrobe. Ticking a watch-list piece marks it bought.</div>
+    </section>
+    <div class="own-grid" id="ownGrid"></div>
+  </div>
 
-  <section class="panel" id="findsWrap" style="display:none">
-    <div class="panel-head"><h3>Deals radar</h3><span class="pmeta" id="findsMeta"></span></div>
-    <div class="pnote">Auto-scanned sale rails: in your size, on-palette, logo-free, 25%+ off. Not on the watch list yet.</div>
-    <div id="findsList"></div>
-  </section>
-
-  <div class="groups" id="groups"></div>
+  <!-- DEALS -->
+  <div id="tab-deals" hidden>
+    <section class="panel" id="findsWrap">
+      <div class="panel-head"><h3>Deals radar</h3><span class="pmeta" id="findsMeta"></span></div>
+      <div class="pnote">Auto-scanned sale rails: in your size, on-palette, logo-free, 25%+ off. Not on the watch list yet.</div>
+      <div id="findsList"></div>
+    </section>
+  </div>
 
   <footer class="foot">
-    <span>Checked ~3× daily by GitHub Actions · tick a piece to mark it bought on this device.</span>
+    <span>Checked ~3× daily by GitHub Actions · ticks are saved on this device.</span>
     <span><a href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener">updater status</a> · <a href="https://github.com/CyberSecDigestDaily/capsule/blob/main/items.json" target="_blank" rel="noopener">edit watch list</a></span>
   </footer>
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
 const ROLE={
@@ -207,25 +296,47 @@ const ROLE={
 };
 const ROLE_ORDER=["buy","sale","watch","check","out","error"];
 const TIER_ORDER={budget:0,mid:1,premium:2};
+const FIT_LABEL={good:"Fit ✓",check:"Check fit",avoid:"Off-brief cut"};
 
-const state={items:[],sizes:{},generated:null,history:{},finds:[],picks:[],
-  bought:load(),tiers:new Set(["budget","mid","premium"]),hideBought:false,role:null,
-  sort:"default",query:"",collapsed:{},showAllFinds:false};
+const state={items:[],sizes:{},generated:null,history:{},finds:[],picks:[],wardrobe:{staples:[],formulas:[],role_labels:{}},
+  bought:loadJSON("capsule-bought",{}),reach:loadNum("capsule-reach"),tiers:new Set(["budget","mid","premium"]),
+  hideBought:false,role:null,sort:"default",query:"",collapsed:{},showAllFinds:false,tab:"watch"};
 
-function load(){try{return JSON.parse(localStorage.getItem("capsule-bought")||"{}")}catch(e){return{}}}
-function saveBought(){try{localStorage.setItem("capsule-bought",JSON.stringify(state.bought))}catch(e){}}
+function loadJSON(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(e){return d}}
+function loadNum(k){try{const v=parseFloat(localStorage.getItem(k));return isNaN(v)?null:v}catch(e){return null}}
+function persist(){try{localStorage.setItem("capsule-bought",JSON.stringify(state.bought));
+  if(state.reach)localStorage.setItem("capsule-reach",String(state.reach));else localStorage.removeItem("capsule-reach");}catch(e){}}
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function safeUrl(u){return /^https?:\/\//i.test(String(u||""))?String(u):"#"}
 function money(n){if(n==null||isNaN(n))return"—";n=Number(n);return"£"+(Number.isInteger(n)?n:n.toFixed(2))}
 function daysSince(iso){if(!iso)return null;return Math.floor((Date.now()-new Date(iso+(iso.length===10?"T12:00:00Z":"")).getTime())/864e5)}
 function fmtDate(iso){return iso?new Date(iso+(iso.length===10?"T12:00:00Z":"")).toLocaleDateString("en-GB",{day:"numeric",month:"short"}):""}
-function isBought(it){return !!(it.bought||state.bought[it.id])}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("on"),2600)}
+
+/* ownership: watch-list items (bought in repo or ticked here) + staples (default from wardrobe.json, overridable) */
+function isBought(it){return !!(it.bought||state.bought[it.id]===true)}
+function stapleOwned(s){const v=state.bought[s.id];return v===undefined?!!s.owned:v===true}
+function ownedPieces(){return[...state.items.filter(isBought),...state.wardrobe.staples.filter(stapleOwned)]}
+
 function roleOf(it){
   if(isBought(it))return"bought";
   switch(it.signal){case"BUY":return"buy";case"SALE":return"sale";case"SOLD OUT":return"out";
     case"CHECK MANUALLY":return"check";case"LINK ERROR":return"error";default:return"watch";}
 }
 function live(it){return it.check==="shopify"&&it.signal!=="LINK ERROR"&&it.price!=null}
+
+/* fit: verdict + sleeve check against the user's reach */
+function fitInfo(it){
+  const f=it.fit;if(!f)return null;
+  let verdict=f.verdict||"check",extra="",ok=false;
+  const r=f.reach,sz=String(it.size||"").split("|")[0];
+  if(r&&r[sz]!=null&&state.reach){
+    const short=state.reach-r[sz];
+    if(short>1){extra=`≈${Math.round(short)}cm short in the sleeve at ${sz}`+(r.XL&&sz!=="XL"?`; XL reaches ${r.XL}cm`:"")+".";if(verdict==="good")verdict="check";}
+    else{extra=`Sleeves OK at ${sz} (≈${r[sz]}cm).`;ok=true;}
+  }
+  return{verdict,extra,ok,note:f.note||""};
+}
 
 function passesFilters(it){
   if(!state.tiers.has(it.tier))return false;
@@ -238,14 +349,16 @@ function passesFilters(it){
 
 function renderMeta(){
   const s=state.sizes||{};
-  document.getElementById("sizes").innerHTML=esc(["top "+(s.top||"L"),(s.waist||"W34")+" "+(s.leg||"L32"),"shoe "+(s.shoe||"UK 10")].join(" · "));
+  const parts=["top "+(s.top||"L"),(s.waist||"W34")+" "+(s.leg||"L32"),"shoe "+(s.shoe||"UK 10")];
+  if(state.reach)parts.push("reach "+state.reach+"cm");
+  document.getElementById("sizes").textContent=parts.join(" · ");
   const g=document.getElementById("gen");
   if(state.generated){
     const d=new Date(state.generated);
     g.textContent="updated "+d.toLocaleString("en-GB",{weekday:"short",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
-    const hrs=(Date.now()-d.getTime())/36e5, st=document.getElementById("stale");
-    if(hrs>36){st.style.display="block";
-      st.innerHTML=`Data is ${Math.round(hrs)} hours old — the updater may have stopped. <a href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener">Check its runs</a>.`;}
+    const hrs=(Date.now()-d.getTime())/36e5,st=document.getElementById("stale");
+    if(hrs>30){st.style.display="block";
+      st.innerHTML=`Data is ${Math.round(hrs)} hours old: the updater may have stopped. <a href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener">Check its runs</a>.`;}
   }
   let tgt=0,lv=0,n=0,buy=0;
   state.items.forEach(i=>{if(isBought(i)||!live(i))return;tgt+=Number(i.target)||0;lv+=Number(i.price)||0;n++;if(i.signal==="BUY")buy++;});
@@ -268,7 +381,7 @@ function renderChips(){
     b.className="chip"+(state.role===r?" on":"");
     b.style.borderTopColor=state.role===r?c.dot:"transparent";
     b.innerHTML=`<div><span class="cdot" style="background:${c.dot}"></span><span class="clabel">${c.label}</span></div><div class="cval">${counts[r]}</div>`;
-    b.onclick=()=>{state.role=state.role===r?null:r;renderAll();};
+    b.onclick=()=>{state.role=state.role===r?null:r;renderWatch();};
     el.appendChild(b);
   });
 }
@@ -300,16 +413,17 @@ function itemRow(it){
   let extra="";
   if(it.in_stock===false&&it.alt_sizes&&it.alt_sizes.length)
     extra=`<span class="ralt">in stock: ${esc(it.alt_sizes.map(s=>/^\d/.test(s)&&it.category==="Footwear"?"UK "+s:s).join(", "))}</span>`;
-  if(it.check!=="shopify"&&it.stale_days!=null)
-    extra=`<span class="ralt">last checked ${it.stale_days}d ago · not live</span>`;
+  if(it.check!=="shopify"&&it.stale_days!=null)extra=`<span class="ralt">last checked ${it.stale_days}d ago · not live</span>`;
   const soldOut=it.in_stock===false;
   const priceShown=it.signal==="LINK ERROR"?(it.last_seen_price??null):it.price;
-  let low="";
   const hist=(state.history[String(it.id)]||[]).filter(e=>e[1]!=null);
+  let low="";
   if(it.low!=null&&live(it)&&(hist.length>=3||it.low<it.price)){
     const ch=it.change?`<span class="${it.change<0?"chg-down":"chg-up"}">${it.change<0?"▼":"▲"}${money(Math.abs(it.change))}</span>`:"";
     low=`<div class="rlow">${ch}${spark(it.id,it.target)}<span>low ${money(it.low)}</span></div>`;
   }
+  const fi=fitInfo(it);
+  const fit=fi?`<div class="rfit"><span class="tag ${fi.verdict}">${FIT_LABEL[fi.verdict]||"Fit"}</span>${fi.extra?`<b class="${fi.ok?"okr":""}">${esc(fi.extra)}</b> `:""}${esc(fi.note)}</div>`:"";
   a.innerHTML=
     `<button class="chk${bought?" on":""}${locked?" locked":""}" title="${locked?"Marked bought in items.json":"Mark bought (this device)"}">${bought?"&#10003;":""}</button>`+
     `<div style="min-width:0">
@@ -320,6 +434,7 @@ function itemRow(it){
        </div>
        ${it.error?`<div class="rerr">${esc(it.error)}</div>`:""}
        ${it.note?`<div class="rnote">${esc(it.note)}</div>`:""}
+       ${fit}
      </div>`+
     `<div class="rprice-wrap">
        <div class="rprice-top">
@@ -333,7 +448,7 @@ function itemRow(it){
   a.querySelector(".chk").addEventListener("click",e=>{
     e.preventDefault();e.stopPropagation();if(locked)return;
     if(state.bought[it.id])delete state.bought[it.id];else state.bought[it.id]=true;
-    saveBought();renderAll();
+    persist();renderAll();
   });
   return a;
 }
@@ -361,38 +476,39 @@ function renderGroups(){
   });
   if(!any){
     const d=document.createElement("div");d.className="empty";
-    d.innerHTML=`Nothing matches — <a id="clr">clear filters</a>.`;wrap.appendChild(d);
+    d.innerHTML=`Nothing matches: <a id="clr">clear filters</a>.`;wrap.appendChild(d);
     d.querySelector("#clr").onclick=()=>{state.tiers=new Set(["budget","mid","premium"]);state.hideBought=false;state.role=null;state.query="";
-      document.getElementById("q").value="";syncPills();renderAll();};
+      document.getElementById("q").value="";syncPills();renderWatch();};
   }
 }
 
+function findRow(f){
+  const a=document.createElement("a");a.href=safeUrl(f.url);a.target="_blank";a.rel="noopener";a.className="find";
+  const isNew=(daysSince(f.first_seen)??9)<=2;
+  a.innerHTML=`<span class="fname">${esc(f.name)}</span>`+
+    `<span class="fprice"><span class="disc">−${esc(f.discount_pct)}%</span><b>${money(f.price)}</b>${f.was?`<span class="was">${money(f.was)}</span>`:""}</span>`+
+    `<span class="fsub">${isNew?`<span class="tag new">new</span>`:""}<span>${esc(f.store)}</span><span class="tag">${esc(f.category)}</span><span>${esc(f.size)} in stock</span>${f.tier&&f.tier!=="deal"?`<span class="tag">${esc(f.tier)}</span>`:""}</span>`;
+  return a;
+}
 function renderFinds(){
-  const wrap=document.getElementById("findsWrap"),list=document.getElementById("findsList");
-  if(!state.finds.length){wrap.style.display="none";return;}
-  wrap.style.display="block";list.innerHTML="";
+  const list=document.getElementById("findsList");list.innerHTML="";
+  if(!state.finds.length){list.innerHTML=`<div class="empty">No qualifying deals right now. The radar re-scans every run.</div>`;return;}
   const fresh=state.finds.filter(f=>(daysSince(f.first_seen)??9)<=2).length;
   document.getElementById("findsMeta").textContent=`${state.finds.length} live${fresh?` · ${fresh} new`:""}`;
-  const shown=state.showAllFinds?state.finds:state.finds.slice(0,6);
-  shown.forEach(f=>{
-    const a=document.createElement("a");a.href=safeUrl(f.url);a.target="_blank";a.rel="noopener";a.className="find";
-    const isNew=(daysSince(f.first_seen)??9)<=2;
-    a.innerHTML=`<span class="fname">${esc(f.name)}</span>`+
-      `<span class="fprice"><span class="disc">−${esc(f.discount_pct)}%</span><b>${money(f.price)}</b>${f.was?`<span class="was">${money(f.was)}</span>`:""}</span>`+
-      `<span class="fsub">${isNew?`<span class="tag new">new</span>`:""}<span>${esc(f.store)}</span><span class="tag">${esc(f.category)}</span><span>${esc(f.size)} in stock</span>${f.tier&&f.tier!=="deal"?`<span class="tag">${esc(f.tier)}</span>`:""}</span>`;
-    list.appendChild(a);
-  });
-  if(state.finds.length>6){const b=document.createElement("button");b.className="more";
+  const shown=state.showAllFinds?state.finds:state.finds.slice(0,10);
+  shown.forEach(f=>list.appendChild(findRow(f)));
+  if(state.finds.length>10){const b=document.createElement("button");b.className="more";
     b.textContent=state.showAllFinds?"Show fewer":`Show all ${state.finds.length} deals`;
     b.onclick=()=>{state.showAllFinds=!state.showAllFinds;renderFinds();};list.appendChild(b);}
 }
 
 function renderPicks(updated){
   const wrap=document.getElementById("picksWrap"),list=document.getElementById("picksList");
-  if(!state.picks.length){wrap.style.display="none";return;}
-  wrap.style.display="block";list.innerHTML="";
+  const picks=state.picks.filter(p=>!state.items.some(i=>isBought(i)&&i.url===p.url));
+  if(!picks.length){wrap.hidden=true;return;}
+  wrap.hidden=false;list.innerHTML="";
   document.getElementById("picksMeta").textContent=updated?`updated ${fmtDate(updated)}`:"";
-  state.picks.forEach(p=>{
+  picks.forEach(p=>{
     const a=document.createElement("a");a.href=safeUrl(p.url);a.target="_blank";a.rel="noopener";a.className="find";
     const price=p.price_now??p.price;
     const status=p.in_stock===true?`<span class="tag ok">${esc(p.size||"")} in stock</span>`:p.in_stock===false?`<span class="tag bad">sold out in ${esc(p.size||"your size")}</span>`:"";
@@ -404,28 +520,156 @@ function renderPicks(updated){
   });
 }
 
-function renderAll(){renderMeta();renderChips();renderGroups();}
+/* ---------------- outfits ---------------- */
+const RANK={BUY:0,DEAL:1,SALE:2,WATCHING:3};
+function candidates(){
+  const c=[];
+  state.items.forEach(i=>{
+    if(isBought(i)||!live(i)||!i.in_stock||!i.role)return;
+    const fi=fitInfo(i);if(fi&&fi.verdict==="avoid")return;
+    if(!(i.signal in RANK))return;
+    c.push({kind:"watch",role:i.role,name:i.name,url:i.url,price:i.price,rank:RANK[i.signal],fit:fi?fi.verdict:"check",label:ROLE[roleOf(i)].label,src:"watch list"});
+  });
+  state.finds.forEach(f=>{if(!f.role)return;
+    c.push({kind:"deal",role:f.role,name:f.name,url:f.url,price:f.price,rank:RANK.DEAL,fit:"check",label:`−${f.discount_pct}% deal`,src:f.store});});
+  return c.sort((a,b)=>(a.rank-b.rank)||((a.fit==="good"?0:1)-(b.fit==="good"?0:1))||(a.price-b.price));
+}
+function analyse(){
+  const own=ownedPieces(),cands=candidates();
+  const forms=(state.wardrobe.formulas||[]).map(f=>{
+    const slots=f.slots.map(s=>{
+      const mine=own.filter(p=>s.roles.includes(p.role));
+      const pick=mine.length?null:cands.find(c=>s.roles.includes(c.role))||null;
+      return{...s,mine,pick};
+    });
+    return{...f,slots,missing:slots.filter(s=>!s.mine.length)};
+  });
+  const done=forms.filter(f=>!f.missing.length).length;
+  // best next buys: which candidate completes / unlocks most
+  const scored=cands.map(c=>{
+    let fills=0;const completes=[],helps=[];
+    forms.forEach(f=>{const hit=f.missing.some(s=>s.roles.includes(c.role));
+      if(!hit)return;fills++;
+      if(f.missing.length===1)completes.push(f.name);else helps.push(f.name);});
+    return{...c,fills,completes,helps,score:completes.length*100+fills*10-c.rank*4-(c.fit==="good"?0:3)-c.price/40};
+  }).filter(c=>c.fills>0).sort((a,b)=>b.score-a.score);
+  const best=[],roles=new Set();
+  for(const c of scored){if(roles.has(c.role))continue;roles.add(c.role);best.push(c);if(best.length===3)break;}
+  return{forms,done,best};
+}
+function renderOutfits(){
+  const {forms,done,best}=analyse();
+  document.getElementById("oScore").innerHTML=`${done}<small>of ${forms.length}</small>`;
+  document.getElementById("tnOutfits").textContent=`${done}/${forms.length}`;
+  const nb=document.getElementById("nbList");nb.innerHTML="";
+  if(!best.length)nb.innerHTML=`<div class="empty" style="padding:18px">Every outfit is covered. Nice.</div>`;
+  best.forEach(c=>{
+    const a=document.createElement("a");a.href=safeUrl(c.url);a.target="_blank";a.rel="noopener";a.className="nb";
+    const why=c.completes.length?`Completes ${c.completes.join(" + ")}`+(c.helps.length?` · helps ${c.helps.join(", ")}`:""):`Fills a gap in ${c.helps.join(", ")}`;
+    a.innerHTML=`<span class="nbn">${esc(c.name)}</span><span class="nbp">${money(c.price)}</span>`+
+      `<span class="nbw">${esc(why)} · <span style="color:#9A8F72">${esc(c.label)} · ${esc(c.src)}${c.fit==="good"?" · fit ✓":""}</span></span>`;
+    nb.appendChild(a);
+  });
+  const cards=document.getElementById("cards");cards.innerHTML="";
+  forms.forEach(f=>{
+    const d=document.createElement("div");d.className="card"+(f.missing.length?"":" done");
+    const status=f.missing.length?`<span class="tag check">${f.missing.length} missing</span>`:`<span class="tag good">ready</span>`;
+    d.innerHTML=`<div class="card-h"><h4>${esc(f.name)}</h4>${status}</div><div class="card-w">${esc(f.when||"")}</div>`+
+      f.slots.map(s=>`<div class="slot"><div class="slot-l">${esc(s.label)}</div>`+
+        (s.mine.length?`<div class="slot-own">${esc(s.mine.map(p=>p.name).join(" / "))}</div>`
+          :`<div class="slot-miss">Missing${s.pick?`: <a href="${esc(safeUrl(s.pick.url))}" target="_blank" rel="noopener">${esc(s.pick.name)}</a><span class="sp">${money(s.pick.price)}</span><span class="ralt"> · ${esc(s.pick.label.toLowerCase())}</span>`:" (nothing in stock in your size yet)"}</div>`)+
+      `</div>`).join("");
+    cards.appendChild(d);
+  });
+  renderOwnGrid();
+}
+function renderOwnGrid(){
+  const g=document.getElementById("ownGrid");g.innerHTML="";
+  const labels=state.wardrobe.role_labels||{};
+  const used=new Set((state.wardrobe.formulas||[]).flatMap(f=>f.slots.flatMap(s=>s.roles)));
+  Object.keys(labels).filter(r=>used.has(r)||r==="cap").forEach(r=>{
+    const pieces=[...state.wardrobe.staples.filter(s=>s.role===r).map(s=>({id:s.id,name:s.name,own:stapleOwned(s),src:"staple",lock:false})),
+      ...state.items.filter(i=>i.role===r).map(i=>({id:i.id,name:i.name,own:isBought(i),src:"watch list",lock:!!i.bought}))];
+    if(!pieces.length)return;
+    const box=document.createElement("div");box.className="own-g";
+    box.innerHTML=`<h5>${esc(labels[r]||r)}</h5>`;
+    pieces.sort((a,b)=>(b.own-a.own)||(a.src==="staple"?-1:1)).forEach(p=>{
+      const row=document.createElement("div");row.className="own";
+      row.innerHTML=`<span class="chk${p.own?" on":""}${p.lock?" locked":""}">${p.own?"&#10003;":""}</span><span>${esc(p.name)}</span><span class="src">${p.src}</span>`;
+      row.onclick=()=>{if(p.lock)return;
+        if(p.src==="staple")state.bought[p.id]=!p.own;
+        else{if(p.own)delete state.bought[p.id];else state.bought[p.id]=true;}
+        persist();renderAll();};
+      box.appendChild(row);
+    });
+    g.appendChild(box);
+  });
+}
+function shareLink(){
+  const ids=[...state.items.filter(i=>!i.bought&&state.bought[i.id]===true).map(i=>i.id),
+             ...state.wardrobe.staples.filter(stapleOwned).map(s=>s.id)];
+  const url=location.origin+location.pathname+"#outfits&own="+(ids.join(",")||"none")+(state.reach?"&reach="+state.reach:"");
+  const done=()=>toast("Wardrobe link copied: open it on your phone");
+  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(url).then(done).catch(()=>prompt("Copy this link:",url));
+  else prompt("Copy this link:",url);
+}
+function importHash(){
+  const parts=location.hash.slice(1).split("&").filter(Boolean),kv={};let tab=null;
+  parts.forEach(p=>{const i=p.indexOf("=");if(i<0)tab=p;else kv[p.slice(0,i)]=decodeURIComponent(p.slice(i+1));});
+  if(kv.own!==undefined){
+    const ids=new Set(kv.own==="none"?[]:kv.own.split(",").map(s=>s.trim()).filter(Boolean));
+    state.bought={};
+    state.items.forEach(i=>{if(ids.has(String(i.id)))state.bought[i.id]=true;});
+    state.wardrobe.staples.forEach(s=>{const want=ids.has(s.id);if(want!==!!s.owned)state.bought[s.id]=want;});
+    if(kv.reach&&!isNaN(parseFloat(kv.reach)))state.reach=parseFloat(kv.reach);
+    persist();toast("Wardrobe loaded from link");
+    history.replaceState(null,"",location.pathname+"#"+(tab||"outfits"));
+  }
+  if(tab&&["watch","outfits","deals"].includes(tab))state.tab=tab;
+}
+
+/* ---------------- tabs + render ---------------- */
+function showTab(t){
+  state.tab=t;
+  ["watch","outfits","deals"].forEach(x=>{document.getElementById("tab-"+x).hidden=x!==t;});
+  document.querySelectorAll(".tab").forEach(b=>{b.classList.toggle("on",b.dataset.tab===t);b.setAttribute("aria-selected",b.dataset.tab===t);});
+  if(location.hash.slice(1)!==t)history.replaceState(null,"",location.pathname+(t==="watch"?"":"#"+t));
+}
+function renderWatch(){renderMeta();renderChips();renderGroups();}
+function renderAll(){
+  renderWatch();renderOutfits();renderPicks(state.picksUpdated);
+  document.getElementById("tnWatch").textContent=state.items.length;
+  document.getElementById("tnDeals").textContent=state.finds.length;
+  document.getElementById("reachIn").value=state.reach??"";
+}
 function syncPills(){
   document.querySelectorAll(".pill[data-tier]").forEach(p=>p.classList.toggle("on",state.tiers.has(p.dataset.tier)));
   document.querySelector(".pill[data-hide]").classList.toggle("on",state.hideBought);
   document.querySelectorAll(".pill[data-sort]").forEach(p=>p.classList.toggle("on",p.dataset.sort===state.sort));
 }
-document.querySelectorAll(".pill[data-tier]").forEach(p=>p.onclick=()=>{const t=p.dataset.tier;state.tiers.has(t)?state.tiers.delete(t):state.tiers.add(t);syncPills();renderAll();});
-document.querySelector(".pill[data-hide]").onclick=()=>{state.hideBought=!state.hideBought;syncPills();renderAll();};
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{showTab(b.dataset.tab);window.scrollTo({top:document.querySelector("nav.tabs").offsetTop,behavior:"smooth"});});
+document.querySelectorAll(".pill[data-tier]").forEach(p=>p.onclick=()=>{const t=p.dataset.tier;state.tiers.has(t)?state.tiers.delete(t):state.tiers.add(t);syncPills();renderWatch();});
+document.querySelector(".pill[data-hide]").onclick=()=>{state.hideBought=!state.hideBought;syncPills();renderWatch();};
 document.querySelectorAll(".pill[data-sort]").forEach(p=>p.onclick=()=>{state.sort=p.dataset.sort;syncPills();renderGroups();});
 document.getElementById("q").addEventListener("input",e=>{state.query=e.target.value.trim();renderGroups();});
+document.getElementById("reachIn").addEventListener("change",e=>{const v=parseFloat(e.target.value);
+  state.reach=(!isNaN(v)&&v>=70&&v<=110)?v:null;persist();renderAll();toast(state.reach?`Sleeve reach set to ${state.reach}cm`:"Sleeve reach cleared");});
+document.getElementById("reachHow").onclick=()=>{const h=document.getElementById("howto");h.hidden=!h.hidden;};
+document.getElementById("shareBtn").onclick=shareLink;
+window.addEventListener("hashchange",()=>{const t=location.hash.slice(1).split("&")[0];if(["watch","outfits","deals"].includes(t)&&t!==state.tab)showTab(t);});
 
 const bust="?"+Date.now();
 Promise.all([
   fetch("data.json"+bust).then(r=>r.json()),
-  fetch("history.json"+bust).then(r=>r.ok?r.json():{}).catch(()=>({}))
-]).then(([d,h])=>{
-  state.items=d.items||[];state.sizes=d.sizes||{};state.generated=d.generated||null;state.history=h||{};renderAll();
-}).catch(()=>{document.getElementById("gen").textContent="data unavailable";});
-fetch("finds.json"+bust).then(r=>r.ok?r.json():null).then(f=>{
-  if(!f)return;state.finds=Array.isArray(f.finds)?f.finds:[];state.picks=Array.isArray(f.picks)?f.picks:[];
-  renderPicks(f.picks_updated);renderFinds();
-}).catch(()=>{});
+  fetch("history.json"+bust).then(r=>r.ok?r.json():{}).catch(()=>({})),
+  fetch("finds.json"+bust).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([d,h,f])=>{
+  state.items=d.items||[];state.sizes=d.sizes||{};state.generated=d.generated||null;state.history=h||{};
+  state.wardrobe=Object.assign({staples:[],formulas:[],role_labels:{}},d.wardrobe||{});
+  if(state.reach==null&&state.sizes.reach_cm)state.reach=state.sizes.reach_cm;
+  if(f){state.finds=Array.isArray(f.finds)?f.finds:[];state.picks=Array.isArray(f.picks)?f.picks:[];state.picksUpdated=f.picks_updated;}
+  importHash();renderAll();renderFinds();showTab(state.tab);
+}).catch(e=>{document.getElementById("gen").textContent="data unavailable";console.error(e);});
 </script>
 </body>
 </html>

@@ -7,11 +7,14 @@ Inputs (repo root)
   items.json   the watch list. Add/remove pieces, set targets, mark "bought": true.
   finder.json  rules for the deal finder (stores to scan, palette, size, price caps).
   picks.json   optional hand-curated picks (Claude's weekly review writes this).
+  wardrobe.json outfit formulas + staples for the site's Outfits tab (embedded in data.json).
 Outputs (docs/, served by GitHub Pages)
   data.json    watch list with live price, stock in YOUR size, signal, low, trend.
   history.json daily price/stock per item (lows + sparklines on the site).
   finds.json   auto-found deals + verified curated picks.
 Optional env DISCORD_WEBHOOK: posts new BUY signals, restocks, price drops, new deals.
+Optional env SKIP_IF_FRESH_HOURS: exit early when data is newer than this (used for GitHub's
+fallback schedule once the Cloudflare cron is dispatching on time).
 """
 import datetime as dt
 import json
@@ -258,6 +261,30 @@ def trend(series):
 
 
 # -------------------------------------------------------------- deal finder
+ROLE_RULES = [
+    ("boot", r"chelsea|boot"), ("wallabee", r"wallabee"),
+    ("overshirt", r"overshirt|shirt jacket|shacket"), ("cardigan", r"cardigan"), ("fleece", r"fleece"),
+    ("jacket", r"jacket|coat|parka|blouson|harrington|bomber|m-?65"),
+    ("tee", r"t-shirt|\btee\b|henley"),
+    ("knit", r"jumper|sweater|knit|lambswool|merino|roll ?neck"), ("sweat", r"sweat|hoodie|hooded"),
+    ("jeans", r"\bjeans?\b|denim"),
+    ("trouser", r"pleat|trouser"), ("chino", r"chino|pant|cord|fatigue"),
+]
+
+
+def infer_role(title, category):
+    t = (title or "").lower()
+    if category == "Footwear":
+        for role, rx in ROLE_RULES[:2]:
+            if re.search(rx, t):
+                return role
+        return "trainer"
+    for role, rx in ROLE_RULES[2:]:
+        if re.search(rx, t):
+            return role
+    return None
+
+
 def words_in(text, words):
     return [w for w in words if re.search(r"(?<![a-z])" + re.escape(w) + r"(?![a-z])", text)]
 
@@ -326,6 +353,7 @@ def run_finder(cfg, watched_handles, prev_finds):
                     "url": f"https://{store}/products/{p['handle']}", "category": cat["name"],
                     "price": price, "was": res["was"], "discount_pct": disc,
                     "size": cat["size"].split("|")[0], "colour": pal[0], "tier": tier, "score": round(score, 1),
+                    "role": infer_role(p.get("title"), cat["name"]),
                     "why": f"{disc}% off at {label} · {cat['size'].split('|')[0]} in stock · {pal[0]} · {cat['name'].lower()}",
                 }
                 # one entry per product line: same model in another colour (same store) or same title elsewhere
@@ -404,6 +432,14 @@ def main():
     prev_by_id = {str(i.get("id")): i for i in prev.get("items", [])}
     prev_finds = load(DOCS / "finds.json", {"finds": []})
     hist = load(DOCS / "history.json", {})
+    wardrobe = load(ROOT / "wardrobe.json", {})
+
+    skip_h = os.environ.get("SKIP_IF_FRESH_HOURS", "").strip()
+    if skip_h and prev.get("generated"):
+        age = (NOW - dt.datetime.fromisoformat(prev["generated"].replace("Z", "+00:00"))).total_seconds() / 3600
+        if age < float(skip_h):
+            print(f"Data is {age:.1f}h old (< {skip_h}h): skipping this fallback run.")
+            return
 
     results, errors, checked = [], 0, 0
     for item in cfg["items"]:
@@ -466,7 +502,7 @@ def main():
     for r in results:
         counts[r["signal"]] = counts.get(r["signal"], 0) + 1
     save(DOCS / "data.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "sizes": cfg.get("sizes", {}),
-                              "errors": errors, "counts": counts, "items": results})
+                              "errors": errors, "counts": counts, "items": results, "wardrobe": wardrobe})
     save(DOCS / "history.json", hist, compact=True)
     save(DOCS / "finds.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "finds": finds,
                                "picks": picked, "picks_updated": picks.get("updated"), "errors": finder_errors})

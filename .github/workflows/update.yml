@@ -2,15 +2,16 @@ name: Daily capsule price check
 
 on:
   schedule:
-    # GitHub runs scheduled jobs late under load (this repo saw 5-7h delays), so three
-    # off-the-hour slots guarantee fresh data by breakfast and catch restocks during the day.
+    # Fallback only. The on-time trigger is the Cloudflare Worker in cloudflare/ (07:15, 13:15,
+    # 19:15 UK), which calls workflow_dispatch. GitHub's own cron often fires hours late, so these
+    # runs exit early when the data is under 4 hours old (SKIP_IF_FRESH_HOURS below).
     - cron: "23 5 * * *"
     - cron: "23 11 * * *"
     - cron: "23 17 * * *"
   push:
     branches: [main]
     # Editing the watch list / rules re-checks immediately. Data commits (docs/) don't retrigger.
-    paths: ["items.json", "finder.json", "picks.json", "scraper.py", ".github/workflows/update.yml"]
+    paths: ["items.json", "finder.json", "picks.json", "wardrobe.json", "scraper.py", ".github/workflows/update.yml"]
   workflow_dispatch: # manual "Run workflow" button
 
 concurrency:
@@ -33,6 +34,7 @@ jobs:
       - name: Check prices, stock and deals
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          SKIP_IF_FRESH_HOURS: ${{ github.event_name == 'schedule' && '4' || '' }}
         run: python scraper.py
 
       - name: Commit updated data

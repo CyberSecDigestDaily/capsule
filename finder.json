@@ -123,7 +123,9 @@
   "wide fit",
   "balloon",
   "drop shoulder",
-  "drop-shoulder"
+  "drop-shoulder",
+  "cropped",
+  "crop"
  ],
  "exclude_brands": [
   "stone island",
