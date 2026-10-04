@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-04T06:15:17.391310Z",
+ "generated": "2026-10-04T10:04:37.978075Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -11,9 +11,9 @@
  },
  "errors": 0,
  "counts": {
-  "WATCHING": 29,
-  "SOLD OUT": 10,
-  "SALE": 2,
+  "WATCHING": 30,
+  "SOLD OUT": 8,
+  "SALE": 3,
   "BUY": 7
  },
  "items": [
@@ -407,36 +407,37 @@
    "id": 13,
    "category": "Mid-layers & Knits",
    "role": "sweat",
-   "tier": "mid",
+   "tier": "budget",
    "brand": "Community Clothing",
-   "name": "Heritage Sweatshirt, grey",
-   "url": "https://communityclothing.co.uk/products/mens-heritage-sweatshirt-grey",
+   "name": "Long Fit Raglan Sweatshirt, navy",
+   "url": "https://communityclothing.co.uk/products/mens-long-fit-raglan-sweatshirt-pf-navy",
    "check": "shopify",
    "size": "L",
-   "target": 56,
-   "note": "Heavy 470g loopback.",
+   "target": 45,
+   "note": "Replaces the drop-shoulder Heritage Sweatshirt. £52 (was £65).",
    "fit": {
-    "verdict": "avoid",
-    "note": "Drop-shoulder cut in heavy 470g cotton: the boxy shape your brief rules out, and it adds bulk at the middle."
+    "verdict": "good",
+    "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it covers the midsection without bagging. 335g organic loopback; wash cool (up to 4% shrink)."
    },
    "checked": "2026-10-04",
    "store": "Community Clothing",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Mens_Heritage-Sweatshirt_Grey_Thigh-Up-Front-4.jpg?v=1709914034",
-   "price": 70.0,
-   "was": null,
-   "discount_pct": 0,
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Raglan-Sweatshirt-Long-Fit_Navy_Thigh-Up-Front_Community-Clothing-2.jpg?v=1782718389",
+   "price": 52.0,
+   "was": 65.0,
+   "discount_pct": 20,
    "in_stock": true,
    "alt_sizes": [
     "XS",
     "S",
     "M",
     "XL",
-    "XXL"
+    "XXL",
+    "3XL"
    ],
-   "signal": "WATCHING",
-   "low": 70.0,
-   "low_date": "2026-07-11",
-   "change": 0.0
+   "signal": "SALE",
+   "low": 52.0,
+   "low_date": "2026-10-04",
+   "change": -18.0
   },
   {
    "id": 14,
@@ -1035,36 +1036,32 @@
    "id": 31,
    "category": "Chinos & Trousers",
    "role": "trouser",
-   "tier": "premium",
-   "brand": "Universal Works",
-   "name": "Double Pleat Pant, light olive",
-   "url": "https://universalworks.com/products/universal-works-double-pleat-pant-in-light-olive-twill",
+   "tier": "mid",
+   "brand": "FrizmWORKS",
+   "name": "OG Haworth One Tuck Pant, navy",
+   "url": "https://urbanindustry.co.uk/products/frizmworks-og-haworth-one-tuck-pant-navy",
    "check": "shopify",
-   "size": "34",
-   "target": 115,
+   "size": "L",
+   "target": 70,
    "fit": {
-    "verdict": "avoid",
-    "note": "Wide leg (24cm hem at 34) and loose thigh: wider than the slightly tapered line in your brief."
+    "verdict": "check",
+    "note": "Single pleat, relaxed through the seat and tapered to the hem: the smart-trouser line in the brief. 100% cotton high-density chino with no stretch, and letter sizing, so check the waist and inseam against the size chart."
    },
+   "note": "Replaces the wide-leg UW Double Pleat Pant. Korean S-XL sizing: L is roughly a 33-34in waist.",
    "checked": "2026-10-04",
-   "store": "Universal Works",
-   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/00133_twill-light-olive_1.jpg?v=1786464658",
-   "price": 150.0,
+   "store": "Urban Industry",
+   "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/FrizmWORKS_OGHaworthOneTuckPant_Navy_01.jpg?v=1742907823",
+   "price": 89.95,
    "was": null,
    "discount_pct": 0,
-   "in_stock": false,
+   "in_stock": true,
    "alt_sizes": [
-    "26",
-    "28",
-    "30",
-    "32",
-    "36",
-    "38"
+    "M"
    ],
-   "signal": "SOLD OUT",
-   "low": 150.0,
-   "low_date": "2026-07-11",
-   "change": 0.0
+   "signal": "WATCHING",
+   "low": 89.95,
+   "low_date": "2026-10-04",
+   "change": -60.05
   },
   {
    "id": 32,
@@ -1330,11 +1327,11 @@
    },
    "checked": "2026-10-04",
    "store": "Footpatrol",
-   "image": "https://cdn.shopify.com/s/files/1/0921/0914/4387/files/fp_815273_a.jpg?v=1791065882",
+   "image": "https://cdn.shopify.com/s/files/1/0921/0914/4387/files/fp_815273_a_ef16b8a0-11af-4e18-97d3-e626d8afd9bf.jpg?v=1791101863",
    "price": 135.0,
    "was": null,
    "discount_pct": 0,
-   "in_stock": false,
+   "in_stock": true,
    "alt_sizes": [
     "6.5",
     "7",
@@ -1343,7 +1340,7 @@
     "8.5",
     "9"
    ],
-   "signal": "SOLD OUT",
+   "signal": "WATCHING",
    "low": 135.0,
    "low_date": "2026-10-03",
    "change": 0.0
