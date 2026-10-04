@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-03T18:15:15.947499Z",
+ "generated": "2026-10-04T06:15:17.391310Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -135,23 +135,23 @@
    "why": "60% off at Goodhood · L in stock · olive · jackets & overshirts"
   },
   {
-   "key": "folkclothing.com/folk-drawcord-assembly-pant-mid-blue-moleskin",
-   "first_seen": "2026-10-03",
+   "key": "folkclothing.com/folk-drawcord-assembly-pant-ink-blue-moleskin",
+   "first_seen": "2026-10-04",
    "store": "Folk",
    "brand": "Folk",
-   "name": "Drawcord Assembly Pant, Mid Blue Moleskin",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/FOLK-DRAWCORDASSEMBLYPANT-MIDBLUEMOLESKIN1114.jpg?v=1762801818",
-   "url": "https://folkclothing.com/products/folk-drawcord-assembly-pant-mid-blue-moleskin",
+   "name": "Drawcord Assembly Pant, Ink Blue Moleskin",
+   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/FOLK-DRAWCORDASSEMBLYPANT-INKBLUEMOLESKIN1_83e9cb61-efcc-455d-a93a-878aba3e56a2.jpg?v=1762811391",
+   "url": "https://folkclothing.com/products/folk-drawcord-assembly-pant-ink-blue-moleskin",
    "category": "Chinos & Trousers",
    "price": 75.0,
    "was": 155.0,
    "discount_pct": 52,
    "size": "W34 L32",
-   "colour": "mid blue",
+   "colour": "ink",
    "tier": "deal",
    "score": 55.3,
    "role": "chino",
-   "why": "52% off at Folk · W34 L32 in stock · mid blue · chinos & trousers"
+   "why": "52% off at Folk · W34 L32 in stock · ink · chinos & trousers"
   },
   {
    "key": "jeanstore.co.uk/stan-ray-og-hoodie-washed-navy",
@@ -323,7 +323,7 @@
    "in_stock": true,
    "discount_pct": 57,
    "was": 280.0,
-   "verified": "2026-10-03"
+   "verified": "2026-10-04"
   },
   {
    "date": "2026-10-03",
@@ -340,7 +340,7 @@
    "in_stock": true,
    "discount_pct": 70,
    "was": 140.0,
-   "verified": "2026-10-03"
+   "verified": "2026-10-04"
   },
   {
    "date": "2026-10-03",
@@ -357,7 +357,7 @@
    "in_stock": true,
    "discount_pct": 50,
    "was": 119.0,
-   "verified": "2026-10-03"
+   "verified": "2026-10-04"
   }
  ],
  "picks_updated": "2026-10-03",
