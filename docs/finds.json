@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-04T12:15:59.847937Z",
+ "generated": "2026-10-04T18:15:58.829929Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -19,6 +19,25 @@
    "score": 76.0,
    "role": "jacket",
    "why": "70% off at Community Clothing · L in stock · putty · jackets & overshirts"
+  },
+  {
+   "key": "communityclothing.co.uk/mens-relaxed-chinos-moss",
+   "first_seen": "2026-10-04",
+   "store": "Community Clothing",
+   "brand": "Community Clothing",
+   "name": "Relaxed Chinos, Moss",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Relaxed-Chino_Moss_Full-Body-Side.jpg?v=1705686011",
+   "url": "https://communityclothing.co.uk/products/mens-relaxed-chinos-moss",
+   "category": "Chinos & Trousers",
+   "price": 37.5,
+   "was": 125.0,
+   "discount_pct": 70,
+   "size": "W34 L32",
+   "colour": "moss",
+   "tier": "deal",
+   "score": 75.7,
+   "role": "chino",
+   "why": "70% off at Community Clothing · W34 L32 in stock · moss · chinos & trousers"
   },
   {
    "key": "goodhoodstore.com/clarks-originals-wallabee-brown-interest",
@@ -152,25 +171,6 @@
    "score": 53.9,
    "role": "trouser",
    "why": "50% off at Community Clothing · W34 L32 in stock · putty · chinos & trousers"
-  },
-  {
-   "key": "folkclothing.com/5-pocket-trouser-sage-cord",
-   "first_seen": "2026-10-03",
-   "store": "Folk",
-   "brand": "Folk",
-   "name": "5 Pocket Trouser, Sage Cord",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/FOLK5PocketTrouser-SageCord-089.jpg?v=1774368198",
-   "url": "https://folkclothing.com/products/5-pocket-trouser-sage-cord",
-   "category": "Chinos & Trousers",
-   "price": 70.0,
-   "was": 140.0,
-   "discount_pct": 50,
-   "size": "W34 L32",
-   "colour": "sage",
-   "tier": "deal",
-   "score": 53.6,
-   "role": "trouser",
-   "why": "50% off at Folk · W34 L32 in stock · sage · chinos & trousers"
   },
   {
    "key": "goodhoodstore.com/snow-peak-recycled-cotton-hoodie-oatmeal",
