@@ -211,17 +211,17 @@
    "id": 13,
    "category": "Mid-layers & Knits",
    "role": "sweat",
-   "tier": "mid",
+   "tier": "budget",
    "brand": "Community Clothing",
-   "name": "Heritage Sweatshirt, grey",
-   "url": "https://communityclothing.co.uk/products/mens-heritage-sweatshirt-grey",
+   "name": "Long Fit Raglan Sweatshirt, navy",
+   "url": "https://communityclothing.co.uk/products/mens-long-fit-raglan-sweatshirt-pf-navy",
    "check": "shopify",
    "size": "L",
-   "target": 56,
-   "note": "Heavy 470g loopback.",
+   "target": 45,
+   "note": "Replaces the drop-shoulder Heritage Sweatshirt. £52 (was £65).",
    "fit": {
-    "verdict": "avoid",
-    "note": "Drop-shoulder cut in heavy 470g cotton: the boxy shape your brief rules out, and it adds bulk at the middle."
+    "verdict": "good",
+    "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it covers the midsection without bagging. 335g organic loopback; wash cool (up to 4% shrink)."
    }
   },
   {
@@ -509,17 +509,18 @@
    "id": 31,
    "category": "Chinos & Trousers",
    "role": "trouser",
-   "tier": "premium",
-   "brand": "Universal Works",
-   "name": "Double Pleat Pant, light olive",
-   "url": "https://universalworks.com/products/universal-works-double-pleat-pant-in-light-olive-twill",
+   "tier": "mid",
+   "brand": "FrizmWORKS",
+   "name": "OG Haworth One Tuck Pant, navy",
+   "url": "https://urbanindustry.co.uk/products/frizmworks-og-haworth-one-tuck-pant-navy",
    "check": "shopify",
-   "size": "34",
-   "target": 115,
+   "size": "L",
+   "target": 70,
    "fit": {
-    "verdict": "avoid",
-    "note": "Wide leg (24cm hem at 34) and loose thigh: wider than the slightly tapered line in your brief."
-   }
+    "verdict": "check",
+    "note": "Single pleat, relaxed through the seat and tapered to the hem: the smart-trouser line in the brief. 100% cotton high-density chino with no stretch, and letter sizing, so check the waist and inseam against the size chart."
+   },
+   "note": "Replaces the wide-leg UW Double Pleat Pant. Korean S-XL sizing: L is roughly a 33-34in waist."
   },
   {
    "id": 32,
