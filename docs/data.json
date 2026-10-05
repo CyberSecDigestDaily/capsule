@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-05T12:15:53.788607Z",
+ "generated": "2026-10-05T18:15:59.992509Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1196,8 +1196,8 @@
     "7",
     "7.5",
     "8",
-    "8.5",
-    "9"
+    "9",
+    "9.5"
    ],
    "signal": "WATCHING",
    "low": 84.95,
@@ -1635,7 +1635,6 @@
    "image": "https://cdn.shopify.com/s/files/1/0572/6086/7740/files/TGZOG93_multi.jpg?v=1769597476",
    "signal": "LINK ERROR",
    "error": "HTTP Error 404: Not Found",
-   "last_seen_price": 24.0,
    "low": 24.0,
    "low_date": "2026-07-11",
    "change": 0.0

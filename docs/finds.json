@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-05T12:15:53.788607Z",
+ "generated": "2026-10-05T18:15:59.992509Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -116,42 +116,23 @@
    "why": "52% off at Folk · W34 L32 in stock · mid blue · chinos & trousers"
   },
   {
-   "key": "uskees.co.uk/5016-khaki-twill-commuter-pants",
+   "key": "communityclothing.co.uk/mens-cotton-pleated-chino-stone",
    "first_seen": "2026-10-05",
-   "store": "Uskees",
-   "brand": "Uskees",
-   "name": "5016 Twill commuter pants, khaki",
-   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/5016-khaki-twill-commuter-pants-front.jpg?v=1772133239",
-   "url": "https://uskees.co.uk/products/5016-khaki-twill-commuter-pants",
-   "category": "Chinos & Trousers",
-   "price": 47.5,
-   "was": 95.0,
-   "discount_pct": 50,
-   "size": "W34 L32",
-   "colour": "khaki",
-   "tier": "deal",
-   "score": 55.0,
-   "role": "chino",
-   "why": "50% off at Uskees · W34 L32 in stock · khaki · chinos & trousers"
-  },
-  {
-   "key": "communityclothing.co.uk/mens-cotton-pleated-chino-navy",
-   "first_seen": "2026-10-03",
    "store": "Community Clothing",
    "brand": "Community Clothing",
-   "name": "Pleated Lightweight 100% Cotton Twill Chinos, Dark Navy",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Mens_Pleated-Cotton-Chino_Navy_Chest-Down-Front-3.jpg?v=1760951839",
-   "url": "https://communityclothing.co.uk/products/mens-cotton-pleated-chino-navy",
+   "name": "Pleated Lightweight 100% Cotton Twill Chinos, Stone",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Pleated-Chino_Stone_Full-Body-Side.jpg?v=1705681500",
+   "url": "https://communityclothing.co.uk/products/mens-cotton-pleated-chino-stone",
    "category": "Chinos & Trousers",
    "price": 59.5,
    "was": 119.0,
    "discount_pct": 50,
    "size": "W34 L32",
-   "colour": "navy",
+   "colour": "stone",
    "tier": "deal",
    "score": 54.3,
    "role": "trouser",
-   "why": "50% off at Community Clothing · W34 L32 in stock · navy · chinos & trousers"
+   "why": "50% off at Community Clothing · W34 L32 in stock · stone · chinos & trousers"
   },
   {
    "key": "communityclothing.co.uk/mens-combat-trouser-putty",
@@ -171,6 +152,25 @@
    "score": 53.9,
    "role": "trouser",
    "why": "50% off at Community Clothing · W34 L32 in stock · putty · chinos & trousers"
+  },
+  {
+   "key": "folkclothing.com/5-pocket-trouser-sage-cord",
+   "first_seen": "2026-10-05",
+   "store": "Folk",
+   "brand": "Folk",
+   "name": "5 Pocket Trouser, Sage Cord",
+   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/FOLK5PocketTrouser-SageCord-089.jpg?v=1774368198",
+   "url": "https://folkclothing.com/products/5-pocket-trouser-sage-cord",
+   "category": "Chinos & Trousers",
+   "price": 70.0,
+   "was": 140.0,
+   "discount_pct": 50,
+   "size": "W34 L32",
+   "colour": "sage",
+   "tier": "deal",
+   "score": 53.6,
+   "role": "trouser",
+   "why": "50% off at Folk · W34 L32 in stock · sage · chinos & trousers"
   },
   {
    "key": "goodhoodstore.com/snow-peak-recycled-cotton-hoodie-oatmeal",
