@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-05T06:15:55.816655Z",
+ "generated": "2026-10-05T12:15:53.788607Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -9,12 +9,13 @@
   "shoe": "UK 10",
   "reach_cm": null
  },
- "errors": 0,
+ "errors": 1,
  "counts": {
-  "WATCHING": 30,
-  "SOLD OUT": 8,
+  "WATCHING": 29,
+  "SOLD OUT": 9,
   "SALE": 3,
-  "BUY": 7
+  "BUY": 6,
+  "LINK ERROR": 1
  },
  "items": [
   {
@@ -1327,11 +1328,11 @@
    },
    "checked": "2026-10-05",
    "store": "Footpatrol",
-   "image": "https://cdn.shopify.com/s/files/1/0921/0914/4387/files/fp_815273_a.jpg?v=1791152278",
+   "image": "https://cdn.shopify.com/s/files/1/0921/0914/4387/files/fp_815273_a_fdb6ed3b-b760-46d0-b5f2-903cb8d30850.jpg?v=1791188302",
    "price": 135.0,
    "was": null,
    "discount_pct": 0,
-   "in_stock": true,
+   "in_stock": false,
    "alt_sizes": [
     "6.5",
     "7",
@@ -1340,7 +1341,7 @@
     "8.5",
     "9"
    ],
-   "signal": "WATCHING",
+   "signal": "SOLD OUT",
    "low": 135.0,
    "low_date": "2026-10-03",
    "change": 0.0
@@ -1632,14 +1633,9 @@
    "checked": "2026-10-05",
    "store": "French Connection",
    "image": "https://cdn.shopify.com/s/files/1/0572/6086/7740/files/TGZOG93_multi.jpg?v=1769597476",
-   "price": 24.0,
-   "was": 47.0,
-   "discount_pct": 49,
-   "in_stock": true,
-   "alt_sizes": [
-    "S"
-   ],
-   "signal": "BUY",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 404: Not Found",
+   "last_seen_price": 24.0,
    "low": 24.0,
    "low_date": "2026-07-11",
    "change": 0.0
