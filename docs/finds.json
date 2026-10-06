@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-05T23:11:06.842696Z",
+ "generated": "2026-10-06T06:15:51.196479Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -19,25 +19,6 @@
    "score": 76.0,
    "role": "jacket",
    "why": "70% off at Community Clothing · L in stock · putty · jackets & overshirts"
-  },
-  {
-   "key": "communityclothing.co.uk/mens-joe-denim-jacket-indigo",
-   "first_seen": "2026-10-05",
-   "store": "Community Clothing",
-   "brand": "Community Clothing",
-   "name": "Joe Denim Jacket, Indigo",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Joe-Denim-Jacket_Inidgo_Thigh-Up-Side.jpg?v=1715329864",
-   "url": "https://communityclothing.co.uk/products/mens-joe-denim-jacket-indigo",
-   "category": "Jackets & Overshirts",
-   "price": 44.7,
-   "was": 149.0,
-   "discount_pct": 70,
-   "size": "L",
-   "colour": "indigo",
-   "tier": "deal",
-   "score": 75.9,
-   "role": "jacket",
-   "why": "70% off at Community Clothing · L in stock · indigo · jackets & overshirts"
   },
   {
    "key": "goodhoodstore.com/clarks-originals-wallabee-brown-interest",
@@ -95,6 +76,25 @@
    "score": 62.8,
    "role": "jacket",
    "why": "59% off at Stuarts London · L in stock · brown · jackets & overshirts"
+  },
+  {
+   "key": "folkclothing.com/zaki-jacket-ecru-waffle-check",
+   "first_seen": "2026-10-06",
+   "store": "Folk",
+   "brand": "Folk",
+   "name": "Zaki Jacket, Ecru Waffle Check",
+   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/SS25Flats2-637.jpg?v=1763571222",
+   "url": "https://folkclothing.com/products/zaki-jacket-ecru-waffle-check",
+   "category": "Jackets & Overshirts",
+   "price": 100.0,
+   "was": 230.0,
+   "discount_pct": 57,
+   "size": "L",
+   "colour": "ecru",
+   "tier": "deal",
+   "score": 60.2,
+   "role": "jacket",
+   "why": "57% off at Folk · L in stock · ecru · jackets & overshirts"
   },
   {
    "key": "folkclothing.com/folk-drawcord-assembly-pant-mid-blue-moleskin",
@@ -322,7 +322,7 @@
    "in_stock": true,
    "discount_pct": 60,
    "was": 165.0,
-   "verified": "2026-10-05"
+   "verified": "2026-10-06"
   },
   {
    "date": "2026-10-04",
@@ -339,7 +339,7 @@
    "in_stock": true,
    "discount_pct": 70,
    "was": 140.0,
-   "verified": "2026-10-05"
+   "verified": "2026-10-06"
   },
   {
    "date": "2026-10-04",
@@ -357,7 +357,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-05"
+   "verified": "2026-10-06"
   }
  ],
  "picks_updated": "2026-10-04",
