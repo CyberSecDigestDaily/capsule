@@ -802,15 +802,17 @@
    "category": "Socks & Boxers",
    "role": "underwear",
    "tier": "budget",
-   "brand": "French Connection",
-   "name": "Boxers, 7-pack",
-   "url": "https://www.frenchconnection.com/products/7-pack-fcuk-boxers-fcuk14",
-   "check": "shopify",
+   "brand": "Uniqlo",
+   "name": "Cotton Boxer Briefs (Regular Rise), navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E464311-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 24,
+   "variant": "Navy",
+   "target": 7,
+   "note": "Replaces the French Connection 7-pack (product page gone). Logo-free; buy several.",
    "fit": {
     "verdict": "good",
-    "note": "Regular fit, stretch cotton. Branded waistband, hidden under clothes."
+    "note": "Regular rise in soft cotton jersey with odour control; Uniqlo underwear runs true to size. Plain waistband, no branding."
    }
   },
   {
