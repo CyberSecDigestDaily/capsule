@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-06T06:15:51.196479Z",
+ "generated": "2026-10-06T08:22:01.637468Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -9,13 +9,12 @@
   "shoe": "UK 10",
   "reach_cm": null
  },
- "errors": 1,
+ "errors": 0,
  "counts": {
-  "WATCHING": 29,
+  "WATCHING": 30,
   "SOLD OUT": 9,
   "SALE": 3,
-  "BUY": 6,
-  "LINK ERROR": 1
+  "BUY": 6
  },
  "items": [
   {
@@ -1328,7 +1327,7 @@
    },
    "checked": "2026-10-06",
    "store": "Footpatrol",
-   "image": "https://cdn.shopify.com/s/files/1/0921/0914/4387/files/fp_815273_a.jpg?v=1791238672",
+   "image": "https://cdn.shopify.com/s/files/1/0921/0914/4387/files/fp_815273_a_e960c639-c99f-4012-9f45-6887f064a914.jpg?v=1791274679",
    "price": 135.0,
    "was": null,
    "discount_pct": 0,
@@ -1620,24 +1619,36 @@
    "category": "Socks & Boxers",
    "role": "underwear",
    "tier": "budget",
-   "brand": "French Connection",
-   "name": "Boxers, 7-pack",
-   "url": "https://www.frenchconnection.com/products/7-pack-fcuk-boxers-fcuk14",
-   "check": "shopify",
+   "brand": "Uniqlo",
+   "name": "Cotton Boxer Briefs (Regular Rise), navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E464311-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 24,
+   "variant": "Navy",
+   "target": 7,
+   "note": "Replaces the French Connection 7-pack (product page gone). Logo-free; buy several.",
    "fit": {
     "verdict": "good",
-    "note": "Regular fit, stretch cotton. Branded waistband, hidden under clothes."
+    "note": "Regular rise in soft cotton jersey with odour control; Uniqlo underwear runs true to size. Plain waistband, no branding."
    },
    "checked": "2026-10-06",
-   "store": "French Connection",
-   "image": "https://cdn.shopify.com/s/files/1/0572/6086/7740/files/TGZOG93_multi.jpg?v=1769597476",
-   "signal": "LINK ERROR",
-   "error": "HTTP Error 404: Not Found",
-   "low": 24.0,
-   "low_date": "2026-07-11",
-   "change": 0.0
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/WesternCommon/imagesgoods/464311/item/goods_69_464311_3x4.jpg",
+   "price": 7.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "signal": "WATCHING",
+   "low": 7.9,
+   "low_date": "2026-10-06",
+   "change": -16.1
   },
   {
    "id": 36,
