@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-07T12:15:55.228112Z",
+ "generated": "2026-10-07T17:51:57.613106Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -9,12 +9,13 @@
   "shoe": "UK 10",
   "reach_cm": null
  },
- "errors": 0,
+ "errors": 1,
  "counts": {
   "WATCHING": 30,
-  "SOLD OUT": 9,
+  "SOLD OUT": 8,
   "SALE": 3,
-  "BUY": 6
+  "BUY": 6,
+  "LINK ERROR": 1
  },
  "items": [
   {
@@ -917,10 +918,10 @@
    "alt_sizes": [
     "28W 32L",
     "30W 32L",
+    "36W 32L",
     "38W 32L",
     "30W 34L",
-    "32W 34L",
-    "34W 34L"
+    "32W 34L"
    ],
    "signal": "SOLD OUT",
    "low": 37.5,
@@ -1328,19 +1329,9 @@
    "checked": "2026-10-07",
    "store": "Footpatrol",
    "image": "https://cdn.shopify.com/s/files/1/0921/0914/4387/files/fp_815273_a_8c4886a7-5526-4688-a0ca-0f12b5200d27.jpg?v=1791361108",
-   "price": 135.0,
-   "was": null,
-   "discount_pct": 0,
-   "in_stock": false,
-   "alt_sizes": [
-    "6.5",
-    "7",
-    "7.5",
-    "8",
-    "8.5",
-    "9"
-   ],
-   "signal": "SOLD OUT",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 403: Forbidden",
+   "last_seen_price": 135.0,
    "low": 135.0,
    "low_date": "2026-10-03",
    "change": 0.0

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-07T12:15:55.228112Z",
+ "generated": "2026-10-07T17:51:57.613106Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -19,25 +19,6 @@
    "score": 76.0,
    "role": "jacket",
    "why": "70% off at Community Clothing · L in stock · putty · jackets & overshirts"
-  },
-  {
-   "key": "communityclothing.co.uk/mens-joe-denim-jacket-indigo",
-   "first_seen": "2026-10-06",
-   "store": "Community Clothing",
-   "brand": "Community Clothing",
-   "name": "Joe Denim Jacket, Indigo",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Joe-Denim-Jacket_Inidgo_Thigh-Up-Side.jpg?v=1715329864",
-   "url": "https://communityclothing.co.uk/products/mens-joe-denim-jacket-indigo",
-   "category": "Jackets & Overshirts",
-   "price": 44.7,
-   "was": 149.0,
-   "discount_pct": 70,
-   "size": "L",
-   "colour": "indigo",
-   "tier": "deal",
-   "score": 75.9,
-   "role": "jacket",
-   "why": "70% off at Community Clothing · L in stock · indigo · jackets & overshirts"
   },
   {
    "key": "communityclothing.co.uk/mens-relaxed-chinos-moss",
@@ -116,6 +97,25 @@
    "why": "59% off at Stuarts London · L in stock · brown · jackets & overshirts"
   },
   {
+   "key": "goodhoodstore.com/c-e-cav-empt-nylon-button-coat-charcoal",
+   "first_seen": "2026-10-07",
+   "store": "Goodhood",
+   "brand": "C.E Cav Empt",
+   "name": "Nylon Button Coat, Charcoal",
+   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/CavEmptNylonButtonCoat-Charcoal3.jpg?v=1768403112",
+   "url": "https://goodhoodstore.com/products/c-e-cav-empt-nylon-button-coat-charcoal",
+   "category": "Jackets & Overshirts",
+   "price": 208.0,
+   "was": 520.0,
+   "discount_pct": 60,
+   "size": "L",
+   "colour": "charcoal",
+   "tier": "premium −40%+",
+   "score": 58.1,
+   "role": "jacket",
+   "why": "60% off at Goodhood · L in stock · charcoal · jackets & overshirts"
+  },
+  {
    "key": "uskees.co.uk/5016-khaki-twill-commuter-pants",
    "first_seen": "2026-10-06",
    "store": "Uskees",
@@ -190,6 +190,25 @@
    "score": 53.4,
    "role": "sweat",
    "why": "50% off at Goodhood · L in stock · oatmeal · mid-layers & knits"
+  },
+  {
+   "key": "communityclothing.co.uk/mens-five-pocket-cord-trouser-stone",
+   "first_seen": "2026-10-07",
+   "store": "Community Clothing",
+   "brand": "Community Clothing",
+   "name": "5 Pocket Corduroy Jean, Stone",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Five-Pocket-Cord-Trousers_Stone_Waist-Down-Front_Community-Clothing-2.jpg?v=1760949039",
+   "url": "https://communityclothing.co.uk/products/mens-five-pocket-cord-trouser-stone",
+   "category": "Jeans",
+   "price": 66.0,
+   "was": 132.0,
+   "discount_pct": 50,
+   "size": "W34 L32",
+   "colour": "stone",
+   "tier": "deal",
+   "score": 53.3,
+   "role": "jeans",
+   "why": "50% off at Community Clothing · W34 L32 in stock · stone · jeans"
   },
   {
    "key": "goodhoodstore.com/beams-3gauge-boro-crew-neck-navy",
@@ -285,25 +304,6 @@
    "score": 45.5,
    "role": "knit",
    "why": "40% off at Jeanstore · L in stock · stone · mid-layers & knits"
-  },
-  {
-   "key": "jeanstore.co.uk/levis®-gold-tab-authentic-hoodie-light-grey-heather",
-   "first_seen": "2026-10-07",
-   "store": "Jeanstore",
-   "brand": "Levi's®",
-   "name": "Authentic Hoodie, Light Grey Heather",
-   "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/A84350008-front-pdp-lse.jpg?v=1736867099",
-   "url": "https://jeanstore.co.uk/products/levis®-gold-tab-authentic-hoodie-light-grey-heather",
-   "category": "Mid-layers & Knits",
-   "price": 35.4,
-   "was": 59.0,
-   "discount_pct": 40,
-   "size": "L",
-   "colour": "grey",
-   "tier": "deal",
-   "score": 45.5,
-   "role": "sweat",
-   "why": "40% off at Jeanstore · L in stock · grey · mid-layers & knits"
   }
  ],
  "picks": [
