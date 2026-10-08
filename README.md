@@ -9,18 +9,25 @@ A zero-cost tracker for Don's capsule wardrobe. It checks every watched piece fo
 | Layer | What | Where | When |
 |---|---|---|---|
 | Price/stock checker | `scraper.py` checks each item's price, was-price and stock **in your size only**: Shopify `/products/<handle>.js`, Uniqlo's UK product API, M&S product data and barbour.com's size endpoint | GitHub Actions | when triggered (below) and on every edit to the config files |
-| Deal finder | Scans the sale collections in `finder.json`; keeps logo-free, on-palette pieces in L / W34 L32 / UK 10 at 25%+ off (premium brands 40%+) | same run | same |
+| Deal finder | Scans the sale collections in `finder.json` with strict brief rules (main colour in palette, wanted footwear silhouettes only, logo/fit checks, stretch trousers) and nominates **candidates** in L / W34 L32 / UK 10 at 25%+ off (premium 40%+). Only URLs in `finder.json` `approve` reach the site and email | same run | same |
 | History | `docs/history.json` — one price/stock point per item per day (backfilled from Jul 2026) | same run | same |
 | On-time trigger | `cloudflare/` Worker calls the workflow's `workflow_dispatch` at exact times (GitHub's own cron is a fallback that skips if data is <4h old) | Cloudflare (free) | 07:15, 13:15, 19:15 UK |
-| Judgement | Claude's daily review fixes broken links, re-sources dead and off-brief items, adds fit notes, writes `picks.json` (the shortlist) | Claude scheduled task | daily ~09:00 UK |
-| Daily Drop email | `scraper.py` writes `docs/drop.html` every run; the daily review emails it to Don via the Gmail connector | Claude scheduled task | daily ~09:05 UK |
+| Judgement | Claude's daily review reads Don's feedback, looks at every candidate's photo and approves or blocks it against `taste.json`, fixes broken links, re-sources dead and off-brief items, writes `picks.json` (the shortlist) | Claude scheduled task | daily ~09:00 UK |
+| Daily Drop email | `scraper.py` writes `docs/drop.html` every run and, once a day after the review, emails it over Gmail SMTP with the photos embedded (needs two secrets, below). Fallback: the review sends it via its Gmail connector, which strips photos | GitHub Actions / Claude | daily ~09:10 UK |
 | Site | `docs/index.html` (static): Watch list, Outfits, Deals tabs | GitHub Pages | always |
 
 Uniqlo (`"check": "uniqlo"`), M&S (`"mands"`) and Barbour (`"barbour"`, barbour.com URLs) are checked live like Shopify. If one of them refuses a run, its items show the last good price as "Price not live" for that run instead of a broken link. John Lewis still blocks bots: link to the brand's own site instead, or use `"check": "manual"` with `last_price` + `checked_on`.
 
 ## Daily Drop email
 
-Every run writes `docs/drop.html` (also viewable at the site's `/drop.html`): today's edit, what changed since yesterday (price drops, restocks, sell-outs), what's at or under target, and new deals. Claude's 09:00 review sends it to Don's Gmail. Nothing to set up: it uses the Gmail connector already attached to the scheduled task.
+Every run writes `docs/drop.html` (also at the site's `/drop.html`): today's edit, what changed since yesterday, what's at or under target, and newly approved deals. Each piece has a **Not for me** link (opens a pre-filled email to yourself) and you can reply to the Drop with anything ("no suede", "more cords"); the next morning's review reads both and updates `taste.json` and the rules.
+
+**Photos in the email (one-off, 2 minutes).** Claude's Gmail connector strips every image, so the Action sends the Drop itself over Gmail SMTP with the photos embedded:
+1. Google Account → turn on 2-Step Verification if it isn't → [App passwords](https://myaccount.google.com/apppasswords) → name it `capsule` → copy the 16-character password.
+2. Repo → Settings → Secrets and variables → Actions → [New repository secret](https://github.com/CyberSecDigestDaily/capsule/settings/secrets/actions/new): `GMAIL_APP_PASSWORD` = that password. Add a second one: `GMAIL_USER` = your Gmail address. Optional `DROP_TO` sends it to a different address (useful if `GMAIL_USER` is a spare sending account).
+3. Optional test: Actions → Daily capsule price check → Run workflow. The Drop lands within ~2 minutes.
+
+It sends at most once per UK day: right after the morning review's commit, or from 12:00 as a fallback. `docs/data.json` → `drop` records what happened; the review only falls back to its connector when the Action didn't send.
 
 ## Fit notes
 
@@ -45,7 +52,7 @@ Re-run the same setup when the token expires (366 days). GitHub's own schedule s
 
 - **Bought something:** set `"bought": true` on the item in `items.json` → it stops being tracked on every device. (The tick box on the site only remembers on that device.)
 - **Add an item:** copy an entry in `items.json`, give it the next `id`, paste the product URL, set `size` exactly as the shop labels it (`"L"`, `"W34 L32"`, `"UK 10"`; use `"L|XL"` to accept either) and a `target` buy price. If one listing holds several colours, add `"variant": "Colour Name"`.
-- **Tune the deal finder:** edit `finder.json` (stores, palette words, exclusions, price caps, minimum discount).
+- **Tune the deal finder:** edit `finder.json` (stores, palette, exclusions, price caps, minimum discount). `approve` / `block` are the review's decisions per product URL. **Taste:** `taste.json` holds the likes, hard nos and every rejection the review judges against.
 - **Outfits:** edit formulas or staples in `wardrobe.json`; give new items a `role` so they slot into outfits.
 - Saving any of those files re-runs the checker within a minute or two.
 
