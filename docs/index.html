@@ -287,7 +287,7 @@ footer a{color:var(--ink)}
   <section id="view-deals" hidden>
     <div class="page-head">
       <h1>Deals</h1>
-      <p id="dealsLede">On-brief pieces at 25% or more off, in your size, found on the sale rails of the shops you trust.</p>
+      <p id="dealsLede">Pieces at 25% or more off, in your size, that passed the daily check against your brief.</p>
     </div>
     <div class="grid" id="dealsGrid" style="padding-bottom:72px"></div>
   </section>
@@ -578,7 +578,7 @@ function readHash(){
 /* deals */
 function renderDeals(){
   const g=$("dealsGrid");g.innerHTML="";
-  if(!S.finds.length){g.innerHTML=`<p class="empty">No qualifying deals today. The sale rails are scanned on every run.</p>`;return;}
+  if(!S.finds.length){g.innerHTML=`<p class="empty">Nothing has passed the daily check yet. New candidates from the sale rails are reviewed every morning.</p>`;return;}
   S.finds.forEach(f=>{
     const a=document.createElement("a");a.className="card-hit";a.href=safe(f.url);a.target="_blank";a.rel="noopener";
     const fresh=f.first_seen&&(Date.now()-new Date(f.first_seen+"T12:00:00Z"))/864e5<=2;
@@ -601,7 +601,7 @@ function renderMeta(){
   }
   const stores=new Set(S.items.map(i=>i.store)).size;
   $("footNote").textContent=`Tracking ${S.items.length} pieces across ${stores} shops. Prices and stock are checked about three times a day; your ticks are saved on this device.`;
-  $("dealsLede").textContent=`${S.finds.length} on-brief pieces at 25% or more off, in your size, from the sale rails of the shops you trust.`;
+  $("dealsLede").textContent=`${S.finds.length} piece${S.finds.length===1?"":"s"} at 25% or more off, in your size, each checked against your brief before it shows here.`;
 }
 function show(v){
   S.view=v;

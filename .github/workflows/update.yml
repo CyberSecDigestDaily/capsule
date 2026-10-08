@@ -27,6 +27,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with: { ref: main } # latest main, so a queued run sees the previous run's data (no double Drop email)
 
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
@@ -34,6 +35,10 @@ jobs:
       - name: Check prices, stock and deals
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          # Daily Drop email with photos, sent over Gmail SMTP (optional; without these Claude's review sends it)
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DROP_TO: ${{ secrets.DROP_TO }}
           SKIP_IF_FRESH_HOURS: ${{ github.event_name == 'schedule' && '4' || '' }}
         run: python scraper.py
 

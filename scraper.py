@@ -16,9 +16,13 @@ Inputs (repo root)
 Outputs (docs/, served by GitHub Pages)
   data.json    watch list with live price, stock in YOUR size, signal, low, trend.
   history.json daily price/stock per item (lows + sparklines on the site).
-  finds.json   auto-found deals + verified curated picks.
-  drop.html    the Daily Drop email (Claude's daily review sends it via Gmail).
+  finds.json   deals Claude's review has approved ("finds"), candidates awaiting review ("candidates"),
+               verified curated picks.
+  drop.html    the Daily Drop email.
 Optional env DISCORD_WEBHOOK: posts new BUY signals, restocks, price drops, new deals.
+Optional env GMAIL_USER + GMAIL_APP_PASSWORD (+ DROP_TO): email the Drop over Gmail SMTP with the photos
+embedded, once a day after the morning review. Without them Claude's review sends it via its Gmail
+connector, which strips images.
 Optional env SKIP_IF_FRESH_HOURS: exit early when data is newer than this (used for GitHub's
 fallback schedule once the Cloudflare cron is dispatching on time).
 """
@@ -459,9 +463,14 @@ def trend(series):
 
 
 # -------------------------------------------------------------- deal finder
+# Two stages. 1) Rules in finder.json throw out anything off-brief that text can catch: off-palette
+# main colour, logos/fit words in the description, non-stretch trousers, footwear that isn't a
+# silhouette Don wants, streetwear brands on multi-brand shops. 2) Whatever survives is only a
+# CANDIDATE: it reaches the site and the Drop email after Claude's daily review has looked at the
+# photo and added the URL to finder.json "approve" (or "block" to bin it for good).
 ROLE_RULES = [
-    ("boot", r"chelsea|boot"), ("wallabee", r"wallabee"),
-    ("overshirt", r"overshirt|shirt jacket|shacket"), ("cardigan", r"cardigan"), ("fleece", r"fleece"),
+    ("wallabee", r"wallabee"), ("boot", r"chelsea|boot|desert|chukka"),
+    ("overshirt", r"overshirt|over shirt|shirt jacket|shacket|cpo"), ("cardigan", r"cardigan"), ("fleece", r"fleece"),
     ("jacket", r"jacket|coat|parka|blouson|harrington|bomber|m-?65"),
     ("tee", r"t-shirt|\btee\b|henley"),
     ("knit", r"jumper|sweater|knit|lambswool|merino|roll ?neck"), ("sweat", r"sweat|hoodie|hooded"),
@@ -493,19 +502,81 @@ def clean_title(title, brand):
     return t[:1].upper() + t[1:] if t else t
 
 
+def _rx(w):
+    """Whole-word pattern; numeric ends only need a non-digit neighbour (so '990' matches 'M990v6')."""
+    left = r"(?<![0-9])" if w[:1].isdigit() else r"(?<![a-z0-9])"
+    right = r"(?![0-9])" if w[-1:].isdigit() else r"(?![a-z0-9])"
+    return left + re.escape(w) + right
+
+
 def words_in(text, words):
-    return [w for w in words if re.search(r"(?<![a-z])" + re.escape(w) + r"(?![a-z])", text)]
+    return [w for w in words if re.search(_rx(w), text)]
+
+
+NEGATED = re.compile(r"(?:\b(?:no|not|non|without|zero|never|free of|minus|rather than|instead of|avoids?)\b[^.;:!?]{0,24}|\bnon-)$")
+
+
+def said(text, words):
+    """Words the text actually claims: 'no logos', 'logo-free', 'not boxy' don't count."""
+    found = []
+    for w in words:
+        for m in re.finditer(_rx(w), text):
+            if NEGATED.search(text[max(0, m.start() - 32):m.start()]) or re.match(r"\s?-?\s?free\b", text[m.end():m.end() + 8]):
+                continue
+            found.append(w)
+            break
+    return found
+
+
+def page_text(html_text):
+    from html import unescape
+    t = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html_text or "", flags=re.S | re.I)
+    t = re.sub(r"<br\s*/?>|</p>|</li>|</h\d>", ". ", t, flags=re.I)
+    t = unescape(re.sub(r"<[^>]+>", " ", t))
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def colour_of(text, vocab):
+    """The colour named first in text (earliest; the longest name wins a tie): 'Black / Grey Four' -> black."""
+    best = None
+    for w in vocab:
+        m = re.search(_rx(w), text)
+        if m and (best is None or (m.start(), -len(w)) < best[0]):
+            best = ((m.start(), -len(w)), w)
+    return best[1] if best else None
+
+
+def variant_colour(v, vocab):
+    """Colour of one variant from its non-size options ('Navy / L' -> navy)."""
+    opts = [o for o in variant_options(v) if not (canon(o) & {"L", "M", "S", "XL", "XS", "XXL"})
+            and not re.fullmatch(r"(?i)\s*(w?\d{2}(\s*[wl/x]\s*\d{2})?|uk\s*\d+(\.5)?|eu\s*\d+(\.5)?|us\s*\d+(\.5)?|\d+(\.5)?)\s*l?\s*", o)]
+    return colour_of(" / ".join(opts).lower(), vocab) if opts else None
+
+
+def norm_url(u):
+    return re.sub(r"^https?://(www\.)?", "", (u or "").strip()).split("?")[0].split("#")[0].rstrip("/").lower()
 
 
 def run_finder(cfg, watched_handles, prev_finds):
-    first_seen = {f.get("key"): f.get("first_seen", TODAY) for f in prev_finds.get("finds", [])}
+    """Returns (approved finds, candidates awaiting review, errors)."""
+    prev_seen = {f.get("key"): f.get("first_seen", TODAY) for f in prev_finds.get("finds", [])}
+    cand_seen = {f.get("key"): f.get("first_seen", TODAY) for f in prev_finds.get("candidates", [])}
     cands, errors = {}, []
-    palette = [p.lower() for p in cfg.get("palette", [])]
-    blocked = {re.sub(r"^https?://(www\.)?", "", u).split("?")[0].rstrip("/") for u in cfg.get("block", [])}
-    excl = [w.lower() for w in cfg.get("exclude", [])]
-    gender_excl = [w.lower() for w in cfg.get("exclude_gender", [])]
+    low = lambda xs: [x.lower() for x in xs or []]
+    palette = low(cfg.get("palette"))
+    off = low(cfg.get("off_palette"))
+    blocked = {norm_url(u) for u in cfg.get("block", [])}
+    approved = {norm_url(u) for u in cfg.get("approve", [])}
+    gate = cfg.get("require_approval", True)
+    excl = low(cfg.get("exclude"))
+    excl_desc = low(cfg.get("exclude_desc"))
+    gender_excl = low(cfg.get("exclude_gender"))
+    multi_brands = low(cfg.get("apparel_brands"))
+    trusted = {s["store"] for s in cfg.get("sources", []) if s.get("trusted")}
+    core = set(low(cfg.get("core_palette")))
     for src in cfg.get("sources", []):
         store, coll = src["store"], src["collection"]
+        only = set(src.get("only", []))
         for page in range(1, int(src.get("pages", 1)) + 1):
             try:
                 d = fetch_json(f"https://{store}/collections/{coll}/products.json?limit=250&page={page}", tries=2, gap=1.0)
@@ -518,35 +589,63 @@ def run_finder(cfg, watched_handles, prev_finds):
             for p in prods:
                 if p.get("handle") in watched_handles:
                     continue
+                url = f"https://{store}/products/{p['handle']}"
+                if norm_url(url) in blocked:
+                    continue
                 title = (p.get("title") or "").lower()
                 ptype = (p.get("product_type") or "").lower()
                 tags = " ".join(p.get("tags") or []).lower() if isinstance(p.get("tags"), list) else str(p.get("tags", "")).lower()
-                colours = " ".join(o for v in p.get("variants", []) for o in variant_options(v)).lower()
                 if words_in(f"{title} {ptype}", gender_excl) or words_in(title, excl):
                     continue
                 brand = (p.get("vendor") or "").lower()
                 cat = None
                 for c in cfg["categories"]:
-                    if not words_in(f"{title} {ptype}", c["keywords"]):
+                    if only and c["name"] not in only:
+                        continue
+                    if not words_in(f"{title} {ptype}", low(c["keywords"])):
                         continue
                     req = c.get("require_any")
-                    if req and not words_in(f"{title} {ptype} {tags}", req):
+                    if req and not words_in(f"{title} {ptype} {tags}", low(req)):
                         continue
                     cat = c
                     break
                 if not cat:
                     continue
-                if words_in(f"{title} {ptype}", [w.lower() for w in cat.get("exclude", [])]):
+                footwear = cat["name"] == "Footwear"
+                if words_in(f"{title} {ptype}", low(cat.get("exclude"))):
                     continue
-                if f"{store}/products/{p.get('handle')}" in blocked:
-                    continue
+                style = low(cat.get("require_style"))
+                if style and not words_in(title, style):
+                    continue  # not a silhouette/style the brief asks for
                 brand_block = cat.get("exclude_brands", []) if cat.get("allow_brands_any") else cfg.get("exclude_brands", [])
-                if words_in(f"{brand} {title}", [b.lower() for b in brand_block]):
+                if words_in(f"{brand} {title}", low(brand_block)):
                     continue
-                pal = words_in(f"{title} {colours}", palette + [x.lower() for x in cat.get("extra_palette", [])])
-                if not pal:
+                if src.get("brand_filter") and not footwear and not words_in(brand, multi_brands):
+                    continue  # multi-brand shop: apparel only from brands that fit the brief
+                desc = page_text(p.get("body_html")).lower()
+                if said(desc, excl_desc + low(cat.get("exclude_desc"))):
                     continue
-                res = evaluate_variants(p.get("variants", []), cat["size"], cents=False)
+                need = low(cat.get("require_desc_any"))
+                if need and (not said(desc, need) or words_in(desc, ["non-stretch", "non stretch", "rigid denim", "no stretch"])):
+                    continue  # trousers must have some give
+                role = infer_role(p.get("title"), cat["name"])
+                ok = set(palette) | set(low(cat.get("palette_extra") or cat.get("extra_palette")))
+                ok |= set(low((cat.get("role_palette") or {}).get(role or "", [])))
+                if footwear and cat.get("role_palette"):
+                    ok = set(low(cat["role_palette"].get(role or "trainer", []))) | set(low(cat.get("palette_extra")))
+                vocab = sorted(ok | set(off), key=len, reverse=True)
+                variants = p.get("variants", [])
+                vcols = {id(v): variant_colour(v, vocab) for v in variants}
+                if any(vcols.values()):
+                    variants = [v for v in variants if vcols[id(v)] in ok]
+                    colour = next((vcols[id(v)] for v in variants), None)
+                    if not variants:
+                        continue
+                else:
+                    colour = colour_of(title, vocab) or colour_of(tags, vocab)
+                    if colour not in ok and not (colour is None and cat.get("colour_optional")):
+                        continue  # main colour off-palette, or unknown
+                res = evaluate_variants(variants, cat["size"], cents=False)
                 if not res or not res["in_stock"] or not res["price"]:
                     continue
                 disc, price = res["discount_pct"], res["price"]
@@ -558,7 +657,9 @@ def run_finder(cfg, watched_handles, prev_finds):
                 if not tier:
                     continue
                 key = f"{store}/{p['handle']}"
-                score = disc + (8 if words_in(title, palette) else 0) - 10 * price / cat.get("premium_cap", cat["cap"])
+                # rank on brief-fit, not just depth of discount (the deepest cuts are often the oddest pieces)
+                score = (min(disc, 50) + (10 if colour in core else 0) + (6 if store in trusted else 0)
+                         - 10 * price / cat.get("premium_cap", cat["cap"]))
                 label = src.get("label", store)
                 vendor = (p.get("vendor") or "").strip()
                 if not vendor or vendor.lower() in ("men's", "mens", "men", "women's", "unisex"):
@@ -566,15 +667,26 @@ def run_finder(cfg, watched_handles, prev_finds):
                 if vendor.isupper() and len(vendor) > 4:
                     vendor = vendor.title()
                 imgs = p.get("images") or []
+                img = None
+                for v in variants:
+                    if v.get("featured_image"):
+                        img = https(v["featured_image"])
+                        break
+                comp = re.findall(r"\d{1,3}\s?%\s?(?:organic |recycled |bci |supima )?[a-z]+", desc)
                 rec = {
-                    "key": key, "first_seen": first_seen.get(key, TODAY), "store": label,
+                    "key": key, "first_seen": prev_seen.get(key) or cand_seen.get(key, TODAY), "store": label,
                     "brand": vendor, "name": clean_title(p.get("title"), vendor),
-                    "image": https(imgs[0].get("src")) if imgs else None,
-                    "url": f"https://{store}/products/{p['handle']}", "category": cat["name"],
+                    "image": img or (https(imgs[0].get("src")) if imgs else None),
+                    "url": url, "category": cat["name"],
                     "price": price, "was": res["was"], "discount_pct": disc,
-                    "size": cat["size"].split("|")[0], "colour": pal[0], "tier": tier, "score": round(score, 1),
-                    "role": infer_role(p.get("title"), cat["name"]),
-                    "why": f"{disc}% off at {label} · {cat['size'].split('|')[0]} in stock · {pal[0]} · {cat['name'].lower()}",
+                    "size": cat["size"].split("|")[0], "colour": colour, "tier": tier, "score": round(score, 1),
+                    "role": role,
+                    "why": f"{disc}% off at {label} · {cat['size'].split('|')[0]} in stock · {colour or 'colour per photo'} · {cat['name'].lower()}",
+                    "fit_words": said(desc, ["regular fit", "classic fit", "straight leg", "straight fit", "tapered", "taper",
+                                             "slim fit", "true to size", "size up", "size down", "raglan", "mid rise", "mid-rise",
+                                             "high rise", "high-rise", "stretch", "brushed", "waffle", "corduroy", "waxed"]),
+                    "composition": ", ".join(dict.fromkeys(comp))[:80] or None,
+                    "desc": desc[:300],
                 }
                 # one entry per product line: same model in another colour (same store) or same title elsewhere
                 base = re.split(r"\s+-\s+|,\s+", (rec["name"] or "").lower())[0]
@@ -586,18 +698,24 @@ def run_finder(cfg, watched_handles, prev_finds):
                         cands[dupe] = rec
     uniq = {r["key"]: r for r in cands.values()}
     ranked = sorted(uniq.values(), key=lambda r: (-r["score"], r["price"]))
+    yes = [r for r in ranked if not gate or norm_url(r["url"]) in approved]
+    waiting = [dict(r, first_seen=cand_seen.get(r["key"], TODAY)) for r in ranked
+               if gate and norm_url(r["url"]) not in approved][:cfg.get("max_candidates", 24)]
     out, per_cat, per_store = [], {}, {}
-    for r in ranked:
+    for r in yes:
         if per_cat.get(r["category"], 0) >= cfg.get("max_per_category", 4):
             continue
         if per_store.get(r["store"], 0) >= cfg.get("max_per_store", 5):
             continue
+        r = dict(r, first_seen=prev_seen.get(r["key"], TODAY))  # first day it was live on the site
+        for k in ("desc", "fit_words", "composition"):
+            r.pop(k, None)
         out.append(r)
         per_cat[r["category"]] = per_cat.get(r["category"], 0) + 1
         per_store[r["store"]] = per_store.get(r["store"], 0) + 1
         if len(out) >= cfg.get("max_finds", 16):
             break
-    return out, errors
+    return out, waiting, errors
 
 
 def verify_picks(picks):
@@ -659,6 +777,12 @@ def build_drop(results, finds, picked, hist, counts):
     def full(r):
         return f"{r.get('brand', '')} {r.get('name', '')}".replace("®", "").strip()
 
+    def nope(r):
+        """One-tap feedback: opens a pre-filled email the next morning's review reads (recipient added at send)."""
+        subj = urllib.parse.quote(f"Capsule nope: {full(r)}"[:140])
+        body = urllib.parse.quote(f"{r.get('url', '')}\n\nWhat's off about it (optional): ")
+        return f'<a href="mailto:?subject={subj}&amp;body={body}" style="color:#6B6A65;text-decoration:underline;white-space:nowrap">Not for me</a>'
+
     # ---- what goes in
     picks = [p for p in picked if p.get("in_stock") is not False and not p.get("verify_error")][:3]
     pick_urls = {p.get("url") for p in picks}
@@ -711,12 +835,14 @@ def build_drop(results, finds, picked, hist, counts):
                  if src else f'<div style="height:{h}px"></div>')
         return f'<a href="{e(url)}" style="display:block;background:#F2F1ED;text-decoration:none">{inner}</a>'
 
-    def card(url, img, brand, name, price, meta, meta_color="#6B6A65"):
-        return (f'{tile(url, img, 270, 338)}'
+    def card(r, price, meta, meta_color="#6B6A65"):
+        url, brand = r["url"], r.get("brand", "")
+        return (f'{tile(url, r.get("image"), 270, 338)}'
                 f'<p style="margin:12px 0 0;font-size:12px;color:#6B6A65">{e(brand.replace("®", ""))}</p>'
-                f'<p style="margin:2px 0 0;font-size:14px;line-height:1.35"><a href="{e(url)}" style="color:#000;text-decoration:none">{e(name)}</a></p>'
+                f'<p style="margin:2px 0 0;font-size:14px;line-height:1.35"><a href="{e(url)}" style="color:#000;text-decoration:none">{e(r.get("name", ""))}</a></p>'
                 f'<p style="margin:6px 0 0">{price}</p>'
-                f'<p style="margin:3px 0 0;font-size:12.5px;color:{meta_color}">{meta}</p>')
+                f'<p style="margin:3px 0 0;font-size:12.5px;color:{meta_color}">{meta}</p>'
+                f'<p style="margin:6px 0 0;font-size:12px">{nope(r)}</p>')
 
     def grid(cells):
         rows = ""
@@ -747,7 +873,8 @@ def build_drop(results, finds, picked, hist, counts):
                      f'<p style="margin:8px 0 0">{price_html(pr, p.get("was"), p.get("discount_pct"), 16)}</p>'
                      f'<p style="margin:3px 0 0;font-size:12.5px;color:#3E4A23;font-weight:600">{meta}</p>'
                      f'<p style="margin:10px 0 0;font-size:14px;line-height:1.55;color:#4A4945">{e(p.get("why", ""))}</p>'
-                     f'<p style="margin:12px 0 0;font-size:13px;font-weight:600"><a href="{e(p["url"])}" style="color:#000">Shop at {e(p.get("store") or store_label(p["url"]))}</a></p>'
+                     f'<p style="margin:12px 0 0;font-size:13px;font-weight:600"><a href="{e(p["url"])}" style="color:#000">Shop at {e(p.get("store") or store_label(p["url"]))}</a>'
+                     f'<span style="font-weight:400;font-size:12px;color:#6B6A65"> &nbsp;&middot;&nbsp; {nope(p)}</span></p>'
                      f'</td></tr>')
         out.append(f'<tr><td class="px" style="padding:36px 30px 0"><h1 class="wide h1" style="margin:0;font-size:44px;line-height:.95;'
                    f'font-weight:800;letter-spacing:-.02em">Today&rsquo;s edit</h1>'
@@ -761,13 +888,11 @@ def build_drop(results, finds, picked, hist, counts):
             for k, lab, txt, u in moves[:8])
         out.append(section("Since yesterday", f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0">{li}</table>'))
     if buys:
-        cells = [card(r["url"], r.get("image"), r.get("brand", ""), r.get("name", ""),
-                      price_html(r.get("price"), r.get("was"), r.get("discount_pct")),
+        cells = [card(r, price_html(r.get("price"), r.get("was"), r.get("discount_pct")),
                       f'At or under your {gbp(r.get("target"))} target', "#3E4A23") for r in buys]
         out.append(section("Ready to buy", grid(cells), f'{n_buy} on the list'))
     if deals:
-        cells = [card(f["url"], f.get("image"), f.get("brand", ""), f.get("name", ""),
-                      price_html(f.get("price"), f.get("was"), f.get("discount_pct")),
+        cells = [card(f, price_html(f.get("price"), f.get("was"), f.get("discount_pct")),
                       f'{e(f.get("size", ""))} in stock &middot; {e(f.get("store", ""))}') for f in deals]
         out.append(section(deals_title, grid(cells), f'<a href="{SITE}#deals" style="color:#6B6A65">All deals</a>'))
 
@@ -798,13 +923,91 @@ body,td,p,a,h1,h2{{font-family:{font}}} .wide{{font-stretch:125%}}
 <td style="background:#000"><a href="{SITE}" style="display:inline-block;padding:13px 22px;font-size:14px;font-weight:600;color:#FFFFFF;text-decoration:none">Open the capsule</a></td>
 <td style="padding-left:18px;font-size:14px"><a href="{SITE}#outfits" style="color:#000">Outfits</a> &nbsp;&middot;&nbsp; <a href="{SITE}#deals" style="color:#000">Deals</a></td>
 </tr></table></td></tr>
+<tr><td class="px" style="padding:30px 30px 0;font-size:14px;line-height:1.55;color:#4A4945">
+<b style="color:#000">Something off?</b> Tap <i>Not for me</i> under a piece, or reply with what you want more or less of (&ldquo;no suede&rdquo;, &ldquo;more cords&rdquo;). Tomorrow&rsquo;s review learns from it.</td></tr>
 <tr><td class="px" style="padding:28px 30px 40px;font-size:12px;line-height:1.6;color:#6B6A65">
 Watching {watching} pieces &middot; {instock} in stock in your size &middot; prices checked {now_uk.strftime('%H:%M')} UK.<br>
 Sizes: tops L, trousers W34 L32, shoes UK 10. <a href="{SITE}drop.html" style="color:#6B6A65">View in browser</a></td></tr>
 </table></td></tr></table></body></html>
 """
     (DOCS / "drop.html").write_text(html, encoding="utf-8")
-    return subject
+
+    def plain(r, price):
+        return f"- {full(r)}, {gbp(price).replace('&pound;', '£')}: {r.get('url', '')}"
+    text = [subject, ""]
+    if picks:
+        text += ["TODAY'S EDIT"] + [plain(p, p.get("price_now", p.get("price"))) for p in picks] + [""]
+    if buys:
+        text += ["READY TO BUY"] + [plain(r, r.get("price")) for r in buys] + [""]
+    if deals:
+        text += [deals_title.upper()] + [plain(f, f.get("price")) for f in deals] + [""]
+    text += [f"With photos: {SITE}drop.html"]
+    return subject, "\n".join(text)
+
+
+def send_drop(subject, text, picks_updated, prev_state):
+    """Email docs/drop.html over Gmail SMTP with the product photos embedded (inline CID parts).
+
+    Needs repo secrets GMAIL_USER + GMAIL_APP_PASSWORD (optional DROP_TO). Sends at most once per UK
+    day: after the morning review has written picks.json (its push triggers this run), or from 12:00 UK
+    as a fallback if the review didn't run. Returns the drop state kept in data.json; the review checks
+    drop.date and only sends through its Gmail connector (no photos) when this didn't.
+    """
+    state = {k: prev_state.get(k) for k in ("date", "at", "subject", "via", "images") if prev_state.get(k)}
+    user = os.environ.get("GMAIL_USER", "").strip()
+    pw = re.sub(r"\s+", "", os.environ.get("GMAIL_APP_PASSWORD", ""))
+    to = os.environ.get("DROP_TO", "").strip() or user
+    today = uk_now().date().isoformat()
+    if not (user and pw):
+        return dict(state, status="smtp not set up (GMAIL_USER / GMAIL_APP_PASSWORD secrets)")
+    if state.get("date") == today:
+        return dict(state, status="already sent today")
+    if picks_updated != today and uk_now().hour < 12:
+        return dict(state, status="waiting for today's review")
+    import smtplib
+    import ssl
+    from email.message import EmailMessage
+    from email.utils import formatdate, make_msgid
+    from html import unescape
+    html = (DOCS / "drop.html").read_text(encoding="utf-8").replace('href="mailto:?', f'href="mailto:{to}?')
+    parts, n = {}, 0
+
+    def inline(m):
+        url = unescape(m.group(1))
+        if url not in parts:
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": BROWSER_UA, "Accept": "image/jpeg,image/png;q=0.9,image/*;q=0.5"})
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    ctype, data = r.headers.get_content_type(), r.read(3_000_000)
+                if not ctype.startswith("image/") or len(data) < 200:
+                    raise ValueError(ctype)
+                parts[url] = (make_msgid(domain="capsule.drop")[1:-1], ctype, data)
+            except Exception as ex:
+                print(f"drop image kept remote ({str(ex)[:60]}): {url[:90]}")
+                return m.group(0)
+        return f'<img src="cid:{parts[url][0]}"'
+
+    html = re.sub(r'<img src="(https://[^"]+)"', inline, html)
+    msg = EmailMessage()
+    msg["Subject"], msg["From"], msg["To"] = subject, f"Capsule <{user}>", to
+    msg["Date"], msg["Message-ID"] = formatdate(localtime=True), make_msgid(domain="capsule.drop")
+    msg.set_content(text)
+    msg.add_alternative(html, subtype="html")
+    body = msg.get_payload()[1]
+    for cid, ctype, data in parts.values():
+        main, sub = ctype.split("/", 1)
+        body.add_related(data, maintype=main, subtype=sub, cid=f"<{cid}>", disposition="inline")
+        n += 1
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ssl.create_default_context(), timeout=60) as s:
+            s.login(user, pw)
+            s.send_message(msg)
+    except Exception as ex:
+        print(f"drop email FAILED: {ex}", file=sys.stderr)
+        return dict(state, status=f"send failed: {str(ex)[:120]}")
+    print(f"drop emailed with {n} photos embedded")
+    return {"date": today, "at": NOW.isoformat().replace("+00:00", "Z"), "subject": subject, "via": "smtp",
+            "images": n, "status": "sent"}
 
 
 # ------------------------------------------------------------ notifications
@@ -898,7 +1101,7 @@ def main():
         sys.exit(2)
 
     watched = {urllib.parse.urlsplit(i["url"]).path.rstrip("/").split("/")[-1] for i in cfg["items"]}
-    finds, finder_errors = run_finder(finder, watched, prev_finds) if finder else ([], [])
+    finds, candidates, finder_errors = run_finder(finder, watched, prev_finds) if finder else ([], [], [])
     picked = verify_picks(picks)
 
     # ---- alerts: only changes since the previous run
@@ -926,15 +1129,19 @@ def main():
     counts = {}
     for r in results:
         counts[r["signal"]] = counts.get(r["signal"], 0) + 1
-    save(DOCS / "data.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "sizes": cfg.get("sizes", {}),
-                              "errors": errors, "counts": counts, "items": results, "wardrobe": wardrobe})
     save(DOCS / "history.json", hist, compact=True)
     save(DOCS / "finds.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "finds": finds,
-                               "picks": picked, "picks_updated": picks.get("updated"), "errors": finder_errors})
-    print("drop:", build_drop(results, finds, picked, hist, counts))
+                               "picks": picked, "picks_updated": picks.get("updated"), "errors": finder_errors,
+                               "candidates": candidates})
+    subject, text = build_drop(results, finds, picked, hist, counts)
+    print("drop:", subject)
+    drop = send_drop(subject, text, picks.get("updated"), prev.get("drop") or {})
+    print("drop email:", drop.get("status"))
+    save(DOCS / "data.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "sizes": cfg.get("sizes", {}),
+                              "errors": errors, "counts": counts, "items": results, "wardrobe": wardrobe, "drop": drop})
     notify(lines)
     print(f"{len(results)} items, {checked} checked, {errors} errors, {blocked} blocked | {len(finds)} finds "
-          f"({len(fresh)} new), {len(picked)} picks | {len(lines)} alerts")
+          f"({len(fresh)} new), {len(candidates)} candidates awaiting review, {len(picked)} picks | {len(lines)} alerts")
     for e in finder_errors:
         print("finder:", e)
 
