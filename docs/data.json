@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-08T08:21:15.073186Z",
+ "generated": "2026-10-08T09:36:28.699434Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1358,7 +1358,7 @@
    },
    "checked": "2026-10-08",
    "store": "Urban Industry",
-   "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/AdidasOriginals_HandballSpezialShoes_Green_OliveStrata_ShadowOlive_01.jpg?v=1790170198",
+   "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/AdidasOriginals_HandballSpezialShoes_Green_OliveStrata_ShadowOlive_01_82a73b36-3ee1-42c0-af77-753a5abe4900.jpg?v=1791450975",
    "price": 89.95,
    "was": null,
    "discount_pct": 0,
@@ -1491,8 +1491,8 @@
    "target": 130,
    "note": "Sleek office Chelsea on a Vibram sole (grips in rain). £120, was £280.",
    "fit": {
-    "verdict": "good",
-    "note": "Classic close-fitting Chelsea with no laces, so it should feel snug over the instep. Leather-lined, Vibram VI-Lite sole."
+    "verdict": "avoid",
+    "note": "Chunky lug sole, as clunky as his Docs. Don wants a sleek office Chelsea (slim leather or suede sole/low profile). Replace with a sleek Chelsea in UK 10."
    },
    "checked": "2026-10-08",
    "store": "John White",
@@ -1527,8 +1527,8 @@
    "target": 130,
    "note": "Same boot in suede: more texture, needs protector spray. £120, was £280.",
    "fit": {
-    "verdict": "good",
-    "note": "Classic close-fitting Chelsea, snug over the instep. Leather-lined, Vibram sole; suede needs protector spray."
+    "verdict": "avoid",
+    "note": "Chunky lug sole, as clunky as his Docs. Don wants a sleek office Chelsea (slim leather or suede sole/low profile). Replace with a sleek Chelsea in UK 10."
    },
    "checked": "2026-10-08",
    "store": "John White",
@@ -1937,5 +1937,8 @@
     ]
    }
   ]
+ },
+ "drop": {
+  "status": "smtp not set up (GMAIL_USER / GMAIL_APP_PASSWORD secrets)"
  }
 }
