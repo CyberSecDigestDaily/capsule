@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-08T09:36:28.699434Z",
+ "generated": "2026-10-08T09:49:14.701955Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1483,20 +1483,20 @@
    "role": "boot",
    "tier": "mid",
    "brand": "John White",
-   "name": "Byrne Chelsea Boot, dark brown leather",
-   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-boot",
+   "name": "Byrne Chelsea Grain Boot, brown grain",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-grain-boot",
    "check": "shopify",
    "size": "UK 10",
-   "variant": "Dark Brown",
+   "variant": "Brown Grain",
    "target": 130,
-   "note": "Sleek office Chelsea on a Vibram sole (grips in rain). £120, was £280.",
+   "note": "Same Byrne Chelsea Don liked, in pebbled full-grain leather: matte, not shiny like the pull-up version. Chunky Vibram sole. £120, was £280.",
    "fit": {
-    "verdict": "avoid",
-    "note": "Chunky lug sole, as clunky as his Docs. Don wants a sleek office Chelsea (slim leather or suede sole/low profile). Replace with a sleek Chelsea in UK 10."
+    "verdict": "good",
+    "note": "Classic close-fitting Chelsea, snug over the instep. Full-grain calf, leather-lined, chunky Vibram sole."
    },
    "checked": "2026-10-08",
    "store": "John White",
-   "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-brownpullup-1.jpg?v=1783181399",
+   "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-grainbrown-1.jpg?v=1783181401",
    "price": 120.0,
    "was": 280.0,
    "discount_pct": 57,
@@ -1525,10 +1525,10 @@
    "size": "UK 10",
    "variant": "Brown Suede",
    "target": 130,
-   "note": "Same boot in suede: more texture, needs protector spray. £120, was £280.",
+   "note": "The Byrne Chelsea Don liked, in brown suede (matte). £120, was £280.",
    "fit": {
-    "verdict": "avoid",
-    "note": "Chunky lug sole, as clunky as his Docs. Don wants a sleek office Chelsea (slim leather or suede sole/low profile). Replace with a sleek Chelsea in UK 10."
+    "verdict": "good",
+    "note": "Classic close-fitting Chelsea, snug over the instep. Calf suede (matte), leather-lined, chunky Vibram sole; suede needs protector spray."
    },
    "checked": "2026-10-08",
    "store": "John White",
