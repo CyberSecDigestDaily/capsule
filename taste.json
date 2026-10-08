@@ -9,18 +9,20 @@
   "Knits: crew necks with texture (waffle, cable, honeycomb), shawl or ribbed cardigans, fitted quarter-zip or mock-neck fleece",
   "Plain midweight sweats and hoodies with a 90s runner's fit (not drop-shoulder)",
   "Chinos with stretch, straight to slightly tapered; jeans straight or tapered, mid-rise, indigo or washed blue",
-  "Footwear he likes: adidas Samba-style (Samba, Gazelle, Spezial), Vans Era, Nike SB Janoski and Blazer, Air Max 90, New Balance 990/574-type in muted tones, Clarks Wallabee, a sleek Chelsea boot less clunky than his Docs",
+  "Footwear he likes: adidas Samba-style (Samba, Gazelle, Spezial), Vans Era, Nike SB Janoski and Blazer, Air Max 90, New Balance 990/574-type in muted tones, Clarks Wallabee, and Chelsea boots with a sleek or chunky sole (he likes the John White Byrne style)",
   "Already owns: white Sambas, brown and black Dr. Martens, black/white Vans Era, black Air Max 95, a 5-panel cap",
-  "Leather is fine for footwear: brushed-leather boots and leather trainers; fur, shearling or fleece-lined trainers and boots are fine for winter"
+  "Leather is fine for footwear: brushed-leather boots and leather trainers; fur, shearling or fleece-lined trainers and boots are fine for winter",
+  "Shoe and boot finishes: brushed, grained or suede leather"
  ],
  "no": [
   "Any visible logo, graphic, slogan or contrast branding (a tiny tonal mark is the limit)",
   "Oversized, boxy, drop-shoulder, wide-leg, baggy, cropped or skinny cuts; chunky knits that add bulk at the middle",
   "Leather (or faux leather/suede) jackets, tees or trousers, blazers and other dressy fashion pieces; leather only belongs on his feet",
-  "Skate shoes with loud stripes or logos, chunky or platform soles, slim low-profile trend trainers, collabs",
+  "Skate shoes with loud stripes or logos, chunky or platform soles on trainers (chunky boots are fine), slim low-profile trend trainers, collabs",
   "Busy patterns: stripes, checks, fair isle, boro, botanical prints, float-stitch, fluffy mohair",
   "Black, brown, tan or bright colours on clothing",
-  "100% cotton trousers with no give"
+  "100% cotton trousers with no give",
+  "Shiny, polished or patent leather on shoes and boots"
  ],
  "rejected": [
   {
@@ -45,12 +47,25 @@
    "likely_why": "skate shoe with loud contrast stripes and gold logo text on black"
   }
  ],
- "loved": [],
+ "loved": [
+  {
+   "date": "2026-10-08",
+   "item": "John White Byrne Chelsea Boot (style)",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-boot",
+   "source": "Don, chat",
+   "why": "liked the style and chunky sole; only disliked the shiny pull-up leather"
+  }
+ ],
  "feedback_log": [
   {
    "id": "chat-2026-10-08",
    "date": "2026-10-08",
    "note": "Don: leather shoes fine (brushed leather boots, leather trainers), fur-lined trainers/boots fine for winter; dislikes leather jackets, tees and trousers only."
+  },
+  {
+   "id": "chat-2026-10-08b",
+   "date": "2026-10-08",
+   "note": "Don: chunky and sleek soles both fine on boots; liked the John White Byrne Chelsea style but not the shiny leather."
   }
  ]
 }

@@ -475,11 +475,6 @@
     "hi-top",
     "high top",
     "platform",
-    "chunky",
-    "lug",
-    "lugged",
-    "commando",
-    "tractor",
     "slip-on",
     "slip on",
     "mule",
@@ -493,7 +488,11 @@
     "hiking",
     "x",
     "xlg",
-    "puig"
+    "puig",
+    "patent",
+    "high shine",
+    "high-shine",
+    "polished"
    ],
    "role_palette": {
     "trainer": [
@@ -582,6 +581,14 @@
     "altra",
     "brooks",
     "saucony endorphin"
+   ],
+   "exclude_desc": [
+    "patent leather",
+    "high shine",
+    "high-shine",
+    "mirror shine",
+    "polished leather",
+    "glossy"
    ]
   },
   {
