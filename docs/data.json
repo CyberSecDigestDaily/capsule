@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-08T06:15:55.040760Z",
+ "generated": "2026-10-08T08:21:15.073186Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -9,13 +9,12 @@
   "shoe": "UK 10",
   "reach_cm": null
  },
- "errors": 1,
+ "errors": 0,
  "counts": {
   "WATCHING": 30,
-  "SOLD OUT": 7,
+  "SOLD OUT": 8,
   "SALE": 3,
-  "BUY": 7,
-  "LINK ERROR": 1
+  "BUY": 7
  },
  "items": [
   {
@@ -953,10 +952,10 @@
    "alt_sizes": [
     "28W 32L",
     "30W 32L",
-    "32W 32L",
     "36W 32L",
     "30W 34L",
-    "32W 34L"
+    "32W 34L",
+    "34W 34L"
    ],
    "signal": "BUY",
    "low": 59.5,
@@ -1315,25 +1314,31 @@
    "role": "trainer",
    "tier": "mid",
    "brand": "Nike",
-   "name": "Air Max 90, Shadow Brown leather",
-   "url": "https://footpatrol.com/products/815273",
+   "name": "Air Max 90 SP, Shadow Brown",
+   "url": "https://goodhoodstore.com/products/nike-air-max-90-sp-shadow-brown-shadow-brown-buff-gum-lt-brown",
    "check": "shopify",
-   "size": "UK 10",
+   "size": "UK10",
    "target": 110,
    "restock_watch": true,
-   "note": "Full-grain tonal brown: the on-brief AM90. UK 10 sold out.",
+   "note": "Tonal brown with gum sole: the on-brief AM90. Re-linked to Goodhood (Footpatrol now blocks the checker); UK10 currently sold out, restock watched.",
    "fit": {
     "verdict": "good",
-    "note": "True to size with a snug toe box. The leather upper is warmer and more weatherproof than the usual mesh."
+    "note": "True to size with a snug toe box. Synthetic upper (not leather), so wipe-clean but less breathable."
    },
    "checked": "2026-10-08",
-   "store": "Footpatrol",
-   "image": "https://cdn.shopify.com/s/files/1/0921/0914/4387/files/fp_815273_a_8c4886a7-5526-4688-a0ca-0f12b5200d27.jpg?v=1791361108",
-   "signal": "LINK ERROR",
-   "error": "HTTP Error 403: Forbidden",
-   "low": 135.0,
-   "low_date": "2026-10-03",
-   "change": 0.0
+   "store": "Goodhood",
+   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/AURORA_IR1953-200_PHSRH000-2000.jpg?v=1784651252",
+   "price": 134.99,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": false,
+   "alt_sizes": [
+    "UK7"
+   ],
+   "signal": "SOLD OUT",
+   "low": 134.99,
+   "low_date": "2026-10-08",
+   "change": -0.01
   },
   {
    "id": 44,

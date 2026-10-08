@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-08T06:15:55.040760Z",
+ "generated": "2026-10-08T08:21:15.073186Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -40,25 +40,6 @@
    "why": "70% off at Community Clothing · W34 L32 in stock · moss · chinos & trousers"
   },
   {
-   "key": "goodhoodstore.com/clarks-originals-wallabee-brown-interest",
-   "first_seen": "2026-10-03",
-   "store": "Goodhood",
-   "brand": "Clarks Originals",
-   "name": "Wallabee, Brown Interest",
-   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/Levels_11_1d83d216-0800-4697-a067-434cc18fad0b.jpg?v=1754563595",
-   "url": "https://goodhoodstore.com/products/clarks-originals-wallabee-brown-interest",
-   "category": "Footwear",
-   "price": 66.0,
-   "was": 165.0,
-   "discount_pct": 60,
-   "size": "UK 10",
-   "colour": "brown",
-   "tier": "deal",
-   "score": 64.5,
-   "role": "wallabee",
-   "why": "60% off at Goodhood · UK 10 in stock · brown · footwear"
-  },
-  {
    "key": "stuartslondon.com/snow-peak-breathable-quick-dry-jacket-dark-navy",
    "first_seen": "2026-10-03",
    "store": "Stuarts London",
@@ -97,23 +78,23 @@
    "why": "59% off at Stuarts London · L in stock · brown · jackets & overshirts"
   },
   {
-   "key": "goodhoodstore.com/c-e-cav-empt-nylon-button-coat-charcoal",
-   "first_seen": "2026-10-07",
-   "store": "Goodhood",
-   "brand": "C.E Cav Empt",
-   "name": "Nylon Button Coat, Charcoal",
-   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/CavEmptNylonButtonCoat-Charcoal3.jpg?v=1768403112",
-   "url": "https://goodhoodstore.com/products/c-e-cav-empt-nylon-button-coat-charcoal",
+   "key": "urbanindustry.co.uk/brixton-altered-threads-overshirt-multi-blanket-stripe",
+   "first_seen": "2026-10-08",
+   "store": "Urban Industry",
+   "brand": "Brixton",
+   "name": "Altered Threads Overshirt",
+   "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/Brixton_AlteredThreadsLinedGarageJacket_BlueMediumWashDenim_01.jpg?v=1762875090",
+   "url": "https://urbanindustry.co.uk/products/brixton-altered-threads-overshirt-multi-blanket-stripe",
    "category": "Jackets & Overshirts",
-   "price": 208.0,
-   "was": 520.0,
+   "price": 55.95,
+   "was": 139.95,
    "discount_pct": 60,
    "size": "L",
-   "colour": "charcoal",
-   "tier": "premium −40%+",
-   "score": 58.1,
-   "role": "jacket",
-   "why": "60% off at Goodhood · L in stock · charcoal · jackets & overshirts"
+   "colour": "grey",
+   "tier": "deal",
+   "score": 57.3,
+   "role": "overshirt",
+   "why": "60% off at Urban Industry · L in stock · grey · jackets & overshirts"
   },
   {
    "key": "uskees.co.uk/5016-khaki-twill-commuter-pants",
@@ -287,6 +268,25 @@
    "why": "41% off at Slam City · UK 10 in stock · grey · footwear"
   },
   {
+   "key": "slamcity.com/last-resort-ab-vm003-hi-cord-skate-shoes-dark-navy-white",
+   "first_seen": "2026-10-08",
+   "store": "Slam City",
+   "brand": "Last Resort AB",
+   "name": "VM003 Hi Cord Skate Shoes Dark Navy / White",
+   "image": "https://cdn.shopify.com/s/files/1/0020/1628/0646/files/VM003-Hi-DkNavy-cord_1.jpg?v=1765204207",
+   "url": "https://slamcity.com/products/last-resort-ab-vm003-hi-cord-skate-shoes-dark-navy-white",
+   "category": "Footwear",
+   "price": 49.99,
+   "was": 84.99,
+   "discount_pct": 41,
+   "size": "UK 10",
+   "colour": "navy",
+   "tier": "deal",
+   "score": 46.4,
+   "role": "trainer",
+   "why": "41% off at Slam City · UK 10 in stock · navy · footwear"
+  },
+  {
    "key": "jeanstore.co.uk/levis®-sweater-camp-shirt-pumice-stone",
    "first_seen": "2026-10-07",
    "store": "Jeanstore",
@@ -308,7 +308,7 @@
  ],
  "picks": [
   {
-   "date": "2026-10-07",
+   "date": "2026-10-08",
    "brand": "Community Clothing",
    "name": "Chore Jacket, putty",
    "url": "https://communityclothing.co.uk/products/mens-chore-jacket-putty",
@@ -325,7 +325,7 @@
    "verified": "2026-10-08"
   },
   {
-   "date": "2026-10-07",
+   "date": "2026-10-08",
    "brand": "M&S",
    "name": "Regular Fit Stretch Chinos, fawn",
    "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138?color=FAWN",
@@ -343,7 +343,7 @@
    "verified": "2026-10-08"
   },
   {
-   "date": "2026-10-07",
+   "date": "2026-10-08",
    "brand": "Community Clothing",
    "name": "Long Fit Raglan Sweatshirt, navy",
    "url": "https://communityclothing.co.uk/products/mens-long-fit-raglan-sweatshirt-pf-navy",
@@ -360,6 +360,6 @@
    "verified": "2026-10-08"
   }
  ],
- "picks_updated": "2026-10-07",
+ "picks_updated": "2026-10-08",
  "errors": []
 }
