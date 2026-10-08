@@ -3,19 +3,20 @@
  "updated": "2026-10-08",
  "look": "Elevated 90s/00s retro and workwear through a mature, deliberate lens. Effortless and put-together: fewer pieces, better fit, tonal outfits, texture over branding. Not trend-chasing streetwear, not skate, not fashion-week.",
  "build": "6ft, about 190lb, athletic but carries weight at the midsection, long arms (sleeves must reach the wrist). Tops L (outerwear L-XL), trousers W34 L32 with stretch, shoes UK 10.",
- "palette": "Charcoal, navy, olive, stone, taupe, washed blue, plus oatmeal or ecru knits and grey marl sweats. Tonal pairings. No black, brown or bright clothing; brown only for suede or leather boots and Wallabees.",
+ "palette": "Charcoal, navy, olive, stone, taupe, washed blue, plus oatmeal or ecru knits and grey marl sweats. Tonal pairings. No black, brown or bright clothing; brown is fine for footwear (brushed leather or suede boots, Wallabees).",
  "yes": [
   "Utility jackets: chore, field or M-65, harrington, waxed cotton, overshirts in olive, stone or navy",
   "Knits: crew necks with texture (waffle, cable, honeycomb), shawl or ribbed cardigans, fitted quarter-zip or mock-neck fleece",
   "Plain midweight sweats and hoodies with a 90s runner's fit (not drop-shoulder)",
   "Chinos with stretch, straight to slightly tapered; jeans straight or tapered, mid-rise, indigo or washed blue",
   "Footwear he likes: adidas Samba-style (Samba, Gazelle, Spezial), Vans Era, Nike SB Janoski and Blazer, Air Max 90, New Balance 990/574-type in muted tones, Clarks Wallabee, a sleek Chelsea boot less clunky than his Docs",
-  "Already owns: white Sambas, brown and black Dr. Martens, black/white Vans Era, black Air Max 95, a 5-panel cap"
+  "Already owns: white Sambas, brown and black Dr. Martens, black/white Vans Era, black Air Max 95, a 5-panel cap",
+  "Leather is fine for footwear: brushed-leather boots and leather trainers; fur, shearling or fleece-lined trainers and boots are fine for winter"
  ],
  "no": [
   "Any visible logo, graphic, slogan or contrast branding (a tiny tonal mark is the limit)",
   "Oversized, boxy, drop-shoulder, wide-leg, baggy, cropped or skinny cuts; chunky knits that add bulk at the middle",
-  "Leather or suede clothing, blazers and other dressy fashion pieces",
+  "Leather (or faux leather/suede) jackets, tees or trousers, blazers and other dressy fashion pieces; leather only belongs on his feet",
   "Skate shoes with loud stripes or logos, chunky or platform soles, slim low-profile trend trainers, collabs",
   "Busy patterns: stripes, checks, fair isle, boro, botanical prints, float-stitch, fluffy mohair",
   "Black, brown, tan or bright colours on clothing",
@@ -45,5 +46,11 @@
   }
  ],
  "loved": [],
- "feedback_log": []
+ "feedback_log": [
+  {
+   "id": "chat-2026-10-08",
+   "date": "2026-10-08",
+   "note": "Don: leather shoes fine (brushed leather boots, leather trainers), fur-lined trainers/boots fine for winter; dislikes leather jackets, tees and trousers only."
+  }
+ ]
 }

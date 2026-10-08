@@ -159,7 +159,6 @@
   "beanie",
   "belt",
   "book",
-  "borg",
   "botanical",
   "boucle",
   "boxy",
@@ -185,7 +184,6 @@
   "drop-shoulder",
   "embroidered",
   "fair isle",
-  "faux fur",
   "flip",
   "floral",
   "fluro",
@@ -226,7 +224,6 @@
   "scarf",
   "scarlet",
   "sequin",
-  "sherpa",
   "shorts",
   "skinny",
   "slide",
@@ -245,7 +242,6 @@
   "super slim",
   "swim",
   "tartan",
-  "teddy",
   "tie dye",
   "tie-dye",
   "tuxedo",
@@ -668,7 +664,12 @@
     "peacoat",
     "pea coat",
     "trench",
-    "reversible"
+    "reversible",
+    "sherpa",
+    "teddy",
+    "borg",
+    "faux fur",
+    "fur"
    ],
    "exclude_desc": [
     "logo",
@@ -758,7 +759,15 @@
     "track",
     "relaxed",
     "longline",
-    "tunic"
+    "tunic",
+    "sherpa",
+    "teddy",
+    "borg",
+    "faux fur",
+    "fur",
+    "leather",
+    "faux leather",
+    "suede"
    ],
    "palette_extra": [
     "cream",
@@ -789,7 +798,10 @@
     "vest",
     "polo",
     "relaxed",
-    "acid"
+    "acid",
+    "leather",
+    "faux leather",
+    "suede"
    ],
    "exclude_desc": [
     "logo",
@@ -909,7 +921,12 @@
     "short",
     "shorts",
     "pyjama",
-    "pajama"
+    "pajama",
+    "leather",
+    "faux leather",
+    "vegan leather",
+    "pu",
+    "suede"
    ],
    "exclude_desc": [
     "logo",
