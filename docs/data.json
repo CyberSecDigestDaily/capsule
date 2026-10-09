@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-09T08:19:29.424523Z",
+ "generated": "2026-10-09T09:52:48.957952Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -11,10 +11,10 @@
  },
  "errors": 0,
  "counts": {
-  "WATCHING": 30,
-  "SOLD OUT": 9,
+  "WATCHING": 33,
+  "SOLD OUT": 8,
   "SALE": 3,
-  "BUY": 6
+  "BUY": 5
  },
  "items": [
   {
@@ -417,7 +417,7 @@
    "note": "Replaces the drop-shoulder Heritage Sweatshirt. £52 (was £65).",
    "fit": {
     "verdict": "good",
-    "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it covers the midsection without bagging. 335g organic loopback; wash cool (up to 4% shrink)."
+    "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it sits clean at the waist without riding up. 335g organic loopback; wash cool (up to 4% shrink)."
    },
    "checked": "2026-10-09",
    "store": "Community Clothing",
@@ -736,16 +736,16 @@
    "price": 95.0,
    "was": 100.0,
    "discount_pct": 5,
-   "in_stock": false,
+   "in_stock": true,
    "alt_sizes": [
     "W29 L32",
+    "W30 L30",
     "W30 L32",
     "W31 L32",
     "W31 L34",
-    "W32 L30",
-    "W32 L32"
+    "W32 L30"
    ],
-   "signal": "SOLD OUT",
+   "signal": "WATCHING",
    "low": 95.0,
    "low_date": "2026-07-11",
    "change": 0.0
@@ -1010,7 +1010,7 @@
    "target": 115,
    "fit": {
     "verdict": "check",
-    "note": "Clean taper (19.5cm hem at 34) and a higher 35cm front rise, which suits the midsection, but 100% cotton with no stretch."
+    "note": "Clean taper (19.5cm hem at 34) and a higher 35cm front rise, which sits comfortably at the waist, but 100% cotton with no stretch."
    },
    "checked": "2026-10-09",
    "store": "Universal Works",
@@ -1077,7 +1077,7 @@
    "note": "Premium: only a buy at 40%+ off (archive sale).",
    "fit": {
     "verdict": "good",
-    "note": "High rise sits at the natural waist (best for the midsection); straight leg tapering from the knee; wool with a little stretch."
+    "note": "High rise sits at the natural waist (comfortable and clean under a knit); straight leg tapering from the knee; wool with a little stretch."
    },
    "checked": "2026-10-09",
    "store": "Oliver Spencer",
@@ -1478,42 +1478,6 @@
    "change": 0.0
   },
   {
-   "id": 48,
-   "category": "Footwear",
-   "role": "boot",
-   "tier": "mid",
-   "brand": "John White",
-   "name": "Byrne Chelsea Grain Boot, brown grain",
-   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-grain-boot",
-   "check": "shopify",
-   "size": "UK 10",
-   "variant": "Brown Grain",
-   "target": 130,
-   "note": "Same Byrne Chelsea Don liked, in pebbled full-grain leather: matte, not shiny like the pull-up version. Chunky Vibram sole. £120, was £280.",
-   "fit": {
-    "verdict": "good",
-    "note": "Classic close-fitting Chelsea, snug over the instep. Full-grain calf, leather-lined, chunky Vibram sole."
-   },
-   "checked": "2026-10-09",
-   "store": "John White",
-   "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-grainbrown-1.jpg?v=1783181401",
-   "price": 120.0,
-   "was": 280.0,
-   "discount_pct": 57,
-   "in_stock": true,
-   "alt_sizes": [
-    "UK 7",
-    "UK 8",
-    "UK 9",
-    "UK 11",
-    "UK 12"
-   ],
-   "signal": "BUY",
-   "low": 120.0,
-   "low_date": "2026-10-03",
-   "change": 0.0
-  },
-  {
    "id": 49,
    "category": "Footwear",
    "role": "boot",
@@ -1548,6 +1512,76 @@
    "low": 120.0,
    "low_date": "2026-10-03",
    "change": 0.0
+  },
+  {
+   "id": 50,
+   "category": "Footwear",
+   "role": "boot",
+   "tier": "mid",
+   "brand": "Blundstone",
+   "name": "#584 Thermal Chelsea Boot, rustic brown",
+   "url": "https://www.blundstone.co.uk/products/blundstone-584-rustic-brown",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 168,
+   "note": "Winter boot: brushed, distressed rustic-brown leather (matte, not shiny), Thinsulate lining and a sheepswool footbed. £210.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
+   },
+   "checked": "2026-10-09",
+   "store": "blundstone.co.uk",
+   "price": 210.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "3 UK",
+    "4 UK",
+    "4.5 UK",
+    "5 UK",
+    "5.5 UK",
+    "6 UK"
+   ],
+   "image": "https://cdn.shopify.com/s/files/1/0255/2813/9827/files/BLU584-220UK_UNISEX_1.jpg?v=1748349484",
+   "signal": "WATCHING",
+   "low": 210.0,
+   "low_date": "2026-10-09"
+  },
+  {
+   "id": 51,
+   "category": "Footwear",
+   "role": "boot",
+   "tier": "mid",
+   "brand": "Blundstone",
+   "name": "#1478 Thermal Chelsea Boot, rustic black",
+   "url": "https://www.blundstone.co.uk/products/blundstone-1478-rustic-black",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 168,
+   "note": "Winter boot in matte rustic black (brushed, not shiny), Thinsulate lining and a sheepswool footbed. £210.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
+   },
+   "checked": "2026-10-09",
+   "store": "blundstone.co.uk",
+   "price": 210.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "3 UK",
+    "3.5 UK",
+    "4 UK",
+    "4.5 UK",
+    "5 UK",
+    "5.5 UK"
+   ],
+   "image": "https://cdn.shopify.com/s/files/1/0255/2813/9827/files/BLU1478-001UK_UNISEX_1.jpg?v=1748349518",
+   "signal": "WATCHING",
+   "low": 210.0,
+   "low_date": "2026-10-09"
   },
   {
    "id": 33,
