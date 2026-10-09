@@ -962,7 +962,7 @@ def send_drop(subject, text, picks_updated, prev_state):
         return dict(state, status="smtp not set up (GMAIL_USER / GMAIL_APP_PASSWORD secrets)")
     if state.get("date") == today:
         return dict(state, status="already sent today")
-    if picks_updated != today and uk_now().hour < 12:
+    if picks_updated != today and uk_now().hour < 11:
         return dict(state, status="waiting for today's review")
     import smtplib
     import ssl

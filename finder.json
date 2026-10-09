@@ -492,7 +492,14 @@
     "patent",
     "high shine",
     "high-shine",
-    "polished"
+    "polished",
+    "grain",
+    "grained",
+    "pebble",
+    "pebbled",
+    "scotch grain",
+    "hi-shine",
+    "hi shine"
    ],
    "role_palette": {
     "trainer": [
@@ -1114,6 +1121,8 @@
   "https://folkclothing.com/products/folk-anniversary-trouser-dark-olive-ripstop",
   "https://communityclothing.co.uk/products/mens-george-lightweight-collarless-overshirt-light-navy",
   "https://routeone.co.uk/products/adidas-gazelle-adv-skate-shoes-wonder-white-preloved-blue-gum-001190744",
-  "https://urbanindustry.co.uk/products/beams-plus-raised-back-sweat-pullover-hoodie-khaki"
+  "https://urbanindustry.co.uk/products/beams-plus-raised-back-sweat-pullover-hoodie-khaki",
+  "https://johnwhiteshoes.com/products/byrne-chelsea-grain-boot",
+  "https://johnwhiteshoes.com/products/byrne-chelsea-boot"
  ]
 }

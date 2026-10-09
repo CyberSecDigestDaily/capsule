@@ -1,8 +1,8 @@
 {
  "_about": "Don's taste profile: the rubric Claude's daily review applies before approving any deal or pick, and where Don's feedback is kept. The review adds to rejected, loved and feedback_log from 'Capsule nope' emails (the Not for me links) and replies to The Drop, and turns repeat lessons into rules in finder.json. The scraper doesn't read this file.",
- "updated": "2026-10-08",
+ "updated": "2026-10-09",
  "look": "Elevated 90s/00s retro and workwear through a mature, deliberate lens. Effortless and put-together: fewer pieces, better fit, tonal outfits, texture over branding. Not trend-chasing streetwear, not skate, not fashion-week.",
- "build": "6ft, about 190lb, athletic but carries weight at the midsection, long arms (sleeves must reach the wrist). Tops L (outerwear L-XL), trousers W34 L32 with stretch, shoes UK 10.",
+ "build": "Long arms (sleeves must reach the wrist); regular or tapered cuts, nothing boxy, oversized or clingy. Tops L (outerwear L-XL), trousers W34 L32 with stretch, shoes UK 10.",
  "palette": "Charcoal, navy, olive, stone, taupe, washed blue, plus oatmeal or ecru knits and grey marl sweats. Tonal pairings. No black, brown or bright clothing; brown is fine for footwear (brushed leather or suede boots, Wallabees).",
  "yes": [
   "Utility jackets: chore, field or M-65, harrington, waxed cotton, overshirts in olive, stone or navy",
@@ -12,7 +12,8 @@
   "Footwear he likes: adidas Samba-style (Samba, Gazelle, Spezial), Vans Era, Nike SB Janoski and Blazer, Air Max 90, New Balance 990/574-type in muted tones, Clarks Wallabee, and Chelsea boots with a sleek or chunky sole (he likes the John White Byrne style)",
   "Already owns: white Sambas, brown and black Dr. Martens, black/white Vans Era, black Air Max 95, a 5-panel cap",
   "Leather is fine for footwear: brushed-leather boots and leather trainers; fur, shearling or fleece-lined trainers and boots are fine for winter",
-  "Shoe and boot finishes: brushed, grained or suede leather"
+  "Boot finishes: brown = brushed leather (crazy horse, rustic, oiled nubuck) or suede/nubuck, the brushed look is his favourite; black = matte or waxy, never shiny",
+  "Winter boots: waterproof (membrane) or properly water-resistant with sealed seams, warm lining (Thinsulate, shearling, fleece), cushioned and comfy"
  ],
  "no": [
   "Any visible logo, graphic, slogan or contrast branding (a tiny tonal mark is the limit)",
@@ -22,7 +23,7 @@
   "Busy patterns: stripes, checks, fair isle, boro, botanical prints, float-stitch, fluffy mohair",
   "Black, brown, tan or bright colours on clothing",
   "100% cotton trousers with no give",
-  "Shiny, polished or patent leather on shoes and boots"
+  "Shiny, polished, patent or hi-shine leather on any shoes or boots; smooth-matte or pebbled/grained leather on brown boots"
  ],
  "rejected": [
   {
@@ -45,6 +46,13 @@
    "url": "https://slamcity.com/products/adidas-busenitz-indoor-super-core-skate-shoes-black-grey-four-grey-two",
    "source": "Don, screenshot: wouldn't be caught dead in it",
    "likely_why": "skate shoe with loud contrast stripes and gold logo text on black"
+  },
+  {
+   "date": "2026-10-09",
+   "item": "John White Byrne Chelsea Grain Boot, brown grain",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-grain-boot",
+   "source": "Don, chat",
+   "likely_why": "matte pebbled leather; he wants brushed or suede-look leather on brown boots"
   }
  ],
  "loved": [
@@ -53,7 +61,7 @@
    "item": "John White Byrne Chelsea Boot (style)",
    "url": "https://johnwhiteshoes.com/products/byrne-chelsea-boot",
    "source": "Don, chat",
-   "why": "liked the style and chunky sole; only disliked the shiny pull-up leather"
+   "why": "liked the shape and chunky sole; disliked the shiny pull-up and the matte grain finishes (suede is fine)"
   }
  ],
  "feedback_log": [
@@ -66,6 +74,11 @@
    "id": "chat-2026-10-08b",
    "date": "2026-10-08",
    "note": "Don: chunky and sleek soles both fine on boots; liked the John White Byrne Chelsea style but not the shiny leather."
+  },
+  {
+   "id": "chat-2026-10-09",
+   "date": "2026-10-09",
+   "note": "Don: no matte leather on brown boots; brushed leather is his favourite, suede-look also good; matte (non-shiny) is fine for black boots. Winter boots must be waterproof, warm and comfy."
   }
  ]
 }

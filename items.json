@@ -221,7 +221,7 @@
    "note": "Replaces the drop-shoulder Heritage Sweatshirt. £52 (was £65).",
    "fit": {
     "verdict": "good",
-    "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it covers the midsection without bagging. 335g organic loopback; wash cool (up to 4% shrink)."
+    "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it sits clean at the waist without riding up. 335g organic loopback; wash cool (up to 4% shrink)."
    }
   },
   {
@@ -502,7 +502,7 @@
    "target": 115,
    "fit": {
     "verdict": "check",
-    "note": "Clean taper (19.5cm hem at 34) and a higher 35cm front rise, which suits the midsection, but 100% cotton with no stretch."
+    "note": "Clean taper (19.5cm hem at 34) and a higher 35cm front rise, which sits comfortably at the waist, but 100% cotton with no stretch."
    }
   },
   {
@@ -536,7 +536,7 @@
    "note": "Premium: only a buy at 40%+ off (archive sale).",
    "fit": {
     "verdict": "good",
-    "note": "High rise sits at the natural waist (best for the midsection); straight leg tapering from the knee; wool with a little stretch."
+    "note": "High rise sits at the natural waist (comfortable and clean under a knit); straight leg tapering from the knee; wool with a little stretch."
    }
   },
   {
@@ -730,24 +730,6 @@
    }
   },
   {
-   "id": 48,
-   "category": "Footwear",
-   "role": "boot",
-   "tier": "mid",
-   "brand": "John White",
-   "name": "Byrne Chelsea Grain Boot, brown grain",
-   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-grain-boot",
-   "check": "shopify",
-   "size": "UK 10",
-   "variant": "Brown Grain",
-   "target": 130,
-   "note": "Same Byrne Chelsea Don liked, in pebbled full-grain leather: matte, not shiny like the pull-up version. Chunky Vibram sole. £120, was £280.",
-   "fit": {
-    "verdict": "good",
-    "note": "Classic close-fitting Chelsea, snug over the instep. Full-grain calf, leather-lined, chunky Vibram sole."
-   }
-  },
-  {
    "id": 49,
    "category": "Footwear",
    "role": "boot",
@@ -763,6 +745,40 @@
    "fit": {
     "verdict": "good",
     "note": "Classic close-fitting Chelsea, snug over the instep. Calf suede (matte), leather-lined, chunky Vibram sole; suede needs protector spray."
+   }
+  },
+  {
+   "id": 50,
+   "category": "Footwear",
+   "role": "boot",
+   "tier": "mid",
+   "brand": "Blundstone",
+   "name": "#584 Thermal Chelsea Boot, rustic brown",
+   "url": "https://www.blundstone.co.uk/products/blundstone-584-rustic-brown",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 168,
+   "note": "Winter boot: brushed, distressed rustic-brown leather (matte, not shiny), Thinsulate lining and a sheepswool footbed. £210.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
+   }
+  },
+  {
+   "id": 51,
+   "category": "Footwear",
+   "role": "boot",
+   "tier": "mid",
+   "brand": "Blundstone",
+   "name": "#1478 Thermal Chelsea Boot, rustic black",
+   "url": "https://www.blundstone.co.uk/products/blundstone-1478-rustic-black",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 168,
+   "note": "Winter boot in matte rustic black (brushed, not shiny), Thinsulate lining and a sheepswool footbed. £210.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
    }
   },
   {
