@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-09T09:52:48.957952Z",
+ "generated": "2026-10-09T12:15:55.587591Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -172,5 +172,28 @@
  ],
  "picks_updated": "2026-10-09",
  "errors": [],
- "candidates": []
+ "candidates": [
+  {
+   "key": "uskees.co.uk/3045-khaki-ripstop-field-jacket",
+   "first_seen": "2026-10-09",
+   "store": "Uskees",
+   "brand": "Uskees",
+   "name": "3045 Ripstop field jacket, khaki",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3045-khaki-ripstop-field-jacket-front.jpg?v=1769955667",
+   "url": "https://uskees.co.uk/products/3045-khaki-ripstop-field-jacket",
+   "category": "Jackets & Overshirts",
+   "price": 65.0,
+   "was": 130.0,
+   "discount_pct": 50,
+   "size": "L",
+   "colour": "khaki",
+   "tier": "deal",
+   "score": 52.9,
+   "role": "jacket",
+   "why": "50% off at Uskees · L in stock · khaki · jackets & overshirts",
+   "fit_words": [],
+   "composition": null,
+   "desc": "a classic military ops garment reworked in non-tear ripstop. the 3045 switches up a historic fabric for more modern manoeuvres. wear it like a casual bomber jacket.."
+  }
+ ]
 }
