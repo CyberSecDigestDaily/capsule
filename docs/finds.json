@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-09T06:15:48.797932Z",
+ "generated": "2026-10-09T08:19:29.424523Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -59,25 +59,6 @@
    "why": "50% off at Finisterre · L in stock · indigo · jackets & overshirts"
   },
   {
-   "key": "routeone.co.uk/adidas-gazelle-adv-skate-shoes-wonder-white-preloved-blue-gum-001190744",
-   "first_seen": "2026-10-08",
-   "store": "Route One",
-   "brand": "adidas",
-   "name": "Gazelle ADV Skate Shoes, Wonder White/Preloved Blue/Gum",
-   "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001190744.jpg?v=1770043505",
-   "url": "https://routeone.co.uk/products/adidas-gazelle-adv-skate-shoes-wonder-white-preloved-blue-gum-001190744",
-   "category": "Footwear",
-   "price": 54.95,
-   "was": 89.95,
-   "discount_pct": 39,
-   "size": "UK 10",
-   "colour": "white",
-   "tier": "deal",
-   "score": 36.1,
-   "role": "trainer",
-   "why": "39% off at Route One · UK 10 in stock · white · footwear"
-  },
-  {
    "key": "jeanstore.co.uk/lee-david-regular-tapered-mens-jeans-rusty-rivet",
    "first_seen": "2026-10-08",
    "store": "Jeanstore",
@@ -116,25 +97,6 @@
    "why": "30% off at Parasol Store · L in stock · navy · mid-layers & knits"
   },
   {
-   "key": "urbanindustry.co.uk/beams-plus-raised-back-sweat-pullover-hoodie-khaki",
-   "first_seen": "2026-10-08",
-   "store": "Urban Industry",
-   "brand": "Beams Plus",
-   "name": "Raised Back Sweat Pullover Hoodie",
-   "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/BeamsPlus_RaisedBackSweatPullover_Hoodie_BeigeKhaki_01.jpg?v=1736512548",
-   "url": "https://urbanindustry.co.uk/products/beams-plus-raised-back-sweat-pullover-hoodie-khaki",
-   "category": "Mid-layers & Knits",
-   "price": 94.95,
-   "was": 159.95,
-   "discount_pct": 41,
-   "size": "L",
-   "colour": "beige",
-   "tier": "premium −40%+",
-   "score": 34.2,
-   "role": "sweat",
-   "why": "41% off at Urban Industry · L in stock · beige · mid-layers & knits"
-  },
-  {
    "key": "uskees.co.uk/3001-army-green-button-overshirt",
    "first_seen": "2026-10-08",
    "store": "Uskees",
@@ -156,7 +118,7 @@
  ],
  "picks": [
   {
-   "date": "2026-10-08",
+   "date": "2026-10-09",
    "brand": "Community Clothing",
    "name": "Chore Jacket, putty",
    "url": "https://communityclothing.co.uk/products/mens-chore-jacket-putty",
@@ -173,7 +135,7 @@
    "verified": "2026-10-09"
   },
   {
-   "date": "2026-10-08",
+   "date": "2026-10-09",
    "brand": "M&S",
    "name": "Regular Fit Stretch Chinos, fawn",
    "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138?color=FAWN",
@@ -191,7 +153,7 @@
    "verified": "2026-10-09"
   },
   {
-   "date": "2026-10-08",
+   "date": "2026-10-09",
    "brand": "Community Clothing",
    "name": "Long Fit Raglan Sweatshirt, navy",
    "url": "https://communityclothing.co.uk/products/mens-long-fit-raglan-sweatshirt-pf-navy",
@@ -208,30 +170,7 @@
    "verified": "2026-10-09"
   }
  ],
- "picks_updated": "2026-10-08",
+ "picks_updated": "2026-10-09",
  "errors": [],
- "candidates": [
-  {
-   "key": "communityclothing.co.uk/mens-george-lightweight-collarless-overshirt-light-navy",
-   "first_seen": "2026-10-08",
-   "store": "Community Clothing",
-   "brand": "Community Clothing",
-   "name": "George Lightweight Collarless Overshirt, Light Blue",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_George-Lightweight-Collarless-Overshirt_Light-Blue_Portrait.jpg?v=1715253621",
-   "url": "https://communityclothing.co.uk/products/mens-george-lightweight-collarless-overshirt-light-navy",
-   "category": "Jackets & Overshirts",
-   "price": 59.5,
-   "was": 119.0,
-   "discount_pct": 50,
-   "size": "L",
-   "colour": "light blue",
-   "tier": "deal",
-   "score": 53.2,
-   "role": "overshirt",
-   "why": "50% off at Community Clothing · L in stock · light blue · jackets & overshirts",
-   "fit_words": [],
-   "composition": null,
-   "desc": ""
-  }
- ]
+ "candidates": []
 }
