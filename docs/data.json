@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T09:28:05.080445Z",
+ "generated": "2026-10-10T09:37:23.753747Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -163,6 +163,7 @@
    },
    "checked": "2026-10-10",
    "store": "Uskees",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-army-green-front-flat.jpg?v=1775045996",
    "price": 59.5,
    "was": 85.0,
    "discount_pct": 30,
@@ -174,7 +175,6 @@
     "XL",
     "XXL"
    ],
-   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-army-green-front-flat.jpg?v=1775045996",
    "signal": "BUY",
    "low": 59.5,
    "low_date": "2026-10-10"
@@ -376,6 +376,7 @@
    },
    "checked": "2026-10-10",
    "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_57_482522_3x4.jpg",
    "price": 14.9,
    "was": null,
    "discount_pct": 0,
@@ -387,7 +388,6 @@
     "XXL",
     "3XL"
    ],
-   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_57_482522_3x4.jpg",
    "signal": "WATCHING",
    "low": 14.9,
    "low_date": "2026-10-10"
@@ -411,6 +411,7 @@
    },
    "checked": "2026-10-10",
    "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_69_482522_3x4.jpg",
    "price": 14.9,
    "was": null,
    "discount_pct": 0,
@@ -423,7 +424,6 @@
     "XXL",
     "3XL"
    ],
-   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_69_482522_3x4.jpg",
    "signal": "WATCHING",
    "low": 14.9,
    "low_date": "2026-10-10"
@@ -1035,7 +1035,7 @@
     "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
    },
    "checked": "2026-10-10",
-   "store": "blundstone.co.uk",
+   "store": "Blundstone",
    "image": "https://cdn.shopify.com/s/files/1/0255/2813/9827/files/BLU584-220UK_UNISEX_1.jpg?v=1748349484",
    "price": 210.0,
    "was": null,
@@ -1071,7 +1071,7 @@
     "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
    },
    "checked": "2026-10-10",
-   "store": "blundstone.co.uk",
+   "store": "Blundstone",
    "image": "https://cdn.shopify.com/s/files/1/0255/2813/9827/files/BLU1478-001UK_UNISEX_1.jpg?v=1748349518",
    "price": 210.0,
    "was": null,

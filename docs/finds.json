@@ -1,6 +1,25 @@
 {
- "generated": "2026-10-10T09:28:05.080445Z",
+ "generated": "2026-10-10T09:37:23.753747Z",
  "finds": [
+  {
+   "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
+   "first_seen": "2026-10-08",
+   "store": "Community Clothing",
+   "brand": "Community Clothing",
+   "name": "Harrington Jacket, Stone",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Harrington-Jacket_Stone_Thigh-Up-Front_05169278-f469-447a-ae49-c173903780ef.jpg?v=1706607356",
+   "url": "https://communityclothing.co.uk/products/mens-harrington-jacket-stone",
+   "category": "Jackets & Overshirts",
+   "price": 65.0,
+   "was": 130.0,
+   "discount_pct": 50,
+   "size": "L",
+   "colour": "stone",
+   "tier": "deal",
+   "score": 68.9,
+   "role": "jacket",
+   "why": "50% off at Community Clothing · L in stock · stone · jackets & overshirts"
+  },
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
    "first_seen": "2026-10-03",
@@ -19,25 +38,6 @@
    "score": 64.0,
    "role": "jacket",
    "why": "70% off at Community Clothing · L in stock · putty · jackets & overshirts"
-  },
-  {
-   "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
-   "first_seen": "2026-10-08",
-   "store": "Community Clothing",
-   "brand": "Community Clothing",
-   "name": "Harrington Jacket, Stone",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Harrington-Jacket_Stone_Thigh-Up-Front_05169278-f469-447a-ae49-c173903780ef.jpg?v=1706607356",
-   "url": "https://communityclothing.co.uk/products/mens-harrington-jacket-stone",
-   "category": "Jackets & Overshirts",
-   "price": 65.0,
-   "was": 130.0,
-   "discount_pct": 50,
-   "size": "L",
-   "colour": "stone",
-   "tier": "deal",
-   "score": 62.9,
-   "role": "jacket",
-   "why": "50% off at Community Clothing · L in stock · stone · jackets & overshirts"
   },
   {
    "key": "finisterre.com/mens-organic-cotton-resurge-jacket-indigo-grey",
@@ -59,6 +59,25 @@
    "why": "50% off at Finisterre · L in stock · indigo · jackets & overshirts"
   },
   {
+   "key": "parasolstore.co.uk/barbour-essential-honeycomb-quarter-zip-jumper-navy",
+   "first_seen": "2026-10-08",
+   "store": "Parasol Store",
+   "brand": "Barbour",
+   "name": "Essential Honeycomb Quarter-Zip Jumper Navy",
+   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourEssentialHoneycombQuarter-ZipJumperNavy4.jpg?v=1775055010",
+   "url": "https://parasolstore.co.uk/products/barbour-essential-honeycomb-quarter-zip-jumper-navy",
+   "category": "Mid-layers & Knits",
+   "price": 70.0,
+   "was": 99.95,
+   "discount_pct": 30,
+   "size": "L",
+   "colour": "navy",
+   "tier": "deal",
+   "score": 41.0,
+   "role": "knit",
+   "why": "30% off at Parasol Store · L in stock · navy · mid-layers & knits"
+  },
+  {
    "key": "jeanstore.co.uk/lee-david-regular-tapered-mens-jeans-rusty-rivet",
    "first_seen": "2026-10-08",
    "store": "Jeanstore",
@@ -76,25 +95,6 @@
    "score": 35.9,
    "role": "jeans",
    "why": "40% off at Jeanstore · W34 L32 in stock · blue · jeans"
-  },
-  {
-   "key": "parasolstore.co.uk/barbour-essential-honeycomb-quarter-zip-jumper-navy",
-   "first_seen": "2026-10-08",
-   "store": "Parasol Store",
-   "brand": "Barbour",
-   "name": "Essential Honeycomb Quarter-Zip Jumper Navy",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourEssentialHoneycombQuarter-ZipJumperNavy4.jpg?v=1775055010",
-   "url": "https://parasolstore.co.uk/products/barbour-essential-honeycomb-quarter-zip-jumper-navy",
-   "category": "Mid-layers & Knits",
-   "price": 70.0,
-   "was": 99.95,
-   "discount_pct": 30,
-   "size": "L",
-   "colour": "navy",
-   "tier": "deal",
-   "score": 35.0,
-   "role": "knit",
-   "why": "30% off at Parasol Store · L in stock · navy · mid-layers & knits"
   }
  ],
  "picks": [
@@ -108,13 +108,16 @@
    "price": 14.9,
    "category": "Tees",
    "why": "A plain tee is the missing piece in three of your five outfits. This is a smooth, regular-fit crew in olive for £14.90: wear it under the navy Parachute jacket with your 502s and Sambas, or under a knit for the office.",
+   "short": "Olive crew tee",
    "store": "Uniqlo",
    "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_57_482522_3x4.jpg",
    "price_now": 14.9,
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-10"
+   "verified": "2026-10-10",
+   "since": "2026-10-10",
+   "start_price": 14.9
   },
   {
    "date": "2026-10-10",
@@ -125,13 +128,16 @@
    "price": 70,
    "category": "Mid-layers & Knits",
    "why": "Your office and date-night outfits still need a knit. Honeycomb cotton gives texture without bulk and the logo is tonal. Wear it over the olive tee with the fawn chinos and brown Docs, or under the Ashby on cold days.",
+   "short": "Honeycomb quarter-zip",
    "store": "Parasol Store",
    "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourEssentialHoneycombQuarter-ZipJumperNavy4.jpg?v=1775055010",
    "price_now": 70.0,
    "in_stock": true,
    "discount_pct": 30,
    "was": 99.95,
-   "verified": "2026-10-10"
+   "verified": "2026-10-10",
+   "since": "2026-10-10",
+   "start_price": 70.0
   },
   {
    "date": "2026-10-10",
@@ -143,13 +149,16 @@
    "price": 120,
    "category": "Footwear",
    "why": "The Chelsea shape you liked, in the suede finish you prefer: sleeker than your Docs for the office, on a chunky Vibram sole for wet pavements. £120, down from £280. Wear it with the 502s or the fawn chinos.",
+   "short": "Byrne suede Chelsea",
    "store": "John White",
    "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
    "price_now": 120.0,
    "in_stock": true,
    "discount_pct": 57,
    "was": 280.0,
-   "verified": "2026-10-10"
+   "verified": "2026-10-10",
+   "since": "2026-10-10",
+   "start_price": 120.0
   }
  ],
  "picks_updated": "2026-10-10",
