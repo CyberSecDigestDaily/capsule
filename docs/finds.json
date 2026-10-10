@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-09T18:15:56.091512Z",
+ "generated": "2026-10-10T06:15:49.257063Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -132,7 +132,7 @@
    "in_stock": true,
    "discount_pct": 70,
    "was": 140.0,
-   "verified": "2026-10-09"
+   "verified": "2026-10-10"
   },
   {
    "date": "2026-10-09",
@@ -150,7 +150,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-09"
+   "verified": "2026-10-10"
   },
   {
    "date": "2026-10-09",
@@ -167,7 +167,7 @@
    "in_stock": true,
    "discount_pct": 20,
    "was": 65.0,
-   "verified": "2026-10-09"
+   "verified": "2026-10-10"
   }
  ],
  "picks_updated": "2026-10-09",
