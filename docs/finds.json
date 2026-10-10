@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T06:15:49.257063Z",
+ "generated": "2026-10-10T08:18:22.897026Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-chore-jacket-putty",
@@ -118,7 +118,7 @@
  ],
  "picks": [
   {
-   "date": "2026-10-09",
+   "date": "2026-10-10",
    "brand": "Community Clothing",
    "name": "Chore Jacket, putty",
    "url": "https://communityclothing.co.uk/products/mens-chore-jacket-putty",
@@ -135,7 +135,7 @@
    "verified": "2026-10-10"
   },
   {
-   "date": "2026-10-09",
+   "date": "2026-10-10",
    "brand": "M&S",
    "name": "Regular Fit Stretch Chinos, fawn",
    "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138?color=FAWN",
@@ -153,7 +153,7 @@
    "verified": "2026-10-10"
   },
   {
-   "date": "2026-10-09",
+   "date": "2026-10-10",
    "brand": "Community Clothing",
    "name": "Long Fit Raglan Sweatshirt, navy",
    "url": "https://communityclothing.co.uk/products/mens-long-fit-raglan-sweatshirt-pf-navy",
@@ -170,30 +170,7 @@
    "verified": "2026-10-10"
   }
  ],
- "picks_updated": "2026-10-09",
+ "picks_updated": "2026-10-10",
  "errors": [],
- "candidates": [
-  {
-   "key": "uskees.co.uk/3045-khaki-ripstop-field-jacket",
-   "first_seen": "2026-10-09",
-   "store": "Uskees",
-   "brand": "Uskees",
-   "name": "3045 Ripstop field jacket, khaki",
-   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3045-khaki-ripstop-field-jacket-front.jpg?v=1769955667",
-   "url": "https://uskees.co.uk/products/3045-khaki-ripstop-field-jacket",
-   "category": "Jackets & Overshirts",
-   "price": 65.0,
-   "was": 130.0,
-   "discount_pct": 50,
-   "size": "L",
-   "colour": "khaki",
-   "tier": "deal",
-   "score": 52.9,
-   "role": "jacket",
-   "why": "50% off at Uskees · L in stock · khaki · jackets & overshirts",
-   "fit_words": [],
-   "composition": null,
-   "desc": "a classic military ops garment reworked in non-tear ripstop. the 3045 switches up a historic fabric for more modern manoeuvres. wear it like a casual bomber jacket.."
-  }
- ]
+ "candidates": []
 }
