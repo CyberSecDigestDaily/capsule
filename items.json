@@ -7,27 +7,9 @@
   "sock": "M/L",
   "boxer": "L",
   "shoe": "UK 10",
-  "reach_cm": null
+  "reach_cm": 81
  },
  "items": [
-  {
-   "id": 1,
-   "category": "Jackets & Overshirts",
-   "role": "jacket",
-   "tier": "budget",
-   "brand": "Uniqlo",
-   "name": "Denim Trucker Jacket, olive",
-   "url": "https://www.uniqlo.com/uk/en/products/E488726-000/00?colorDisplayCode=57&sizeDisplayCode=005",
-   "check": "uniqlo",
-   "size": "L",
-   "target": 35,
-   "fit": {
-    "verdict": "check",
-    "note": "Uniqlo list it as a regular fit with a shorter length, like every trucker: it should finish at your belt, not above it. Size XL if you'll layer a knit under it."
-   },
-   "variant": "Olive",
-   "note": "Replaces the sold-out Utility Blouson (end of season)."
-  },
   {
    "id": 2,
    "category": "Mid-layers & Knits",
@@ -45,41 +27,6 @@
    },
    "variant": "Olive",
    "note": "Replaces the sold-out Corduroy Overshirt (end of season)."
-  },
-  {
-   "id": 3,
-   "category": "Jackets & Overshirts",
-   "role": "overshirt",
-   "tier": "mid",
-   "brand": "Lee",
-   "name": "Workwear Overshirt, khaki",
-   "url": "https://jeanstore.co.uk/products/lee-workwear-relaxed-overshirt-perfect-khaki",
-   "check": "shopify",
-   "size": "L",
-   "target": 65,
-   "note": "L sold out at Jeanstore; XL in stock if you want the longer sleeve.",
-   "fit": {
-    "verdict": "check",
-    "note": "Relaxed cut in rigid 8.5oz canvas, no stretch: can look boxy. L sold out; XL adds sleeve length but also bulk at the middle."
-   }
-  },
-  {
-   "id": 4,
-   "category": "Jackets & Overshirts",
-   "role": "overshirt",
-   "tier": "mid",
-   "brand": "Barbour",
-   "name": "Endurance Ripstop Overshirt, navy",
-   "url": "https://www.parasolstore.co.uk/products/barbour-endurance-ripstop-overshirt-navy",
-   "check": "shopify",
-   "size": "L",
-   "target": 105,
-   "last_price": 120.0,
-   "note": "Stocked at Parasol Store.",
-   "fit": {
-    "verdict": "check",
-    "note": "Relaxed fit, 100% cotton ripstop, cord collar. No measurements published: check the sleeve on arrival."
-   }
   },
   {
    "id": 6,
@@ -119,27 +66,8 @@
      "L": 89,
      "XL": 91.5
     }
-   }
-  },
-  {
-   "id": 8,
-   "category": "Jackets & Overshirts",
-   "role": "jacket",
-   "tier": "premium",
-   "brand": "Universal Works",
-   "name": "Wool Fleece Field Jacket, black",
-   "url": "https://universalworks.com/products/universal-works-field-jacket-in-black-wool-fleece-2",
-   "check": "shopify",
-   "size": "L",
-   "target": 150,
-   "fit": {
-    "verdict": "good",
-    "note": "Relaxed chore cut. Reach ≈90cm in L, 93cm in XL. UW's 6ft model (38in chest) wears L.",
-    "reach": {
-     "L": 90.3,
-     "XL": 92.8
-    }
-   }
+   },
+   "bought": true
   },
   {
    "id": 9,
@@ -155,6 +83,24 @@
    "fit": {
     "verdict": "check",
     "note": "Barbour list the Ashby as a tailored (slimmer) cut. If you'll layer a knit underneath or need more sleeve, XL is the safer size."
+   },
+   "bought": true
+  },
+  {
+   "id": 52,
+   "category": "Jackets & Overshirts",
+   "role": "overshirt",
+   "tier": "budget",
+   "brand": "Uskees",
+   "name": "3001 Overshirt, army green",
+   "url": "https://uskees.co.uk/products/3001-army-green-button-overshirt",
+   "check": "shopify",
+   "size": "L",
+   "target": 60,
+   "note": "Chore-coat overshirt in heavy cotton, no logo. £59.50, was £85.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic chore-coat cut with a regular body (not boxy) and patch pockets; layers over a tee or a thin knit."
    }
   },
   {
@@ -171,7 +117,8 @@
    "fit": {
     "verdict": "good",
     "note": "Raglan sleeve: more reach and shoulder movement for long arms. 335g cotton loopback; can shrink up to 4%, so wash cool."
-   }
+   },
+   "bought": true
   },
   {
    "id": 11,
@@ -187,7 +134,8 @@
    "fit": {
     "verdict": "good",
     "note": "Raglan sleeve (despite the 'drop-shoulder' in the shop's URL). 335g organic cotton; wash cool, may shrink up to 4%."
-   }
+   },
+   "bought": true
   },
   {
    "id": 12,
@@ -222,7 +170,8 @@
    "fit": {
     "verdict": "good",
     "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it sits clean at the waist without riding up. 335g organic loopback; wash cool (up to 4% shrink)."
-   }
+   },
+   "bought": true
   },
   {
    "id": 14,
@@ -238,43 +187,6 @@
    "fit": {
     "verdict": "good",
     "note": "Relaxed fisherman knit; reviewers rate it true to size, 'roomy without being baggy'. Finisterre's L is for 180–185cm tall (you're 183cm). Wool/polyamide keeps the cuffs in shape."
-   }
-  },
-  {
-   "id": 15,
-   "category": "Mid-layers & Knits",
-   "role": "cardigan",
-   "tier": "premium",
-   "brand": "Universal Works",
-   "name": "Wool Fleece Cardigan, black",
-   "url": "https://universalworks.com/products/universal-works-cardigan-in-black-wool-fleece-5",
-   "check": "shopify",
-   "size": "L",
-   "target": 115,
-   "fit": {
-    "verdict": "check",
-    "note": "Regular fit but short in the arm: reach ≈87.5cm in L, 90cm in XL. UW's 6ft 2in model wears L, but with a 36in chest.",
-    "reach": {
-     "L": 87.5,
-     "XL": 90
-    }
-   }
-  },
-  {
-   "id": 16,
-   "category": "Tees",
-   "role": "tee",
-   "tier": "budget",
-   "brand": "Colorful Standard",
-   "name": "Classic Organic Tee, navy",
-   "url": "https://jeanstore.co.uk/products/colorful-standard-classic-organic-tee-navy-blue",
-   "check": "shopify",
-   "size": "L",
-   "target": 22,
-   "note": "More colours at the same shop.",
-   "fit": {
-    "verdict": "check",
-    "note": "Relaxed unisex cut that can sit boxy; 180gsm organic cotton."
    }
   },
   {
@@ -295,36 +207,39 @@
    }
   },
   {
-   "id": 18,
+   "id": 53,
    "category": "Tees",
    "role": "tee",
    "tier": "budget",
-   "brand": "Community Clothing",
-   "name": "T-Shirt, grey",
-   "url": "https://communityclothing.co.uk/products/mens-short-sleevet-shirt-grey",
-   "check": "shopify",
+   "brand": "Uniqlo",
+   "name": "AIRism Cotton Crew Neck T-Shirt, olive",
+   "url": "https://www.uniqlo.com/uk/en/products/E482522-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 28,
+   "variant": "Olive",
+   "target": 12,
+   "note": "Plain crew neck, no logo, £14.90. Smooth and light, so it sits cleanly under knits and overshirts.",
    "fit": {
     "verdict": "good",
-    "note": "Regular fit, Supima cotton."
+    "note": "Regular fit, standard length; cotton outside with an AIRism lining."
    }
   },
   {
-   "id": 19,
+   "id": 54,
    "category": "Tees",
    "role": "tee",
    "tier": "budget",
-   "brand": "Community Clothing",
-   "name": "T-Shirt, black",
-   "url": "https://communityclothing.co.uk/products/mens-short-sleeve-t-shirt-plastic-free-black",
-   "check": "shopify",
+   "brand": "Uniqlo",
+   "name": "AIRism Cotton Crew Neck T-Shirt, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E482522-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
    "size": "L",
-   "target": 28,
-   "note": "Plastic-free.",
+   "variant": "Navy",
+   "target": 12,
+   "note": "Plain crew neck, no logo, £14.90. Smooth and light, so it sits cleanly under knits and overshirts.",
    "fit": {
-    "verdict": "check",
-    "note": "Cut as an athletic crew tee (closer to the body): may cling at the middle."
+    "verdict": "good",
+    "note": "Regular fit, standard length; cotton outside with an AIRism lining."
    }
   },
   {
@@ -357,7 +272,8 @@
    "fit": {
     "verdict": "good",
     "note": "Regular thigh, tapered, sits at the waist; 27cm front rise. Soft lyocell stretch denim."
-   }
+   },
+   "bought": true
   },
   {
    "id": 22,
@@ -390,7 +306,8 @@
     "verdict": "good",
     "note": "Regular fit with stretch. Stone is no longer made; fawn is the nearest shade. M&S only cut 31in or 33in legs: 31 for a clean break, 33 for a slight stack."
    },
-   "variant": "Fawn"
+   "variant": "Fawn",
+   "bought": true
   },
   {
    "id": 24,
@@ -416,22 +333,6 @@
    "brand": "Levi's",
    "name": "XX Chino Standard Taper, Baltic Navy",
    "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-taper-fit-mens-chinos-baltic-navy-shady",
-   "check": "shopify",
-   "size": "W34 L32",
-   "target": 60,
-   "fit": {
-    "verdict": "good",
-    "note": "Standard taper, sits at the waist, 2% elastane."
-   }
-  },
-  {
-   "id": 26,
-   "category": "Chinos & Trousers",
-   "role": "chino",
-   "tier": "mid",
-   "brand": "Levi's",
-   "name": "XX Chino Standard Taper, True Chino",
-   "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-taper-fit-mens-chinos-true-chino-shady",
    "check": "shopify",
    "size": "W34 L32",
    "target": 60,
@@ -471,56 +372,8 @@
    "fit": {
     "verdict": "check",
     "note": "Regular fit, straight (not tapered) leg in heavyweight pure cotton twill: no stretch."
-   }
-  },
-  {
-   "id": 29,
-   "category": "Chinos & Trousers",
-   "role": "trouser",
-   "tier": "mid",
-   "brand": "Community Clothing",
-   "name": "Heavyweight Pleated Chinos, dark navy",
-   "url": "https://communityclothing.co.uk/products/mens-heavyweight-pleated-chino-navy",
-   "check": "shopify",
-   "size": "W34 L32",
-   "target": 105,
-   "fit": {
-    "verdict": "check",
-    "note": "Tapered and pleated with a roomy 37.5cm thigh (at W32). Heavy 295g cotton, no stretch; up to 3% shrinkage, so don't size down."
-   }
-  },
-  {
-   "id": 30,
-   "category": "Chinos & Trousers",
-   "role": "chino",
-   "tier": "premium",
-   "brand": "Universal Works",
-   "name": "Military Chino, light olive",
-   "url": "https://universalworks.com/products/universal-works-military-chino-in-light-olive-twill",
-   "check": "shopify",
-   "size": "34",
-   "target": 115,
-   "fit": {
-    "verdict": "check",
-    "note": "Clean taper (19.5cm hem at 34) and a higher 35cm front rise, which sits comfortably at the waist, but 100% cotton with no stretch."
-   }
-  },
-  {
-   "id": 31,
-   "category": "Chinos & Trousers",
-   "role": "trouser",
-   "tier": "mid",
-   "brand": "FrizmWORKS",
-   "name": "OG Haworth One Tuck Pant, navy",
-   "url": "https://urbanindustry.co.uk/products/frizmworks-og-haworth-one-tuck-pant-navy",
-   "check": "shopify",
-   "size": "L",
-   "target": 70,
-   "fit": {
-    "verdict": "check",
-    "note": "Single pleat, relaxed through the seat and tapered to the hem: the smart-trouser line in the brief. 100% cotton high-density chino with no stretch, and letter sizing, so check the waist and inseam against the size chart."
    },
-   "note": "Replaces the wide-leg UW Double Pleat Pant. Korean S-XL sizing: L is roughly a 33-34in waist."
+   "bought": true
   },
   {
    "id": 32,
@@ -554,40 +407,6 @@
    "fit": {
     "verdict": "good",
     "note": "Vans fit true to size. The Skate Era adds PopCush cushioning and a padded collar, so it's comfier all day than the classic Era."
-   }
-  },
-  {
-   "id": 38,
-   "category": "Footwear",
-   "role": "trainer",
-   "tier": "budget",
-   "brand": "Vans",
-   "name": "Skate Era Wafflecup, two-tone grey",
-   "url": "https://routeone.co.uk/products/vans-skate-era-wafflecup-shoes-2-tone-grey-001194518",
-   "check": "shopify",
-   "size": "UK 10",
-   "target": 55,
-   "note": "Most versatile Era colour: goes with every bottom in the capsule.",
-   "fit": {
-    "verdict": "good",
-    "note": "Wafflecup sole adds cushioning and support; Vans fit true to size."
-   }
-  },
-  {
-   "id": 39,
-   "category": "Footwear",
-   "role": "trainer",
-   "tier": "mid",
-   "brand": "Nike",
-   "name": "SB Zoom Blazer Mid, black spruce",
-   "url": "https://routeone.co.uk/products/nike-sb-zoom-blazer-mid-skate-shoes-black-spruce-corduroy-brown-black-spruce-001198396",
-   "check": "shopify",
-   "size": "UK 10",
-   "target": 68,
-   "note": "Earthy, tonal Blazer: the least logo-loud colourway available in 10.",
-   "fit": {
-    "verdict": "check",
-    "note": "Blazers are built on a narrow last: go half a size up if your feet are wide. Zoom Air heel."
    }
   },
   {
@@ -693,23 +512,6 @@
    "fit": {
     "verdict": "check",
     "note": "Wallabees run large: true size for normal or wide feet, half a size down if narrow. This stockist only does whole sizes. Spray the suede with protector first."
-   }
-  },
-  {
-   "id": 46,
-   "category": "Footwear",
-   "role": "wallabee",
-   "tier": "mid",
-   "brand": "Clarks Originals",
-   "name": "Wallabee Boot, maple suede",
-   "url": "https://stuartslondon.com/products/clarks-originals-wallabee-boot-suede-maple",
-   "check": "shopify",
-   "size": "UK 10",
-   "target": 90,
-   "note": "Autumn/winter Wallabee: £109 here vs £140 elsewhere.",
-   "fit": {
-    "verdict": "check",
-    "note": "Same large Wallabee sizing (Stuarts stocks 9.5 if you're between sizes); some find the boot tight around the ankle, so try before committing."
    }
   },
   {
@@ -829,23 +631,8 @@
    "fit": {
     "verdict": "good",
     "note": "Regular rise in soft cotton jersey with odour control; Uniqlo underwear runs true to size. Plain waistband, no branding."
-   }
-  },
-  {
-   "id": 36,
-   "category": "Socks & Boxers",
-   "role": "underwear",
-   "tier": "premium",
-   "brand": "CDLP",
-   "name": "Boxer Briefs, 3-pack, dark navy",
-   "url": "https://cdlp.com/products/3-mens-boxer-brief-dark-navy",
-   "check": "shopify",
-   "size": "L",
-   "target": 70,
-   "fit": {
-    "verdict": "good",
-    "note": "Mid waist, regular leg, true to size; lyocell with 5% elastane."
-   }
+   },
+   "bought": true
   }
  ]
 }

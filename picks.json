@@ -1,37 +1,38 @@
 {
  "updated": "2026-10-10",
- "by": "Claude daily review",
+ "by": "Claude review (with Don's wardrobe)",
  "picks": [
   {
    "date": "2026-10-10",
-   "brand": "Community Clothing",
-   "name": "Chore Jacket, putty",
-   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-putty",
+   "brand": "Uniqlo",
+   "name": "AIRism Cotton Crew Neck T-Shirt, olive",
+   "url": "https://www.uniqlo.com/uk/en/products/E482522-000/00?colorDisplayCode=57&sizeDisplayCode=005",
    "size": "L",
-   "price": 42,
-   "category": "Jackets & Overshirts",
-   "why": "You still own no utility jacket, and this UK-made, logo-free cotton chore coat is 70% off with L in stock. Putty sits in the stone family, so it works tonally over navy or olive. Layer it over the navy raglan with jeans and trainers for photography walks."
+   "variant": "Olive",
+   "price": 14.9,
+   "category": "Tees",
+   "why": "A plain tee is the missing piece in three of your five outfits. This is a smooth, regular-fit crew in olive for £14.90: wear it under the navy Parachute jacket with your 502s and Sambas, or under a knit for the office."
   },
   {
    "date": "2026-10-10",
-   "brand": "M&S",
-   "name": "Regular Fit Stretch Chinos, fawn",
-   "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138?color=FAWN",
-   "size": "W34 L31|W34 L33",
-   "variant": "Fawn",
-   "price": 26,
-   "category": "Chinos & Trousers",
-   "why": "Chinos are the one piece every formula leans on and you have no new pair yet. Regular fit with stretch, so they move with you and don't cling at the seat or thigh; go 31in leg for a clean break over Docs. At £26 they anchor the office look with a navy knit and boots, or go casual with the raglan and Sambas."
-  },
-  {
-   "date": "2026-10-10",
-   "brand": "Community Clothing",
-   "name": "Long Fit Raglan Sweatshirt, navy",
-   "url": "https://communityclothing.co.uk/products/mens-long-fit-raglan-sweatshirt-pf-navy",
+   "brand": "Barbour",
+   "name": "Essential Honeycomb Quarter-Zip Jumper, navy",
+   "url": "https://parasolstore.co.uk/products/barbour-essential-honeycomb-quarter-zip-jumper-navy",
    "size": "L",
-   "price": 52,
+   "price": 70,
    "category": "Mid-layers & Knits",
-   "why": "Fills the empty mid-layer slot. The raglan sleeve gives your long arms more reach, and the longer body sits clean at the waist. Plain navy loopback at £52 (was £65): wear it under the chore jacket or with the fawn chinos at the weekend."
+   "why": "Your office and date-night outfits still need a knit. Honeycomb cotton gives texture without bulk and the logo is tonal. Wear it over the olive tee with the fawn chinos and brown Docs, or under the Ashby on cold days."
+  },
+  {
+   "date": "2026-10-10",
+   "brand": "John White",
+   "name": "Byrne Chelsea Boot, brown suede",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
+   "size": "UK 10",
+   "variant": "Brown Suede",
+   "price": 120,
+   "category": "Footwear",
+   "why": "The Chelsea shape you liked, in the suede finish you prefer: sleeker than your Docs for the office, on a chunky Vibram sole for wet pavements. £120, down from £280. Wear it with the 502s or the fawn chinos."
   }
  ]
 }

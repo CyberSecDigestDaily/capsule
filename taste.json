@@ -1,6 +1,6 @@
 {
  "_about": "Don's taste profile: the rubric Claude's daily review applies before approving any deal or pick, and where Don's feedback is kept. The review adds to rejected, loved and feedback_log from 'Capsule nope' emails (the Not for me links) and replies to The Drop, and turns repeat lessons into rules in finder.json. The scraper doesn't read this file.",
- "updated": "2026-10-09",
+ "updated": "2026-10-10",
  "look": "Elevated 90s/00s retro and workwear through a mature, deliberate lens. Effortless and put-together: fewer pieces, better fit, tonal outfits, texture over branding. Not trend-chasing streetwear, not skate, not fashion-week.",
  "build": "Long arms (sleeves must reach the wrist); regular or tapered cuts, nothing boxy, oversized or clingy. Tops L (outerwear L-XL), trousers W34 L32 with stretch, shoes UK 10.",
  "palette": "Charcoal, navy, olive, stone, taupe, washed blue, plus oatmeal or ecru knits and grey marl sweats. Tonal pairings. No black, brown or bright clothing; brown is fine for footwear (brushed leather or suede boots, Wallabees).",
@@ -13,7 +13,8 @@
   "Already owns: white Sambas, brown and black Dr. Martens, black/white Vans Era, black Air Max 95, a 5-panel cap",
   "Leather is fine for footwear: brushed-leather boots and leather trainers; fur, shearling or fleece-lined trainers and boots are fine for winter",
   "Boot finishes: brown = brushed leather (crazy horse, rustic, oiled nubuck) or suede/nubuck, the brushed look is his favourite; black = matte or waxy, never shiny",
-  "Winter boots: waterproof (membrane) or properly water-resistant with sealed seams, warm lining (Thinsulate, shearling, fleece), cushioned and comfy"
+  "Winter boots: waterproof (membrane) or properly water-resistant with sealed seams, warm lining (Thinsulate, shearling, fleece), cushioned and comfy",
+  "Owns and wears Community Clothing raglan sweatshirts (grey marl, bottle green, navy long fit) and their Relaxed Chinos in navy, so that cut and that green are fine; also owns the Universal Works Parachute Field Jacket (navy), Barbour Ashby (olive), Levi's 502 (Jack Of All Trades wash), M&S stretch chinos (fawn) and Uniqlo boxers"
  ],
  "no": [
   "Any visible logo, graphic, slogan or contrast branding (a tiny tonal mark is the limit)",
@@ -79,6 +80,11 @@
    "id": "chat-2026-10-09",
    "date": "2026-10-09",
    "note": "Don: no matte leather on brown boots; brushed leather is his favourite, suede-look also good; matte (non-shiny) is fine for black boots. Winter boots must be waterproof, warm and comfy."
+  },
+  {
+   "id": "chat-2026-10-10",
+   "date": "2026-10-10",
+   "note": "Don sent his wardrobe link: owns watch-list pieces 7, 9, 10, 11, 13, 21, 23, 28, 35 (now bought) plus the staples; sleeve reach 81cm. Photo email set up and working."
   }
  ]
 }
