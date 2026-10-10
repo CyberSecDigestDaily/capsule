@@ -11,7 +11,8 @@
    "variant": "Olive",
    "price": 14.9,
    "category": "Tees",
-   "why": "A plain tee is the missing piece in three of your five outfits. This is a smooth, regular-fit crew in olive for £14.90: wear it under the navy Parachute jacket with your 502s and Sambas, or under a knit for the office."
+   "why": "A plain tee is the missing piece in three of your five outfits. This is a smooth, regular-fit crew in olive for £14.90: wear it under the navy Parachute jacket with your 502s and Sambas, or under a knit for the office.",
+   "short": "Olive crew tee"
   },
   {
    "date": "2026-10-10",
@@ -21,7 +22,8 @@
    "size": "L",
    "price": 70,
    "category": "Mid-layers & Knits",
-   "why": "Your office and date-night outfits still need a knit. Honeycomb cotton gives texture without bulk and the logo is tonal. Wear it over the olive tee with the fawn chinos and brown Docs, or under the Ashby on cold days."
+   "why": "Your office and date-night outfits still need a knit. Honeycomb cotton gives texture without bulk and the logo is tonal. Wear it over the olive tee with the fawn chinos and brown Docs, or under the Ashby on cold days.",
+   "short": "Honeycomb quarter-zip"
   },
   {
    "date": "2026-10-10",
@@ -32,7 +34,8 @@
    "variant": "Brown Suede",
    "price": 120,
    "category": "Footwear",
-   "why": "The Chelsea shape you liked, in the suede finish you prefer: sleeker than your Docs for the office, on a chunky Vibram sole for wet pavements. £120, down from £280. Wear it with the 502s or the fawn chinos."
+   "why": "The Chelsea shape you liked, in the suede finish you prefer: sleeker than your Docs for the office, on a chunky Vibram sole for wet pavements. £120, down from £280. Wear it with the 502s or the fawn chinos.",
+   "short": "Byrne suede Chelsea"
   }
  ]
 }

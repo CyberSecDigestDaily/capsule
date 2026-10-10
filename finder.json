@@ -1,5 +1,5 @@
 {
- "_about": "Rules for the deal finder in scraper.py. Stage 1 (these rules): only on-brief pieces in YOUR size, main colour in the palette, no logo/fit red flags in the description, stretch in trousers, footwear only in the silhouettes Don wants, streetwear shops footwear-only, multi-brand shops limited to apparel_brands. Stage 2: survivors are CANDIDATES (docs/finds.json 'candidates'); nothing reaches the site or the Drop email until Claude's daily review has looked at the photo and added its URL to 'approve'. 'block' = never show. The daily review may add to approve, block and exclude; edit anything else by hand.",
+ "_about": "Rules for the deal finder in scraper.py. Stage 1 (these rules): only on-brief pieces in YOUR size, main colour in the palette, no logo/fit red flags in the description, stretch in trousers, footwear only in the silhouettes Don wants, streetwear shops footwear-only, multi-brand shops limited to apparel_brands. A source may set category/role/skip_style for shops whose titles don't name the product (e.g. boot makers). Stage 2: survivors are CANDIDATES (docs/finds.json 'candidates'); nothing reaches the site or the Drop email until Claude's daily review has looked at the photo and added its URL to 'approve'. 'block' = never show. The daily review may add to approve, block and exclude; edit anything else by hand.",
  "require_approval": true,
  "min_discount": 25,
  "premium_min_discount": 40,
@@ -467,7 +467,12 @@
     "era",
     "wallabee",
     "desert boot",
-    "chelsea"
+    "chelsea",
+    "dealer",
+    "shearling",
+    "lined",
+    "thermal",
+    "winter boot"
    ],
    "exclude": [
     "hi",
@@ -1074,6 +1079,29 @@
    "only": [
     "Footwear"
    ]
+  },
+  {
+   "store": "www.solovair.co.uk",
+   "collection": "sale",
+   "label": "Solovair",
+   "only": [
+    "Footwear"
+   ],
+   "role": "boot"
+  },
+  {
+   "store": "www.oipolloi.com",
+   "collection": "sale",
+   "pages": 2,
+   "label": "Oi Polloi",
+   "brand_filter": true
+  },
+  {
+   "store": "www.couvertureandthegarbstore.com",
+   "collection": "sale",
+   "pages": 2,
+   "label": "Couverture & The Garbstore",
+   "brand_filter": true
   }
  ],
  "approve": [

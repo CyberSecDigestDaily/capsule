@@ -260,6 +260,8 @@ STORES = {
     "goodhoodstore.com": "Goodhood", "johnwhiteshoes.com": "John White", "oipolloi.com": "Oi Polloi", "uniqlo.com": "Uniqlo",
     "marksandspencer.com": "M&S", "johnlewis.com": "John Lewis", "folkclothing.com": "Folk", "albamclothing.com": "Albam",
     "uskees.co.uk": "Uskees", "walklondonshoes.co.uk": "Walk London", "barbour.com": "Barbour",
+    "blundstone.co.uk": "Blundstone", "solovair.co.uk": "Solovair", "oipolloi.com": "Oi Polloi",
+    "couvertureandthegarbstore.com": "Couverture & The Garbstore",
 }
 
 
@@ -553,6 +555,11 @@ def variant_colour(v, vocab):
     return colour_of(" / ".join(opts).lower(), vocab) if opts else None
 
 
+WINTER_MONTHS = (10, 11, 12, 1, 2, 3)
+WINTER_WORDS = ["wool", "waxed", "wax", "fleece", "lined", "thermal", "cord", "corduroy", "shearling", "quilted",
+                "moleskin", "flannel", "brushed", "knit", "jumper", "cardigan", "boot", "boots", "lambswool", "merino"]
+
+
 def norm_url(u):
     return re.sub(r"^https?://(www\.)?", "", (u or "").strip()).split("?")[0].split("#")[0].rstrip("/").lower()
 
@@ -598,8 +605,8 @@ def run_finder(cfg, watched_handles, prev_finds):
                 if words_in(f"{title} {ptype}", gender_excl) or words_in(title, excl):
                     continue
                 brand = (p.get("vendor") or "").lower()
-                cat = None
-                for c in cfg["categories"]:
+                cat = next((c for c in cfg["categories"] if c["name"] == src.get("category")), None)
+                for c in ([] if cat else cfg["categories"]):
                     if only and c["name"] not in only:
                         continue
                     if not words_in(f"{title} {ptype}", low(c["keywords"])):
@@ -615,7 +622,7 @@ def run_finder(cfg, watched_handles, prev_finds):
                 if words_in(f"{title} {ptype}", low(cat.get("exclude"))):
                     continue
                 style = low(cat.get("require_style"))
-                if style and not words_in(title, style):
+                if style and not src.get("skip_style") and not words_in(title, style):
                     continue  # not a silhouette/style the brief asks for
                 brand_block = cat.get("exclude_brands", []) if cat.get("allow_brands_any") else cfg.get("exclude_brands", [])
                 if words_in(f"{brand} {title}", low(brand_block)):
@@ -628,7 +635,7 @@ def run_finder(cfg, watched_handles, prev_finds):
                 need = low(cat.get("require_desc_any"))
                 if need and (not said(desc, need) or words_in(desc, ["non-stretch", "non stretch", "rigid denim", "no stretch"])):
                     continue  # trousers must have some give
-                role = infer_role(p.get("title"), cat["name"])
+                role = src.get("role") or infer_role(p.get("title"), cat["name"])
                 ok = set(palette) | set(low(cat.get("palette_extra") or cat.get("extra_palette")))
                 ok |= set(low((cat.get("role_palette") or {}).get(role or "", [])))
                 if footwear and cat.get("role_palette"):
@@ -659,6 +666,7 @@ def run_finder(cfg, watched_handles, prev_finds):
                 key = f"{store}/{p['handle']}"
                 # rank on brief-fit, not just depth of discount (the deepest cuts are often the oddest pieces)
                 score = (min(disc, 50) + (10 if colour in core else 0) + (6 if store in trusted else 0)
+                         + (6 if NOW.month in WINTER_MONTHS and words_in(f"{title} {desc[:200]}", WINTER_WORDS) else 0)
                          - 10 * price / cat.get("premium_cap", cat["cap"]))
                 label = src.get("label", store)
                 vendor = (p.get("vendor") or "").strip()
@@ -718,7 +726,9 @@ def run_finder(cfg, watched_handles, prev_finds):
     return out, waiting, errors
 
 
-def verify_picks(picks):
+def verify_picks(picks, prev_picks=()):
+    """Live price/stock for each pick, plus since/start_price: how long it has run (the review rotates stale picks)."""
+    prev = {p.get("url"): p for p in prev_picks if p.get("url")}
     out = []
     for pk in picks.get("picks", []):
         rec = dict(pk)
@@ -735,6 +745,9 @@ def verify_picks(picks):
                 rec.update({"in_stock": False, "verified": TODAY, "verify_error": str(e)[:80]})
             except Exception as e:
                 rec.update({"verify_error": str(e)[:80]})
+        old = prev.get(pk.get("url")) or {}
+        rec["since"] = old.get("since") or TODAY
+        rec["start_price"] = old["start_price"] if old.get("start_price") is not None else rec.get("price_now", pk.get("price"))
         out.append(rec)
     return out
 
@@ -760,33 +773,68 @@ def email_img(url, w, h):
         return re.sub(r"/images/[^/]+/", f"/images/w_{W},h_{H},c_pad,b_white,q_auto,f_auto/", url)
     if "barbour.com/dw/image" in url:
         return url.split("?")[0] + f"?sw={W}&sh={H}&sm=fit&bgcolor=FFFFFF&q=75"
+    if "image.uniqlo.com" in url:  # 3:4 originals are 1500x2000 (~350KB); the CDN resizes on ?width
+        return url.split("?")[0] + f"?width={W}"
     return url
 
 
-def build_drop(results, finds, picked, hist, counts):
-    """docs/drop.html: the Daily Drop email. Table layout + one <style> block (Gmail-safe), ~15KB."""
+def capsule_progress(results, wardrobe):
+    """Outfits Don can wear with what he owns, and the gaps (slot roles) ranked by how many outfits they hold up."""
+    labels = wardrobe.get("role_labels", {})
+    owned = {r.get("role") for r in results if r.get("bought") and r.get("role")}
+    owned |= {s.get("role") for s in wardrobe.get("staples", []) if s.get("owned") and s.get("role")}
+    forms = wardrobe.get("formulas", [])
+    ready, gaps = 0, {}
+    for f in forms:
+        missing = [sl for sl in f.get("slots", []) if not set(sl.get("roles", [])) & owned]
+        ready += not missing
+        for sl in missing:
+            key = tuple(sorted(sl.get("roles", [])))
+            g = gaps.setdefault(key, {"roles": set(key), "outfits": [],
+                                      "label": " or ".join(labels.get(r, r).lower() for r in sl.get("roles", []))})
+            g["outfits"].append(f.get("name", ""))
+    return {"ready": ready, "total": len(forms), "gaps": sorted(gaps.values(), key=lambda g: -len(g["outfits"])),
+            "owned_roles": owned}
+
+
+def build_drop(results, finds, picked, hist, counts, wardrobe=None):
+    """docs/drop.html: the Daily Drop email. Table layout + one <style> block (Gmail-safe), ~20KB."""
     from html import escape as e
     now_uk = uk_now()
     day = now_uk.strftime("%a %-d %b")
     yday = (NOW.date() - dt.timedelta(days=1)).isoformat()
     font = "'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif"
+    pg = capsule_progress(results, wardrobe or {})
 
     def gbp(x):
         return "" if x is None else (f"&pound;{x:.0f}" if float(x).is_integer() else f"&pound;{x:.2f}")
 
+    def plain_gbp(x):
+        return gbp(x).replace("&pound;", "£")
+
     def full(r):
         return f"{r.get('brand', '')} {r.get('name', '')}".replace("®", "").strip()
 
-    def nope(r):
-        """One-tap feedback: opens a pre-filled email the next morning's review reads (recipient added at send)."""
-        subj = urllib.parse.quote(f"Capsule nope: {full(r)}"[:140])
-        body = urllib.parse.quote(f"{r.get('url', '')}\n\nWhat's off about it (optional): ")
-        return f'<a href="mailto:?subject={subj}&amp;body={body}" style="color:#6B6A65;text-decoration:underline;white-space:nowrap">Not for me</a>'
+    def fb_link(kind, label, r, hint):
+        """One-tap feedback: a pre-filled email the next morning's review reads (recipient added at send)."""
+        subj = urllib.parse.quote(f"Capsule {kind}: {full(r)}"[:140])
+        body = urllib.parse.quote(f"{r.get('url', '')}\n\n{hint}")
+        return (f'<a href="mailto:?subject={subj}&amp;body={body}" '
+                f'style="color:#6B6A65;text-decoration:underline;white-space:nowrap">{label}</a>')
+
+    def feedback(r):
+        return " &nbsp;&middot;&nbsp; ".join([
+            fb_link("bought", "Bought it", r, "Size or colour, if different (optional): "),
+            fb_link("more", "More like this", r, "What you like about it (optional): "),
+            fb_link("nope", "Not for me", r, "What's off about it (optional): ")])
 
     # ---- what goes in
     picks = [p for p in picked if p.get("in_stock") is not False and not p.get("verify_error")][:3]
     pick_urls = {p.get("url") for p in picks}
-    buys = sorted([r for r in results if r.get("signal") == "BUY" and r["url"] not in pick_urls],
+    new_picks = [p for p in picks if p.get("since", TODAY) == TODAY]
+    gap_roles = set().union(*[g["roles"] for g in pg["gaps"]]) if pg["gaps"] else set()
+    buys = sorted([r for r in results if r.get("signal") == "BUY" and not r.get("bought") and r["url"] not in pick_urls
+                   and (not gap_roles or r.get("role") in gap_roles)],
                   key=lambda r: -(r.get("discount_pct") or 0))[:4]
     moves = []
     for r in results:
@@ -809,17 +857,36 @@ def build_drop(results, finds, picked, hist, counts):
     fresh = [f for f in finds if f.get("first_seen", "") >= yday and f["url"] not in pick_urls]
     deals_title = "New on the rail" if fresh else "Best deals right now"
     deals = (fresh or [f for f in finds if f["url"] not in pick_urls])[:4]
+    quiet = not moves and not fresh and not new_picks
 
+    # ---- subject: lead with the best thing today, not counts
     drops = sum(1 for m in moves if m[1] == "Price drop")
     backs = sum(1 for m in moves if m[1] == "Back in")
-    n_buy = counts.get("BUY", 0)
-    parts = [f"{n_buy} ready to buy" if n_buy else "",
-             f"{drops} price drop{'s' * (drops != 1)}" if drops else "",
-             f"{backs} back in your size" if backs else "",
-             f"{len(fresh)} new deal{'s' * (len(fresh) != 1)}" if fresh else ""]
-    parts = [p for p in parts if p]
-    subject = f"The Drop · {day}: " + (", ".join(parts) if parts else "today's edit")
-    pre = "Today's edit: " + " · ".join(f"{p.get('brand', '')} {p.get('name', '').split(',')[0]} {gbp(p.get('price_now', p.get('price'))).replace('&pound;', '£')}" for p in picks) if picks else "Your capsule, checked this morning."
+
+    def short(p):
+        return p.get("short") or (p.get("name", "").split(",")[0]).strip()
+
+    def price_bit(p):
+        disc = p.get("discount_pct") or 0
+        return plain_gbp(p.get("price_now", p.get("price"))) + (f" (−{disc}%)" if disc >= 20 else "")
+
+    if quiet:
+        subject = f"The Drop · {day}: nothing new today"
+    else:
+        bits = []
+        lead = (new_picks or picks or [None])[0]
+        if lead:
+            more = len(picks) - 1
+            bits.append(f"{short(lead)} {price_bit(lead)}" + (f" + {more} more pick{'s' * (more != 1)}" if more > 0 else ""))
+        if backs:
+            bits.append(f"{backs} back in your size")
+        if drops:
+            bits.append(f"{drops} price drop{'s' * (drops != 1)}")
+        if fresh:
+            bits.append(f"{len(fresh)} new deal{'s' * (len(fresh) != 1)}")
+        subject = f"The Drop · {day}: " + (", ".join(bits) if bits else "today's edit")
+    pre = ("Today's edit: " + " · ".join(f"{p.get('brand', '')} {short(p)} {plain_gbp(p.get('price_now', p.get('price')))}" for p in picks)
+           if picks else "Your capsule, checked this morning.")
 
     # ---- building blocks
     def price_html(now, was, disc, size=14):
@@ -842,7 +909,7 @@ def build_drop(results, finds, picked, hist, counts):
                 f'<p style="margin:2px 0 0;font-size:14px;line-height:1.35"><a href="{e(url)}" style="color:#000;text-decoration:none">{e(r.get("name", ""))}</a></p>'
                 f'<p style="margin:6px 0 0">{price}</p>'
                 f'<p style="margin:3px 0 0;font-size:12.5px;color:{meta_color}">{meta}</p>'
-                f'<p style="margin:6px 0 0;font-size:12px">{nope(r)}</p>')
+                f'<p style="margin:7px 0 0;font-size:12px;line-height:1.7">{feedback(r)}</p>')
 
     def grid(cells):
         rows = ""
@@ -859,45 +926,75 @@ def build_drop(results, finds, picked, hist, counts):
         return (f'<tr><td class="px" style="padding:40px 30px 0"><h2 class="wide" style="margin:0 0 20px;font-size:21px;'
                 f'font-weight:700;letter-spacing:-.005em;border-top:1px solid #E4E2DC;padding-top:18px">{n}{title}</h2>{body}</td></tr>')
 
+    def progress():
+        if not pg["total"]:
+            return ""
+        cells = "".join(
+            f'<td width="{100 // pg["total"]}%" style="height:6px;font-size:0;line-height:0;background:'
+            f'{"#3E4A23" if i < pg["ready"] else "#E4E2DC"}">&nbsp;</td>'
+            + ('<td width="4" style="font-size:0;line-height:0">&nbsp;</td>' if i < pg["total"] - 1 else "")
+            for i in range(pg["total"]))
+        gaps = ", ".join(f'{g["label"]} ({len(g["outfits"])} outfit{"s" * (len(g["outfits"]) != 1)})' for g in pg["gaps"][:3])
+        line = (f'<b style="color:#000">{pg["ready"]} of {pg["total"]} outfits</b> ready to wear with what you own'
+                + (f'. Missing: {e(gaps)}.' if gaps else '. The capsule is complete.'))
+        return (f'<tr><td class="px" style="padding:20px 30px 0"><table role="presentation" width="100%" cellpadding="0" '
+                f'cellspacing="0"><tr>{cells}</tr></table><p style="margin:10px 0 0;font-size:13px;line-height:1.5;'
+                f'color:#4A4945">{line} <a href="{SITE}#outfits" style="color:#4A4945">Outfits</a></p></td></tr>')
+
     # ---- sections
-    out = []
-    if picks:
-        rows = ""
-        for p in picks:
-            pr = p.get("price_now", p.get("price"))
-            meta = f'{e(p.get("size", "").split("|")[0])} in stock' if p.get("in_stock") else e(p.get("size", ""))
-            rows += (f'<tr><td class="pimg" width="200" valign="top" style="padding:0 22px 30px 0">{tile(p["url"], p.get("image"), 200, 250)}</td>'
-                     f'<td valign="top" style="padding:0 0 30px">'
-                     f'<p style="margin:0;font-size:12px;color:#6B6A65">{e(p.get("brand", "").replace("®", ""))}</p>'
-                     f'<p style="margin:2px 0 0;font-size:18px;line-height:1.3"><a href="{e(p["url"])}" style="color:#000;text-decoration:none">{e(p.get("name", ""))}</a></p>'
-                     f'<p style="margin:8px 0 0">{price_html(pr, p.get("was"), p.get("discount_pct"), 16)}</p>'
-                     f'<p style="margin:3px 0 0;font-size:12.5px;color:#3E4A23;font-weight:600">{meta}</p>'
-                     f'<p style="margin:10px 0 0;font-size:14px;line-height:1.55;color:#4A4945">{e(p.get("why", ""))}</p>'
-                     f'<p style="margin:12px 0 0;font-size:13px;font-weight:600"><a href="{e(p["url"])}" style="color:#000">Shop at {e(p.get("store") or store_label(p["url"]))}</a>'
-                     f'<span style="font-weight:400;font-size:12px;color:#6B6A65"> &nbsp;&middot;&nbsp; {nope(p)}</span></p>'
-                     f'</td></tr>')
-        out.append(f'<tr><td class="px" style="padding:36px 30px 0"><h1 class="wide h1" style="margin:0;font-size:44px;line-height:.95;'
-                   f'font-weight:800;letter-spacing:-.02em">Today&rsquo;s edit</h1>'
-                   f'<p style="margin:10px 0 26px;font-size:15px;color:#6B6A65">Picked for the brief, in stock in your size this morning.</p>'
+    out = [progress()]
+    if quiet:
+        rows = "".join(
+            f'<tr><td width="64" valign="top" style="padding:0 14px 14px 0">{tile(p["url"], p.get("image"), 64, 80)}</td>'
+            f'<td valign="middle" style="padding:0 0 14px;font-size:14px;line-height:1.45">'
+            f'<a href="{e(p["url"])}" style="color:#000;text-decoration:none">{e(full(p))}</a><br>'
+            f'<span style="color:#6B6A65;font-size:13px">{gbp(p.get("price_now", p.get("price")))} &middot; '
+            f'{e(p.get("size", "").split("|")[0])} in stock</span></td></tr>' for p in picks)
+        out.append(f'<tr><td class="px" style="padding:30px 30px 0"><h1 class="wide" style="margin:0;font-size:30px;line-height:1.05;'
+                   f'font-weight:800;letter-spacing:-.015em">Nothing new today</h1>'
+                   f'<p style="margin:10px 0 22px;font-size:15px;line-height:1.5;color:#6B6A65">No new deals, price drops or restocks '
+                   f'since yesterday. Your picks are still in stock:</p>'
                    f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0">{rows}</table></td></tr>')
-    if moves:
-        li = "".join(
-            f'<tr><td style="padding:11px 0;border-bottom:1px solid #E4E2DC;font-size:14px;line-height:1.45">'
-            f'<span style="display:inline-block;min-width:84px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;'
-            f'color:{"#3E4A23" if k < 2 else "#6B6A65"}">{lab}</span> <a href="{e(u)}" style="color:#000;text-decoration:none">{txt}</a></td></tr>'
-            for k, lab, txt, u in moves[:8])
-        out.append(section("Since yesterday", f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0">{li}</table>'))
-    if buys:
-        cells = [card(r, price_html(r.get("price"), r.get("was"), r.get("discount_pct")),
-                      f'At or under your {gbp(r.get("target"))} target', "#3E4A23") for r in buys]
-        out.append(section("Ready to buy", grid(cells), f'{n_buy} on the list'))
-    if deals:
-        cells = [card(f, price_html(f.get("price"), f.get("was"), f.get("discount_pct")),
-                      f'{e(f.get("size", ""))} in stock &middot; {e(f.get("store", ""))}') for f in deals]
-        out.append(section(deals_title, grid(cells), f'<a href="{SITE}#deals" style="color:#6B6A65">All deals</a>'))
+    else:
+        if picks:
+            rows = ""
+            for p in picks:
+                pr = p.get("price_now", p.get("price"))
+                meta = f'{e(p.get("size", "").split("|")[0])} in stock' if p.get("in_stock") else e(p.get("size", ""))
+                if p.get("since", TODAY) == TODAY:
+                    meta = "New today &middot; " + meta
+                rows += (f'<tr><td class="pimg" width="200" valign="top" style="padding:0 22px 30px 0">{tile(p["url"], p.get("image"), 200, 250)}</td>'
+                         f'<td valign="top" style="padding:0 0 30px">'
+                         f'<p style="margin:0;font-size:12px;color:#6B6A65">{e(p.get("brand", "").replace("®", ""))}</p>'
+                         f'<p style="margin:2px 0 0;font-size:18px;line-height:1.3"><a href="{e(p["url"])}" style="color:#000;text-decoration:none">{e(p.get("name", ""))}</a></p>'
+                         f'<p style="margin:8px 0 0">{price_html(pr, p.get("was"), p.get("discount_pct"), 16)}</p>'
+                         f'<p style="margin:3px 0 0;font-size:12.5px;color:#3E4A23;font-weight:600">{meta}</p>'
+                         f'<p style="margin:10px 0 0;font-size:14px;line-height:1.55;color:#4A4945">{e(p.get("why", ""))}</p>'
+                         f'<p style="margin:12px 0 0;font-size:13px;font-weight:600"><a href="{e(p["url"])}" style="color:#000">Shop at {e(p.get("store") or store_label(p["url"]))}</a></p>'
+                         f'<p style="margin:6px 0 0;font-size:12px;line-height:1.7">{feedback(p)}</p>'
+                         f'</td></tr>')
+            out.append(f'<tr><td class="px" style="padding:30px 30px 0"><h1 class="wide h1" style="margin:0;font-size:44px;line-height:.95;'
+                       f'font-weight:800;letter-spacing:-.02em">Today&rsquo;s edit</h1>'
+                       f'<p style="margin:10px 0 26px;font-size:15px;color:#6B6A65">Picked for the brief and your gaps, in stock in your size this morning.</p>'
+                       f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0">{rows}</table></td></tr>')
+        if moves:
+            li = "".join(
+                f'<tr><td style="padding:11px 0;border-bottom:1px solid #E4E2DC;font-size:14px;line-height:1.45">'
+                f'<span style="display:inline-block;min-width:84px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;'
+                f'color:{"#3E4A23" if k < 2 else "#6B6A65"}">{lab}</span> <a href="{e(u)}" style="color:#000;text-decoration:none">{txt}</a></td></tr>'
+                for k, lab, txt, u in moves[:8])
+            out.append(section("Since yesterday", f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0">{li}</table>'))
+        if buys:
+            cells = [card(r, price_html(r.get("price"), r.get("was"), r.get("discount_pct")),
+                          f'At or under your {gbp(r.get("target"))} target', "#3E4A23") for r in buys]
+            out.append(section("Ready to buy", grid(cells), "fills a gap" if gap_roles else f'{len(buys)} on the list'))
+        if deals:
+            cells = [card(f, price_html(f.get("price"), f.get("was"), f.get("discount_pct")),
+                          f'{e(f.get("size", ""))} in stock &middot; {e(f.get("store", ""))}') for f in deals]
+            out.append(section(deals_title, grid(cells), f'<a href="{SITE}#deals" style="color:#6B6A65">All deals</a>'))
 
     watching = sum(1 for r in results if not r.get("bought"))
-    instock = sum(1 for r in results if r.get("in_stock"))
+    instock = sum(1 for r in results if r.get("in_stock") and not r.get("bought"))
     body = "".join(out)
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -924,7 +1021,7 @@ body,td,p,a,h1,h2{{font-family:{font}}} .wide{{font-stretch:125%}}
 <td style="padding-left:18px;font-size:14px"><a href="{SITE}#outfits" style="color:#000">Outfits</a> &nbsp;&middot;&nbsp; <a href="{SITE}#deals" style="color:#000">Deals</a></td>
 </tr></table></td></tr>
 <tr><td class="px" style="padding:30px 30px 0;font-size:14px;line-height:1.55;color:#4A4945">
-<b style="color:#000">Something off?</b> Tap <i>Not for me</i> under a piece, or reply with what you want more or less of (&ldquo;no suede&rdquo;, &ldquo;more cords&rdquo;). Tomorrow&rsquo;s review learns from it.</td></tr>
+<b style="color:#000">Steer it.</b> Under each piece: <i>Bought it</i> marks it as yours, <i>More like this</i> and <i>Not for me</i> tune the picks. Or reply with what you want more or less of. Tomorrow&rsquo;s review acts on it.</td></tr>
 <tr><td class="px" style="padding:28px 30px 40px;font-size:12px;line-height:1.6;color:#6B6A65">
 Watching {watching} pieces &middot; {instock} in stock in your size &middot; prices checked {now_uk.strftime('%H:%M')} UK.<br>
 Sizes: tops L, trousers W34 L32, shoes UK 10. <a href="{SITE}drop.html" style="color:#6B6A65">View in browser</a></td></tr>
@@ -933,14 +1030,20 @@ Sizes: tops L, trousers W34 L32, shoes UK 10. <a href="{SITE}drop.html" style="c
     (DOCS / "drop.html").write_text(html, encoding="utf-8")
 
     def plain(r, price):
-        return f"- {full(r)}, {gbp(price).replace('&pound;', '£')}: {r.get('url', '')}"
+        return f"- {full(r)}, {plain_gbp(price)}: {r.get('url', '')}"
     text = [subject, ""]
-    if picks:
-        text += ["TODAY'S EDIT"] + [plain(p, p.get("price_now", p.get("price"))) for p in picks] + [""]
-    if buys:
-        text += ["READY TO BUY"] + [plain(r, r.get("price")) for r in buys] + [""]
-    if deals:
-        text += [deals_title.upper()] + [plain(f, f.get("price")) for f in deals] + [""]
+    if pg["total"]:
+        gaps = ", ".join(g["label"] for g in pg["gaps"][:3])
+        text += [f"{pg['ready']} of {pg['total']} outfits ready to wear" + (f". Missing: {gaps}." if gaps else "."), ""]
+    if quiet:
+        text += ["Nothing new since yesterday. Your picks are still in stock:"] + [plain(p, p.get("price_now", p.get("price"))) for p in picks] + [""]
+    else:
+        if picks:
+            text += ["TODAY'S EDIT"] + [plain(p, p.get("price_now", p.get("price"))) for p in picks] + [""]
+        if buys:
+            text += ["READY TO BUY"] + [plain(r, r.get("price")) for r in buys] + [""]
+        if deals:
+            text += [deals_title.upper()] + [plain(f, f.get("price")) for f in deals] + [""]
     text += [f"With photos: {SITE}drop.html"]
     return subject, "\n".join(text)
 
@@ -1102,7 +1205,7 @@ def main():
 
     watched = {urllib.parse.urlsplit(i["url"]).path.rstrip("/").split("/")[-1] for i in cfg["items"]}
     finds, candidates, finder_errors = run_finder(finder, watched, prev_finds) if finder else ([], [], [])
-    picked = verify_picks(picks)
+    picked = verify_picks(picks, prev_finds.get("picks", []))
 
     # ---- alerts: only changes since the previous run
     lines = []
@@ -1133,7 +1236,7 @@ def main():
     save(DOCS / "finds.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "finds": finds,
                                "picks": picked, "picks_updated": picks.get("updated"), "errors": finder_errors,
                                "candidates": candidates})
-    subject, text = build_drop(results, finds, picked, hist, counts)
+    subject, text = build_drop(results, finds, picked, hist, counts, wardrobe)
     print("drop:", subject)
     drop = send_drop(subject, text, picks.get("updated"), prev.get("drop") or {})
     print("drop email:", drop.get("status"))

@@ -6,6 +6,12 @@
 <title>Capsule</title>
 <meta name="description" content="Don's capsule wardrobe: live prices and stock in his sizes, outfits and deals.">
 <meta name="theme-color" content="#FFFFFF">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Capsule">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
@@ -200,6 +206,21 @@ footer a{color:var(--ink)}
   .own{right:8px;top:8px}
 }
 @media (prefers-reduced-motion:reduce){.drawer,.toast{transition:none}}
+/* capsule progress, feedback actions */
+.progress{padding:22px 0 0}
+.pg-bar{display:flex;gap:4px;max-width:420px}
+.pg-bar span{flex:1;height:6px;background:var(--rule)}
+.pg-bar span.on{background:var(--olive)}
+.progress p{margin:10px 0 0;font-size:14px;line-height:1.5;color:var(--graphite);max-width:70ch}
+.progress p b{color:var(--ink);font-weight:600}
+.progress a{color:var(--ink)}
+.edit-item > a{display:block;text-decoration:none;color:inherit}
+.fb{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px}
+.fb button{background:none;border:0;padding:2px 0;cursor:pointer;font-size:12.5px;color:var(--graphite);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.fb button:hover{color:var(--ink)}
+.d-actions .fb{margin-top:6px}
+.d-actions .fb button{font-size:14px}
+.d-actions .soft{margin:0;color:var(--graphite);font-size:14px}
 </style>
 </head>
 <body>
@@ -221,6 +242,10 @@ footer a{color:var(--ink)}
 
   <!-- SHOP -->
   <section id="view-shop" hidden>
+    <section class="progress" id="progress" hidden aria-label="Capsule progress">
+      <div class="pg-bar" id="pgBar"></div>
+      <p id="pgLine"></p>
+    </section>
     <section class="edit" id="edit" hidden>
       <div class="edit-head">
         <h1>This week's edit</h1>
@@ -246,6 +271,7 @@ footer a{color:var(--ink)}
               <option value="high">Price, high to low</option>
               <option value="close">Closest to target</option>
             </select>
+            <label id="winterWrap" hidden><input type="checkbox" id="winter"> Winter</label>
             <label><input type="checkbox" id="hideOwned"> Hide owned</label>
           </div>
         </div>
@@ -278,7 +304,7 @@ footer a{color:var(--ink)}
     </section>
     <section class="block">
       <h2 class="sec">What you own</h2>
-      <p class="lede">Tick what's already in your wardrobe. Ticking a watch-list piece marks it as owned. Saved on this device; use "Copy wardrobe link" to open it on your phone.</p>
+      <p class="lede">Tick what's already in your wardrobe. Ticks save on this device only; to make them count everywhere (and in the morning email), tap Copy wardrobe link and send it to Claude, or use I bought this on a piece.</p>
       <div class="owngrid" id="owngrid"></div>
     </section>
   </section>
@@ -314,6 +340,7 @@ const ICON_CHECK='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.
 
 const S={items:[],byId:{},sizes:{},generated:null,history:{},finds:[],picks:[],picksUpdated:null,
   wardrobe:{staples:[],formulas:[],role_labels:{}},owned:loadJSON("capsule-bought",{}),reach:loadNum("capsule-reach"),
+  nope:loadJSON("capsule-nope",{}),winter:false,
   cat:"all",status:"all",q:"",sort:"rec",hideOwned:false,view:"shop",lastFocus:null};
 
 function loadJSON(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(e){return d}}
@@ -333,7 +360,36 @@ const isOwned=it=>!!(it.bought||S.owned[it.id]===true);
 const stapleOwned=s=>{const v=S.owned[s.id];return v===undefined?!!s.owned:v===true};
 const ownedPieces=()=>[...S.items.filter(isOwned),...S.wardrobe.staples.filter(stapleOwned)];
 function setOwned(id,on){if(on)S.owned[id]=true;else delete S.owned[id];persist();renderAll();}
-const live=it=>it.check==="shopify"&&it.signal!=="LINK ERROR"&&it.price!=null;
+const LIVE_CHECKS=["shopify","uniqlo","mands","barbour"];
+const live=it=>LIVE_CHECKS.includes(it.check)&&it.signal!=="LINK ERROR"&&it.price!=null&&!it.blocked;
+const isNope=o=>!!(o&&o.url&&S.nope[o.url]);
+const WINTER_ROLES=["boot","knit","cardigan","fleece"];
+const isWinter=it=>WINTER_ROLES.includes(it.role)||/wax|wool|fleece|lined|thermal|cord|shearling|quilt|knit|jumper|lambswool|merino|moleskin|flannel/i.test(`${it.name} ${it.note||""}`);
+
+/* feedback: a pre-filled email the next morning's review reads */
+const FB=new Map();
+function fbRow(o,kinds){FB.set(o.url,o);
+  const lab={bought:"Bought it",more:"More like this",nope:"Not for me"};
+  return`<div class="fb" data-url="${esc(o.url)}">${(kinds||["bought","more","nope"]).map(k=>`<button type="button" data-k="${k}">${lab[k]}</button>`).join("")}</div>`;}
+function feedbackEmail(){
+  let a="";try{a=localStorage.getItem("capsule-email")||""}catch(e){}
+  if(!a){a=(prompt("Your email address. Feedback opens a ready-written email to yourself, which the morning review reads. Saved on this device only.")||"").trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(a))return null;try{localStorage.setItem("capsule-email",a)}catch(e){}}
+  return a;
+}
+function sendFeedback(kind,o){
+  const to=feedbackEmail();if(!to){toast("Add your email address to send feedback.");return;}
+  const name=`${o.brand||""} ${o.name||""}`.trim();
+  const hint={bought:"Size or colour, if different (optional): ",more:"What you like about it (optional): ",nope:"What's off about it (optional): "}[kind];
+  if(kind==="bought"&&o.id!=null)setOwned(o.id,true);
+  if(kind==="nope"){S.nope[o.url]=1;try{localStorage.setItem("capsule-nope",JSON.stringify(S.nope))}catch(e){};closeDrawer();renderAll();}
+  location.href=`mailto:${to}?subject=${encodeURIComponent(`Capsule ${kind}: ${name}`.slice(0,140))}&body=${encodeURIComponent(`${o.url||""}\n\n${hint}`)}`;
+  toast({bought:"Marked as yours on this device. Send the email and every device catches up after the morning review.",
+         more:"Send the email and tomorrow's picks lean this way.",
+         nope:"Hidden on this device. Send the email and the morning review drops it for good."}[kind]);
+}
+document.addEventListener("click",e=>{const b=e.target.closest(".fb button");if(!b)return;e.preventDefault();e.stopPropagation();
+  const o=FB.get(b.closest(".fb").dataset.url);if(o)sendFeedback(b.dataset.k,o);});
 
 /* fit + sleeve check */
 function fitInfo(it){
@@ -404,6 +460,8 @@ function filtered(){
   let list=S.items.filter(it=>{
     if(S.cat!=="all"&&it.category!==S.cat)return false;
     if(S.hideOwned&&isOwned(it))return false;
+    if(isNope(it)&&!isOwned(it))return false;
+    if(S.winter&&!isWinter(it))return false;
     if(S.status!=="all"&&(isOwned(it)||it.signal!==S.status))return false;
     if(S.q){const q=S.q.toLowerCase();if(!`${it.brand} ${it.name} ${it.category} ${it.store}`.toLowerCase().includes(q))return false;}
     return true;
@@ -435,17 +493,18 @@ function renderShop(){
   list.forEach(it=>g.appendChild(card(it)));
 }
 function renderEdit(){
-  const picks=S.picks.filter(p=>!S.items.some(i=>isOwned(i)&&i.url===p.url));
+  const picks=S.picks.filter(p=>!isNope(p)&&!S.items.some(i=>isOwned(i)&&i.url===p.url));
   $("edit").hidden=!picks.length;
   if(S.picksUpdated)$("editLede").textContent=`The pieces most worth buying right now, in your size. Chosen ${dayName(S.picksUpdated)}, stock checked on every run.`;
   $("editGrid").innerHTML=picks.map(p=>{
     const now=p.price_now??p.price,red=p.discount_pct>0&&p.was;
     const stock=p.in_stock===false?`<p class="meta">Sold out in ${esc(p.size||"your size")} since this was picked</p>`:`<p class="meta go">In stock in ${esc(p.size||"your size")}</p>`;
-    return`<a class="edit-item" href="${esc(safe(p.url))}" target="_blank" rel="noopener">
+    const own=S.items.find(i=>i.url===p.url);
+    return`<div class="edit-item"><a href="${esc(safe(p.url))}" target="_blank" rel="noopener">
       <div class="tile">${tileFor(p,1000)}${red?`<span class="badge sale">−${p.discount_pct}%</span>`:""}</div>
       <p class="brand">${esc(p.brand||p.store||"")}</p><h3 class="name">${esc(p.name)}</h3>
       <p class="price num"><span class="now${red?" red":""}">${gbp(now)}</span>${red?`<s>${gbp(p.was)}</s>`:""}</p>${stock}
-      ${p.why?`<p class="why">${esc(p.why)}</p>`:""}</a>`}).join("");
+      ${p.why?`<p class="why">${esc(p.why)}</p>`:""}</a>${fbRow(own?{...p,id:own.id}:p)}</div>`}).join("");
 }
 
 /* drawer */
@@ -470,9 +529,11 @@ function openDrawer(it,from){
     ${it.note?`<div class="d-sec"><h3>Why it's on the list</h3><p>${esc(it.note)}</p></div>`:""}
     <div class="d-actions">
       <a class="btn" href="${esc(safe(it.url))}" target="_blank" rel="noopener">View at ${esc(it.store)}</a>
-      <button class="btn ghost" id="dOwn" ${it.bought?"disabled":""}>${own?"Owned. Remove from wardrobe":"Mark as owned"}</button>
+      ${it.bought?`<p class="soft">In your wardrobe.</p>`:own?`<button class="btn ghost" id="dOwn">Owned on this device. Remove</button>`:`<button class="btn ghost" id="dBought">I bought this</button>`}
+      ${it.bought?"":fbRow(it,["more","nope"])}
     </div>`;
-  $("dOwn").onclick=()=>{setOwned(it.id,!own);openDrawer(S.byId[it.id],S.lastFocus);};
+  if($("dOwn"))$("dOwn").onclick=()=>{setOwned(it.id,false);openDrawer(S.byId[it.id],S.lastFocus);};
+  if($("dBought"))$("dBought").onclick=()=>{sendFeedback("bought",it);openDrawer(S.byId[it.id],S.lastFocus);};
   const d=$("drawer");d.hidden=false;$("scrim").hidden=false;document.body.style.overflow="hidden";
   requestAnimationFrame(()=>{d.classList.remove("closed");$("dClose").focus();});
 }
@@ -486,11 +547,11 @@ const RANK={BUY:0,DEAL:1,SALE:2,WATCHING:3};
 function candidates(){
   const c=[];
   S.items.forEach(i=>{
-    if(isOwned(i)||!live(i)||!i.in_stock||!i.role||!(i.signal in RANK))return;
+    if(isOwned(i)||isNope(i)||!live(i)||!i.in_stock||!i.role||!(i.signal in RANK))return;
     const fi=fitInfo(i);if(fi&&fi.v==="avoid")return;
     c.push({ref:i,role:i.role,brand:i.brand,name:i.name,url:i.url,image:i.image,price:i.price,was:i.was,discount_pct:i.discount_pct,rank:RANK[i.signal],good:!fi||fi.v==="good",store:i.store});
   });
-  S.finds.forEach(f=>{if(f.role)c.push({role:f.role,brand:f.brand,name:f.name,url:f.url,image:f.image,price:f.price,was:f.was,discount_pct:f.discount_pct,rank:RANK.DEAL,good:false,store:f.store,deal:true});});
+  S.finds.forEach(f=>{if(f.role&&!isNope(f))c.push({role:f.role,brand:f.brand,name:f.name,url:f.url,image:f.image,price:f.price,was:f.was,discount_pct:f.discount_pct,rank:RANK.DEAL,good:false,store:f.store,deal:true});});
   return c.sort((a,b)=>(a.rank-b.rank)||((a.good?0:1)-(b.good?0:1))||(a.price-b.price));
 }
 function analyse(){
@@ -502,11 +563,25 @@ function analyse(){
   });
   const scored=cands.map(c=>{const completes=[],helps=[];
     forms.forEach(f=>{if(!f.missing.some(s=>s.roles.includes(c.role)))return;(f.missing.length===1?completes:helps).push(f.name);});
-    return{...c,completes,helps,score:completes.length*100+(completes.length+helps.length)*10-c.rank*4-(c.good?0:3)-c.price/40};
+    const picked=S.picks.some(p=>p.url===c.url);
+    return{...c,completes,helps,picked,score:completes.length*100+(completes.length+helps.length)*10-c.rank*4-(c.good?0:3)-c.price/40+(picked?40:0)};
   }).filter(c=>c.completes.length+c.helps.length>0).sort((a,b)=>b.score-a.score);
   const best=[],roles=new Set();
   for(const c of scored){if(roles.has(c.role))continue;roles.add(c.role);best.push(c);if(best.length===3)break;}
   return{forms,done:forms.filter(f=>!f.missing.length).length,best};
+}
+function gapsOf(forms){
+  const labels=S.wardrobe.role_labels||{},g={};
+  forms.forEach(f=>f.missing.forEach(s=>{const k=[...s.roles].sort().join("|");
+    (g[k]=g[k]||{label:s.roles.map(r=>(labels[r]||r).toLowerCase()).join(" or "),n:0}).n++;}));
+  return Object.values(g).sort((a,b)=>b.n-a.n);
+}
+function renderProgress(){
+  const {forms,done}=analyse(),gaps=gapsOf(forms);
+  $("progress").hidden=!forms.length;
+  $("pgBar").innerHTML=forms.map((f,i)=>`<span class="${i<done?"on":""}"></span>`).join("");
+  $("pgLine").innerHTML=`<b>${done} of ${forms.length} outfits</b> ready to wear with what you own.`
+    +(gaps.length?` Missing: ${esc(gaps.slice(0,3).map(x=>`${x.label} (${x.n})`).join(", "))}. `:" ")+`<a href="#outfits">See outfits</a>`;
 }
 function listJoin(a){return a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1]}
 function renderOutfits(){
@@ -516,14 +591,16 @@ function renderOutfits(){
   $("nextBlock").hidden=!best.length;
   $("nextGrid").innerHTML="";
   best.forEach(c=>{
-    const why=c.completes.length?`Completes ${listJoin(c.completes)}`:`Fills a gap in ${listJoin(c.helps)}`;
+    const why=(c.completes.length?`Completes ${listJoin(c.completes)}`:`Fills a gap in ${listJoin(c.helps)}`)+(c.picked?". In this week's edit":"");
+    const el=document.createElement("article");el.className="card";
     const a=document.createElement("a");a.className="card-hit";a.href=safe(c.url);a.target="_blank";a.rel="noopener";
     const red=c.was&&c.discount_pct>0;
     a.innerHTML=`<div class="tile">${tileFor(c,700)}${red?`<span class="badge sale">−${c.discount_pct}%</span>`:(c.rank===0?`<span class="badge buy">Buy now</span>`:"")}</div>
       <div class="info"><p class="brand">${esc(c.brand||c.store)}</p><h3 class="name">${esc(c.name)}</h3>
       <p class="price num"><span class="now${red?" red":""}">${gbp(c.price)}</span>${red?`<s>${gbp(c.was)}</s>`:""}</p>
       <p class="reason">${esc(why)}</p>${c.deal?`<p class="meta">Deal at ${esc(c.store)}</p>`:""}</div>`;
-    $("nextGrid").appendChild(a);
+    el.appendChild(a);el.insertAdjacentHTML("beforeend",fbRow(c.ref?{...c,id:c.ref.id}:c));
+    $("nextGrid").appendChild(el);
   });
   $("outfits").innerHTML=forms.map(f=>`<div class="outfit">
      <div class="outfit-head"><h3>${esc(f.name)}</h3><span class="when">${esc(f.when||"")}</span>
@@ -579,14 +656,16 @@ function readHash(){
 function renderDeals(){
   const g=$("dealsGrid");g.innerHTML="";
   if(!S.finds.length){g.innerHTML=`<p class="empty">Nothing has passed the daily check yet. New candidates from the sale rails are reviewed every morning.</p>`;return;}
-  S.finds.forEach(f=>{
+  S.finds.filter(f=>!isNope(f)).forEach(f=>{
+    const el=document.createElement("article");el.className="card";
     const a=document.createElement("a");a.className="card-hit";a.href=safe(f.url);a.target="_blank";a.rel="noopener";
     const fresh=f.first_seen&&(Date.now()-new Date(f.first_seen+"T12:00:00Z"))/864e5<=2;
     a.innerHTML=`<div class="tile">${tileFor(f,700)}<span class="badge sale">−${esc(f.discount_pct)}%</span></div>
       <div class="info"><p class="brand">${esc(f.brand)}</p><h3 class="name">${esc(f.name)}</h3>
       <p class="price num"><span class="now red">${gbp(f.price)}</span>${f.was?`<s>${gbp(f.was)}</s>`:""}</p>
       <p class="meta">${fresh?"New today. ":""}${esc(f.size)} in stock at ${esc(f.store)}</p></div>`;
-    g.appendChild(a);
+    el.appendChild(a);el.insertAdjacentHTML("beforeend",fbRow(f));
+    g.appendChild(el);
   });
 }
 
@@ -599,8 +678,8 @@ function renderMeta(){
     $("updated").textContent="Updated "+d.toLocaleString("en-GB",{weekday:"short",hour:"2-digit",minute:"2-digit"});
     if(hrs>30){$("stale").hidden=false;$("stale").innerHTML=`Prices were last checked ${Math.round(hrs)} hours ago, so the updater may have stopped. <a href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener">Check its runs</a>`;}
   }
-  const stores=new Set(S.items.map(i=>i.store)).size;
-  $("footNote").textContent=`Tracking ${S.items.length} pieces across ${stores} shops. Prices and stock are checked about three times a day; your ticks are saved on this device.`;
+  const watching=S.items.filter(i=>!i.bought),stores=new Set(watching.map(i=>i.store)).size,mine=S.items.length-watching.length;
+  $("footNote").textContent=`Tracking ${watching.length} pieces across ${stores} shops${mine?`, plus ${mine} already in your wardrobe`:""}. Prices and stock are checked about three times a day.`;
   $("dealsLede").textContent=`${S.finds.length} piece${S.finds.length===1?"":"s"} at 25% or more off, in your size, each checked against your brief before it shows here.`;
 }
 function show(v){
@@ -609,13 +688,15 @@ function show(v){
   document.querySelectorAll(".nav button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.view===v)));
   const want=v==="shop"?"":"#"+v;if(location.hash!==want)history.replaceState(null,"",location.pathname+want);
 }
-function renderAll(){renderMeta();renderEdit();renderShop();renderOutfits();renderDeals();}
+function renderAll(){renderMeta();renderProgress();renderEdit();renderShop();renderOutfits();renderDeals();}
 
 document.addEventListener("load",e=>{const i=e.target;if(i.tagName==="IMG"&&i.closest(".tile")&&i.naturalHeight>i.naturalWidth*1.08)i.classList.add("fill");},true);
 document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{show(b.dataset.view);window.scrollTo({top:0});});
 $("q").addEventListener("input",e=>{S.q=e.target.value.trim();renderShop();});
 $("sort").onchange=e=>{S.sort=e.target.value;renderShop();};
 $("hideOwned").onchange=e=>{S.hideOwned=e.target.checked;renderShop();};
+$("winter").onchange=e=>{S.winter=e.target.checked;renderShop();};
+if([9,10,11,0,1,2].includes(new Date().getMonth()))$("winterWrap").hidden=false;
 $("reach").addEventListener("change",e=>{const v=parseFloat(e.target.value);S.reach=(!isNaN(v)&&v>=70&&v<=110)?v:null;persist();renderAll();
   toast(S.reach?`Sleeve length set to ${S.reach}cm`:"Sleeve length cleared");});
 $("howBtn").onclick=()=>{const h=$("howto");h.hidden=!h.hidden;$("howBtn").setAttribute("aria-expanded",String(!h.hidden));};

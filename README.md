@@ -20,7 +20,7 @@ Uniqlo (`"check": "uniqlo"`), M&S (`"mands"`) and Barbour (`"barbour"`, barbour.
 
 ## Daily Drop email
 
-Every run writes `docs/drop.html` (also at the site's `/drop.html`): today's edit, what changed since yesterday, what's at or under target, and newly approved deals. Each piece has a **Not for me** link (opens a pre-filled email to yourself) and you can reply to the Drop with anything ("no suede", "more cords"); the next morning's review reads both and updates `taste.json` and the rules.
+Every run writes `docs/drop.html` (also at the site's `/drop.html`): a progress line (outfits ready to wear with what you own, and the gaps), today's edit, what changed since yesterday, pieces at or under target that fill a gap, and approved deals. The subject leads with the best thing today. On a day with nothing new it's a short note instead. Under every piece: **Bought it** (marks it as yours), **More like this** and **Not for me** open a pre-filled email to yourself; reply to the Drop with anything else. The next morning's review reads them and updates `items.json`, `picks.json` and `taste.json`. The site has the same buttons (it asks for your email address once per device).
 
 **Photos in the email (one-off, 2 minutes).** Claude's Gmail connector strips every image, so the Action sends the Drop itself over Gmail SMTP with the photos embedded:
 1. Google Account → turn on 2-Step Verification if it isn't → [App passwords](https://myaccount.google.com/apppasswords) → name it `capsule` → copy the 16-character password.
