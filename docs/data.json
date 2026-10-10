@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T08:18:22.897026Z",
+ "generated": "2026-10-10T09:17:49.875411Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1974,6 +1974,11 @@
   ]
  },
  "drop": {
-  "status": "smtp not set up (GMAIL_USER / GMAIL_APP_PASSWORD secrets)"
+  "date": "2026-10-10",
+  "at": "2026-10-10T09:17:49.875411Z",
+  "subject": "The Drop · Sat 10 Oct: 5 ready to buy",
+  "via": "smtp",
+  "images": 11,
+  "status": "sent"
  }
 }
