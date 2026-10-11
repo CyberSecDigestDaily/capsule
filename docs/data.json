@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T18:15:51.356154Z",
+ "generated": "2026-10-11T06:15:51.294293Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -35,7 +35,7 @@
    },
    "variant": "Olive",
    "note": "Replaces the sold-out Corduroy Overshirt (end of season).",
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Uniqlo",
    "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/478550/item/gbgoods_57_478550_3x4.jpg",
    "price": 39.9,
@@ -74,7 +74,7 @@
      "XL": 92.5
     }
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Universal Works",
    "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/00102_twill-light-olive_1.jpg?v=1786463841",
    "price": 170.0,
@@ -113,7 +113,7 @@
     }
    },
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Universal Works",
    "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34120_recycled-poly-tech-navy_1.jpg?v=1771493476",
    "signal": "BOUGHT",
@@ -137,7 +137,7 @@
     "note": "Barbour list the Ashby as a tailored (slimmer) cut. If you'll layer a knit underneath or need more sleeve, XL is the safer size."
    },
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Barbour",
    "image": "https://www.barbour.com/dw/image/v2/blcl_prd/on/demandware.static/-/Sites-master-catalog/default/dwb0955f72/images/MWX0339OL71/MWX0339OL71_01front.jpg?sw=900&q=70&strip=false",
    "signal": "BOUGHT",
@@ -161,7 +161,7 @@
     "verdict": "good",
     "note": "Classic chore-coat cut with a regular body (not boxy) and patch pockets; layers over a tee or a thin knit."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Uskees",
    "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-army-green-front-flat.jpg?v=1775045996",
    "price": 59.5,
@@ -177,7 +177,8 @@
    ],
    "signal": "BUY",
    "low": 59.5,
-   "low_date": "2026-10-10"
+   "low_date": "2026-10-10",
+   "change": 0.0
   },
   {
    "id": 10,
@@ -195,7 +196,7 @@
     "note": "Raglan sleeve: more reach and shoulder movement for long arms. 335g cotton loopback; can shrink up to 4%, so wash cool."
    },
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Community Clothing",
    "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Raglan-Sweatshirt_Grey_Editorial-Thigh-Up-Front-3.jpg?v=1698066297",
    "signal": "BOUGHT",
@@ -219,7 +220,7 @@
     "note": "Raglan sleeve (despite the 'drop-shoulder' in the shop's URL). 335g organic cotton; wash cool, may shrink up to 4%."
    },
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Community Clothing",
    "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Mens_Raglan-Sweatshirt_Bottle-Green_Thigh-Up-Front.jpg?v=1710253706",
    "signal": "BOUGHT",
@@ -244,7 +245,7 @@
    },
    "variant": "Navy",
    "note": "Replaces the sold-out Fleece Half-Zip (end of season).",
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Uniqlo",
    "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450195/item/gbgoods_69_450195_3x4.jpg",
    "price": 29.9,
@@ -281,7 +282,7 @@
     "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it sits clean at the waist without riding up. 335g organic loopback; wash cool (up to 4% shrink)."
    },
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Community Clothing",
    "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Raglan-Sweatshirt-Long-Fit_Navy_Thigh-Up-Front_Community-Clothing-2.jpg?v=1782718389",
    "signal": "BOUGHT",
@@ -304,7 +305,7 @@
     "verdict": "good",
     "note": "Relaxed fisherman knit; reviewers rate it true to size, 'roomy without being baggy'. Finisterre's L is for 180–185cm tall (you're 183cm). Wool/polyamide keeps the cuffs in shape."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Finisterre",
    "image": "https://cdn.shopify.com/s/files/1/1074/5128/files/barents-jumper-oatmeal_146677b2-d822-4d41-baf5-92caad6aa735.jpg?v=1776761173",
    "price": 120.0,
@@ -339,7 +340,7 @@
     "verdict": "good",
     "note": "Regular fit, 200g organic cotton, made in the UK."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Community Clothing",
    "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Short-Sleeve-T-Shirt_Charcoal_Thigh-Up-Front_Community-Clothing.jpg?v=1749471051",
    "price": 35.0,
@@ -374,7 +375,7 @@
     "verdict": "good",
     "note": "Regular fit, standard length; cotton outside with an AIRism lining."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Uniqlo",
    "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_57_482522_3x4.jpg",
    "price": 14.9,
@@ -390,7 +391,8 @@
    ],
    "signal": "WATCHING",
    "low": 14.9,
-   "low_date": "2026-10-10"
+   "low_date": "2026-10-10",
+   "change": 0.0
   },
   {
    "id": 54,
@@ -409,7 +411,7 @@
     "verdict": "good",
     "note": "Regular fit, standard length; cotton outside with an AIRism lining."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Uniqlo",
    "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_69_482522_3x4.jpg",
    "price": 14.9,
@@ -426,7 +428,8 @@
    ],
    "signal": "WATCHING",
    "low": 14.9,
-   "low_date": "2026-10-10"
+   "low_date": "2026-10-10",
+   "change": 0.0
   },
   {
    "id": 20,
@@ -443,7 +446,7 @@
     "verdict": "good",
     "note": "Regular thigh, tapered leg, mid-rise sitting just below the waist; 1% elastane. Exactly the 'elevated straight-taper' in your brief."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Jeanstore",
    "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/MB_29507-0280_LSE_CM_D1.jpg?v=1775046075",
    "price": 95.0,
@@ -479,7 +482,7 @@
     "note": "Regular thigh, tapered, sits at the waist; 27cm front rise. Soft lyocell stretch denim."
    },
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Jeanstore",
    "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/295071460-detail1-pdp.jpg?v=1736866591",
    "signal": "BOUGHT",
@@ -502,7 +505,7 @@
     "verdict": "good",
     "note": "Regular thigh, tapered, sits at the waist; 27cm front rise; 1% Lycra."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Jeanstore",
    "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/MB_29507-1831_GLO_CM_D1.jpg?v=1773413280",
    "price": 95.0,
@@ -539,7 +542,7 @@
    },
    "variant": "Fawn",
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "M&S",
    "image": "https://assets.digitalcontent.marksandspencer.app/images/w_900,q_auto,f_auto/SD_03_T17_6614M_GD_X_EC_90/image",
    "signal": "BOUGHT",
@@ -562,7 +565,7 @@
     "verdict": "good",
     "note": "Standard taper: regular seat and thigh, 2% elastane. This colour is cut to sit a little below the waist."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Jeanstore",
    "image": "https://cdn.shopify.com/s/files/1/2577/9994/products/levi-s-xx-chino-standard-taper-fit-mens-chinos-bunker-olive-shady-w28-l32-17196-000128r-5400816974192-levi-s-chinos-non-denim-pants-29621611790530.jpg?v=1628471066",
    "price": 75.0,
@@ -597,7 +600,7 @@
     "verdict": "good",
     "note": "Standard taper, sits at the waist, 2% elastane."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Jeanstore",
    "image": "https://cdn.shopify.com/s/files/1/2577/9994/products/levi-s-xx-chino-standard-taper-fit-mens-chinos-baltic-navy-shady-w28-l32-17196-001628r-5400816970613-levi-s-chinos-non-denim-pants-16497218355243.jpg?v=1628338586",
    "price": 75.0,
@@ -633,7 +636,7 @@
     "verdict": "check",
     "note": "Regular fit, straight (not tapered) leg in heavyweight pure cotton twill: no stretch."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Community Clothing",
    "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Relaxed_ChinosKhaki_original_3_Portrait_dd2bf3be-912a-441f-84d6-2b9bf5e1a43d.jpg?v=1694641018",
    "price": 37.5,
@@ -669,7 +672,7 @@
     "note": "Regular fit, straight (not tapered) leg in heavyweight pure cotton twill: no stretch."
    },
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Community Clothing",
    "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Relaxed-Chino_Navy_Full-Body-Front.jpg?v=1705581249",
    "signal": "BOUGHT",
@@ -693,7 +696,7 @@
     "verdict": "good",
     "note": "High rise sits at the natural waist (comfortable and clean under a knit); straight leg tapering from the knee; wool with a little stretch."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Oliver Spencer",
    "image": "https://cdn.shopify.com/s/files/1/0272/3338/6538/files/OSMT68-PUR01CHAFRONT.jpg?v=1785426781",
    "price": 259.0,
@@ -727,7 +730,7 @@
     "verdict": "good",
     "note": "Vans fit true to size. The Skate Era adds PopCush cushioning and a padded collar, so it's comfier all day than the classic Era."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Route One",
    "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001189285.jpg?v=1767803134",
    "price": 69.95,
@@ -762,7 +765,7 @@
     "verdict": "check",
     "note": "Narrow Blazer last: go half a size up if your feet are wide."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Route One",
    "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001186588.jpg?v=1758641843",
    "price": 59.95,
@@ -798,7 +801,7 @@
     "verdict": "good",
     "note": "The OG+ is roomier than the original Janoski and fits true to size; Zoom Air heel, cork insole."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Route One",
    "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001184047.jpg?v=1750429497",
    "price": 69.95,
@@ -835,7 +838,7 @@
     "verdict": "good",
     "note": "The OG+ is roomier than the original Janoski and fits true to size."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Slam City",
    "image": "https://cdn.shopify.com/s/files/1/0020/1628/0646/files/001_34c52ef8-a08e-442c-b5fd-8d31a93f189c.jpg?v=1708345103",
    "price": 39.99,
@@ -867,7 +870,7 @@
     "verdict": "good",
     "note": "True to size with a snug toe box. Synthetic upper (not leather), so wipe-clean but less breathable."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Goodhood",
    "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/AURORA_IR1953-200_PHSRH000-2000.jpg?v=1784651252",
    "price": 134.99,
@@ -898,7 +901,7 @@
     "verdict": "good",
     "note": "True to size, and the widest of the Samba/Gazelle/Spezial trio, so roomier than your Sambas. OrthoLite insole."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Urban Industry",
    "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/AdidasOriginals_HandballSpezialShoes_Green_OliveStrata_ShadowOlive_01_82a73b36-3ee1-42c0-af77-753a5abe4900.jpg?v=1791450975",
    "price": 89.95,
@@ -931,7 +934,7 @@
     "verdict": "check",
     "note": "Wallabees run large: true size for normal or wide feet, half a size down if narrow. This stockist only does whole sizes. Spray the suede with protector first."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Parasol Store",
    "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/ClarksOriginalsWallabeeShoeMapleSuede_1.jpg?v=1789029568",
    "price": 99.0,
@@ -965,7 +968,7 @@
     "verdict": "good",
     "note": "GORE-TEX lining and a Vibram sole: the rain-proof Wallabee. Same large sizing as the others."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Goodhood",
    "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/CLARKS-ORIGINALS-WALLABEE-GTX---MAPLE-SUEDE_SS23_GOODHOOD.jpg?v=1690449449",
    "price": 190.0,
@@ -999,7 +1002,7 @@
     "verdict": "good",
     "note": "Classic close-fitting Chelsea, snug over the instep. Calf suede (matte), leather-lined, chunky Vibram sole; suede needs protector spray."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "John White",
    "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
    "price": 120.0,
@@ -1034,7 +1037,7 @@
     "verdict": "good",
     "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Blundstone",
    "image": "https://cdn.shopify.com/s/files/1/0255/2813/9827/files/BLU584-220UK_UNISEX_1.jpg?v=1748349484",
    "price": 210.0,
@@ -1070,7 +1073,7 @@
     "verdict": "good",
     "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Blundstone",
    "image": "https://cdn.shopify.com/s/files/1/0255/2813/9827/files/BLU1478-001UK_UNISEX_1.jpg?v=1748349518",
    "price": 210.0,
@@ -1105,7 +1108,7 @@
     "verdict": "good",
     "note": "M/L fits UK 8–13."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Community Clothing",
    "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Unisex_Premium-Cotton-Sock-Rib_RAF-Blue_Mannequin_Portrait_02555958-6d72-4e8f-924e-d646936a20c7.jpg?v=1694642792",
    "price": 10.5,
@@ -1135,7 +1138,7 @@
     "verdict": "good",
     "note": "M/L fits UK 8–13."
    },
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Community Clothing",
    "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Unisex_Premium-Cotton-Sock-Rib-_Black_Mannequin_Portrait_d5f1b9c7-c2d0-4bf1-bd1c-48e315eedf82.jpg?v=1694642797",
    "price": 10.5,
@@ -1168,7 +1171,7 @@
     "note": "Regular rise in soft cotton jersey with odour control; Uniqlo underwear runs true to size. Plain waistband, no branding."
    },
    "bought": true,
-   "checked": "2026-10-10",
+   "checked": "2026-10-11",
    "store": "Uniqlo",
    "image": "https://image.uniqlo.com/UQ/ST3/WesternCommon/imagesgoods/464311/item/goods_69_464311_3x4.jpg",
    "signal": "BOUGHT",
@@ -1441,6 +1444,6 @@
   "subject": "The Drop · Sat 10 Oct: 5 ready to buy",
   "via": "smtp",
   "images": 11,
-  "status": "already sent today"
+  "status": "waiting for today's review"
  }
 }
