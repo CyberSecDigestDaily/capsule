@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T08:19:58.489131Z",
+ "generated": "2026-10-13T12:15:56.285611Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -19,25 +19,6 @@
    "score": 68.9,
    "role": "jacket",
    "why": "50% off at Community Clothing · L in stock · stone · jackets & overshirts"
-  },
-  {
-   "key": "communityclothing.co.uk/mens-chore-jacket-putty",
-   "first_seen": "2026-10-03",
-   "store": "Community Clothing",
-   "brand": "Community Clothing",
-   "name": "Chore Jacket, Putty",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Putty_Front4_Portrait_af99d323-4358-492b-8199-5ab44d12c65c.jpg?v=1694642757",
-   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-putty",
-   "category": "Jackets & Overshirts",
-   "price": 42.0,
-   "was": 140.0,
-   "discount_pct": 70,
-   "size": "L",
-   "colour": "putty",
-   "tier": "deal",
-   "score": 64.0,
-   "role": "jacket",
-   "why": "70% off at Community Clothing · L in stock · putty · jackets & overshirts"
   },
   {
    "key": "finisterre.com/mens-organic-cotton-resurge-jacket-indigo-grey",
@@ -163,5 +144,50 @@
  ],
  "picks_updated": "2026-10-13",
  "errors": [],
- "candidates": []
+ "candidates": [
+  {
+   "key": "communityclothing.co.uk/mens-chore-jacket-indigo-denim",
+   "first_seen": "2026-10-13",
+   "store": "Community Clothing",
+   "brand": "Community Clothing",
+   "name": "Chore Jacket, Indigo Denim",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Indigo-Denim_Thigh-Up_Community-Clothing-6.jpg?v=1722614459",
+   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-indigo-denim",
+   "category": "Jackets & Overshirts",
+   "price": 70.0,
+   "was": 140.0,
+   "discount_pct": 50,
+   "size": "L",
+   "colour": "indigo",
+   "tier": "deal",
+   "score": 62.7,
+   "role": "jacket",
+   "why": "50% off at Community Clothing · L in stock · indigo · jackets & overshirts",
+   "fit_words": [],
+   "composition": null,
+   "desc": ""
+  },
+  {
+   "key": "parasolstore.co.uk/barbour-cotton-quarter-zip-jumper-smokey-olive",
+   "first_seen": "2026-10-13",
+   "store": "Parasol Store",
+   "brand": "Barbour",
+   "name": "Cotton Quarter-Zip Jumper Smokey Olive",
+   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourCottonQuarter-ZipJumperSmokeyOlive4.jpg?v=1775052910",
+   "url": "https://parasolstore.co.uk/products/barbour-cotton-quarter-zip-jumper-smokey-olive",
+   "category": "Mid-layers & Knits",
+   "price": 60.0,
+   "was": 89.95,
+   "discount_pct": 33,
+   "size": "L",
+   "colour": "olive",
+   "tier": "deal",
+   "score": 44.7,
+   "role": "knit",
+   "why": "33% off at Parasol Store · L in stock · olive · mid-layers & knits",
+   "fit_words": [],
+   "composition": "100% cotton",
+   "desc": "this barbour cotton quarter-zip jumper is a versatile everyday layer, made from lightweight cotton with a clean finish. simple detailing and a relaxed feel make it easy to wear across seasons.. product features. - 100% cotton construction. - 10 gauge knit for a lightweight feel. - quarter-zip fasten"
+  }
+ ]
 }
