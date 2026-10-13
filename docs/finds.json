@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T12:15:56.285611Z",
+ "generated": "2026-10-13T18:16:04.709223Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -38,25 +38,6 @@
    "score": 56.3,
    "role": "jacket",
    "why": "50% off at Finisterre · L in stock · indigo · jackets & overshirts"
-  },
-  {
-   "key": "parasolstore.co.uk/barbour-essential-honeycomb-quarter-zip-jumper-navy",
-   "first_seen": "2026-10-08",
-   "store": "Parasol Store",
-   "brand": "Barbour",
-   "name": "Essential Honeycomb Quarter-Zip Jumper Navy",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourEssentialHoneycombQuarter-ZipJumperNavy4.jpg?v=1775055010",
-   "url": "https://parasolstore.co.uk/products/barbour-essential-honeycomb-quarter-zip-jumper-navy",
-   "category": "Mid-layers & Knits",
-   "price": 70.0,
-   "was": 99.95,
-   "discount_pct": 30,
-   "size": "L",
-   "colour": "navy",
-   "tier": "deal",
-   "score": 41.0,
-   "role": "knit",
-   "why": "30% off at Parasol Store · L in stock · navy · mid-layers & knits"
   },
   {
    "key": "jeanstore.co.uk/lee-david-regular-tapered-mens-jeans-rusty-rivet",
@@ -166,28 +147,6 @@
    "fit_words": [],
    "composition": null,
    "desc": ""
-  },
-  {
-   "key": "parasolstore.co.uk/barbour-cotton-quarter-zip-jumper-smokey-olive",
-   "first_seen": "2026-10-13",
-   "store": "Parasol Store",
-   "brand": "Barbour",
-   "name": "Cotton Quarter-Zip Jumper Smokey Olive",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourCottonQuarter-ZipJumperSmokeyOlive4.jpg?v=1775052910",
-   "url": "https://parasolstore.co.uk/products/barbour-cotton-quarter-zip-jumper-smokey-olive",
-   "category": "Mid-layers & Knits",
-   "price": 60.0,
-   "was": 89.95,
-   "discount_pct": 33,
-   "size": "L",
-   "colour": "olive",
-   "tier": "deal",
-   "score": 44.7,
-   "role": "knit",
-   "why": "33% off at Parasol Store · L in stock · olive · mid-layers & knits",
-   "fit_words": [],
-   "composition": "100% cotton",
-   "desc": "this barbour cotton quarter-zip jumper is a versatile everyday layer, made from lightweight cotton with a clean finish. simple detailing and a relaxed feel make it easy to wear across seasons.. product features. - 100% cotton construction. - 10 gauge knit for a lightweight feel. - quarter-zip fasten"
   }
  ]
 }
