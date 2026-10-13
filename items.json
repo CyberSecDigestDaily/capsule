@@ -34,8 +34,8 @@
    "role": "jacket",
    "tier": "premium",
    "brand": "Universal Works",
-   "name": "Bakers Jacket, light olive",
-   "url": "https://universalworks.com/products/universal-works-bakers-jacket-in-light-olive-twill",
+   "name": "Bakers Jacket, olive green twill",
+   "url": "https://universalworks.com/products/olivegreen-twill-bakers-jacket",
    "check": "shopify",
    "size": "L",
    "target": 135,
@@ -46,7 +46,8 @@
      "L": 90,
      "XL": 92.5
     }
-   }
+   },
+   "note": "Re-linked 2026-10-13: light olive listing gone; same 00102 Bakers Jacket now sold as Olive Green Twill."
   },
   {
    "id": 7,
