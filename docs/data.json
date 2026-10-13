@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T06:15:50.955369Z",
+ "generated": "2026-10-13T08:19:58.489131Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -9,10 +9,9 @@
   "shoe": "UK 10",
   "reach_cm": 88
  },
- "errors": 1,
+ "errors": 0,
  "counts": {
-  "WATCHING": 19,
-  "LINK ERROR": 1,
+  "WATCHING": 20,
   "BOUGHT": 9,
   "BUY": 2,
   "SOLD OUT": 4,
@@ -62,8 +61,8 @@
    "role": "jacket",
    "tier": "premium",
    "brand": "Universal Works",
-   "name": "Bakers Jacket, light olive",
-   "url": "https://universalworks.com/products/universal-works-bakers-jacket-in-light-olive-twill",
+   "name": "Bakers Jacket, olive green twill",
+   "url": "https://universalworks.com/products/olivegreen-twill-bakers-jacket",
    "check": "shopify",
    "size": "L",
    "target": 135,
@@ -75,11 +74,23 @@
      "XL": 92.5
     }
    },
+   "note": "Re-linked 2026-10-13: light olive listing gone; same 00102 Bakers Jacket now sold as Olive Green Twill.",
    "checked": "2026-10-13",
    "store": "Universal Works",
-   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/00102_twill-light-olive_1.jpg?v=1786463841",
-   "signal": "LINK ERROR",
-   "error": "HTTP Error 404: Not Found",
+   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/00102_twill-olive-green_1.jpg?v=1791544029",
+   "price": 170.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "XXXL"
+   ],
+   "signal": "WATCHING",
    "low": 170.0,
    "low_date": "2026-07-11",
    "change": 0.0
@@ -1430,11 +1441,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-12",
-  "at": "2026-10-12T08:17:00.667300Z",
-  "subject": "The Drop · Mon 12 Oct: nothing new today",
+  "date": "2026-10-13",
+  "at": "2026-10-13T08:19:58.489131Z",
+  "subject": "The Drop · Tue 13 Oct: Olive ribbed cardigan £39.90 + 2 more picks",
   "via": "smtp",
-  "images": 3,
-  "status": "waiting for today's review"
+  "images": 7,
+  "status": "sent"
  }
 }
