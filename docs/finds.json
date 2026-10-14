@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T12:15:49.247066Z",
+ "generated": "2026-10-14T18:16:02.307665Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -21,23 +21,23 @@
    "why": "50% off at Community Clothing · L in stock · stone · jackets & overshirts"
   },
   {
-   "key": "communityclothing.co.uk/mens-chore-jacket-indigo-denim",
+   "key": "communityclothing.co.uk/mens-chore-jacket-putty",
    "first_seen": "2026-10-14",
    "store": "Community Clothing",
    "brand": "Community Clothing",
-   "name": "Chore Jacket, Indigo Denim",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Indigo-Denim_Thigh-Up_Community-Clothing-6.jpg?v=1722614459",
-   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-indigo-denim",
+   "name": "Chore Jacket, Putty",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Putty_Front4_Portrait_af99d323-4358-492b-8199-5ab44d12c65c.jpg?v=1694642757",
+   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-putty",
    "category": "Jackets & Overshirts",
-   "price": 70.0,
+   "price": 42.0,
    "was": 140.0,
-   "discount_pct": 50,
+   "discount_pct": 70,
    "size": "L",
-   "colour": "indigo",
+   "colour": "putty",
    "tier": "deal",
-   "score": 62.7,
+   "score": 64.0,
    "role": "jacket",
-   "why": "50% off at Community Clothing · L in stock · indigo · jackets & overshirts"
+   "why": "70% off at Community Clothing · L in stock · putty · jackets & overshirts"
   },
   {
    "key": "finisterre.com/mens-organic-cotton-resurge-jacket-indigo-grey",
