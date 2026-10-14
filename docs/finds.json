@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T06:15:47.636837Z",
+ "generated": "2026-10-14T08:19:00.892679Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -19,6 +19,25 @@
    "score": 68.9,
    "role": "jacket",
    "why": "50% off at Community Clothing · L in stock · stone · jackets & overshirts"
+  },
+  {
+   "key": "communityclothing.co.uk/mens-chore-jacket-indigo-denim",
+   "first_seen": "2026-10-14",
+   "store": "Community Clothing",
+   "brand": "Community Clothing",
+   "name": "Chore Jacket, Indigo Denim",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Indigo-Denim_Thigh-Up_Community-Clothing-6.jpg?v=1722614459",
+   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-indigo-denim",
+   "category": "Jackets & Overshirts",
+   "price": 70.0,
+   "was": 140.0,
+   "discount_pct": 50,
+   "size": "L",
+   "colour": "indigo",
+   "tier": "deal",
+   "score": 62.7,
+   "role": "jacket",
+   "why": "50% off at Community Clothing · L in stock · indigo · jackets & overshirts"
   },
   {
    "key": "finisterre.com/mens-organic-cotton-resurge-jacket-indigo-grey",
@@ -123,30 +142,7 @@
    "start_price": 29.9
   }
  ],
- "picks_updated": "2026-10-13",
+ "picks_updated": "2026-10-14",
  "errors": [],
- "candidates": [
-  {
-   "key": "communityclothing.co.uk/mens-chore-jacket-indigo-denim",
-   "first_seen": "2026-10-13",
-   "store": "Community Clothing",
-   "brand": "Community Clothing",
-   "name": "Chore Jacket, Indigo Denim",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Indigo-Denim_Thigh-Up_Community-Clothing-6.jpg?v=1722614459",
-   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-indigo-denim",
-   "category": "Jackets & Overshirts",
-   "price": 70.0,
-   "was": 140.0,
-   "discount_pct": 50,
-   "size": "L",
-   "colour": "indigo",
-   "tier": "deal",
-   "score": 62.7,
-   "role": "jacket",
-   "why": "50% off at Community Clothing · L in stock · indigo · jackets & overshirts",
-   "fit_words": [],
-   "composition": null,
-   "desc": ""
-  }
- ]
+ "candidates": []
 }
