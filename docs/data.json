@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-15T06:15:51.650907Z",
+ "generated": "2026-10-15T08:16:47.704224Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1441,11 +1441,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-14",
-  "at": "2026-10-14T08:19:00.892679Z",
-  "subject": "The Drop · Wed 14 Oct: Olive ribbed cardigan £39.90 + 2 more picks, 1 new deal",
+  "date": "2026-10-15",
+  "at": "2026-10-15T08:16:47.704224Z",
+  "subject": "The Drop · Thu 15 Oct: Olive ribbed cardigan £39.90 + 2 more picks, 1 new deal",
   "via": "smtp",
   "images": 4,
-  "status": "waiting for today's review"
+  "status": "sent"
  }
 }
