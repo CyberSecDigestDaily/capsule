@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-15T18:15:54.034220Z",
+ "generated": "2026-10-16T06:15:30.815129Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -21,23 +21,23 @@
    "why": "50% off at Community Clothing · L in stock · stone · jackets & overshirts"
   },
   {
-   "key": "communityclothing.co.uk/mens-chore-jacket-putty",
-   "first_seen": "2026-10-14",
+   "key": "communityclothing.co.uk/mens-chore-jacket-indigo-denim",
+   "first_seen": "2026-10-16",
    "store": "Community Clothing",
    "brand": "Community Clothing",
-   "name": "Chore Jacket, Putty",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Putty_Front4_Portrait_af99d323-4358-492b-8199-5ab44d12c65c.jpg?v=1694642757",
-   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-putty",
+   "name": "Chore Jacket, Indigo Denim",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Indigo-Denim_Thigh-Up_Community-Clothing-6.jpg?v=1722614459",
+   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-indigo-denim",
    "category": "Jackets & Overshirts",
-   "price": 42.0,
+   "price": 70.0,
    "was": 140.0,
-   "discount_pct": 70,
+   "discount_pct": 50,
    "size": "L",
-   "colour": "putty",
+   "colour": "indigo",
    "tier": "deal",
-   "score": 64.0,
+   "score": 62.7,
    "role": "jacket",
-   "why": "70% off at Community Clothing · L in stock · putty · jackets & overshirts"
+   "why": "50% off at Community Clothing · L in stock · indigo · jackets & overshirts"
   },
   {
    "key": "finisterre.com/mens-organic-cotton-resurge-jacket-indigo-grey",
@@ -96,7 +96,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-15",
+   "verified": "2026-10-16",
    "since": "2026-10-13",
    "start_price": 39.9
   },
@@ -116,7 +116,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-15",
+   "verified": "2026-10-16",
    "since": "2026-10-13",
    "start_price": 35.0
   },
@@ -137,7 +137,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-15",
+   "verified": "2026-10-16",
    "since": "2026-10-13",
    "start_price": 29.9
   }
