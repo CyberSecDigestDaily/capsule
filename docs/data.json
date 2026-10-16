@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-16T08:20:01.870136Z",
+ "generated": "2026-10-16T12:15:31.039436Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -345,6 +345,7 @@
    },
    "checked": "2026-10-16",
    "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450535/item/gbgoods_69_450535_3x4.jpg",
    "price": 34.9,
    "was": null,
    "discount_pct": 0,
@@ -357,7 +358,6 @@
     "XXL",
     "3XL"
    ],
-   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450535/item/gbgoods_69_450535_3x4.jpg",
    "signal": "WATCHING",
    "low": 34.9,
    "low_date": "2026-10-16"
@@ -1482,6 +1482,6 @@
   "subject": "The Drop · Fri 16 Oct: Navy merino crew £34.90 + 2 more picks, 1 back in your size, 1 new deal",
   "via": "smtp",
   "images": 4,
-  "status": "sent"
+  "status": "already sent today"
  }
 }
