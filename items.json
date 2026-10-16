@@ -94,7 +94,7 @@
    "tier": "budget",
    "brand": "Uskees",
    "name": "3001 Overshirt, army green",
-   "url": "https://uskees.co.uk/products/3001-army-green-button-overshirt",
+   "url": "https://uskees.com/products/3001-army-green-button-overshirt",
    "check": "shopify",
    "size": "L",
    "target": 60,
@@ -188,6 +188,24 @@
    "fit": {
     "verdict": "good",
     "note": "Relaxed fisherman knit; reviewers rate it true to size, 'roomy without being baggy'. Finisterre's L is for 180–185cm tall (you're 183cm). Wool/polyamide keeps the cuffs in shape."
+   }
+  },
+  {
+   "id": 55,
+   "category": "Mid-layers & Knits",
+   "role": "knit",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "100% Merino Crew Neck Jumper, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E450535-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "variant": "Navy",
+   "target": 30,
+   "note": "Plain fine-gauge merino crew, no logo, £34.90. Thin enough to sit under a jacket, smart enough for the office.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit with ribbed cuffs and hem; on the 183cm model in size M the sleeves reach the wrist, so L should have length to spare. Uniqlo's size chart blocks bots, so reach isn't recorded."
    }
   },
   {
