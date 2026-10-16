@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-16T06:15:30.815129Z",
+ "generated": "2026-10-16T08:20:01.870136Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -11,7 +11,7 @@
  },
  "errors": 0,
  "counts": {
-  "WATCHING": 20,
+  "WATCHING": 21,
   "BOUGHT": 9,
   "BUY": 2,
   "SOLD OUT": 4,
@@ -154,7 +154,7 @@
    "tier": "budget",
    "brand": "Uskees",
    "name": "3001 Overshirt, army green",
-   "url": "https://uskees.co.uk/products/3001-army-green-button-overshirt",
+   "url": "https://uskees.com/products/3001-army-green-button-overshirt",
    "check": "shopify",
    "size": "L",
    "target": 60,
@@ -164,7 +164,7 @@
     "note": "Classic chore-coat cut with a regular body (not boxy) and patch pockets; layers over a tee or a thin knit."
    },
    "checked": "2026-10-16",
-   "store": "Uskees",
+   "store": "uskees.com",
    "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-army-green-front-flat.jpg?v=1775045996",
    "price": 59.5,
    "was": 85.0,
@@ -325,6 +325,42 @@
    "low": 120.0,
    "low_date": "2026-07-11",
    "change": 0.0
+  },
+  {
+   "id": 55,
+   "category": "Mid-layers & Knits",
+   "role": "knit",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "100% Merino Crew Neck Jumper, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E450535-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "variant": "Navy",
+   "target": 30,
+   "note": "Plain fine-gauge merino crew, no logo, £34.90. Thin enough to sit under a jacket, smart enough for the office.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit with ribbed cuffs and hem; on the 183cm model in size M the sleeves reach the wrist, so L should have length to spare. Uniqlo's size chart blocks bots, so reach isn't recorded."
+   },
+   "checked": "2026-10-16",
+   "store": "Uniqlo",
+   "price": 34.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450535/item/gbgoods_69_450535_3x4.jpg",
+   "signal": "WATCHING",
+   "low": 34.9,
+   "low_date": "2026-10-16"
   },
   {
    "id": 17,
@@ -1441,11 +1477,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-15",
-  "at": "2026-10-15T08:16:47.704224Z",
-  "subject": "The Drop · Thu 15 Oct: Olive ribbed cardigan £39.90 + 2 more picks, 1 new deal",
+  "date": "2026-10-16",
+  "at": "2026-10-16T08:20:01.870136Z",
+  "subject": "The Drop · Fri 16 Oct: Navy merino crew £34.90 + 2 more picks, 1 back in your size, 1 new deal",
   "via": "smtp",
   "images": 4,
-  "status": "waiting for today's review"
+  "status": "sent"
  }
 }
