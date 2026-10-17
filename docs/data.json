@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17T06:15:46.826485Z",
+ "generated": "2026-10-17T08:19:29.412802Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -14,7 +14,7 @@
   "WATCHING": 20,
   "BOUGHT": 9,
   "BUY": 2,
-  "SOLD OUT": 5,
+  "SOLD OUT": 4,
   "SALE": 1
  },
  "items": [
@@ -625,75 +625,40 @@
    "change": 0.0
   },
   {
-   "id": 25,
-   "category": "Chinos & Trousers",
-   "role": "chino",
-   "tier": "mid",
-   "brand": "Levi's",
-   "name": "XX Chino Standard Taper, Baltic Navy",
-   "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-taper-fit-mens-chinos-baltic-navy-shady",
-   "check": "shopify",
-   "size": "W34 L32",
-   "target": 60,
-   "fit": {
-    "verdict": "good",
-    "note": "Standard taper, sits at the waist, 2% elastane."
-   },
-   "checked": "2026-10-17",
-   "store": "Jeanstore",
-   "image": "https://cdn.shopify.com/s/files/1/2577/9994/products/levi-s-xx-chino-standard-taper-fit-mens-chinos-baltic-navy-shady-w28-l32-17196-001628r-5400816970613-levi-s-chinos-non-denim-pants-16497218355243.jpg?v=1628338586",
-   "price": 75.0,
-   "was": 80.0,
-   "discount_pct": 6,
-   "in_stock": true,
-   "alt_sizes": [
-    "W29 L32",
-    "W30 L30",
-    "W30 L32",
-    "W30 L34",
-    "W31 L30",
-    "W31 L32"
-   ],
-   "signal": "WATCHING",
-   "low": 75.0,
-   "low_date": "2026-07-11",
-   "change": 0.0
-  },
-  {
    "id": 27,
    "category": "Chinos & Trousers",
    "role": "chino",
    "tier": "mid",
-   "brand": "Community Clothing",
-   "name": "Relaxed Chinos, khaki",
-   "url": "https://communityclothing.co.uk/products/mens-relaxed-chino-khaki",
+   "brand": "Levi's",
+   "name": "XX Chino Standard Taper Cords, Timber Wolf",
+   "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-ii-regular-tapered-mens-cords-timber-wolf",
    "check": "shopify",
    "size": "W34 L32",
-   "target": 64,
-   "note": "Made in the UK.",
+   "target": 65,
+   "note": "Winter swap for the sold-out Community Clothing khaki chinos: taupe needlecord, adds texture next to the fawn twill chinos.",
    "fit": {
-    "verdict": "check",
-    "note": "Regular fit, straight (not tapered) leg in heavyweight pure cotton twill: no stretch."
+    "verdict": "good",
+    "note": "Standard taper: regular seat and thigh, tapered leg (13in opening), 2% elastane stretch cord. Front rise 10.75in, sits just below the waist."
    },
    "checked": "2026-10-17",
-   "store": "Community Clothing",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Relaxed_ChinosKhaki_original_3_Portrait_dd2bf3be-912a-441f-84d6-2b9bf5e1a43d.jpg?v=1694641018",
-   "price": 37.5,
-   "was": 125.0,
-   "discount_pct": 70,
-   "in_stock": false,
+   "store": "Jeanstore",
+   "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/MB_17196-0213_GLO_CM_D1.jpg?v=1788520660",
+   "price": 89.0,
+   "was": 95.0,
+   "discount_pct": 6,
+   "in_stock": true,
    "alt_sizes": [
-    "28W 32L",
-    "30W 32L",
-    "36W 32L",
-    "38W 32L",
-    "30W 34L",
-    "32W 34L"
+    "W28 L32",
+    "W29 L32",
+    "W30 L30",
+    "W30 L32",
+    "W30 L34",
+    "W31 L30"
    ],
-   "signal": "SOLD OUT",
+   "signal": "WATCHING",
    "low": 37.5,
    "low_date": "2026-09-25",
-   "change": 0.0
+   "change": 51.5
   },
   {
    "id": 28,
@@ -1478,11 +1443,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-16",
-  "at": "2026-10-16T08:20:01.870136Z",
-  "subject": "The Drop · Fri 16 Oct: Navy merino crew £34.90 + 2 more picks, 1 back in your size, 1 new deal",
+  "date": "2026-10-17",
+  "at": "2026-10-17T08:19:29.412802Z",
+  "subject": "The Drop · Sat 17 Oct: Navy merino crew £34.90 + 2 more picks, 1 back in your size, 1 new deal",
   "via": "smtp",
   "images": 4,
-  "status": "waiting for today's review"
+  "status": "sent"
  }
 }
