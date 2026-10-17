@@ -345,36 +345,20 @@
    }
   },
   {
-   "id": 25,
-   "category": "Chinos & Trousers",
-   "role": "chino",
-   "tier": "mid",
-   "brand": "Levi's",
-   "name": "XX Chino Standard Taper, Baltic Navy",
-   "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-taper-fit-mens-chinos-baltic-navy-shady",
-   "check": "shopify",
-   "size": "W34 L32",
-   "target": 60,
-   "fit": {
-    "verdict": "good",
-    "note": "Standard taper, sits at the waist, 2% elastane."
-   }
-  },
-  {
    "id": 27,
    "category": "Chinos & Trousers",
    "role": "chino",
    "tier": "mid",
-   "brand": "Community Clothing",
-   "name": "Relaxed Chinos, khaki",
-   "url": "https://communityclothing.co.uk/products/mens-relaxed-chino-khaki",
+   "brand": "Levi's",
+   "name": "XX Chino Standard Taper Cords, Timber Wolf",
+   "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-ii-regular-tapered-mens-cords-timber-wolf",
    "check": "shopify",
    "size": "W34 L32",
-   "target": 64,
-   "note": "Made in the UK.",
+   "target": 65,
+   "note": "Winter swap for the sold-out Community Clothing khaki chinos: taupe needlecord, adds texture next to the fawn twill chinos.",
    "fit": {
-    "verdict": "check",
-    "note": "Regular fit, straight (not tapered) leg in heavyweight pure cotton twill: no stretch."
+    "verdict": "good",
+    "note": "Standard taper: regular seat and thigh, tapered leg (13in opening), 2% elastane stretch cord. Front rise 10.75in, sits just below the waist."
    }
   },
   {
