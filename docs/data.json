@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-18T06:15:47.964727Z",
+ "generated": "2026-10-18T08:02:37.753502Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1443,11 +1443,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-17",
-  "at": "2026-10-17T08:19:29.412802Z",
-  "subject": "The Drop · Sat 17 Oct: Navy merino crew £34.90 + 2 more picks, 1 back in your size, 1 new deal",
+  "date": "2026-10-18",
+  "at": "2026-10-18T08:02:37.753502Z",
+  "subject": "The Drop · Sun 18 Oct: nothing new today",
   "via": "smtp",
-  "images": 4,
-  "status": "waiting for today's review"
+  "images": 3,
+  "status": "sent"
  }
 }
