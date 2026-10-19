@@ -22,11 +22,29 @@
    "size": "L",
    "target": 30,
    "fit": {
-    "verdict": "good",
-    "note": "Regular fit in a dense Milano rib that holds its shape. Buttoned it reads as a smart knit for the office; open it layers over a tee."
+    "verdict": "check",
+    "note": "Uniqlo calls it regular fit, but the product photo shows the shoulder seam sitting slightly dropped and a straight, squarer body. Try it on before keeping: it should sit on the shoulder, not past it."
    },
    "variant": "Olive",
    "note": "Replaces the sold-out Corduroy Overshirt (end of season)."
+  },
+  {
+   "id": 56,
+   "category": "Mid-layers & Knits",
+   "role": "cardigan",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "100% Merino V Neck Cardigan, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E450540-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "variant": "Navy",
+   "target": 30,
+   "note": "Fine-gauge 100% merino, plain button front, ribbed cuffs and hem, no branding.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit, hip length, ribbed hem sits flat rather than flaring. Fine gauge keeps it neat under a jacket; model on the product page is 184cm in an L."
+   }
   },
   {
    "id": 6,
