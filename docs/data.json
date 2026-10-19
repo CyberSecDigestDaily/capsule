@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-19T08:05:24.030803Z",
+ "generated": "2026-10-19T12:15:47.795934Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -74,6 +74,7 @@
    },
    "checked": "2026-10-19",
    "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450540/item/gbgoods_69_450540_3x4.jpg",
    "price": 39.9,
    "was": null,
    "discount_pct": 0,
@@ -86,7 +87,6 @@
     "XXL",
     "3XL"
    ],
-   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450540/item/gbgoods_69_450540_3x4.jpg",
    "signal": "WATCHING",
    "low": 39.9,
    "low_date": "2026-10-19"
@@ -1482,6 +1482,6 @@
   "subject": "The Drop · Mon 19 Oct: Navy merino cardigan £39.90 + 1 more pick",
   "via": "smtp",
   "images": 6,
-  "status": "sent"
+  "status": "already sent today"
  }
 }
