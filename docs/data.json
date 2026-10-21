@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T06:15:44.141858Z",
+ "generated": "2026-10-21T08:05:33.294945Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1477,11 +1477,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-20",
-  "at": "2026-10-20T08:02:45.780527Z",
-  "subject": "The Drop · Tue 20 Oct: Navy merino cardigan £39.90 + 1 more pick, 1 back in your size",
+  "date": "2026-10-21",
+  "at": "2026-10-21T08:05:33.294945Z",
+  "subject": "The Drop · Wed 21 Oct: Navy merino cardigan £39.90 + 1 more pick, 1 new deal",
   "via": "smtp",
-  "images": 6,
-  "status": "waiting for today's review"
+  "images": 3,
+  "status": "sent"
  }
 }

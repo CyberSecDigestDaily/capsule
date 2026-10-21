@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T06:15:44.141858Z",
+ "generated": "2026-10-21T08:05:33.294945Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -57,6 +57,25 @@
    "score": 56.3,
    "role": "jacket",
    "why": "50% off at Finisterre · L in stock · indigo · jackets & overshirts"
+  },
+  {
+   "key": "parasolstore.co.uk/barbour-loyton-merino-half-zip-olive-marl",
+   "first_seen": "2026-10-21",
+   "store": "Parasol Store",
+   "brand": "Barbour",
+   "name": "Loyton Merino Half Zip Olive Marl",
+   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourLoytonMerinoHalfZipOliveMarl.jpg?v=1695646429",
+   "url": "https://parasolstore.co.uk/products/barbour-loyton-merino-half-zip-olive-marl",
+   "category": "Mid-layers & Knits",
+   "price": 65.0,
+   "was": 99.95,
+   "discount_pct": 35,
+   "size": "L",
+   "colour": "olive",
+   "tier": "deal",
+   "score": 46.4,
+   "role": "knit",
+   "why": "35% off at Parasol Store · L in stock · olive · mid-layers & knits"
   },
   {
    "key": "jeanstore.co.uk/lee-david-regular-tapered-mens-jeans-rusty-rivet",
@@ -121,77 +140,7 @@
    "start_price": 35.0
   }
  ],
- "picks_updated": "2026-10-20",
+ "picks_updated": "2026-10-21",
  "errors": [],
- "candidates": [
-  {
-   "key": "parasolstore.co.uk/barbour-firle-crew-jumper-olive-marl",
-   "first_seen": "2026-10-20",
-   "store": "Parasol Store",
-   "brand": "Barbour",
-   "name": "Firle Crew Jumper Olive Marl",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourFirleCrewJumperOliveMarl_3.jpg?v=1705320116",
-   "url": "https://parasolstore.co.uk/products/barbour-firle-crew-jumper-olive-marl",
-   "category": "Mid-layers & Knits",
-   "price": 50.0,
-   "was": 89.95,
-   "discount_pct": 44,
-   "size": "L",
-   "colour": "olive",
-   "tier": "deal",
-   "score": 56.4,
-   "role": "knit",
-   "why": "44% off at Parasol Store · L in stock · olive · mid-layers & knits",
-   "fit_words": [],
-   "composition": "90% cotton, 10% cashmere",
-   "desc": "the barbour firle crew neck sweatshirt presents a luxury style for men. crafted from a premium cotton and cashmere blend, it features classic long sleeves and signature shield embroidery to the chest. wear yours with denim and trainers for a modern look. . 90% cotton, 10% cashmere. barbour and shiel"
-  },
-  {
-   "key": "parasolstore.co.uk/sunspel-brushed-cotton-overshirt-navy",
-   "first_seen": "2026-10-20",
-   "store": "Parasol Store",
-   "brand": "Sunspel",
-   "name": "Brushed Cotton Overshirt Navy",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/SunspelBrushedCottonOvershirtNavy.jpg?v=1768318526",
-   "url": "https://parasolstore.co.uk/products/sunspel-brushed-cotton-overshirt-navy",
-   "category": "Jackets & Overshirts",
-   "price": 175.0,
-   "was": 325.0,
-   "discount_pct": 46,
-   "size": "L",
-   "colour": "navy",
-   "tier": "premium −40%+",
-   "score": 53.7,
-   "role": "overshirt",
-   "why": "46% off at Parasol Store · L in stock · navy · jackets & overshirts",
-   "fit_words": [
-    "stretch",
-    "brushed"
-   ],
-   "composition": "93% cotton, 6% wool, 1% elatane",
-   "desc": "drawing on our heritage in fabric innovation, this overshirt combines brushed cotton and wool with a slight stretch for added comfort. with the warmth of wool and the softness of cotton, it has a lightweight, velvety feel that makes it exceptionally comfortable. a luxuriously soft transitional layer"
-  },
-  {
-   "key": "parasolstore.co.uk/barbour-loyton-merino-half-zip-olive-marl",
-   "first_seen": "2026-10-20",
-   "store": "Parasol Store",
-   "brand": "Barbour",
-   "name": "Loyton Merino Half Zip Olive Marl",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourLoytonMerinoHalfZipOliveMarl.jpg?v=1695646429",
-   "url": "https://parasolstore.co.uk/products/barbour-loyton-merino-half-zip-olive-marl",
-   "category": "Mid-layers & Knits",
-   "price": 65.0,
-   "was": 99.95,
-   "discount_pct": 35,
-   "size": "L",
-   "colour": "olive",
-   "tier": "deal",
-   "score": 46.4,
-   "role": "knit",
-   "why": "35% off at Parasol Store · L in stock · olive · mid-layers & knits",
-   "fit_words": [],
-   "composition": "100% merino",
-   "desc": ". an indefatigable piece from the barbour countrywear line, the loyton hoodie is an upscale supplement to your ensembles. it's expertly made from 100% merino wool and cut to a typical fit featuring a half-zip closure in the center. team it with denim jeans and a t-shirt for a casual aesthetic.. 100%"
-  }
- ]
+ "candidates": []
 }
