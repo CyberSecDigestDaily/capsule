@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T18:15:43.761494Z",
+ "generated": "2026-10-22T06:15:42.923039Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -59,25 +59,6 @@
    "why": "50% off at Finisterre · L in stock · indigo · jackets & overshirts"
   },
   {
-   "key": "parasolstore.co.uk/barbour-loyton-merino-half-zip-olive-marl",
-   "first_seen": "2026-10-21",
-   "store": "Parasol Store",
-   "brand": "Barbour",
-   "name": "Loyton Merino Half Zip Olive Marl",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/BarbourLoytonMerinoHalfZipOliveMarl.jpg?v=1695646429",
-   "url": "https://parasolstore.co.uk/products/barbour-loyton-merino-half-zip-olive-marl",
-   "category": "Mid-layers & Knits",
-   "price": 65.0,
-   "was": 99.95,
-   "discount_pct": 35,
-   "size": "L",
-   "colour": "olive",
-   "tier": "deal",
-   "score": 46.4,
-   "role": "knit",
-   "why": "35% off at Parasol Store · L in stock · olive · mid-layers & knits"
-  },
-  {
    "key": "jeanstore.co.uk/lee-david-regular-tapered-mens-jeans-rusty-rivet",
    "first_seen": "2026-10-08",
    "store": "Jeanstore",
@@ -115,7 +96,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-21",
+   "verified": "2026-10-22",
    "since": "2026-10-19",
    "start_price": 39.9
   },
@@ -135,12 +116,64 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-21",
+   "verified": "2026-10-22",
    "since": "2026-10-19",
    "start_price": 35.0
   }
  ],
  "picks_updated": "2026-10-21",
  "errors": [],
- "candidates": []
+ "candidates": [
+  {
+   "key": "parasolstore.co.uk/sunspel-brushed-shetland-crew-neck-navy",
+   "first_seen": "2026-10-22",
+   "store": "Parasol Store",
+   "brand": "Sunspel",
+   "name": "Brushed Shetland Crew Neck Navy",
+   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/SunspelBrushedShetlandCrewNeckNavy5.jpg?v=1765964898",
+   "url": "https://parasolstore.co.uk/products/sunspel-brushed-shetland-crew-neck-navy",
+   "category": "Mid-layers & Knits",
+   "price": 130.0,
+   "was": 235.0,
+   "discount_pct": 45,
+   "size": "L",
+   "colour": "navy",
+   "tier": "premium −40%+",
+   "score": 51.7,
+   "role": null,
+   "why": "45% off at Parasol Store · L in stock · navy · mid-layers & knits",
+   "fit_words": [
+    "regular fit",
+    "raglan",
+    "brushed"
+   ],
+   "composition": "100% soft, 100% wool",
+   "desc": "the sunspel brushed shetland crew neck in navy offers a refined take on the classic shetland jumper. knitted in scotland using exceptionally soft lambswool, it combines traditional craftsmanship with elevated comfort. the rich navy mélange creates depth and texture, while gentle brushing enhances it"
+  },
+  {
+   "key": "parasolstore.co.uk/barbour-washed-stretch-twill-tailored-fit-trouser-dark-navy",
+   "first_seen": "2026-10-22",
+   "store": "Parasol Store",
+   "brand": "Barbour",
+   "name": "Washed Stretch Twill Tailored Fit Trouser Dark Navy",
+   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/909c3ea48b714d409fb4d2e397371685.jpg?v=1752589531",
+   "url": "https://parasolstore.co.uk/products/barbour-washed-stretch-twill-tailored-fit-trouser-dark-navy",
+   "category": "Chinos & Trousers",
+   "price": 65.0,
+   "was": 89.95,
+   "discount_pct": 28,
+   "size": "W34 L32",
+   "colour": "dark navy",
+   "tier": "deal",
+   "score": 33.9,
+   "role": "trouser",
+   "why": "28% off at Parasol Store · W34 L32 in stock · dark navy · chinos & trousers",
+   "fit_words": [
+    "taper",
+    "stretch"
+   ],
+   "composition": "98% cotton, 2% elastane, 100% cotton",
+   "desc": "cut for a tailored fit, the barbour washed stretch tailored trousers in dark navy are a versatile piece that balances comfort with polish. the stretch fabric and subtle taper ensure a flattering shape that moves easily with you.. the washed finish gives them a relaxed edge, making them perfect for d"
+  }
+ ]
 }
