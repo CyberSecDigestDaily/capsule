@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-22T08:05:48.883829Z",
+ "generated": "2026-10-22T12:15:42.443464Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -11,10 +11,10 @@
  },
  "errors": 0,
  "counts": {
-  "WATCHING": 20,
+  "WATCHING": 21,
   "BOUGHT": 9,
   "BUY": 2,
-  "SOLD OUT": 5,
+  "SOLD OUT": 4,
   "SALE": 1
  },
  "items": [
@@ -1117,7 +1117,7 @@
    "price": 210.0,
    "was": null,
    "discount_pct": 0,
-   "in_stock": false,
+   "in_stock": true,
    "alt_sizes": [
     "3 UK",
     "3.5 UK",
@@ -1126,7 +1126,7 @@
     "5 UK",
     "5.5 UK"
    ],
-   "signal": "SOLD OUT",
+   "signal": "WATCHING",
    "low": 210.0,
    "low_date": "2026-10-09",
    "change": 0.0
@@ -1482,6 +1482,6 @@
   "subject": "The Drop · Thu 22 Oct: Navy brushed Shetland crew £130 (−45%) + 2 more picks, 1 new deal",
   "via": "smtp",
   "images": 4,
-  "status": "sent"
+  "status": "already sent today"
  }
 }
