@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-22T06:15:42.923039Z",
+ "generated": "2026-10-22T08:05:48.883829Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1477,11 +1477,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-21",
-  "at": "2026-10-21T08:05:33.294945Z",
-  "subject": "The Drop · Wed 21 Oct: Navy merino cardigan £39.90 + 1 more pick, 1 new deal",
+  "date": "2026-10-22",
+  "at": "2026-10-22T08:05:48.883829Z",
+  "subject": "The Drop · Thu 22 Oct: Navy brushed Shetland crew £130 (−45%) + 2 more picks, 1 new deal",
   "via": "smtp",
-  "images": 3,
-  "status": "waiting for today's review"
+  "images": 4,
+  "status": "sent"
  }
 }
