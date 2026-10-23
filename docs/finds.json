@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23T06:15:45.370710Z",
+ "generated": "2026-10-23T08:04:49.128580Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -160,39 +160,17 @@
    "start_price": 59.5
   }
  ],
- "picks_updated": "2026-10-22",
+ "picks_updated": "2026-10-23",
  "errors": [],
  "candidates": [
   {
-   "key": "walklondonshoes.co.uk/oscar-chelsea-boot-black",
-   "first_seen": "2026-10-22",
+   "key": "walklondonshoes.co.uk/oscar-chelsea-boot-brown",
+   "first_seen": "2026-10-23",
    "store": "Walk London",
    "brand": "Walk London",
    "name": "Oscar Chelsea Boot",
-   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/oscar-chelsea-boot-8098183.jpg?v=1757136305",
-   "url": "https://walklondonshoes.co.uk/products/oscar-chelsea-boot-black",
-   "category": "Footwear",
-   "price": 47.5,
-   "was": 95.0,
-   "discount_pct": 50,
-   "size": "UK 10",
-   "colour": "black",
-   "tier": "deal",
-   "score": 53.5,
-   "role": "boot",
-   "why": "50% off at Walk London · UK 10 in stock · black · footwear",
-   "fit_words": [],
-   "composition": "100% leather",
-   "desc": "the oscar chelsea boot boasts a simple combination of black leather and tonal elasticated gussets. underfoot, the lightweight handmade sole offers comforting elements whilst a stacked heel and diamond design at the forepart offer additional grip.. . black leather upper. tonal elasticated side gusset"
-  },
-  {
-   "key": "walklondonshoes.co.uk/callum-chelsea-boot",
-   "first_seen": "2026-10-22",
-   "store": "Walk London",
-   "brand": "Walk London",
-   "name": "Callum Chelsea Boot",
-   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/Callum-Chelsea-Boot---Brown-Suede---SIDE.jpg?v=1757408217",
-   "url": "https://walklondonshoes.co.uk/products/callum-chelsea-boot",
+   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/oscar-chelsea-boot-6133064.jpg?v=1757136318",
+   "url": "https://walklondonshoes.co.uk/products/oscar-chelsea-boot-brown",
    "category": "Footwear",
    "price": 47.5,
    "was": 95.0,
@@ -205,7 +183,7 @@
    "why": "50% off at Walk London · UK 10 in stock · brown · footwear",
    "fit_words": [],
    "composition": "100% leather",
-   "desc": "the callum chelsea boot is crafted from a soft suede upper set upon a cleated rubber sole for enhanced durability. with elasticated gussets and a convenient pull tab at the back, this casual slip-on boot is an effortless addition to casual looks. brown suede upper. elasticated gusset. suede backstra"
+   "desc": "the oscar chelsea boot boasts a simple combination of brown leather and tonal elasticated gussets. underfoot, the lightweight handmade sole offers comforting elements whilst a stacked heel and diamond design at the forepart offer additional grip.. . brown leather upper. tonal elasticated side gusset"
   }
  ]
 }
