@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24T08:04:28.120564Z",
+ "generated": "2026-10-24T12:15:54.758364Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -59,25 +59,6 @@
    "why": "50% off at Finisterre · L in stock · indigo · jackets & overshirts"
   },
   {
-   "key": "parasolstore.co.uk/sunspel-brushed-shetland-crew-neck-navy",
-   "first_seen": "2026-10-22",
-   "store": "Parasol Store",
-   "brand": "Sunspel",
-   "name": "Brushed Shetland Crew Neck Navy",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/SunspelBrushedShetlandCrewNeckNavy5.jpg?v=1765964898",
-   "url": "https://parasolstore.co.uk/products/sunspel-brushed-shetland-crew-neck-navy",
-   "category": "Mid-layers & Knits",
-   "price": 130.0,
-   "was": 235.0,
-   "discount_pct": 45,
-   "size": "L",
-   "colour": "navy",
-   "tier": "premium −40%+",
-   "score": 51.7,
-   "role": null,
-   "why": "45% off at Parasol Store · L in stock · navy · mid-layers & knits"
-  },
-  {
    "key": "jeanstore.co.uk/lee-david-regular-tapered-mens-jeans-rusty-rivet",
    "first_seen": "2026-10-08",
    "store": "Jeanstore",
@@ -111,7 +92,7 @@
    "store": "Parasol Store",
    "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/SunspelBrushedShetlandCrewNeckNavy5.jpg?v=1765964898",
    "price_now": 130.0,
-   "in_stock": true,
+   "in_stock": false,
    "discount_pct": 45,
    "was": 235.0,
    "verified": "2026-10-24",
