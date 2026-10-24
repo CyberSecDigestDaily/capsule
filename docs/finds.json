@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24T06:15:50.442770Z",
+ "generated": "2026-10-24T08:04:28.120564Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -160,30 +160,7 @@
    "start_price": 59.5
   }
  ],
- "picks_updated": "2026-10-23",
+ "picks_updated": "2026-10-24",
  "errors": [],
- "candidates": [
-  {
-   "key": "walklondonshoes.co.uk/oscar-chelsea-boot-brown",
-   "first_seen": "2026-10-23",
-   "store": "Walk London",
-   "brand": "Walk London",
-   "name": "Oscar Chelsea Boot",
-   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/oscar-chelsea-boot-6133064.jpg?v=1757136318",
-   "url": "https://walklondonshoes.co.uk/products/oscar-chelsea-boot-brown",
-   "category": "Footwear",
-   "price": 47.5,
-   "was": 95.0,
-   "discount_pct": 50,
-   "size": "UK 10",
-   "colour": "brown",
-   "tier": "deal",
-   "score": 53.5,
-   "role": "boot",
-   "why": "50% off at Walk London · UK 10 in stock · brown · footwear",
-   "fit_words": [],
-   "composition": "100% leather",
-   "desc": "the oscar chelsea boot boasts a simple combination of brown leather and tonal elasticated gussets. underfoot, the lightweight handmade sole offers comforting elements whilst a stacked heel and diamond design at the forepart offer additional grip.. . brown leather upper. tonal elasticated side gusset"
-  }
- ]
+ "candidates": []
 }

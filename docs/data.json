@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24T06:15:50.442770Z",
+ "generated": "2026-10-24T08:04:28.120564Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1477,11 +1477,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-23",
-  "at": "2026-10-23T08:04:49.128580Z",
-  "subject": "The Drop · Fri 23 Oct: Navy brushed Shetland crew £130 (−45%) + 2 more picks, 1 new deal",
+  "date": "2026-10-24",
+  "at": "2026-10-24T08:04:28.120564Z",
+  "subject": "The Drop · Sat 24 Oct: nothing new today",
   "via": "smtp",
-  "images": 4,
-  "status": "waiting for today's review"
+  "images": 3,
+  "status": "sent"
  }
 }
