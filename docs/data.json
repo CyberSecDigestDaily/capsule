@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-26T09:03:27.975234Z",
+ "generated": "2026-10-26T12:15:51.337745Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1481,6 +1481,6 @@
   "subject": "The Drop · Mon 26 Oct: nothing new today",
   "via": "smtp",
   "images": 3,
-  "status": "sent"
+  "status": "already sent today"
  }
 }
