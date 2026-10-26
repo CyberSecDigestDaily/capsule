@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-26T06:15:49.675040Z",
+ "generated": "2026-10-26T09:03:27.975234Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -587,11 +587,11 @@
    "in_stock": true,
    "alt_sizes": [
     "W29 L32",
-    "W30 L30",
     "W30 L32",
     "W31 L32",
     "W31 L34",
-    "W32 L32"
+    "W32 L32",
+    "W32 L34"
    ],
    "signal": "WATCHING",
    "low": 95.0,
@@ -1476,11 +1476,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-25",
-  "at": "2026-10-25T09:03:29.767349Z",
-  "subject": "The Drop · Sun 25 Oct: Charcoal crew tee £35 + 2 more picks",
+  "date": "2026-10-26",
+  "at": "2026-10-26T09:03:27.975234Z",
+  "subject": "The Drop · Mon 26 Oct: nothing new today",
   "via": "smtp",
-  "images": 7,
-  "status": "waiting for today's review"
+  "images": 3,
+  "status": "sent"
  }
 }
