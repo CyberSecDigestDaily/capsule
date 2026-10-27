@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-27T09:02:49.031630Z",
+ "generated": "2026-10-27T12:15:47.277560Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -144,5 +144,74 @@
  ],
  "picks_updated": "2026-10-27",
  "errors": [],
- "candidates": []
+ "candidates": [
+  {
+   "key": "walklondonshoes.co.uk/hackney-chelsea-boot-black",
+   "first_seen": "2026-10-27",
+   "store": "Walk London",
+   "brand": "Walk London",
+   "name": "Hackney Chelsea Boot",
+   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/hackney-chelsea-boot-1014766.jpg?v=1787627980",
+   "url": "https://walklondonshoes.co.uk/products/hackney-chelsea-boot-black",
+   "category": "Footwear",
+   "price": 60.0,
+   "was": 120.0,
+   "discount_pct": 50,
+   "size": "UK 10",
+   "colour": "black",
+   "tier": "deal",
+   "score": 52.8,
+   "role": "boot",
+   "why": "50% off at Walk London · UK 10 in stock · black · footwear",
+   "fit_words": [],
+   "composition": "100% leather",
+   "desc": "the hackney was made to be your go-to chelsea boot, for any occasion.. . . a lightweight cleated eva sole gives it a heavier, more grounded look without compromising on weight, while the black leather softens with every wear. a padded heel counter and cushioned insock keep every step comfortable. an"
+  },
+  {
+   "key": "walklondonshoes.co.uk/hopper-chelsea-boot-black-leather",
+   "first_seen": "2026-10-27",
+   "store": "Walk London",
+   "brand": "Walk London",
+   "name": "Hopper Chelsea Boot",
+   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/Hopper-Chelsea-Boot---Black-Leather---SIDE.jpg?v=1789721497",
+   "url": "https://walklondonshoes.co.uk/products/hopper-chelsea-boot-black-leather",
+   "category": "Footwear",
+   "price": 90.0,
+   "was": 150.0,
+   "discount_pct": 40,
+   "size": "UK 10",
+   "colour": "black",
+   "tier": "deal",
+   "score": 41.3,
+   "role": "boot",
+   "why": "40% off at Walk London · UK 10 in stock · black · footwear",
+   "fit_words": [],
+   "composition": "100% leather",
+   "desc": "the hopper chelsea is built for a smarter, more elevated look. its slightly taller frame gives it a confident presence next to a standard chelsea boot, finished in a black leather that pairs with any colour in your wardrobe.. . . the handmade cleated eva sole keeps things light underfoot, with a rug"
+  },
+  {
+   "key": "walklondonshoes.co.uk/clapham-chelsea-boot-black-suede",
+   "first_seen": "2026-10-27",
+   "store": "Walk London",
+   "brand": "Walk London",
+   "name": "Clapham Chelsea Boot",
+   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/clapham-chelsea-boot-9887722.jpg?v=1790812950",
+   "url": "https://walklondonshoes.co.uk/products/clapham-chelsea-boot-black-suede",
+   "category": "Footwear",
+   "price": 84.0,
+   "was": 120.0,
+   "discount_pct": 30,
+   "size": "UK 10",
+   "colour": "black",
+   "tier": "deal",
+   "score": 31.6,
+   "role": "boot",
+   "why": "30% off at Walk London · UK 10 in stock · black · footwear",
+   "fit_words": [
+    "waxed"
+   ],
+   "composition": "100% leather",
+   "desc": "the clapham is a chelsea boot built for everyday ease.. . . its eva wedge sole is cleated, giving it a bit more presence without shouting about it, and stays ultra-light for all-day comfort. black waxed suede with contrast stitch brings something a little more unique to the finish, leaning into a mo"
+  }
+ ]
 }
