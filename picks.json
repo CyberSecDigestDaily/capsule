@@ -1,41 +1,42 @@
 {
- "updated": "2026-10-27",
+ "updated": "2026-10-28",
  "by": "Claude daily review",
  "picks": [
   {
-   "date": "2026-10-25",
-   "brand": "Community Clothing",
-   "name": "T-Shirt, charcoal",
-   "short": "Charcoal crew tee",
-   "url": "https://communityclothing.co.uk/products/mens-short-sleeve-t-shirt-charcoal-1",
+   "date": "2026-10-28",
+   "brand": "Uniqlo",
+   "name": "AIRism Cotton Crew Neck T-Shirt, olive",
+   "short": "Olive crew tee",
+   "url": "https://www.uniqlo.com/uk/en/products/E482522-000/00?colorDisplayCode=57&sizeDisplayCode=005",
    "size": "L",
-   "price": 35.0,
+   "variant": "Olive",
+   "price": 14.9,
    "category": "Tees",
-   "why": "A plain tee still underpins the office, date-night and everyday outfits and there isn't one owned yet. Regular fit in 200g organic cotton, made in the UK, no branding, with a sleeve that sits neatly rather than flaring. Charcoal goes tonal under a navy knit or the grey marl sweat, with the 502s and Sambas or the fawn chinos and brown Docs."
+   "why": "There's still no plain tee in the wardrobe, and it holds up the office, date-night and everyday outfits. A regular-fit, standard-length crew with a smooth cotton face and no branding, so it sits flat under a knit or overshirt. Olive goes tonal under the Ashby, or with the 502s and Sambas."
   },
   {
-   "date": "2026-10-25",
+   "date": "2026-10-28",
    "brand": "Uniqlo",
-   "name": "100% Merino Crew Neck Jumper, navy",
-   "short": "Navy merino crew",
-   "url": "https://www.uniqlo.com/uk/en/products/E450535-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "name": "100% Merino V Neck Cardigan, navy",
+   "short": "Navy merino cardigan",
+   "url": "https://www.uniqlo.com/uk/en/products/E450540-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "size": "L",
+   "variant": "Navy",
+   "price": 39.9,
+   "category": "Mid-layers & Knits",
+   "why": "The office and date-night outfits still have no knit or cardigan, and winter is the time for one. A fine-gauge merino cardigan in a regular, hip-length cut with a ribbed hem that sits flat, plain buttons and no logo. Wear it over a tee with the fawn chinos and brown Docs for work, or the 502s for a date."
+  },
+  {
+   "date": "2026-10-28",
+   "brand": "Uniqlo",
+   "name": "Warm Pile Lined Joggers, navy",
+   "short": "Navy lined joggers",
+   "url": "https://www.uniqlo.com/uk/en/products/E491093-000/00?colorDisplayCode=69&sizeDisplayCode=005",
    "size": "L",
    "variant": "Navy",
    "price": 34.9,
-   "category": "Mid-layers & Knits",
-   "why": "The office and date-night outfits still have no knit, and the Sunspel crew has sold out in L. A regular-fit fine-gauge merino crew with ribbed cuffs and hem: warm for winter but thin enough to sit flat under the Ashby without bulk. Wear it over the charcoal tee with the fawn chinos and brown Docs, or with the 502s for a date."
-  },
-  {
-   "date": "2026-10-25",
-   "brand": "Uniqlo",
-   "name": "Fleece Full-Zip Jacket, navy",
-   "short": "Navy zip fleece",
-   "url": "https://www.uniqlo.com/uk/en/products/E450195-000/00?colorDisplayCode=69&sizeDisplayCode=005",
-   "size": "L",
-   "variant": "Navy",
-   "price": 29.9,
-   "category": "Mid-layers & Knits",
-   "why": "A winter mid-layer for photography walks and lounging, warmer than the sweats under the field jacket. Regular fit with a stand collar and plain front, no logo, so it zips neatly under the Parachute jacket or the Ashby. Pair it with the 502s and Sambas outdoors, or the navy relaxed chinos at home."
+   "category": "Chinos & Trousers",
+   "why": "The lounging outfit has no joggers yet. These are a regular, tapered cut with stretch, ribbed cuffs and a soft pile lining for cold evenings, with nothing baggy or branded. Pair them with the navy or grey marl raglan sweat for a tonal look at home."
   }
  ]
 }
