@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-29T06:15:57.585974Z",
+ "generated": "2026-10-29T09:05:20.884551Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1476,11 +1476,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-28",
-  "at": "2026-10-28T09:05:44.382276Z",
-  "subject": "The Drop · Wed 28 Oct: Olive crew tee £14.90 + 2 more picks",
+  "date": "2026-10-29",
+  "at": "2026-10-29T09:05:20.884551Z",
+  "subject": "The Drop · Thu 29 Oct: Olive crew tee £14.90 + 2 more picks, 1 new deal",
   "via": "smtp",
-  "images": 7,
-  "status": "waiting for today's review"
+  "images": 4,
+  "status": "sent"
  }
 }

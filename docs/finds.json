@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-29T06:15:57.585974Z",
+ "generated": "2026-10-29T09:05:20.884551Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -57,6 +57,25 @@
    "score": 56.3,
    "role": "jacket",
    "why": "50% off at Finisterre · L in stock · indigo · jackets & overshirts"
+  },
+  {
+   "key": "walklondonshoes.co.uk/hopper-chelsea-boot-brown-suede",
+   "first_seen": "2026-10-29",
+   "store": "Walk London",
+   "brand": "Walk London",
+   "name": "Hopper Chelsea Boot",
+   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/hopper-chelsea-boot-3583570.jpg?v=1787710587",
+   "url": "https://walklondonshoes.co.uk/products/hopper-chelsea-boot-brown-suede",
+   "category": "Footwear",
+   "price": 90.0,
+   "was": 150.0,
+   "discount_pct": 40,
+   "size": "UK 10",
+   "colour": "brown",
+   "tier": "deal",
+   "score": 41.3,
+   "role": "boot",
+   "why": "40% off at Walk London · UK 10 in stock · brown · footwear"
   },
   {
    "key": "jeanstore.co.uk/lee-david-regular-tapered-mens-jeans-rusty-rivet",
@@ -143,74 +162,7 @@
    "start_price": 34.9
   }
  ],
- "picks_updated": "2026-10-28",
+ "picks_updated": "2026-10-29",
  "errors": [],
- "candidates": [
-  {
-   "key": "walklondonshoes.co.uk/hackney-chelsea-boot-brown",
-   "first_seen": "2026-10-28",
-   "store": "Walk London",
-   "brand": "Walk London",
-   "name": "Hackney Chelsea Boot",
-   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/hackney-chelsea-boot-4754395.jpg?v=1787627972",
-   "url": "https://walklondonshoes.co.uk/products/hackney-chelsea-boot-brown",
-   "category": "Footwear",
-   "price": 60.0,
-   "was": 120.0,
-   "discount_pct": 50,
-   "size": "UK 10",
-   "colour": "brown",
-   "tier": "deal",
-   "score": 52.8,
-   "role": "boot",
-   "why": "50% off at Walk London · UK 10 in stock · brown · footwear",
-   "fit_words": [],
-   "composition": "100% leather",
-   "desc": "the hackney was made to be your go-to chelsea boot, for any occasion.. . . a lightweight cleated eva sole gives it a heavier, more grounded look without compromising on weight, while the brown leather softens with every wear. a padded heel counter and cushioned insock keep every step comfortable. an"
-  },
-  {
-   "key": "walklondonshoes.co.uk/hopper-chelsea-boot-brown-suede",
-   "first_seen": "2026-10-28",
-   "store": "Walk London",
-   "brand": "Walk London",
-   "name": "Hopper Chelsea Boot",
-   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/hopper-chelsea-boot-3583570.jpg?v=1787710587",
-   "url": "https://walklondonshoes.co.uk/products/hopper-chelsea-boot-brown-suede",
-   "category": "Footwear",
-   "price": 90.0,
-   "was": 150.0,
-   "discount_pct": 40,
-   "size": "UK 10",
-   "colour": "brown",
-   "tier": "deal",
-   "score": 41.3,
-   "role": "boot",
-   "why": "40% off at Walk London · UK 10 in stock · brown · footwear",
-   "fit_words": [],
-   "composition": "100% leather",
-   "desc": "the hopper chelsea is built for a smarter, more elevated look. its slightly taller frame gives it a confident presence next to a standard chelsea boot, finished in a dark brown suede that pairs with any colour in your wardrobe.. . . the handmade cleated eva sole keeps things light underfoot, with a "
-  },
-  {
-   "key": "walklondonshoes.co.uk/clapham-chelsea-boot-tan-suede",
-   "first_seen": "2026-10-28",
-   "store": "Walk London",
-   "brand": "Walk London",
-   "name": "Clapham Chelsea Boot",
-   "image": "https://cdn.shopify.com/s/files/1/0252/3276/9072/files/clapham-chelsea-boot-8256200.jpg?v=1790812952",
-   "url": "https://walklondonshoes.co.uk/products/clapham-chelsea-boot-tan-suede",
-   "category": "Footwear",
-   "price": 84.0,
-   "was": 120.0,
-   "discount_pct": 30,
-   "size": "UK 10",
-   "colour": "tan",
-   "tier": "deal",
-   "score": 31.6,
-   "role": "boot",
-   "why": "30% off at Walk London · UK 10 in stock · tan · footwear",
-   "fit_words": [],
-   "composition": "100% leather",
-   "desc": "the clapham is a chelsea boot built for everyday ease.. . . its eva wedge sole is cleated, giving it a bit more presence without shouting about it, and stays ultra-light for all-day comfort. dark tan suede with stitch detailing was chosen to add warmth to a winter outfit. a sheep leather lining and "
-  }
- ]
+ "candidates": []
 }
