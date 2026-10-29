@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-29T13:12:23.646077Z",
+ "generated": "2026-10-29T17:28:24.508242Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -119,6 +119,7 @@
    "discount_pct": 0,
    "in_stock": true,
    "alt_sizes": [
+    "XS",
     "M",
     "XL",
     "XXL",
