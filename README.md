@@ -2,7 +2,7 @@
 
 A wardrobe site that learns. It checks ~1,000 pieces in Don's sizes across ~27 vetted UK shops three times a day, ranks them with a taste engine that learns from every tap, plans outfits around what he owns, and emails the Drop on the days worth an email.
 
-Live: Capsule's Cloudflare home (see `docs/where.json` once it exists) · fallback copy: https://cybersecdigestdaily.github.io/capsule/ (no accounts there; taps stay in the browser).
+Live: https://capsule.makingmylifeeasierthroughnonsense.workers.dev/ (Cloudflare Worker `capsule`, D1 `capsule` in the EU jurisdiction). The old https://cybersecdigestdaily.github.io/capsule/ forwards there (`docs/where.json`), carrying any taps saved in that browser.
 
 ## How it works
 
