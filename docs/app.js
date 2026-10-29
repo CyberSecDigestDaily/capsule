@@ -1221,7 +1221,7 @@ async function handleHash(first) {
   if (kv.join) {
     A.rememberInvite(kv.join);
     clean = true;
-    go = "you";
+    go = (await A.hasServer()) ? "you" : "for-you"; // sign-up needs Capsule's server; the static copy just personalises
     try {
       const brief = await A.readSeed(kv.join);
       if (brief && typeof brief === "object") { S.brief = brief; saveLocal(true); bump(); toast("Your style brief is unlocked on this device."); }
