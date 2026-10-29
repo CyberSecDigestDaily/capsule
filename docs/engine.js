@@ -90,6 +90,11 @@ export const DETAILS = {
   madeuk: ["made in england", "made in britain", "made in the uk", "made in scotland", "made in wales", "made in portugal", "made in italy", "made in japan"],
   pockets: ["cargo", "patch pocket", "chest pocket", "utility"]
 };
+// Footwear silhouettes: the classics the brief names, and the chunky or trend shapes it rules out (trainers only).
+const CLASSIC_SHOES = ["samba", "gazelle", "spezial", "campus", "janoski", "era", "authentic", "blazer", "air max 90", "air max 1", "990", "991",
+  "992", "993", "574", "576", "1500", "wallabee", "chelsea", "chukka", "desert boot", "boston", "killshot"];
+const CHUNKY_SHOES = ["chunky", "platform", "air max plus", "air max tn", "tn plus", "nyjah", "shox", "p-6000", "p6000", "vomero", "monarch",
+  "9060", "1906", "2002r", "530", "gel-1130", "tl 2", "ozweego", "superstar adv"];
 export const ROLES = [
   ["wallabee", ["wallabee"]], ["boot", ["chelsea", "boot", "boots", "chukka", "desert boot"]],
   ["clog", ["clog", "clogs", "mule", "slipper", "slippers", "birkenstock", "boston"]],
@@ -145,7 +150,7 @@ const STYLE_BRANDS = {
 const SEASON = {
   winter: ["wool", "waxed", "fleece", "lined", "thermal", "cord", "corduroy", "shearling", "quilted", "moleskin", "flannel", "brushed",
     "knit", "jumper", "cardigan", "boot", "boots", "lambswool", "merino", "beanie", "scarf", "gloves", "parka", "padded", "puffer", "insulated"],
-  summer: ["linen", "shorts", "sandal", "sandals", "birkenstock", "swim", "seersucker", "short sleeve", "short-sleeve", "camp collar"]
+  summer: ["linen", "shorts", "short", "sandal", "sandals", "birkenstock", "swim", "seersucker", "short sleeve", "short-sleeve", "camp collar", "board short"]
 };
 // Brand aliases: one slug per brand however the shop spells it.
 const BRAND_ALIAS = [
@@ -310,6 +315,12 @@ export function traitsOf(it) {
     if (words.some(w => said(text, rx(w)))) out.add("st:" + style);
   }
   for (const [style, brands] of Object.entries(STYLE_BRANDS)) if (brands.some(x => brand.startsWith(x))) out.add("st:" + style);
+  if (foot) {
+    if (CLASSIC_SHOES.some(w => rx(w).test(name))) out.add("det:classic");
+    else if (it.role === "trainer" && CHUNKY_SHOES.some(w => rx(w).test(name))) out.add("det:chunky");
+  }
+  // Collaborations ("adidas x Brain Dead", "X Wales Bonner"): the brief says no collabs.
+  if (/(?:^|\s)x\s+[a-z0-9]/i.test(it.name || "") && !/\b\d+\s*x\s*\d+/.test(it.name || "")) out.add("det:collab");
   if (SEASON.winter.some(w => rx(w).test(name))) out.add("sea:winter");
   else if (SEASON.summer.some(w => rx(w).test(name))) out.add("sea:summer");
   if (it.disc >= 40) out.add("d:40"); else if (it.disc >= 25) out.add("d:25"); else if (it.disc >= 10) out.add("d:10");
@@ -367,6 +378,9 @@ export function priorOf(brief) {
       runner: ["st:90s"], terrace: ["st:90s"], skate: ["st:skate"], clog: ["r:clog"], hiking: ["st:outdoor"], loafer: ["st:smart"]}[s] || [];
     for (const t of m) prior[t] = (prior[t] || 0) + 0.3;
   }
+  if ((b.shoes || []).length) prior["det:classic"] = 0.8;
+  soft["det:chunky"] = -1.5;
+  soft["det:collab"] = -1.2;
   const nt = new Set(b.nontoxic || []);
   if (nt.has("silver")) hard["det:silver"] = "treatment";
   if (nt.has("pfas")) soft["det:waterproof"] = (soft["det:waterproof"] || 0) - 0.35, prior["det:pfcfree"] = 0.5;
@@ -455,12 +469,15 @@ export function washedMiss(m, it) {
   if (fam === "black" && it.role === "jeans" && (b.denim || []).includes("black")) return null;
   return fam;
 }
+/* October to March. */
+export const outOfSummer = m => { const mo = new Date((m && m.now) || Date.now()).getUTCMonth(); return mo >= 9 || mo <= 2; };
 /* Summer pieces out of season show only when they're reduced (the brief's "now, if they're on sale"). */
 export function offSeason(m, it) {
   if (!it.traits.includes("sea:summer") || (m.brief && m.brief.summer === "always")) return false;
-  const mo = new Date(m.now || Date.now()).getUTCMonth();
-  return (mo >= 9 || mo <= 2) && !((it.disc || 0) >= 10);
+  return outOfSummer(m) && !((it.disc || 0) >= 10);
 }
+/* Outfit formulas that matter now: a formula marked "season": "summer" waits for April. */
+export const formulasNow = (formulas, now) => (formulas || []).filter(f => f.season !== "summer" || !outOfSummer({now}));
 
 /* Affinity for one trait: brief prior + learned + your own pin. */
 export function affinity(m, t) {
@@ -470,7 +487,8 @@ export function affinity(m, t) {
 }
 
 const CLOTHING_ROLES = new Set(["tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie", "jeans", "chino", "trouser", "jogger", "shorts", "scarf", "beanie", "cap", "gloves"]);
-export const pctOf = s => Math.round(100 / (1 + Math.exp(-1.3 * s)));
+// Centred so a typical in-size piece reads about 45% and only the best few pass 85%.
+export const pctOf = s => Math.round(100 / (1 + Math.exp(-1.5 * (s - 1))));
 
 /* Why a piece is hidden for you, or null. */
 export function hiddenWhy(m, it) {
@@ -522,6 +540,11 @@ export function score(m, it, ctx) {
   const adj = [];
   // Soft rules: an unwashed piece in a washed-only colour sinks rather than disappearing.
   if (m.softRules && washedMiss(m, it)) { s += RULE_WEIGHT; adj.push(["unwashed", RULE_WEIGHT]); }
+  // Shoes: the classic silhouettes lead, chunky or trend shapes sink (unless you've taught it otherwise).
+  if (it.traits.includes("det:classic")) { const v = 0.5 * Math.sign(affinity(m, "det:classic") || 1); s += v; adj.push(["classic", v]); }
+  if (it.traits.includes("det:chunky") && affinity(m, "det:chunky") < 0) { s -= 0.9; adj.push(["chunky", -0.9]); }
+  // Out-of-season summer pieces only show when reduced, and then below the in-season ones.
+  if (it.traits.includes("sea:summer") && outOfSummer(m)) { s -= 0.9; adj.push(["season", -0.9]); }
   // Outfit gaps and how many you already own of this kind.
   if (c.gapRoles && c.gapRoles.has(it.role)) { s += 0.5; adj.push(["gap", 0.5]); }
   const owned = (c.owned && c.owned[it.role]) || 0, target = targetFor(m, it.role);
@@ -565,7 +588,7 @@ export function cooling(m, it, today) {
 const TITLE = {c: "", w: "", x: "", f: "", fit: "", b: "", s: "", st: "", r: "", sea: "", det: "", p: "", d: ""};
 const NICE = {
   "fit:regular": "Regular fit", "fit:slim": "Slim fit", "fit:relaxed": "Relaxed fit", "fit:straight": "Straight leg", "fit:wide": "Wide leg",
-  "fit:raglan": "Raglan sleeve",
+  "fit:raglan": "Raglan sleeve", "det:classic": "Classic silhouette", "det:chunky": "Chunky or trend sole", "det:collab": "Collab",
   "c:washed-blue": "Washed blue", "c:light-blue": "Light blue", "c:bottle-green": "Bottle green", "c:bright-blue": "Bright blue",
   "w:washed": "Washed finish", "x:plain": "Plain", "x:fairisle": "Fair Isle", "fit:drop": "Drop shoulder", "fit:longline": "Longer cut",
   "st:90s": "90s sportswear", "st:scandi": "Scandi minimal", "sea:winter": "Winter-ready", "sea:summer": "Summer piece",

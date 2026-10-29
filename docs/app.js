@@ -223,7 +223,7 @@ function ownedPieces() {
   return out;
 }
 function gaps() {
-  if (!S.og) S.og = E.outfitGaps(formulas(), ownedPieces());
+  if (!S.og) S.og = E.outfitGaps(E.formulasNow(formulas(), Date.now()), ownedPieces());
   return S.og;
 }
 const ctx = () => ({today: localDay(), gapRoles: gaps().gapRoles, owned: gaps().owned, picks: S.picksKeys, brands: S.brands});
@@ -512,7 +512,7 @@ function renderForYou(reset) {
   let fresh = [];
   if (f === "all" && S.prevVisit) {
     const since = S.prevVisit.slice(0, 10);
-    fresh = R.list.filter(x => x.it.firstSeen && x.it.firstSeen >= since && !exclude.has(x.it.key) && x.sc.pct >= 55 &&
+    fresh = R.list.filter(x => x.it.firstSeen && x.it.firstSeen >= since && !exclude.has(x.it.key) && x.sc.pct >= 50 &&
       !((ent(x.it.key) || {}).shownTotal > 0 && !S.seenSession.has(x.it.key))).sort((a, b) => b.sc.s - a.sc.s).slice(0, 12);
   }
   $("newBlock").hidden = !fresh.length;
@@ -730,7 +730,7 @@ function renderShop() {
 /* ------------------------------------------------------------------ Outfits */
 function analyse() {
   const own = ownedPieces(), R = ranked();
-  const cands = R.list.filter(x => x.it.inStock !== false && x.it.image && x.sc.pct >= 45).sort((a, b) => b.sc.s - a.sc.s);
+  const cands = R.list.filter(x => x.it.inStock !== false && x.it.image && x.sc.pct >= 40).sort((a, b) => b.sc.s - a.sc.s);
   const forms = formulas().map(f => {
     const slots = (f.slots || []).map(s => {
       const mine = own.filter(p => (s.roles || []).includes(p.role));
@@ -816,7 +816,7 @@ function setOwnedTick(kind, id, on) {
 
 /* ------------------------------------------------------------------ Deals */
 /* The better the match, the smaller the discount it needs (the brief's "depends on the match"). */
-const needs = pct => pct >= 85 ? 10 : pct >= 72 ? 20 : pct >= 60 ? 30 : 45;
+const needs = pct => pct >= 80 ? 10 : pct >= 65 ? 20 : pct >= 50 ? 30 : 45;
 function renderDeals() {
   const R = ranked();
   const list = R.list.filter(x => x.it.disc >= 10 && (x.it.disc >= needs(x.sc.pct) || x.it.kind === "find")).sort((a, b) => b.sc.s - a.sc.s);

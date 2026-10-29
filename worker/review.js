@@ -47,7 +47,7 @@ export async function getReview(env, request) {
     ...((data && data.wardrobe && data.wardrobe.staples) || []).filter(s => s.owned).map(s => ({role: s.role})),
     ...Object.values(entries).filter(e => e.bought && e.f && e.f.r).map(e => ({role: e.f.r}))
   ];
-  const og = E.outfitGaps(data && data.wardrobe && data.wardrobe.formulas, ownedPieces);
+  const og = E.outfitGaps(E.formulasNow(data && data.wardrobe && data.wardrobe.formulas, Date.now()), ownedPieces);
   const picks = new Set(((finds && finds.picks) || []).map(p => E.itemKey(p.url, p.variant)));
   const {list, hidden} = E.rank(m, items, {today, gapRoles: og.gapRoles, owned: og.owned, picks, brands});
   const card = x => ({key: x.it.key, url: x.it.url, brand: x.it.brand, name: x.it.name, store: x.it.store, role: x.it.role,
@@ -74,7 +74,7 @@ export async function getReview(env, request) {
     brief, settings: cfg, profile: E.summary(m, brands, 15),
     taps_last_24h: counts, reactions_total: Object.values(entries).filter(E.reacted).length, recent,
     outfits: {ready: og.ready, total: og.total, gaps: og.gaps},
-    strong: fresh.some(x => x.sc.pct >= 85 && !x.wildcard),
+    strong: fresh.some(x => x.sc.pct >= 80 && !x.wildcard),
     new_today: fresh.slice(0, 15).map(card),
     ranked: list.slice(0, 40).map(card),
     hidden: hiddenWhy,

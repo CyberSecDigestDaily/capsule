@@ -59,6 +59,18 @@ t("summer pieces out of season need a discount", () => {
   assert.equal(E.offSeason(m, pool({n: "Linen Shorts, stone", r: "shorts"})), true);
   assert.equal(E.offSeason(m, pool({n: "Linen Shorts, stone", r: "shorts", d: 30, w: 70})), false);
 });
+t("classic shoe silhouettes lead, chunky ones and collabs sink, summer pieces wait", () => {
+  const b2 = Object.assign({}, brief, {shoes: ["skate", "terrace"]});
+  const m = E.makeModel({brief: b2, entries: {}, now: Date.parse("2026-10-29T12:00:00Z")});
+  const jan = pool({n: "SB Zoom Janoski OG+, navy", c: "Footwear", b: "Nike SB"}), nyj = pool({n: "Zoom Nyjah 4 Skate Shoes, navy", c: "Footwear", b: "Nike SB"});
+  assert.ok(jan.traits.includes("det:classic") && nyj.traits.includes("det:chunky"));
+  assert.ok(E.score(m, jan, {}).s > E.score(m, nyj, {}).s + 1);
+  const collab = pool({n: "X Brain Dead Track Pant", r: "jogger", b: "adidas"});
+  assert.ok(collab.traits.includes("det:collab"));
+  const shorts = pool({n: "Ripstop Short, stone", r: "shorts", d: 50, w: 100});
+  assert.ok(E.score(m, shorts, {}).adj.some(a => a[0] === "season"));
+  assert.deepEqual(E.formulasNow([{id: "a"}, {id: "b", season: "summer"}], Date.parse("2026-11-02T12:00:00Z")).map(f => f.id), ["a"]);
+});
 t("cuts from the brief stay hard either way", () => {
   const m = E.makeModel({brief, entries: {}});
   assert.match(E.hiddenWhy(m, pool({n: "Oversized Hoodie, navy", r: "hoodie"})) || "", /^cut:oversized/);
