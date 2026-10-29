@@ -1,13 +1,12 @@
 {
- "_about": "The watch list. size: your size exactly as the shop labels it ('L', 'W34 L32', 'UK 10'; 'L|XL' = either). target: buy-at price. variant: colour when one listing holds several. bought: true stops tracking everywhere. restock_watch: true keeps a sold-out piece on the list. brand + name are shown separately on the site. check: shopify | uniqlo | mands | barbour are checked live; manual = shop blocks bots (keep last_price + checked_on current by hand). role: what it is for outfits (jacket, overshirt, knit, cardigan, sweat, fleece, tee, jeans, chino, trouser, trainer, wallabee, boot, socks, underwear). fit.verdict: good | check | avoid (avoid = off-brief cut, never suggested). fit.reach: centre-back-to-cuff in cm per size. sizes.reach_cm: your own centre-back-to-wrist measurement, used to flag short sleeves.",
+ "_about": "The watch list. size: your size exactly as the shop labels it ('L', 'W34 L32', 'UK 10'; 'L|XL' = either). target: buy-at price. variant: colour when one listing holds several. bought: true stops tracking everywhere. restock_watch: true keeps a sold-out piece on the list. brand + name are shown separately on the site. check: shopify | uniqlo | mands | barbour are checked live; manual = shop blocks bots (keep last_price + checked_on current by hand). role: what it is for outfits (jacket, overshirt, knit, cardigan, sweat, fleece, tee, jeans, chino, trouser, trainer, wallabee, boot, socks, underwear). fit.verdict: good | check | avoid (avoid = off-brief cut, never suggested). fit.reach: centre-back-to-cuff in cm per size. Your own sleeve length is private: it lives in your Capsule account (Outfits tab), never in this file.",
  "sizes": {
   "top": "L",
   "waist": "W34",
   "leg": "L32",
   "sock": "M/L",
   "boxer": "L",
-  "shoe": "UK 10",
-  "reach_cm": 88
+  "shoe": "UK 10"
  },
  "items": [
   {
@@ -529,7 +528,7 @@
    "check": "shopify",
    "size": "UK 10",
    "target": 80,
-   "note": "The classic. Spray with suede protector before Bangor weather.",
+   "note": "The classic. Spray with suede protector before wet weather.",
    "fit": {
     "verdict": "check",
     "note": "Wallabees run large: true size for normal or wide feet, half a size down if narrow. This stockist only does whole sizes. Spray the suede with protector first."

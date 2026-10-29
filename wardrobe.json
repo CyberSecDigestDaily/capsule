@@ -1,5 +1,5 @@
 {
- "_about": "Outfit formulas from the STYLE brief + staples you may already own. The site's Outfits tab ticks these against what you own (watch-list items marked bought + staples ticked). Edit freely; roles must match items.json roles.",
+ "_about": "Outfit formulas for the occasions Don dresses for, plus staples he may already own. The site's Outfits tab ticks these against what he owns (watch-list pieces marked bought, staples ticked, pieces marked bought on the site). Roles must match the engine's roles.",
  "role_labels": {
   "jacket": "Jackets",
   "overshirt": "Overshirts",
@@ -16,7 +16,8 @@
   "wallabee": "Wallabees",
   "boot": "Boots",
   "clog": "Clogs & slippers",
-  "cap": "Caps"
+  "cap": "Caps",
+  "shorts": "Shorts"
  },
  "staples": [
   {
@@ -95,7 +96,7 @@
   {
    "id": "office",
    "name": "Office",
-   "when": "autumn/winter workdays",
+   "when": "a day or two a week, smart casual at most",
    "slots": [
     {
      "label": "Trousers",
@@ -122,73 +123,6 @@
      "roles": [
       "boot",
       "wallabee"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "date",
-   "name": "Date night",
-   "when": "with Phoebe",
-   "slots": [
-    {
-     "label": "Tapered denim",
-     "roles": [
-      "jeans"
-     ]
-    },
-    {
-     "label": "Cardigan or knit",
-     "roles": [
-      "cardigan",
-      "knit"
-     ]
-    },
-    {
-     "label": "Tee",
-     "roles": [
-      "tee"
-     ]
-    },
-    {
-     "label": "Shoes",
-     "roles": [
-      "boot",
-      "wallabee"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "outdoor",
-   "name": "Outdoor & photography",
-   "when": "walks, shoots, trips",
-   "slots": [
-    {
-     "label": "Utility jacket",
-     "roles": [
-      "jacket"
-     ]
-    },
-    {
-     "label": "Mid-layer",
-     "roles": [
-      "fleece",
-      "sweat",
-      "knit"
-     ]
-    },
-    {
-     "label": "Denim or chinos",
-     "roles": [
-      "jeans",
-      "chino"
-     ]
-    },
-    {
-     "label": "Trainers",
-     "roles": [
-      "trainer"
      ]
     }
    ]
@@ -228,6 +162,106 @@
    ]
   },
   {
+   "id": "outdoor",
+   "name": "Outdoor & photography",
+   "when": "walks, shoots, room for a camera strap",
+   "slots": [
+    {
+     "label": "Utility jacket",
+     "roles": [
+      "jacket"
+     ]
+    },
+    {
+     "label": "Mid-layer",
+     "roles": [
+      "fleece",
+      "sweat",
+      "knit"
+     ]
+    },
+    {
+     "label": "Denim or chinos",
+     "roles": [
+      "jeans",
+      "chino"
+     ]
+    },
+    {
+     "label": "Trainers",
+     "roles": [
+      "trainer"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hiking",
+   "name": "Hiking",
+   "when": "hills and coast paths",
+   "slots": [
+    {
+     "label": "Weatherproof jacket",
+     "roles": [
+      "jacket"
+     ]
+    },
+    {
+     "label": "Fleece",
+     "roles": [
+      "fleece"
+     ]
+    },
+    {
+     "label": "Trousers",
+     "roles": [
+      "chino",
+      "jogger"
+     ]
+    },
+    {
+     "label": "Boots",
+     "roles": [
+      "boot"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "travel",
+   "name": "Travel",
+   "when": "trips, packs small",
+   "slots": [
+    {
+     "label": "Layer",
+     "roles": [
+      "overshirt",
+      "knit",
+      "sweat"
+     ]
+    },
+    {
+     "label": "Tee",
+     "roles": [
+      "tee"
+     ]
+    },
+    {
+     "label": "Jeans or chinos",
+     "roles": [
+      "jeans",
+      "chino"
+     ]
+    },
+    {
+     "label": "Trainers",
+     "roles": [
+      "trainer"
+     ]
+    }
+   ]
+  },
+  {
    "id": "lounge",
    "name": "Lounging",
    "when": "home",
@@ -248,6 +282,63 @@
     },
     {
      "label": "Clogs or slippers",
+     "roles": [
+      "clog"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gym",
+   "name": "Gym",
+   "when": "function first",
+   "slots": [
+    {
+     "label": "Training tee",
+     "roles": [
+      "tee"
+     ]
+    },
+    {
+     "label": "Shorts or joggers",
+     "roles": [
+      "shorts",
+      "jogger"
+     ]
+    },
+    {
+     "label": "Trainers",
+     "roles": [
+      "trainer"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "beach",
+   "name": "Beach & summer",
+   "when": "holidays, warm days",
+   "slots": [
+    {
+     "label": "Tee",
+     "roles": [
+      "tee"
+     ]
+    },
+    {
+     "label": "Shorts",
+     "roles": [
+      "shorts"
+     ]
+    },
+    {
+     "label": "Cap",
+     "roles": [
+      "cap"
+     ]
+    },
+    {
+     "label": "Sandals or clogs",
      "roles": [
       "clog"
      ]

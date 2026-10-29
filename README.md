@@ -1,75 +1,52 @@
-# The Capsule — wardrobe watch
+# Capsule
 
-Live site: https://cybersecdigestdaily.github.io/capsule/
+A wardrobe site that learns. It checks ~1,000 pieces in Don's sizes across ~27 vetted UK shops three times a day, ranks them with a taste engine that learns from every tap, plans outfits around what he owns, and emails the Drop on the days worth an email.
 
-A zero-cost tracker for Don's capsule wardrobe. It checks every watched piece for **price and stock in his exact size**, scans trusted sale rails for **new on-brief deals**, keeps **price history**, and can **ping Discord** when something is worth buying.
+Live: Capsule's Cloudflare home (see `docs/where.json` once it exists) · fallback copy: https://cybersecdigestdaily.github.io/capsule/ (no accounts there; taps stay in the browser).
 
 ## How it works
 
 | Layer | What | Where | When |
 |---|---|---|---|
-| Price/stock checker | `scraper.py` checks each item's price, was-price and stock **in your size only**: Shopify `/products/<handle>.js`, Uniqlo's UK product API, M&S product data and barbour.com's size endpoint | GitHub Actions | when triggered (below) and on every edit to the config files |
-| Deal finder | Scans the sale collections in `finder.json` with strict brief rules (main colour in palette, wanted footwear silhouettes only, logo/fit checks, stretch trousers) and nominates **candidates** in L / W34 L32 / UK 10 at 25%+ off (premium 40%+). Only URLs in `finder.json` `approve` reach the site and email | same run | same |
-| History | `docs/history.json` — one price/stock point per item per day (backfilled from Jul 2026) | same run | same |
-| On-time trigger | `cloudflare/` Worker calls the workflow's `workflow_dispatch` at exact times (GitHub's own cron is a fallback that skips if data is <4h old) | Cloudflare (free) | 07:15, 13:15, 19:15 UK |
-| Judgement | Claude's daily review reads Don's feedback, looks at every candidate's photo and approves or blocks it against `taste.json`, fixes broken links, re-sources dead and off-brief items, writes `picks.json` (the shortlist) | Claude scheduled task | daily ~09:00 UK |
-| Daily Drop email | `scraper.py` writes `docs/drop.html` every run and, once a day after the review, emails it over Gmail SMTP with the photos embedded (needs two secrets, below). Fallback: the review sends it via its Gmail connector, which strips photos | GitHub Actions / Claude | daily ~09:10 UK |
-| Site | `docs/index.html` (static): Watch list, Outfits, Deals tabs | GitHub Pages | always |
+| Price/stock checker | `scraper.py` checks every watched piece (`items.json`) for price and stock **in his size only**: Shopify `/products/<handle>.js`, Uniqlo's UK product API, M&S product data, barbour.com's size endpoint | GitHub Actions | ~07:15, 13:15, 19:15 UK (Cloudflare cron in `cloudflare/` starts it) and on edits |
+| Pool | The new-in and sale rails of every source in `finder.json` `pool`: men's pieces in his size, priced in GBP, colour by colour. Round-robin per shop so the big sale rails can't crowd out small shops. First sighting uses the shop's publish date. → `docs/pool.json` | same run | same |
+| Deal finder | Strict rules nominate candidates; only URLs the daily review approves (`finder.json` `approve`) show as checked deals → `docs/finds.json` | same run | same |
+| Taste engine | `docs/engine.js`: each piece becomes traits (colour, washed finish, texture, fabric, cut, details, brand, style, season, price band). Taps teach trait affinities on top of a prior from the private style brief; old signals fade (~3 month half-life). One slot in five is a labelled wildcard; nothing three-of-a-kind in a row; pieces shown three times with no reaction rest for two weeks unless the price drops | the browser | every visit |
+| Accounts + sync | `worker/`: passkeys (no passwords, no email), one-time recovery codes, short codes to link another device. Reactions sync piece by piece (newest deliberate tap wins); settings sync as small patches so devices never overwrite each other. Data in D1, never in this repo | Cloudflare Worker (free plan) | always |
+| Private brief | The style brief is in `docs/seed.enc`, AES-256-GCM encrypted with a key derived (PBKDF2-SHA256) from the owner's invite code. The join link unlocks it in the browser and saves it to the private account | browser + D1 | at sign-up |
+| Curator | Claude's daily review vetoes clear misses in the pool (`finder.json` `block`), approves deals, keeps the watch list healthy, writes this week's edit (`picks.json`) and decides whether today is a strong day | Claude scheduled task | daily ~09:00 UK |
+| The Drop | `docs/drop.html`, emailed over Gmail SMTP with photos only on strong days (`picks.json` `strong`) plus a Sunday roundup. "Rate it in Capsule" opens the piece on the site | GitHub Actions | after the review |
+| Deploy | The workflow publishes `worker/`, `docs/`, `wrangler.jsonc` and `package*.json` to the `deploy` branch after every run and every code change; Cloudflare Workers Builds deploys that branch. No deploy tokens | GitHub Actions → Cloudflare | after each run |
 
-Uniqlo (`"check": "uniqlo"`), M&S (`"mands"`) and Barbour (`"barbour"`, barbour.com URLs) are checked live like Shopify. If one of them refuses a run, its items show the last good price as "Price not live" for that run instead of a broken link. John Lewis still blocks bots: link to the brand's own site instead, or use `"check": "manual"` with `last_price` + `checked_on`.
+## The site
 
-## Daily Drop email
+- **For you**: everything in his size, best match first, with the reason on each card ("94% match · Olive · Waffle knit · fills 2 outfits"). This week's edit, new since your last visit, filters.
+- **Every piece**: ♡ love, ✕ not for me (hides that piece only, then asks what's off), ⋯ more like this, save, too pricey (rests until the price drops), own something like it, bought it, similar pieces, ask Claude. Undo on everything.
+- **Train**: 20 quick swipes (← no, → like, ↑ love) with a duel now and then; it picks what the model knows least about.
+- **Watch list**, **Outfits** (formulas for each occasion in `wardrobe.json`, ticks for what he owns, best next buys), **Deals** (the better the match, the smaller the discount it needs).
+- **You**: account and devices, this week's report (what moved up and down), saved and loved, what it's learned with pins (▲ always boost, ▼ never show), soft or hard no's, target counts and price ceilings, wildcards, theme.
 
-Every run writes `docs/drop.html` (also at the site's `/drop.html`): a progress line (outfits ready to wear with what you own, and the gaps), today's edit, what changed since yesterday, pieces at or under target that fill a gap, and approved deals. The subject leads with the best thing today. On a day with nothing new it's a short note instead. Under every piece: **Bought it** (marks it as yours), **More like this** and **Not for me** open a pre-filled email to yourself; reply to the Drop with anything else. The next morning's review reads them and updates `items.json`, `picks.json` and `taste.json`. The site has the same buttons (it asks for your email address once per device).
+## Privacy
 
-**Photos in the email (one-off, 2 minutes).** Claude's Gmail connector strips every image, so the Action sends the Drop itself over Gmail SMTP with the photos embedded:
-1. Google Account → turn on 2-Step Verification if it isn't → [App passwords](https://myaccount.google.com/apppasswords) → name it `capsule` → copy the 16-character password.
-2. Repo → Settings → Secrets and variables → Actions → [New repository secret](https://github.com/CyberSecDigestDaily/capsule/settings/secrets/actions/new): `GMAIL_APP_PASSWORD` = that password. Add a second one: `GMAIL_USER` = your Gmail address. Optional `DROP_TO` sends it to a different address (useful if `GMAIL_USER` is a spare sending account).
-3. Optional test: Actions → Daily capsule price check → Run workflow. The Drop lands within ~2 minutes.
+Taps, the brief, settings and measurements live only in the private account (D1) and on his devices. This repo is public: it holds code, product data, sizes needed for stock checks, and the encrypted brief. Security headers and a strict CSP on every page (`docs/_headers`, `worker/http.js`); same-origin checks on every write; invite-only sign-up (hashes in `wrangler.jsonc`, never the codes).
 
-It sends at most once per UK day: right after the morning review's commit, or from 12:00 as a fallback. `docs/data.json` → `drop` records what happened; the review only falls back to its connector when the Action didn't send.
+## Common edits
 
-## Fit notes
+- **Watch list**: `items.json` (read its `_about`). **Pool sources and rules**: `finder.json`. **Outfits**: `wardrobe.json`. Saving any of them re-runs the checker.
+- **Site or Worker**: edit `docs/` or `worker/`; the push republishes in a few minutes without re-checking prices.
+- **Tests**: `node tests/engine.test.mjs` · `tests/run-api.sh` (Worker API, local D1) · `tests/run-ui.sh` (headless Chromium, virtual passkeys). `npm install` first.
+- **New brief seed**: `CAPSULE_INVITE=<code> node tools/seed.mjs brief.json docs/seed.enc` (keep the brief and code out of the repo).
 
-Every item in `items.json` has `fit.verdict` (`good` / `check` / `avoid`) and a `fit.note` (cut, stretch, rise, sizing quirks). Tops with published measurements also carry `fit.reach`: centre-back-to-cuff in cm per size (half the across-shoulder width plus the sleeve). Enter your own reach on the Outfits tab (or set `sizes.reach_cm`) and the watch list flags anything short in the sleeve at your size. `avoid` pieces are never suggested and the weekly review replaces them.
+## On-time runs
 
-## Outfits tab
+GitHub's own scheduler often runs hours late. `cloudflare/` is a tiny separate Worker (`capsule-cron`) that starts the price check at 07:15, 13:15 and 19:15 UK time with a token that can only start this repo's workflow. Re-run `cloudflare/setup.cmd` when the token expires. GitHub's schedule stays as a fallback and skips itself when the data is under 4 hours old.
 
-`wardrobe.json` holds the outfit formulas from the STYLE brief (Office, Date night, Outdoor & photography, Everyday, Lounging) and staples you may already own. Tick what you own on the site (watch-list pieces you tick count as bought). Each formula shows what's covered and the best in-stock piece for each gap; "Best next buys" ranks pieces by how many outfits they complete. Ticks live in the browser: **Copy wardrobe link** carries them to another device.
+## Alerts (optional)
 
-## On-time runs (one-off, ~3 minutes)
-
-GitHub's own scheduler often runs hours late. A tiny Cloudflare Worker (`cloudflare/`) starts the price check at 07:15, 13:15 and 19:15 UK time instead. It needs a GitHub token that is only allowed to start this repo's workflow.
-
-1. **Create the token:** open this [pre-filled token page](https://github.com/settings/personal-access-tokens/new?name=capsule-cron&description=Lets+the+capsule-cron+Cloudflare+Worker+start+the+price-check+workflow&target_name=CyberSecDigestDaily&expires_in=366&actions=write). Under **Repository access** choose **Only select repositories** and tick **capsule**. Check **Permissions → Repository permissions → Actions** says **Read and write**. Click **Generate token** and copy it. Don't paste it anywhere except the setup window.
-2. **Run the setup:** double-click `cloudflare\setup.cmd` (a copy lives in `Documents\Claude\Projects\STYLE\site-github\cloudflare`). Or open **Windows PowerShell** from the Start menu and paste:
-   `irm https://raw.githubusercontent.com/CyberSecDigestDaily/capsule/main/cloudflare/setup.ps1 | iex`
-3. **Follow the prompts:** paste the token (it stays hidden); the script proves it works by starting one price check. If a browser tab opens, log in to Cloudflare and click **Allow**. It then deploys the Worker and stores the token in Cloudflare (encrypted). Optional: a Discord webhook for failure alerts.
-
-Re-run the same setup when the token expires (366 days). GitHub's own schedule stays as a fallback and skips itself when the data is less than 4 hours old. Uses 1 of the 5 cron triggers on Cloudflare's free plan.
-
-## Common edits (all in GitHub's web editor, phone works)
-
-- **Bought something:** set `"bought": true` on the item in `items.json` → it stops being tracked on every device. (The tick box on the site only remembers on that device.)
-- **Add an item:** copy an entry in `items.json`, give it the next `id`, paste the product URL, set `size` exactly as the shop labels it (`"L"`, `"W34 L32"`, `"UK 10"`; use `"L|XL"` to accept either) and a `target` buy price. If one listing holds several colours, add `"variant": "Colour Name"`.
-- **Tune the deal finder:** edit `finder.json` (stores, palette, exclusions, price caps, minimum discount). `approve` / `block` are the review's decisions per product URL. **Taste:** `taste.json` holds the likes, hard nos and every rejection the review judges against.
-- **Outfits:** edit formulas or staples in `wardrobe.json`; give new items a `role` so they slot into outfits.
-- Saving any of those files re-runs the checker within a minute or two.
-
-## Alerts (optional, 1 minute)
-
-Repo → Settings → Secrets and variables → Actions → New repository secret → name `DISCORD_WEBHOOK`, value = a Discord channel webhook URL (Channel settings → Integrations → Webhooks). You'll then get: new BUY signals, back-in-your-size restocks, price drops of £5+, new deals, and a red alert if a run fails.
-
-## Signals
-
-- **Buy now** — in stock in your size at or under target
-- **On sale** — in stock, 10%+ off, still above target
-- **Watching** — in stock, above target
-- **Sold out** — not available in your size (the row lists sizes that are)
-- **Not live** — manual-check retailer, or a live shop that refused this one run (shows the last good price)
-- **Link broken** — product URL changed or vanished; the weekly review re-sources it
+Repo secret `DISCORD_WEBHOOK` → BUY signals, restocks in his size, price drops of £5+, new deals, and a red alert if a run fails.
 
 ## Don't
 
-- Don't upload old copies of `items.json` or `docs/index.html` from the local `STYLE/site-github` folder — the repo is now the single source of truth.
-- Don't hand-edit `docs/data.json`, `docs/history.json` or `docs/finds.json` — the checker rewrites them.
+- Don't hand-edit `docs/data.json`, `docs/history.json`, `docs/finds.json` or `docs/pool.json`: the checker rewrites them.
+- Don't edit the `deploy` branch: change `main` and let the workflow republish.
+- Never commit the brief, invite codes, review keys or anything personal.

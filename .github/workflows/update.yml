@@ -10,8 +10,11 @@ on:
     - cron: "23 17 * * *"
   push:
     branches: [main]
-    # Editing the watch list / rules re-checks immediately. Data commits (docs/) don't retrigger.
-    paths: ["items.json", "finder.json", "picks.json", "wardrobe.json", "scraper.py", ".github/workflows/update.yml"]
+    # Editing the watch list / rules re-checks immediately; editing the site or the Worker republishes it.
+    # Data commits (docs/*.json from this workflow) don't retrigger.
+    paths: ["items.json", "finder.json", "picks.json", "wardrobe.json", "scraper.py", ".github/workflows/update.yml",
+            "docs/*.js", "docs/*.html", "docs/*.css", "docs/_headers", "docs/seed.enc", "docs/where.json", "docs/manifest.webmanifest",
+            "docs/*.png", "docs/fonts/**", "docs/vendor/**", "worker/**", "wrangler.jsonc", "package.json", "package-lock.json"]
   workflow_dispatch: # manual "Run workflow" button
 
 concurrency:
@@ -24,15 +27,34 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-        with: { ref: main } # latest main, so a queued run sees the previous run's data (no double Drop email)
+        with: { ref: main, fetch-depth: 30 } # latest main, so a queued run sees the previous run's data (no double Drop email)
+
+      # A push that only touches the site or the Worker skips the price check and just republishes.
+      - name: Decide what to run
+        id: what
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          scrape=1
+          if [ "$EVENT" = "push" ]; then
+            if changed=$(git diff --name-only "$BEFORE" "$AFTER" 2>/dev/null); then
+              echo "$changed" | grep -qE '^(items|finder|picks|wardrobe)\.json$|^scraper\.py$|^\.github/workflows/update\.yml$' || scrape=0
+            fi
+          fi
+          echo "scrape=$scrape" >> "$GITHUB_OUTPUT"
+          echo "price check: $scrape"
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        if: steps.what.outputs.scrape == '1'
         with: { python-version: "3.12" }
 
       - name: Check prices, stock and deals
+        if: steps.what.outputs.scrape == '1'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           # Daily Drop email with photos, sent over Gmail SMTP (optional; without these Claude's review sends it)
@@ -43,15 +65,35 @@ jobs:
         run: python scraper.py
 
       - name: Commit updated data
+        if: steps.what.outputs.scrape == '1'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/data.json docs/history.json docs/finds.json docs/drop.html
+          git add docs/data.json docs/history.json docs/finds.json docs/drop.html docs/pool.json
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Price/stock update $(date -u +%Y-%m-%dT%H:%MZ)"
-          # Rebase onto anything pushed meanwhile (Claude's weekly review, manual edits).
+          # Rebase onto anything pushed meanwhile (Claude's daily review, manual edits).
           git pull --rebase --autostash origin main
           git push
+
+      # Cloudflare Workers Builds deploys whatever lands on the deploy branch: the Worker, its config and the site with
+      # today's data. Each publish is one fresh commit, so the branch never grows. No deploy tokens anywhere.
+      - name: Publish the site to the deploy branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git pull -q --rebase origin main || true
+          site="$(mktemp -d)"
+          cp -R worker docs wrangler.jsonc package.json package-lock.json "$site"/
+          printf '%s\n' "# Built by the capsule price-check workflow from main. Cloudflare Workers Builds deploys this branch." \
+            "# Don't edit here: change main and let the workflow republish." > "$site/README.md"
+          cd "$site"
+          git init -q -b deploy
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Deploy $(date -u +%Y-%m-%dT%H:%MZ) from ${GITHUB_SHA::7}"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" deploy
 
       - name: Alert Discord on failure
         if: failure()

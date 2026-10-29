@@ -46,7 +46,20 @@ UA = {
 NOW = dt.datetime.now(dt.timezone.utc)
 TODAY = NOW.date().isoformat()
 HISTORY_DAYS = 180
-SITE = "https://cybersecdigestdaily.github.io/capsule/"
+
+
+def _site():
+    """Where the site lives: docs/where.json once Capsule has moved to its Cloudflare home, else GitHub Pages."""
+    try:
+        u = json.loads((DOCS / "where.json").read_text(encoding="utf-8")).get("url", "")
+        if u.startswith("https://"):
+            return u.split("#")[0].rstrip("/") + "/"
+    except Exception:
+        pass
+    return "https://cybersecdigestdaily.github.io/capsule/"
+
+
+SITE = _site()
 
 
 # ---------------------------------------------------------------- utilities
@@ -564,6 +577,18 @@ def norm_url(u):
     return re.sub(r"^https?://(www\.)?", "", (u or "").strip()).split("?")[0].split("#")[0].rstrip("/").lower()
 
 
+def item_key(url, variant=None):
+    """Same key as itemKey() in docs/engine.js: host + path, plus the colour when one listing holds several."""
+    k = norm_url(url)
+    m = re.search(r"colorDisplayCode=(\d+)", url or "", re.I)
+    if m:
+        return (k + "~c" + m.group(1))[:180]
+    if variant:
+        v = re.sub(r"[^a-z0-9]+", "-", str(variant).lower().replace("&", " and ")).strip("-")[:40]
+        return (k + "~" + v)[:180]
+    return k[:180]
+
+
 def run_finder(cfg, watched_handles, prev_finds):
     """Returns (approved finds, candidates awaiting review, errors)."""
     prev_seen = {f.get("key"): f.get("first_seen", TODAY) for f in prev_finds.get("finds", [])}
@@ -586,7 +611,7 @@ def run_finder(cfg, watched_handles, prev_finds):
         only = set(src.get("only", []))
         for page in range(1, int(src.get("pages", 1)) + 1):
             try:
-                d = fetch_json(f"https://{store}/collections/{coll}/products.json?limit=250&page={page}", tries=2, gap=1.0)
+                d = collection_page(store, coll, page)
             except Exception as e:  # one bad store never sinks the run
                 errors.append(f"{store}/{coll}: {str(e)[:80]}")
                 break
@@ -726,6 +751,280 @@ def run_finder(cfg, watched_handles, prev_finds):
     return out, waiting, errors
 
 
+# -------------------------------------------------------------- the pool
+# The For you feed and the Train deck rank a much bigger, looser pool than the deals above: new-in and sale rails
+# from every source in finder.json "pool", in Don's sizes. The taste engine on the site (docs/engine.js) does the
+# judging, with his private brief and every tap he makes; this only throws out what can never fit (wrong size,
+# women's, kids, homeware, non-GBP shops, brands that are all logo) and keeps the file a sensible size.
+POOL_ROLES = [  # keep in step with ROLES in docs/engine.js
+    ("wallabee", ["wallabee"]), ("boot", ["chelsea", "boot", "boots", "chukka", "desert boot"]),
+    ("clog", ["clog", "clogs", "mule", "slipper", "slippers", "birkenstock", "boston"]),
+    ("trainer", ["trainer", "trainers", "sneaker", "sneakers", "samba", "gazelle", "spezial", "janoski", "air max", "990", "991", "992",
+                 "993", "996", "574", "576", "1500", "shoe", "shoes", "plimsoll", "vulc"]),
+    ("socks", ["socks", "sock"]), ("underwear", ["boxer", "boxers", "briefs", "trunks", "boxer shorts"]),
+    ("beanie", ["beanie", "watch cap", "toque"]), ("cap", ["cap", "5 panel", "five panel", "6 panel", "baseball", "snapback", "bucket hat", "hat"]),
+    ("scarf", ["scarf", "snood"]), ("gloves", ["gloves", "mittens", "glove"]), ("belt", ["belt"]),
+    ("bag", ["bag", "tote", "backpack", "rucksack", "holdall", "sling", "pouch", "duffle bag"]), ("watch", ["watch"]),
+    ("overshirt", ["overshirt", "over shirt", "shirt jacket", "shacket", "cpo", "chore shirt"]), ("cardigan", ["cardigan"]),
+    ("fleece", ["fleece", "polartec"]),
+    ("jacket", ["jacket", "coat", "parka", "blouson", "harrington", "bomber", "m-65", "m65", "anorak", "gilet", "smock"]),
+    ("hoodie", ["hoodie", "hooded sweat", "hooded"]), ("sweat", ["sweatshirt", "sweat", "crewneck sweat"]),
+    ("knit", ["jumper", "sweater", "knit", "knitted", "lambswool", "merino", "roll neck", "rollneck", "quarter zip", "half zip", "pullover"]),
+    ("shirt", ["shirt", "oxford", "chambray"]), ("tee", ["t-shirt", "tee", "t shirt", "henley", "long sleeve"]),
+    ("jeans", ["jeans", "jean", "denim"]),
+    ("jogger", ["jogger", "joggers", "sweatpant", "sweatpants", "track pant", "lounge pant", "sweat pant"]),
+    ("shorts", ["shorts", "short"]),
+    ("chino", ["chino", "chinos", "cord", "cords", "pant", "pants", "fatigue", "trouser", "trousers", "pleated"]),
+]
+FOOT_ROLES = {"wallabee", "boot", "clog", "trainer"}
+TOP_ROLES = {"tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie"}
+ACC_ROLES = {"cap", "beanie", "scarf", "gloves", "belt", "bag", "watch"}
+POOL_CATEGORY = {
+    "tee": "Tees", "shirt": "Shirts", "overshirt": "Jackets & Overshirts", "jacket": "Jackets & Overshirts", "fleece": "Mid-layers & Knits",
+    "knit": "Mid-layers & Knits", "cardigan": "Mid-layers & Knits", "sweat": "Mid-layers & Knits", "hoodie": "Mid-layers & Knits",
+    "jeans": "Jeans", "chino": "Chinos & Trousers", "trouser": "Chinos & Trousers", "jogger": "Joggers & Shorts", "shorts": "Joggers & Shorts",
+    "trainer": "Footwear", "boot": "Footwear", "wallabee": "Footwear", "clog": "Footwear", "socks": "Socks & Boxers",
+    "underwear": "Socks & Boxers", "cap": "Accessories", "beanie": "Accessories", "scarf": "Accessories", "gloves": "Accessories",
+    "belt": "Accessories", "bag": "Accessories", "watch": "Accessories"}
+POOL_CAP_GROUP = {"tee": "tee", "shirt": "overshirt", "overshirt": "overshirt", "jacket": "jacket", "fleece": "knit", "knit": "knit",
+                  "cardigan": "knit", "sweat": "knit", "hoodie": "knit", "jeans": "jeans", "chino": "chinos", "trouser": "chinos",
+                  "jogger": "chinos", "shorts": "chinos", "trainer": "trainers", "boot": "boots", "wallabee": "boots", "clog": "trainers",
+                  "socks": "accessory", "underwear": "accessory", "cap": "accessory", "beanie": "accessory", "scarf": "accessory",
+                  "gloves": "accessory", "belt": "accessory", "bag": "accessory", "watch": "accessory"}
+WOMEN = ["women", "womens", "women's", "wmns", "ladies", "girls", "female", "kids", "kid's", "junior", "youth", "toddler", "baby", "infant"]
+MEN = ["men", "mens", "men's", "male", "unisex"]
+LOUD = ["pink", "purple", "lilac", "lavender", "fuchsia", "magenta", "neon", "fluro", "fluo", "multi", "multicolour", "multicolor", "tie dye", "tie-dye", "rainbow"]
+WASHED_WORDS = ["washed", "faded", "garment dyed", "garment-dyed", "pigment dyed", "pigment-dyed", "vintage", "sun faded", "overdyed", "stonewash", "stone wash"]
+KEEP_DESC = ["regular fit", "relaxed fit", "slim fit", "classic fit", "straight leg", "straight fit", "tapered", "boxy", "oversized", "cropped",
+             "longline", "drop shoulder", "raglan", "mid rise", "high rise", "stretch", "elastane", "brushed", "waffle", "corduroy", "waxed",
+             "garment dyed", "garment-dyed", "pigment dyed", "washed", "organic", "recycled", "pfc free", "pfc-free", "pfas free",
+             "fluorocarbon free", "made in england", "made in portugal", "made in scotland", "made in britain", "made in italy",
+             "made in japan", "lined", "waterproof", "gore-tex", "lambswool", "merino", "cashmere", "fleece", "linen", "canvas", "twill",
+             "ripstop", "moleskin", "selvedge", "loopback", "heavyweight", "midweight", "silver ion", "polygiene", "anti-odour"]
+_meta_cache = {}
+_page_cache = {}
+
+
+def collection_page(store, coll, page):
+    """One products.json page of a Shopify collection, fetched once per run (the deal finder and the pool share it)."""
+    key = (store, coll, page)
+    if key not in _page_cache:
+        _page_cache[key] = fetch_json(f"https://{store}/collections/{coll}/products.json?limit=250&page={page}", tries=2, gap=1.0)
+    return _page_cache[key]
+
+
+def shop_currency(store):
+    if store not in _meta_cache:
+        try:
+            _meta_cache[store] = (fetch_json(f"https://{store}/meta.json", tries=2, gap=1.0) or {}).get("currency")
+        except Exception:
+            _meta_cache[store] = None  # unknown: assume GBP (every source was checked when it was added)
+    return _meta_cache[store]
+
+
+TEE_WORDS = re.compile(r"\b(?:t|tee)[\s-]?shirts?\b")
+
+
+def pool_role(title, ptype):
+    # "T-Shirt" isn't a shirt, and a polo shirt is closer to a tee: say so before matching.
+    t = TEE_WORDS.sub("tee", f"{title} {ptype}".lower()).replace("polo shirt", "polo tee")
+    foot = bool(re.search(r"footwear|shoe|trainer|sneaker|boot", (ptype or "").lower()))
+    for role, words in POOL_ROLES:
+        if foot and role not in FOOT_ROLES:
+            continue
+        if words_in(t, words):
+            return role
+    return "trainer" if foot else None
+
+
+def one_size(o):
+    return bool(re.fullmatch(r"(?i)\s*(one ?size|os|o/s|default title|n/?a|1 ?size|one|ns|osfa)\s*", str(o or "")))
+
+
+SOCK_OK = re.compile(r"(?i)(\b(?:uk\s*)?(?:7|8|9)\s*[-–/]\s*(?:11|12)\b|\bm\s*/\s*l\b|\bl\s*/\s*xl\b|^\s*l\s*$|^\s*large\s*$|\b4[1-3]\s*[-–/]\s*4[5-7]\b)")
+
+
+def pool_eval(role, variants):
+    """Price and stock in Don's size for one colour's variants, or None if his size isn't offered."""
+    if role in ACC_ROLES or role == "socks":
+        mine = [v for v in variants if any(one_size(o) for o in variant_options(v))]
+        if role == "socks" and not mine:
+            mine = [v for v in variants if any(SOCK_OK.search(str(o)) for o in variant_options(v))]
+        if not mine:
+            res = evaluate_variants(variants, "L|M/L|L/XL", cents=False)
+            return res
+        live = [v for v in mine if v.get("available")]
+        pool = live or mine
+        best = min(pool, key=lambda v: float(v.get("price") or 1e9))
+        price = float(best.get("price") or 0) or None
+        was = float(best.get("compare_at_price") or 0) or None
+        disc = round(100 * (1 - price / was)) if (was and price and was > price) else 0
+        return {"price": price, "was": was if disc else None, "discount_pct": disc, "in_stock": bool(live), "alt_sizes": []}
+    size = ("L" if role in TOP_ROLES else "UK 10" if role in FOOT_ROLES else "W34 L32|W34|L" if role in ("jeans", "chino", "trouser")
+            else "L|W34" if role in ("jogger", "shorts") else "L|M/L")
+    return evaluate_variants(variants, size, cents=False)
+
+
+def colour_option_index(p):
+    for i, o in enumerate(p.get("options") or []):
+        if re.search(r"colou?r|wash|shade", str(o.get("name", "")), re.I):
+            return i
+    return None
+
+
+def run_pool(cfg, prev_pool, blocked_urls):
+    pc = cfg.get("pool") or {}
+    if not pc.get("sources"):
+        return {"items": []}, []
+    low = lambda xs: [x.lower() for x in xs or []]
+    caps, factor = pc.get("caps", {}), float(pc.get("premium_factor", 1.6))
+    allow, deny, junk = low(pc.get("brands")), low(pc.get("exclude_brands")), low(pc.get("junk"))
+    seen_first = {it.get("k"): it.get("f") for it in prev_pool.get("items", [])}
+    errors, out = [], {}
+    for src in pc["sources"]:
+        store, label = src["store"], src.get("label") or src["store"]
+        cur = shop_currency(store)
+        if cur and cur != "GBP":
+            errors.append(f"{label}: prices are in {cur}, skipped")
+            continue
+        only = set(src.get("only") or [])
+        for kind in ("new", "sale"):
+            for coll in src.get(kind) or []:
+                for page in range(1, int(src.get("pages", 1)) + 1):
+                    try:
+                        d = collection_page(store, coll, page)
+                    except Exception as e:
+                        errors.append(f"{label} {coll}: {str(e)[:70]}")
+                        break
+                    prods = d.get("products", [])
+                    if not prods:
+                        break
+                    for p in prods:
+                        for rec in pool_records(p, src, store, label, kind, only, caps, factor, allow, deny, junk, blocked_urls):
+                            # First sighting: the shop's own publish date, so a new source (or the first run) doesn't
+                            # make everything look "new in" at once.
+                            pub = rec.pop("pub", "") or ""
+                            rec["f"] = seen_first.get(rec["k"]) or (pub if re.fullmatch(r"\d{4}-\d{2}-\d{2}", pub) and pub < TODAY else TODAY)
+                            old = out.get(rec["k"])
+                            if not old or (rec["d"] or 0) > (old["d"] or 0):
+                                out[rec["k"]] = rec
+    items = list(out.values())
+
+    def prior(r):
+        brand = (r["b"] or "").lower()
+        fresh = (NOW.date() - dt.date.fromisoformat(r["f"])).days if r.get("f") else 99
+        return ((6 if fresh <= 2 else 3 if fresh <= 7 else 0) + (3 if any(brand.startswith(b) for b in allow) else 0)
+                + min(r["d"] or 0, 50) / 10 + (2 if r["src"] == "new" else 0))
+    # Fair shares: deal the best of each shop in turn, so a few big sale rails can't crowd out the smaller shops.
+    by_store = {}
+    for r in sorted(items, key=lambda r: -prior(r)):
+        by_store.setdefault(r["s"], []).append(r)
+    per_store, keep = {}, []
+    cap_store, cap_all = int(pc.get("max_per_store", 110)), int(pc.get("max_items", 900))
+    while len(keep) < cap_all and any(by_store.values()):
+        for store in list(by_store):
+            lst = by_store[store]
+            if not lst or per_store.get(store, 0) >= cap_store:
+                by_store[store] = []
+                continue
+            keep.append(lst.pop(0))
+            per_store[store] = per_store.get(store, 0) + 1
+            if len(keep) >= cap_all:
+                break
+    keep.sort(key=lambda r: (r["f"], r["d"] or 0), reverse=True)
+    return {"generated": NOW.isoformat().replace("+00:00", "Z"), "count": len(keep), "stores": per_store, "items": keep}, errors
+
+
+def pool_records(p, src, store, label, kind, only, caps, factor, allow, deny, junk, blocked_urls):
+    title = (p.get("title") or "").strip()
+    ptype = (p.get("product_type") or "").strip()
+    tags = p.get("tags") or []
+    tags = tags if isinstance(tags, list) else [t.strip() for t in str(tags).split(",")]
+    tl, tagl = f"{title} {ptype}".lower(), " ".join(tags).lower()
+    if words_in(tl, WOMEN) or words_in(tl, junk):
+        return []
+    if words_in(tagl, WOMEN) and not words_in(tagl, MEN):
+        return []
+    if "blazer" in tl and not re.search(r"footwear|shoe|trainer|sneaker", tl):
+        return []
+    role = pool_role(title, ptype)
+    if not role:
+        return []
+    cat = POOL_CATEGORY.get(role)
+    if only and cat not in only:
+        return []
+    vendor = (p.get("vendor") or "").strip()
+    if not vendor or vendor.lower() in ("men's", "mens", "men", "women's", "unisex"):
+        vendor = label
+    if vendor.isupper() and len(vendor) > 4:
+        vendor = vendor.title()
+    vl = vendor.lower()
+    if any(vl.startswith(b) for b in deny):
+        return []
+    if src.get("brand_filter") and not any(vl.startswith(b) for b in allow):
+        return []
+    url = f"https://{store}/products/{p['handle']}"
+    if norm_url(url) in blocked_urls:
+        return []
+    desc = page_text(p.get("body_html")).lower()
+    keep_desc = [w for w in KEEP_DESC if w in desc]
+    comp = re.findall(r"\d{1,3}\s?%\s?(?:organic |recycled |bci |supima )?[a-z]+", desc)
+    # Shop tags are full of internal codes (BFCMPHASE1, YBlocklist, AFFORD...): keep only plain words.
+    clean_tags = [t for t in tags if re.fullmatch(r"[A-Za-z][a-z]+(?:[ -][A-Za-z]?[a-z]+){0,3}", t or "")
+                  and not re.search(r"sale|new|gender|size|filter|hidden|exclude|outlet|blocklist|stock|discount|offer|men|women|clothing|apparel|picks?|latest|drop|archive|gift", t, re.I)][:10]
+    text = " ".join(dict.fromkeys([ptype] + clean_tags + keep_desc + comp))[:300]
+    ci = colour_option_index(p)
+    variants = p.get("variants") or []
+    groups = {}
+    if ci is not None:
+        for v in variants:
+            groups.setdefault((v.get(f"option{ci + 1}") or "").strip(), []).append(v)
+    if not groups or len(groups) > 8:
+        groups = {"": variants}
+    cap = caps.get(POOL_CAP_GROUP.get(role, "jacket"), 300)
+    recs = []
+    for colour, vs in list(groups.items())[:4]:
+        cl = colour.lower()
+        if words_in(f"{cl} {title.lower()}", LOUD):
+            continue
+        washed = words_in(f"{cl} {title.lower()} {desc[:200]}", WASHED_WORDS)
+        if role not in FOOT_ROLES:
+            white = re.search(r"(?<![a-z-])white\b", f"{cl} {title.lower()}") and not re.search(r"off[ -]?white|ecru|cream|chalk|bone|natural", f"{cl} {title.lower()}")
+            if white or (re.search(r"\b(red|orange|scarlet|crimson)\b", f"{cl} {title.lower()}") and not washed):
+                continue
+        res = pool_eval(role, vs)
+        if not res or not res["in_stock"] or not res["price"]:
+            continue
+        price, was, disc = res["price"], res["was"], res["discount_pct"]
+        if price > cap or (was and was > factor * cap and disc < 40):
+            continue
+        img = None
+        for v in vs:
+            if v.get("featured_image"):
+                img = https(v["featured_image"])
+                break
+        if not img:
+            imgs = p.get("images") or []
+            img = https(imgs[0].get("src")) if imgs else None
+        if not img:
+            continue
+        name = clean_title(title, vendor)
+        if colour and colour.lower() not in name.lower() and len(groups) > 1:
+            name = f"{name}, {colour}"
+        k = norm_url(url) + (("~" + re.sub(r"[^a-z0-9]+", "-", colour.lower().replace("&", " and ")).strip("-")[:40]) if colour and len(groups) > 1 else "")
+        alt = [a for a in res.get("alt_sizes", []) if canon(a) & {"XL"}][:1]
+        rec = {"k": k, "u": url, "b": vendor, "n": name, "s": label, "c": POOL_CATEGORY.get(role), "r": role,
+               "p": round(price, 2), "w": round(was, 2) if was else None, "d": disc, "i": img, "t": text,
+               "z": "UK 10" if role in FOOT_ROLES else "L" if role in TOP_ROLES else "", "src": kind,
+               "pub": str(p.get("published_at") or p.get("created_at") or "")[:10]}
+        if colour and len(groups) > 1:
+            rec["v"] = colour
+        if alt:
+            rec["x"] = ["XL"]
+        recs.append(rec)
+    return recs
+
+
 def verify_picks(picks, prev_picks=()):
     """Live price/stock for each pick, plus since/start_price: how long it has run (the review rotates stale picks)."""
     prev = {p.get("url"): p for p in prev_picks if p.get("url")}
@@ -797,7 +1096,7 @@ def capsule_progress(results, wardrobe):
             "owned_roles": owned}
 
 
-def build_drop(results, finds, picked, hist, counts, wardrobe=None):
+def build_drop(results, finds, picked, hist, counts, wardrobe=None, note=None):
     """docs/drop.html: the Daily Drop email. Table layout + one <style> block (Gmail-safe), ~20KB."""
     from html import escape as e
     now_uk = uk_now()
@@ -815,18 +1114,11 @@ def build_drop(results, finds, picked, hist, counts, wardrobe=None):
     def full(r):
         return f"{r.get('brand', '')} {r.get('name', '')}".replace("®", "").strip()
 
-    def fb_link(kind, label, r, hint):
-        """One-tap feedback: a pre-filled email the next morning's review reads (recipient added at send)."""
-        subj = urllib.parse.quote(f"Capsule {kind}: {full(r)}"[:140])
-        body = urllib.parse.quote(f"{r.get('url', '')}\n\n{hint}")
-        return (f'<a href="mailto:?subject={subj}&amp;body={body}" '
-                f'style="color:#6B6A65;text-decoration:underline;white-space:nowrap">{label}</a>')
-
     def feedback(r):
-        return " &nbsp;&middot;&nbsp; ".join([
-            fb_link("bought", "Bought it", r, "Size or colour, if different (optional): "),
-            fb_link("more", "More like this", r, "What you like about it (optional): "),
-            fb_link("nope", "Not for me", r, "What's off about it (optional): ")])
+        """Opens the piece on the site, where Love, Not for me and the rest save in one tap."""
+        key = urllib.parse.quote(item_key(r.get("url", ""), r.get("variant")), safe="")
+        return (f'<a href="{SITE}#item={key}" style="color:#6B6A65;text-decoration:underline;white-space:nowrap">'
+                f'Rate it in Capsule &rarr;</a>')
 
     # ---- what goes in
     picks = [p for p in picked if p.get("in_stock") is not False and not p.get("verify_error")][:3]
@@ -943,6 +1235,12 @@ def build_drop(results, finds, picked, hist, counts, wardrobe=None):
 
     # ---- sections
     out = [progress()]
+    if note:
+        # The Sunday roundup. What the taste engine learned stays private: it's on the You tab, behind sign-in,
+        # because this email is built from public files.
+        out.append(f'<tr><td class="px" style="padding:26px 30px 0"><p style="margin:0;padding:16px 18px;background:#F2F1ED;font-size:14.5px;'
+                   f'line-height:1.55;color:#1A1A18"><b>Sunday roundup.</b> What Capsule learned from your taps this week, what moved up '
+                   f'and what moved down: <a href="{SITE}#you" style="color:#1A1A18">see your weekly report</a>.</p></td></tr>')
     if quiet:
         rows = "".join(
             f'<tr><td width="64" valign="top" style="padding:0 14px 14px 0">{tile(p["url"], p.get("image"), 64, 80)}</td>'
@@ -1021,7 +1319,7 @@ body,td,p,a,h1,h2{{font-family:{font}}} .wide{{font-stretch:125%}}
 <td style="padding-left:18px;font-size:14px"><a href="{SITE}#outfits" style="color:#000">Outfits</a> &nbsp;&middot;&nbsp; <a href="{SITE}#deals" style="color:#000">Deals</a></td>
 </tr></table></td></tr>
 <tr><td class="px" style="padding:30px 30px 0;font-size:14px;line-height:1.55;color:#4A4945">
-<b style="color:#000">Steer it.</b> Under each piece: <i>Bought it</i> marks it as yours, <i>More like this</i> and <i>Not for me</i> tune the picks. Or reply with what you want more or less of. Tomorrow&rsquo;s review acts on it.</td></tr>
+<b style="color:#000">Steer it.</b> <i>Rate it in Capsule</i> opens the piece on the site: &hearts; and &times; teach it what you like in one tap, on any device. Or reply with what you want more or less of.</td></tr>
 <tr><td class="px" style="padding:28px 30px 40px;font-size:12px;line-height:1.6;color:#6B6A65">
 Watching {watching} pieces &middot; {instock} in stock in your size &middot; prices checked {now_uk.strftime('%H:%M')} UK.<br>
 Sizes: tops L, trousers W34 L32, shoes UK 10. <a href="{SITE}drop.html" style="color:#6B6A65">View in browser</a></td></tr>
@@ -1031,7 +1329,7 @@ Sizes: tops L, trousers W34 L32, shoes UK 10. <a href="{SITE}drop.html" style="c
 
     def plain(r, price):
         return f"- {full(r)}, {plain_gbp(price)}: {r.get('url', '')}"
-    text = [subject, ""]
+    text = [subject, ""] + ([f"Sunday roundup: your weekly taste report is on the You tab: {SITE}#you", ""] if note else [])
     if pg["total"]:
         gaps = ", ".join(g["label"] for g in pg["gaps"][:3])
         text += [f"{pg['ready']} of {pg['total']} outfits ready to wear" + (f". Missing: {gaps}." if gaps else "."), ""]
@@ -1048,7 +1346,7 @@ Sizes: tops L, trousers W34 L32, shoes UK 10. <a href="{SITE}drop.html" style="c
     return subject, "\n".join(text)
 
 
-def send_drop(subject, text, picks_updated, prev_state):
+def send_drop(subject, text, picks_updated, prev_state, strong=True):
     """Email docs/drop.html over Gmail SMTP with the product photos embedded (inline CID parts).
 
     Needs repo secrets GMAIL_USER + GMAIL_APP_PASSWORD (optional DROP_TO). Sends at most once per UK
@@ -1067,6 +1365,9 @@ def send_drop(subject, text, picks_updated, prev_state):
         return dict(state, status="already sent today")
     if picks_updated != today and uk_now().hour < 11:
         return dict(state, status="waiting for today's review")
+    # Don's call: only email on strong days (the review flags them in picks.json) plus the Sunday roundup.
+    if not strong and uk_now().weekday() != 6:
+        return dict(state, status="quiet day: no email (strong days and Sundays only)")
     import smtplib
     import ssl
     from email.message import EmailMessage
@@ -1205,6 +1506,8 @@ def main():
 
     watched = {urllib.parse.urlsplit(i["url"]).path.rstrip("/").split("/")[-1] for i in cfg["items"]}
     finds, candidates, finder_errors = run_finder(finder, watched, prev_finds) if finder else ([], [], [])
+    blocked_urls = {norm_url(u) for u in finder.get("block", [])}
+    pool, pool_errors = run_pool(finder, load(DOCS / "pool.json", {"items": []}), blocked_urls) if finder else ({"items": []}, [])
     picked = verify_picks(picks, prev_finds.get("picks", []))
 
     # ---- alerts: only changes since the previous run
@@ -1233,12 +1536,16 @@ def main():
     for r in results:
         counts[r["signal"]] = counts.get(r["signal"], 0) + 1
     save(DOCS / "history.json", hist, compact=True)
+    save(DOCS / "pool.json", pool, compact=True)
     save(DOCS / "finds.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "finds": finds,
                                "picks": picked, "picks_updated": picks.get("updated"), "errors": finder_errors,
                                "candidates": candidates})
-    subject, text = build_drop(results, finds, picked, hist, counts, wardrobe)
+    fresh_picks = picks.get("updated") == uk_now().date().isoformat()
+    note = uk_now().weekday() == 6
+    subject, text = build_drop(results, finds, picked, hist, counts, wardrobe, note=note)
     print("drop:", subject)
-    drop = send_drop(subject, text, picks.get("updated"), prev.get("drop") or {})
+    strong = bool(picks.get("strong")) if fresh_picks else False
+    drop = send_drop(subject, text, picks.get("updated"), prev.get("drop") or {}, strong=strong)
     print("drop email:", drop.get("status"))
     save(DOCS / "data.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "sizes": cfg.get("sizes", {}),
                               "errors": errors, "counts": counts, "items": results, "wardrobe": wardrobe, "drop": drop})
@@ -1247,6 +1554,9 @@ def main():
           f"({len(fresh)} new), {len(candidates)} candidates awaiting review, {len(picked)} picks | {len(lines)} alerts")
     for e in finder_errors:
         print("finder:", e)
+    print(f"pool: {pool.get('count', 0)} pieces from {len(pool.get('stores', {}))} shops")
+    for e in pool_errors:
+        print("pool:", e)
 
 
 if __name__ == "__main__":

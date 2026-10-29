@@ -2,721 +2,161 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Capsule</title>
-<meta name="description" content="Don's capsule wardrobe: live prices and stock in his sizes, outfits and deals.">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="description" content="Don's capsule wardrobe: a taste engine that learns from every tap, live prices and stock in his sizes, outfits and deals.">
+<meta name="theme-color" content="#E8E5DE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F0F0E" media="(prefers-color-scheme: dark)">
+<meta name="referrer" content="no-referrer">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-title" content="Capsule">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --paper:#FFFFFF;      /* page */
-  --stone:#F2F1ED;      /* product photo backdrop */
-  --ink:#000000;        /* text, primary buttons */
-  --graphite:#6B6A65;   /* secondary text */
-  --rule:#E4E2DC;       /* dividers */
-  --olive:#3E4A23;      /* ready to buy */
-  --sale:#B3261E;       /* reduced prices, warnings */
-  --pad:clamp(16px,4vw,48px);
-  --wide:125;
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;font-size:15px;line-height:1.5;
-     font-variation-settings:"wdth" 100;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-button,input,select{font:inherit;color:inherit}
-img{display:block;max-width:100%}
-[hidden]{display:none!important}
-:focus-visible{outline:2px solid var(--olive);outline-offset:2px}
-.wide{font-variation-settings:"wdth" var(--wide)}
-.num{font-variant-numeric:tabular-nums}
-
-/* top bar */
-.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--rule)}
-.bar{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:32px;padding:0 var(--pad);height:64px}
-.mark{font-variation-settings:"wdth" var(--wide);font-weight:800;font-size:20px;letter-spacing:.06em;text-decoration:none;text-transform:uppercase}
-.nav{display:flex;gap:28px;height:100%}
-.nav button{background:none;border:0;padding:0;height:100%;cursor:pointer;font-size:14px;font-weight:500;color:var(--graphite);border-bottom:2px solid transparent;margin-bottom:-1px}
-.nav button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
-.nav button:hover{color:var(--ink)}
-.updated{margin-left:auto;font-size:13px;color:var(--graphite);white-space:nowrap}
-.stale{background:#FBEAE8;color:var(--sale);font-size:14px;padding:10px var(--pad);text-align:center}
-.stale a{font-weight:600}
-
-main{max-width:1440px;margin:0 auto;padding:0 var(--pad)}
-h1,h2,h3{margin:0;font-weight:700}
-.page-head{padding:44px 0 28px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 32px}
-.page-head h1{font-variation-settings:"wdth" var(--wide);font-size:clamp(32px,5vw,52px);line-height:1;letter-spacing:-.015em}
-.page-head p{margin:0;color:var(--graphite);max-width:52ch}
-h2.sec{font-variation-settings:"wdth" 112;font-size:23px;letter-spacing:-.005em}
-
-/* the edit (hero) */
-.edit{padding:40px 0 56px;border-bottom:1px solid var(--rule)}
-.edit-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 32px;margin-bottom:28px}
-.edit-head h1{font-variation-settings:"wdth" var(--wide);font-size:clamp(34px,6vw,64px);line-height:.95;letter-spacing:-.02em}
-.edit-head p{margin:0;color:var(--graphite);max-width:44ch}
-.edit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.edit-item{text-decoration:none;display:block}
-.edit-item .tile{aspect-ratio:4/5}
-.edit-item .brand{margin-top:14px}
-.edit-item .name{font-size:17px}
-.edit-item .why{margin:10px 0 0;color:var(--graphite);font-size:14px;line-height:1.55;max-width:46ch}
-
-/* product tile + card */
-.tile{position:relative;background:var(--stone);aspect-ratio:4/5;overflow:hidden}
-.tile img{width:100%;height:100%;object-fit:contain;padding:6%;mix-blend-mode:multiply}
-.tile img.fill{object-fit:cover;padding:0;mix-blend-mode:normal}
-.tile .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;
-  font-variation-settings:"wdth" var(--wide);font-weight:700;font-size:18px;color:#9C9A92;letter-spacing:.02em}
-.badge{position:absolute;left:10px;top:10px;font-size:12px;font-weight:600;padding:4px 8px;background:var(--paper);line-height:1.3}
-.badge.buy{background:var(--olive);color:#fff}
-.badge.sale{color:var(--sale)}
-.badge.out,.badge.muted{color:var(--graphite)}
-.card{position:relative}
-.card.dim .tile img{opacity:.45}
-.card-hit{display:block;width:100%;text-align:left;background:none;border:0;padding:0;cursor:pointer;text-decoration:none;color:inherit}
-.card-hit:hover .name{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
-.own{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;border:1px solid var(--rule);background:var(--paper);
-     display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;color:var(--graphite)}
-.own svg{width:14px;height:14px}
-.own[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.info{padding-top:12px}
-.brand{margin:0;font-size:12px;font-weight:500;color:var(--graphite)}
-.name{margin:2px 0 0;font-size:14px;font-weight:400;line-height:1.35}
-.price{margin:6px 0 0;font-size:14px;font-weight:600;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
-.price .now.red{color:var(--sale)}
-.price s{color:var(--graphite);font-weight:400;font-size:13px}
-.meta{margin:4px 0 0;font-size:12.5px;color:var(--graphite);line-height:1.4}
-.meta.go{color:var(--olive);font-weight:500}
-.flag{margin:3px 0 0;font-size:12.5px;color:var(--graphite)}
-.flag.bad{color:var(--sale)}
-
-/* filters */
-.catalogue{padding:44px 0 72px;scroll-margin-top:72px}
-.cat-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:20px}
-.cat-head p{margin:0;font-size:14px;color:var(--graphite)}
-.filters{position:sticky;top:64px;z-index:10;background:var(--paper);border-bottom:1px solid var(--rule);margin-bottom:28px}
-.cats{display:flex;gap:26px;overflow-x:auto;scrollbar-width:none;padding-top:4px}
-.cats::-webkit-scrollbar{display:none}
-.cats button{flex:none;background:none;border:0;padding:10px 0 12px;cursor:pointer;font-size:15px;font-weight:500;color:var(--graphite);border-bottom:2px solid transparent;margin-bottom:-1px}
-.cats button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink)}
-.row2{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding:14px 0;border-top:1px solid var(--rule)}
-.status{display:flex;flex-wrap:wrap;gap:8px}
-.status button{background:none;border:1px solid var(--rule);border-radius:999px;padding:6px 13px;font-size:13px;cursor:pointer;color:var(--ink)}
-.status button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.status button .n{color:var(--graphite);margin-left:5px}
-.status button[aria-pressed="true"] .n{color:#BDBBB4}
-.tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font-size:13px}
-.tools input[type=search]{border:0;border-bottom:1px solid var(--rule);padding:6px 2px;width:170px;background:none;outline-offset:4px}
-.tools select{border:0;background:none;padding:6px 2px;cursor:pointer}
-.tools label{display:flex;align-items:center;gap:7px;cursor:pointer;color:var(--graphite)}
-.tools input[type=checkbox]{accent-color:var(--ink);width:15px;height:15px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 20px}
-.empty{grid-column:1/-1;padding:64px 0;text-align:center;color:var(--graphite)}
-.empty button{background:none;border:0;border-bottom:1px solid var(--ink);padding:0;cursor:pointer;color:var(--ink);margin-left:4px}
-
-/* outfits */
-.settings{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:16px 0 18px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);font-size:14px}
-.settings label{display:flex;align-items:center;gap:10px}
-.settings input{width:74px;border:1px solid var(--rule);padding:7px 9px;background:none}
-.linkbtn{background:none;border:0;padding:0;cursor:pointer;border-bottom:1px solid currentColor;font-size:14px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--ink);background:var(--ink);color:#fff;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
-.btn.ghost{background:var(--paper);color:var(--ink)}
-.howto{flex-basis:100%;margin:0;color:var(--graphite);font-size:13.5px;max-width:70ch}
-.block{padding:44px 0;border-bottom:1px solid var(--rule)}
-.block:last-child{border-bottom:0}
-.block > p.lede{margin:6px 0 24px;color:var(--graphite);font-size:14px;max-width:60ch}
-.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.reason{margin:6px 0 0;font-size:12.5px;color:var(--olive);font-weight:500}
-.outfit{padding:30px 0;border-top:1px solid var(--rule)}
-.outfit:first-of-type{border-top:0}
-.outfit-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:18px}
-.outfit-head h3{font-variation-settings:"wdth" 112;font-size:20px}
-.outfit-head .when{color:var(--graphite);font-size:14px}
-.outfit-head .state{margin-left:auto;font-size:13px;font-weight:600}
-.outfit-head .state.ready{color:var(--olive)}
-.slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;max-width:980px}
-.slot .lab{font-size:12px;color:var(--graphite);margin:0 0 8px}
-.slot .tile{aspect-ratio:4/5}
-.slot .ph{font-size:14px;font-variation-settings:"wdth" 100;font-weight:500;color:var(--graphite)}
-.slot.missing .tile{background:var(--paper);outline:1px dashed #C9C6BD;outline-offset:-1px}
-.slot.missing .tile img{opacity:.7}
-.slot .cap{margin:8px 0 0;font-size:13px;line-height:1.35}
-.slot .cap a{text-underline-offset:3px}
-.slot .cap .miss{color:var(--sale);font-weight:600}
-.owngrid{columns:3 240px;column-gap:40px}
-.owngroup{break-inside:avoid;margin:0 0 22px}
-.owngroup h4{margin:0 0 6px;font-size:13px;font-weight:600}
-.owngroup label{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:14px;cursor:pointer}
-.owngroup input{accent-color:var(--ink);width:16px;height:16px;margin-top:2px;flex:none}
-.owngroup .src{color:var(--graphite);font-size:12px}
-
-/* drawer */
-.scrim{position:fixed;inset:0;background:rgba(20,20,18,.32);z-index:40}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(480px,100%);background:var(--paper);z-index:50;overflow-y:auto;
-        box-shadow:-24px 0 60px rgba(0,0,0,.12);transform:translateX(0);transition:transform .28s cubic-bezier(.2,.7,.2,1)}
-.drawer.closed{transform:translateX(100%)}
-.d-close{position:sticky;top:0;display:flex;justify-content:flex-end;padding:12px 12px 0;z-index:2}
-.d-close button{width:40px;height:40px;border:0;background:var(--paper);cursor:pointer;font-size:24px;line-height:1}
-.d-body{padding:0 28px 40px}
-.d-body .tile{aspect-ratio:1/1;margin:0 -28px}
-.d-body h2{font-variation-settings:"wdth" 112;font-size:24px;line-height:1.15;margin-top:4px}
-.d-body .brand{margin-top:22px;font-size:13px}
-.d-price{margin:12px 0 0;font-size:18px;font-weight:600;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-.d-price s{font-size:15px;font-weight:400;color:var(--graphite)}
-.d-price .off{font-size:14px;color:var(--sale)}
-.d-sec{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule)}
-.d-sec h3{font-size:14px;font-weight:600;margin-bottom:6px}
-.d-sec p{margin:0 0 6px;font-size:14.5px;line-height:1.55}
-.d-sec .soft{color:var(--graphite)}
-.d-actions{display:grid;gap:10px;margin-top:26px}
-
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;font-size:14px;
-       opacity:0;transition:opacity .2s;pointer-events:none;z-index:60}
-.toast.on{opacity:1}
-footer{border-top:1px solid var(--rule);margin-top:24px}
-footer .in{max-width:1440px;margin:0 auto;padding:28px var(--pad) 40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;font-size:13px;color:var(--graphite)}
-footer a{color:var(--ink)}
-.loading{padding:120px 0;text-align:center;color:var(--graphite)}
-
-@media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:760px){
-  body{font-size:15px}
-  .bar{gap:18px;height:56px}
-  .mark{font-size:17px}
-  .nav{gap:18px}
-  .updated{display:none}
-  .filters{position:static}
-  .grid{grid-template-columns:repeat(2,1fr);gap:28px 12px}
-  .edit-grid,.trio{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);gap:14px;margin:0 calc(var(--pad) * -1);padding:0 var(--pad);scrollbar-width:none}
-  .edit-grid::after,.trio::after{content:"";flex:0 0 1px}
-  .edit-grid::-webkit-scrollbar,.trio::-webkit-scrollbar{display:none}
-  .edit-item,.trio > *{flex:0 0 78%;scroll-snap-align:start}
-  .slots{grid-template-columns:repeat(2,1fr)}
-  .tools input[type=search]{width:130px}
-  .badge{left:8px;top:8px;font-size:11px}
-  .own{right:8px;top:8px}
-}
-@media (prefers-reduced-motion:reduce){.drawer,.toast{transition:none}}
-/* capsule progress, feedback actions */
-.progress{padding:22px 0 0}
-.pg-bar{display:flex;gap:4px;max-width:420px}
-.pg-bar span{flex:1;height:6px;background:var(--rule)}
-.pg-bar span.on{background:var(--olive)}
-.progress p{margin:10px 0 0;font-size:14px;line-height:1.5;color:var(--graphite);max-width:70ch}
-.progress p b{color:var(--ink);font-weight:600}
-.progress a{color:var(--ink)}
-.edit-item > a{display:block;text-decoration:none;color:inherit}
-.fb{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px}
-.fb button{background:none;border:0;padding:2px 0;cursor:pointer;font-size:12.5px;color:var(--graphite);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
-.fb button:hover{color:var(--ink)}
-.d-actions .fb{margin-top:6px}
-.d-actions .fb button{font-size:14px}
-.d-actions .soft{margin:0;color:var(--graphite);font-size:14px}
-</style>
+<link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<script src="vendor/qrcode.js" defer></script>
+<script type="module" src="app.js"></script>
 </head>
 <body>
 <header class="top">
   <div class="bar">
-    <a class="mark" href="#shop" aria-label="Capsule, home">Capsule</a>
-    <nav class="nav" role="tablist" aria-label="Sections">
-      <button role="tab" data-view="shop" aria-selected="true">Shop</button>
+    <a class="mark" href="#for-you" aria-label="Capsule, home">Capsule</a>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" data-view="for-you" aria-selected="true">For you</button>
+      <button role="tab" data-view="train" aria-selected="false">Train</button>
+      <button role="tab" data-view="shop" aria-selected="false">Watch list</button>
       <button role="tab" data-view="outfits" aria-selected="false">Outfits</button>
       <button role="tab" data-view="deals" aria-selected="false">Deals</button>
+      <button role="tab" data-view="you" aria-selected="false">You</button>
     </nav>
-    <span class="updated" id="updated"></span>
+    <span class="who" id="who"><span class="sync-dot" id="syncDot"></span><span id="whoText">This device</span></span>
   </div>
 </header>
-<div class="stale" id="stale" hidden></div>
+<div class="banner" id="banner" hidden><div class="in" id="bannerIn"></div></div>
 
 <main id="main">
-  <div class="loading" id="loading">Loading today's prices</div>
+  <div class="loading" id="loading">Loading today's pieces</div>
 
-  <!-- SHOP -->
+  <!-- FOR YOU -->
+  <section id="view-for-you" hidden>
+    <div class="head">
+      <h1>For you</h1>
+      <p id="fyLede">Everything in your size, ranked by what you like. Tap ♡ or ✕ on anything and it learns.</p>
+    </div>
+    <div class="chips" id="fyFilters" aria-label="Show"></div>
+    <section class="block" id="newBlock" hidden>
+      <h2 class="sec">New since your last visit <small id="newCount"></small></h2>
+      <p class="lede">Pieces that have landed in the shops since you were last here, best matches first.</p>
+      <div class="strip" id="newStrip"></div>
+    </section>
+    <section class="block" id="editBlock" hidden>
+      <h2 class="sec">This week's edit <small id="editWhen"></small></h2>
+      <p class="lede">Claude's three picks: the best buyable pieces for your gaps, checked against the photos.</p>
+      <div class="edit" id="editGrid"></div>
+    </section>
+    <section class="block">
+      <h2 class="sec">Ranked for you <small id="fyCount"></small></h2>
+      <p class="lede" id="fyHow">Best match first, mixed so you don't get three knits in a row. One in five is a labelled wildcard: it's testing something it doesn't know about you yet.</p>
+      <div class="grid" id="fyGrid"></div>
+      <div class="more"><button class="btn ghost" id="fyMore" hidden>Show more</button></div>
+    </section>
+  </section>
+
+  <!-- TRAIN -->
+  <section id="view-train" hidden>
+    <div class="train" id="train"></div>
+  </section>
+
+  <!-- WATCH LIST -->
   <section id="view-shop" hidden>
-    <section class="progress" id="progress" hidden aria-label="Capsule progress">
+    <section class="progressline" id="progress" hidden aria-label="Capsule progress">
       <div class="pg-bar" id="pgBar"></div>
       <p id="pgLine"></p>
     </section>
-    <section class="edit" id="edit" hidden>
-      <div class="edit-head">
-        <h1>This week's edit</h1>
-        <p id="editLede">The pieces most worth buying right now, in your size.</p>
-      </div>
-      <div class="edit-grid" id="editGrid"></div>
-    </section>
-
-    <section class="catalogue" aria-labelledby="wlTitle">
-      <div class="cat-head">
-        <h2 class="sec" id="wlTitle">Watch list</h2>
-        <p id="sizesLine"></p>
-      </div>
-      <div class="filters">
-        <div class="cats" id="cats" aria-label="Category"></div>
-        <div class="row2">
-          <div class="status" id="status" aria-label="Availability"></div>
-          <div class="tools">
-            <input type="search" id="q" placeholder="Search" aria-label="Search the watch list" autocomplete="off">
-            <select id="sort" aria-label="Sort">
-              <option value="rec">Recommended</option>
-              <option value="low">Price, low to high</option>
-              <option value="high">Price, high to low</option>
-              <option value="close">Closest to target</option>
-            </select>
-            <label id="winterWrap" hidden><input type="checkbox" id="winter"> Winter</label>
-            <label><input type="checkbox" id="hideOwned"> Hide owned</label>
-          </div>
+    <div class="head">
+      <h1>Watch list</h1>
+      <p id="sizesLine"></p>
+    </div>
+    <div class="filters">
+      <div class="cats" id="cats" aria-label="Category"></div>
+      <div class="row2">
+        <div class="status" id="status" aria-label="Availability"></div>
+        <div class="tools">
+          <input type="search" id="q" placeholder="Search" aria-label="Search the watch list" autocomplete="off">
+          <select id="sort" aria-label="Sort">
+            <option value="match">Best match</option>
+            <option value="rec">Ready to buy first</option>
+            <option value="low">Price, low to high</option>
+            <option value="high">Price, high to low</option>
+          </select>
+          <label><input type="checkbox" id="hideOwned"> Hide owned</label>
         </div>
       </div>
-      <div class="grid" id="grid"></div>
-    </section>
+    </div>
+    <div class="grid" id="grid"></div>
   </section>
 
   <!-- OUTFITS -->
   <section id="view-outfits" hidden>
-    <div class="page-head">
+    <div class="head">
       <h1>Outfits</h1>
       <p id="outfitLede"></p>
     </div>
     <div class="settings">
-      <label for="reach">Your sleeve length <input id="reach" type="number" min="70" max="110" step="0.5" inputmode="decimal" placeholder="cm"> cm</label>
-      <button class="linkbtn" id="howBtn" aria-expanded="false" aria-controls="howto">How to measure</button>
-      <button class="linkbtn" id="shareBtn" style="margin-left:auto">Copy wardrobe link</button>
+      <label for="reach">Your sleeve length <input id="reach" type="number" min="70" max="120" step="0.5" inputmode="decimal" placeholder="cm"> cm</label>
+      <button class="linkish" id="howBtn" aria-expanded="false" aria-controls="howto">How to measure</button>
       <p class="howto" id="howto" hidden>Stand relaxed. Measure from the bone at the base of the back of your neck, over the top of your shoulder and down to your wrist bone. Pieces with published measurements are then checked against it, so short sleeves get flagged.</p>
     </div>
     <section class="block" id="nextBlock">
       <h2 class="sec">Best next buys</h2>
-      <p class="lede">The in-stock pieces that complete or unlock the most outfits, from your watch list and the deals.</p>
+      <p class="lede">In-stock pieces that complete or unlock the most outfits, ranked by how well they match you.</p>
       <div class="trio" id="nextGrid"></div>
     </section>
     <section class="block">
       <h2 class="sec">Your outfits</h2>
-      <p class="lede">The formulas from your style brief, filled with what you own. Gaps show the best piece in stock in your size.</p>
+      <p class="lede">The formulas from your style brief, filled with what you own. Gaps show the best match in stock in your size.</p>
       <div id="outfits"></div>
     </section>
     <section class="block">
       <h2 class="sec">What you own</h2>
-      <p class="lede">Tick what's already in your wardrobe. Ticks save on this device only; to make them count everywhere (and in the morning email), tap Copy wardrobe link and send it to Claude, or use I bought this on a piece.</p>
+      <p class="lede">Tick what's already in your wardrobe. Ticks sync to your account, so every device and the morning review see them.</p>
       <div class="owngrid" id="owngrid"></div>
     </section>
   </section>
 
   <!-- DEALS -->
   <section id="view-deals" hidden>
-    <div class="page-head">
+    <div class="head">
       <h1>Deals</h1>
-      <p id="dealsLede">Pieces at 25% or more off, in your size, that passed the daily check against your brief.</p>
+      <p id="dealsLede">Reductions in your size. The better the match, the smaller the discount it needs to show here.</p>
     </div>
-    <div class="grid" id="dealsGrid" style="padding-bottom:72px"></div>
+    <div class="grid" id="dealsGrid"></div>
+  </section>
+
+  <!-- YOU -->
+  <section id="view-you" hidden>
+    <div class="head">
+      <h1>You</h1>
+      <p>Your account, what Capsule has learned about your taste, and the limits it works within.</p>
+    </div>
+    <div class="you" id="you"></div>
   </section>
 </main>
 
 <footer><div class="in">
   <span id="footNote">Prices and stock are checked automatically about three times a day.</span>
-  <span><a href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener">Updater status</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/CyberSecDigestDaily/capsule/blob/main/items.json" target="_blank" rel="noopener">Edit the watch list</a></span>
+  <span><a href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener">Updater status</a></span>
 </div></footer>
 
+<nav class="dock" id="dock" aria-label="Sections"></nav>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer closed" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" hidden>
   <div class="d-close"><button id="dClose" aria-label="Close">&times;</button></div>
   <div class="d-body" id="dBody"></div>
 </aside>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script>
-const CAT_LABEL={"Jackets & Overshirts":"Jackets","Mid-layers & Knits":"Knitwear","Tees":"Tees","Jeans":"Jeans","Chinos & Trousers":"Trousers","Footwear":"Footwear","Socks & Boxers":"Basics"};
-const SIG_ORDER={BUY:0,SALE:1,WATCHING:2,"CHECK MANUALLY":3,"SOLD OUT":4,"LINK ERROR":5,BOUGHT:6};
-const STATUS=[["all","Everything"],["BUY","Buy now"],["SALE","On sale"],["WATCHING","Watching"],["SOLD OUT","Sold out"],["CHECK MANUALLY","Not live"]];
-const VIEWS=["shop","outfits","deals"];
-const ICON_CHECK='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
-
-const S={items:[],byId:{},sizes:{},generated:null,history:{},finds:[],picks:[],picksUpdated:null,
-  wardrobe:{staples:[],formulas:[],role_labels:{}},owned:loadJSON("capsule-bought",{}),reach:loadNum("capsule-reach"),
-  nope:loadJSON("capsule-nope",{}),winter:false,
-  cat:"all",status:"all",q:"",sort:"rec",hideOwned:false,view:"shop",lastFocus:null};
-
-function loadJSON(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")??d}catch(e){return d}}
-function loadNum(k){try{const v=parseFloat(localStorage.getItem(k));return isNaN(v)?null:v}catch(e){return null}}
-function persist(){try{localStorage.setItem("capsule-bought",JSON.stringify(S.owned));
-  S.reach?localStorage.setItem("capsule-reach",String(S.reach)):localStorage.removeItem("capsule-reach")}catch(e){}}
-const $=id=>document.getElementById(id);
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function safe(u){return /^https?:\/\//i.test(String(u||""))?String(u):"#"}
-function gbp(n){if(n==null||isNaN(n))return"";n=Number(n);return"£"+(Number.isInteger(n)?n:n.toFixed(2))}
-function img(u,w){if(!u)return"";return u+(u.includes("?")?"&":"?")+"width="+w}
-function dayName(iso){return new Date(iso).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}
-function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("on"),2600)}
-
-/* ownership */
-const isOwned=it=>!!(it.bought||S.owned[it.id]===true);
-const stapleOwned=s=>{const v=S.owned[s.id];return v===undefined?!!s.owned:v===true};
-const ownedPieces=()=>[...S.items.filter(isOwned),...S.wardrobe.staples.filter(stapleOwned)];
-function setOwned(id,on){if(on)S.owned[id]=true;else delete S.owned[id];persist();renderAll();}
-const LIVE_CHECKS=["shopify","uniqlo","mands","barbour"];
-const live=it=>LIVE_CHECKS.includes(it.check)&&it.signal!=="LINK ERROR"&&it.price!=null&&!it.blocked;
-const isNope=o=>!!(o&&o.url&&S.nope[o.url]);
-const WINTER_ROLES=["boot","knit","cardigan","fleece"];
-const isWinter=it=>WINTER_ROLES.includes(it.role)||/wax|wool|fleece|lined|thermal|cord|shearling|quilt|knit|jumper|lambswool|merino|moleskin|flannel/i.test(`${it.name} ${it.note||""}`);
-
-/* feedback: a pre-filled email the next morning's review reads */
-const FB=new Map();
-function fbRow(o,kinds){FB.set(o.url,o);
-  const lab={bought:"Bought it",more:"More like this",nope:"Not for me"};
-  return`<div class="fb" data-url="${esc(o.url)}">${(kinds||["bought","more","nope"]).map(k=>`<button type="button" data-k="${k}">${lab[k]}</button>`).join("")}</div>`;}
-function feedbackEmail(){
-  let a="";try{a=localStorage.getItem("capsule-email")||""}catch(e){}
-  if(!a){a=(prompt("Your email address. Feedback opens a ready-written email to yourself, which the morning review reads. Saved on this device only.")||"").trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(a))return null;try{localStorage.setItem("capsule-email",a)}catch(e){}}
-  return a;
-}
-function sendFeedback(kind,o){
-  const to=feedbackEmail();if(!to){toast("Add your email address to send feedback.");return;}
-  const name=`${o.brand||""} ${o.name||""}`.trim();
-  const hint={bought:"Size or colour, if different (optional): ",more:"What you like about it (optional): ",nope:"What's off about it (optional): "}[kind];
-  if(kind==="bought"&&o.id!=null)setOwned(o.id,true);
-  if(kind==="nope"){S.nope[o.url]=1;try{localStorage.setItem("capsule-nope",JSON.stringify(S.nope))}catch(e){};closeDrawer();renderAll();}
-  location.href=`mailto:${to}?subject=${encodeURIComponent(`Capsule ${kind}: ${name}`.slice(0,140))}&body=${encodeURIComponent(`${o.url||""}\n\n${hint}`)}`;
-  toast({bought:"Marked as yours on this device. Send the email and every device catches up after the morning review.",
-         more:"Send the email and tomorrow's picks lean this way.",
-         nope:"Hidden on this device. Send the email and the morning review drops it for good."}[kind]);
-}
-document.addEventListener("click",e=>{const b=e.target.closest(".fb button");if(!b)return;e.preventDefault();e.stopPropagation();
-  const o=FB.get(b.closest(".fb").dataset.url);if(o)sendFeedback(b.dataset.k,o);});
-
-/* fit + sleeve check */
-function fitInfo(it){
-  const f=it.fit;if(!f)return null;
-  let v=f.verdict||"check",reach="";
-  const sz=String(it.size||"").split("|")[0],r=f.reach;
-  if(r&&r[sz]!=null){
-    if(S.reach){const short=S.reach-r[sz];
-      if(short>1){reach=`About ${Math.round(short)}cm short in the sleeve in ${sz}`+(r.XL&&sz!=="XL"?`; the XL reaches ${r.XL}cm.`:".");if(v==="good")v="check";}
-      else reach=`Sleeves should reach your wrist in ${sz} (about ${r[sz]}cm from the back of the neck).`;}
-    else reach=`Sleeve, back of neck to cuff: about ${r[sz]}cm in ${sz}`+(r.XL&&sz!=="XL"?`, ${r.XL}cm in XL.`:".");
-  }
-  return{v,reach,note:f.note||""};
-}
-
-/* card */
-function badgeFor(it){
-  if(isOwned(it))return`<span class="badge muted">Owned</span>`;
-  switch(it.signal){
-    case"BUY":return`<span class="badge buy">Buy now</span>`;
-    case"SALE":return`<span class="badge sale">−${it.discount_pct}%</span>`;
-    case"SOLD OUT":return`<span class="badge out">${it.restock_watch?"Restock watch":"Sold out"}</span>`;
-    case"CHECK MANUALLY":return`<span class="badge muted">Price not live</span>`;
-    case"LINK ERROR":return`<span class="badge muted">Link broken</span>`;
-  }
-  return it.discount_pct?`<span class="badge sale">−${it.discount_pct}%</span>`:"";
-}
-function metaFor(it){
-  const sz=String(it.size||"").split("|")[0];
-  if(isOwned(it))return`<p class="meta">In your wardrobe</p>`;
-  switch(it.signal){
-    case"BUY":return`<p class="meta go">Below your ${gbp(it.target)} target, in stock in ${esc(sz)}</p>`;
-    case"SOLD OUT":return`<p class="meta">Sold out in ${esc(sz)}${it.alt_sizes&&it.alt_sizes.length?`. ${esc(it.alt_sizes.slice(0,3).join(", "))} in stock`:""}</p>`;
-    case"CHECK MANUALLY":return`<p class="meta">Last seen at ${gbp(it.last_price)} on ${esc(it.checked_on?dayName(it.checked_on):"")}</p>`;
-    case"LINK ERROR":return`<p class="meta">Being re-sourced</p>`;
-  }
-  return`<p class="meta">Target ${gbp(it.target)}</p>`;
-}
-function priceFor(it){
-  const p=it.signal==="LINK ERROR"?it.last_seen_price:it.price;
-  if(p==null)return"";
-  const red=it.was&&it.discount_pct>0;
-  return`<p class="price num"><span class="now${red?" red":""}">${gbp(p)}</span>${red?`<s>${gbp(it.was)}</s>`:""}</p>`;
-}
-function tileFor(o,w){
-  const alt=esc(`${o.brand||""} ${o.name||""}`.trim());
-  return o.image?`<img src="${esc(img(o.image,w))}" srcset="${esc(img(o.image,400))} 400w, ${esc(img(o.image,700))} 700w, ${esc(img(o.image,1000))} 1000w" sizes="(max-width:760px) 50vw, 25vw" alt="${alt}" loading="lazy" decoding="async">`
-                 :`<span class="ph">${esc(o.brand||o.store||"")}</span>`;
-}
-function card(it){
-  const fi=fitInfo(it),own=isOwned(it);
-  const el=document.createElement("article");
-  el.className="card"+(own||it.signal==="SOLD OUT"?" dim":"");
-  let flag="";
-  if(fi&&!own){if(fi.v==="avoid")flag=`<p class="flag bad">Off-brief cut</p>`;else if(fi.v==="check")flag=`<p class="flag">Check the fit</p>`;}
-  el.innerHTML=`<button class="card-hit" aria-label="${esc(it.brand+" "+it.name)}, details">
-      <div class="tile">${tileFor(it,700)}${badgeFor(it)}</div>
-      <div class="info"><p class="brand">${esc(it.brand||it.store)}</p><h3 class="name">${esc(it.name)}</h3>${priceFor(it)}${metaFor(it)}${flag}</div>
-    </button>
-    <button class="own" aria-pressed="${own}" ${it.bought?"disabled":""} title="${own?"Owned":"Mark as owned"}" aria-label="${own?"Owned":"Mark as owned"}: ${esc(it.name)}">${ICON_CHECK}</button>`;
-  el.querySelector(".card-hit").onclick=e=>openDrawer(it,e.currentTarget);
-  el.querySelector(".own").onclick=()=>setOwned(it.id,!own);
-  return el;
-}
-
-/* shop */
-function filtered(){
-  let list=S.items.filter(it=>{
-    if(S.cat!=="all"&&it.category!==S.cat)return false;
-    if(S.hideOwned&&isOwned(it))return false;
-    if(isNope(it)&&!isOwned(it))return false;
-    if(S.winter&&!isWinter(it))return false;
-    if(S.status!=="all"&&(isOwned(it)||it.signal!==S.status))return false;
-    if(S.q){const q=S.q.toLowerCase();if(!`${it.brand} ${it.name} ${it.category} ${it.store}`.toLowerCase().includes(q))return false;}
-    return true;
-  });
-  const pr=i=>i.price??i.last_price??1e9;
-  const rank=i=>isOwned(i)?9:(SIG_ORDER[i.signal]??5);
-  if(S.sort==="low")list.sort((a,b)=>pr(a)-pr(b));
-  else if(S.sort==="high")list.sort((a,b)=>pr(b)-pr(a));
-  else if(S.sort==="close")list.sort((a,b)=>(pr(a)-(a.target??0))-(pr(b)-(b.target??0)));
-  else list.sort((a,b)=>rank(a)-rank(b)||(pr(a)-(a.target??0))-(pr(b)-(b.target??0)));
-  return list;
-}
-function renderFilters(){
-  const cats=["all",...new Set(S.items.map(i=>i.category))];
-  $("cats").innerHTML=cats.map(c=>`<button data-cat="${esc(c)}" aria-pressed="${S.cat===c}">${esc(c==="all"?"All":(CAT_LABEL[c]||c))}</button>`).join("");
-  $("cats").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.cat=b.dataset.cat;renderShop();});
-  const base=S.items.filter(it=>(S.cat==="all"||it.category===S.cat)&&!isOwned(it));
-  $("status").innerHTML=STATUS.map(([k,l])=>{const n=k==="all"?null:base.filter(i=>i.signal===k).length;
-    if(n===0&&k!==S.status)return"";
-    return`<button data-st="${esc(k)}" aria-pressed="${S.status===k}">${l}${n!=null?`<span class="n">${n}</span>`:""}</button>`}).join("");
-  $("status").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.status=b.dataset.st;renderShop();});
-}
-function renderShop(){
-  renderFilters();
-  const g=$("grid");g.innerHTML="";
-  const list=filtered();
-  if(!list.length){g.innerHTML=`<p class="empty">Nothing matches these filters.<button id="clr">Clear filters</button></p>`;
-    $("clr").onclick=()=>{S.cat="all";S.status="all";S.q="";$("q").value="";S.hideOwned=false;$("hideOwned").checked=false;renderShop();};return;}
-  list.forEach(it=>g.appendChild(card(it)));
-}
-function renderEdit(){
-  const picks=S.picks.filter(p=>!isNope(p)&&!S.items.some(i=>isOwned(i)&&i.url===p.url));
-  $("edit").hidden=!picks.length;
-  if(S.picksUpdated)$("editLede").textContent=`The pieces most worth buying right now, in your size. Chosen ${dayName(S.picksUpdated)}, stock checked on every run.`;
-  $("editGrid").innerHTML=picks.map(p=>{
-    const now=p.price_now??p.price,red=p.discount_pct>0&&p.was;
-    const stock=p.in_stock===false?`<p class="meta">Sold out in ${esc(p.size||"your size")} since this was picked</p>`:`<p class="meta go">In stock in ${esc(p.size||"your size")}</p>`;
-    const own=S.items.find(i=>i.url===p.url);
-    return`<div class="edit-item"><a href="${esc(safe(p.url))}" target="_blank" rel="noopener">
-      <div class="tile">${tileFor(p,1000)}${red?`<span class="badge sale">−${p.discount_pct}%</span>`:""}</div>
-      <p class="brand">${esc(p.brand||p.store||"")}</p><h3 class="name">${esc(p.name)}</h3>
-      <p class="price num"><span class="now${red?" red":""}">${gbp(now)}</span>${red?`<s>${gbp(p.was)}</s>`:""}</p>${stock}
-      ${p.why?`<p class="why">${esc(p.why)}</p>`:""}</a>${fbRow(own?{...p,id:own.id}:p)}</div>`}).join("");
-}
-
-/* drawer */
-function openDrawer(it,from){
-  S.lastFocus=from||document.activeElement;
-  const fi=fitInfo(it),own=isOwned(it),sz=String(it.size||"").split("|")[0];
-  const hist=(S.history[String(it.id)]||[]).filter(e=>e[1]!=null);
-  let avail="";
-  if(it.signal==="CHECK MANUALLY")avail=`${esc(it.store)} blocks automatic checks, so this price was last confirmed by hand on ${esc(it.checked_on?dayName(it.checked_on):"an earlier date")}.`;
-  else if(it.signal==="LINK ERROR")avail=`The shop's link stopped working. The daily review will find it again or swap in an equivalent.`;
-  else if(it.in_stock)avail=`In stock in ${esc(sz)} at ${esc(it.store)}.`;
-  else avail=`Sold out in ${esc(sz)} at ${esc(it.store)}.`+(it.alt_sizes&&it.alt_sizes.length?` In stock: ${esc(it.alt_sizes.join(", "))}.`:"")+(it.restock_watch?" You'll get an alert if it comes back.":"");
-  let money=`Your target is ${gbp(it.target)}.`;
-  if(it.low!=null&&hist.length>2)money+=` Lowest seen: ${gbp(it.low)}${it.low_date?` on ${dayName(it.low_date)}`:""}, since tracking began ${dayName(hist[0][0])}.`;
-  const verdict=fi?({good:"Should suit your build.",check:"Worth checking before you buy.",avoid:"Doesn't fit your brief."}[fi.v]||""):"";
-  const red=it.was&&it.discount_pct>0;
-  $("dBody").innerHTML=`<div class="tile">${tileFor(it,1000)}</div>
-    <p class="brand">${esc(it.brand||it.store)}</p><h2 id="dTitle">${esc(it.name)}</h2>
-    ${it.price!=null||it.last_seen_price!=null?`<p class="d-price num"><span${red?' style="color:var(--sale)"':""}>${gbp(it.price??it.last_seen_price)}</span>${red?`<s>${gbp(it.was)}</s><span class="off">${it.discount_pct}% off</span>`:""}</p>`:""}
-    <div class="d-sec"><h3>Availability</h3><p>${avail}</p><p class="soft">${money}</p></div>
-    ${fi?`<div class="d-sec"><h3>Fit</h3><p>${verdict} ${esc(fi.note)}</p>${fi.reach?`<p class="soft">${esc(fi.reach)}</p>`:""}</div>`:""}
-    ${it.note?`<div class="d-sec"><h3>Why it's on the list</h3><p>${esc(it.note)}</p></div>`:""}
-    <div class="d-actions">
-      <a class="btn" href="${esc(safe(it.url))}" target="_blank" rel="noopener">View at ${esc(it.store)}</a>
-      ${it.bought?`<p class="soft">In your wardrobe.</p>`:own?`<button class="btn ghost" id="dOwn">Owned on this device. Remove</button>`:`<button class="btn ghost" id="dBought">I bought this</button>`}
-      ${it.bought?"":fbRow(it,["more","nope"])}
-    </div>`;
-  if($("dOwn"))$("dOwn").onclick=()=>{setOwned(it.id,false);openDrawer(S.byId[it.id],S.lastFocus);};
-  if($("dBought"))$("dBought").onclick=()=>{sendFeedback("bought",it);openDrawer(S.byId[it.id],S.lastFocus);};
-  const d=$("drawer");d.hidden=false;$("scrim").hidden=false;document.body.style.overflow="hidden";
-  requestAnimationFrame(()=>{d.classList.remove("closed");$("dClose").focus();});
-}
-function closeDrawer(){
-  const d=$("drawer");if(d.hidden)return;d.classList.add("closed");$("scrim").hidden=true;document.body.style.overflow="";
-  setTimeout(()=>{d.hidden=true;},280);if(S.lastFocus&&document.contains(S.lastFocus))S.lastFocus.focus();
-}
-
-/* outfits */
-const RANK={BUY:0,DEAL:1,SALE:2,WATCHING:3};
-function candidates(){
-  const c=[];
-  S.items.forEach(i=>{
-    if(isOwned(i)||isNope(i)||!live(i)||!i.in_stock||!i.role||!(i.signal in RANK))return;
-    const fi=fitInfo(i);if(fi&&fi.v==="avoid")return;
-    c.push({ref:i,role:i.role,brand:i.brand,name:i.name,url:i.url,image:i.image,price:i.price,was:i.was,discount_pct:i.discount_pct,rank:RANK[i.signal],good:!fi||fi.v==="good",store:i.store});
-  });
-  S.finds.forEach(f=>{if(f.role&&!isNope(f))c.push({role:f.role,brand:f.brand,name:f.name,url:f.url,image:f.image,price:f.price,was:f.was,discount_pct:f.discount_pct,rank:RANK.DEAL,good:false,store:f.store,deal:true});});
-  return c.sort((a,b)=>(a.rank-b.rank)||((a.good?0:1)-(b.good?0:1))||(a.price-b.price));
-}
-function analyse(){
-  const own=ownedPieces(),cands=candidates();
-  const forms=(S.wardrobe.formulas||[]).map(f=>{
-    const slots=f.slots.map(s=>{const mine=own.filter(p=>s.roles.includes(p.role));
-      return{...s,mine,pick:mine.length?null:(cands.find(c=>s.roles.includes(c.role))||null)};});
-    return{...f,slots,missing:slots.filter(s=>!s.mine.length)};
-  });
-  const scored=cands.map(c=>{const completes=[],helps=[];
-    forms.forEach(f=>{if(!f.missing.some(s=>s.roles.includes(c.role)))return;(f.missing.length===1?completes:helps).push(f.name);});
-    const picked=S.picks.some(p=>p.url===c.url);
-    return{...c,completes,helps,picked,score:completes.length*100+(completes.length+helps.length)*10-c.rank*4-(c.good?0:3)-c.price/40+(picked?40:0)};
-  }).filter(c=>c.completes.length+c.helps.length>0).sort((a,b)=>b.score-a.score);
-  const best=[],roles=new Set();
-  for(const c of scored){if(roles.has(c.role))continue;roles.add(c.role);best.push(c);if(best.length===3)break;}
-  return{forms,done:forms.filter(f=>!f.missing.length).length,best};
-}
-function gapsOf(forms){
-  const labels=S.wardrobe.role_labels||{},g={};
-  forms.forEach(f=>f.missing.forEach(s=>{const k=[...s.roles].sort().join("|");
-    (g[k]=g[k]||{label:s.roles.map(r=>(labels[r]||r).toLowerCase()).join(" or "),n:0}).n++;}));
-  return Object.values(g).sort((a,b)=>b.n-a.n);
-}
-function renderProgress(){
-  const {forms,done}=analyse(),gaps=gapsOf(forms);
-  $("progress").hidden=!forms.length;
-  $("pgBar").innerHTML=forms.map((f,i)=>`<span class="${i<done?"on":""}"></span>`).join("");
-  $("pgLine").innerHTML=`<b>${done} of ${forms.length} outfits</b> ready to wear with what you own.`
-    +(gaps.length?` Missing: ${esc(gaps.slice(0,3).map(x=>`${x.label} (${x.n})`).join(", "))}. `:" ")+`<a href="#outfits">See outfits</a>`;
-}
-function listJoin(a){return a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1]}
-function renderOutfits(){
-  const {forms,done,best}=analyse();
-  $("outfitLede").textContent=`${done} of ${forms.length} ready to wear with what you own.`;
-  $("reach").value=S.reach??"";
-  $("nextBlock").hidden=!best.length;
-  $("nextGrid").innerHTML="";
-  best.forEach(c=>{
-    const why=(c.completes.length?`Completes ${listJoin(c.completes)}`:`Fills a gap in ${listJoin(c.helps)}`)+(c.picked?". In this week's edit":"");
-    const el=document.createElement("article");el.className="card";
-    const a=document.createElement("a");a.className="card-hit";a.href=safe(c.url);a.target="_blank";a.rel="noopener";
-    const red=c.was&&c.discount_pct>0;
-    a.innerHTML=`<div class="tile">${tileFor(c,700)}${red?`<span class="badge sale">−${c.discount_pct}%</span>`:(c.rank===0?`<span class="badge buy">Buy now</span>`:"")}</div>
-      <div class="info"><p class="brand">${esc(c.brand||c.store)}</p><h3 class="name">${esc(c.name)}</h3>
-      <p class="price num"><span class="now${red?" red":""}">${gbp(c.price)}</span>${red?`<s>${gbp(c.was)}</s>`:""}</p>
-      <p class="reason">${esc(why)}</p>${c.deal?`<p class="meta">Deal at ${esc(c.store)}</p>`:""}</div>`;
-    el.appendChild(a);el.insertAdjacentHTML("beforeend",fbRow(c.ref?{...c,id:c.ref.id}:c));
-    $("nextGrid").appendChild(el);
-  });
-  $("outfits").innerHTML=forms.map(f=>`<div class="outfit">
-     <div class="outfit-head"><h3>${esc(f.name)}</h3><span class="when">${esc(f.when||"")}</span>
-       <span class="state${f.missing.length?"":" ready"}">${f.missing.length?`${f.missing.length} missing`:"Ready to wear"}</span></div>
-     <div class="slots">${f.slots.map(s=>{
-       if(s.mine.length){const p=s.mine.find(x=>x.image)||s.mine[0];
-         return`<div class="slot"><p class="lab">${esc(s.label)}</p><div class="tile">${p.image?tileFor(p,500):`<span class="ph">${esc(p.name)}</span>`}</div>
-           <p class="cap">${esc(s.mine.map(x=>x.brand?`${x.brand} ${x.name}`:x.name).join(" or "))}</p></div>`;}
-       const k=s.pick;
-       return`<div class="slot missing"><p class="lab">${esc(s.label)}</p><div class="tile">${k?tileFor(k,500):`<span class="ph">Nothing in stock yet</span>`}</div>
-         <p class="cap"><span class="miss">Missing.</span> ${k?`Try <a href="${esc(safe(k.url))}" target="_blank" rel="noopener">${esc((k.brand?k.brand+" ":"")+k.name)}</a>, ${gbp(k.price)}`:"The deals radar will flag one."}</p></div>`;
-     }).join("")}</div></div>`).join("");
-  renderOwnGrid();
-}
-function renderOwnGrid(){
-  const labels=S.wardrobe.role_labels||{},used=new Set((S.wardrobe.formulas||[]).flatMap(f=>f.slots.flatMap(s=>s.roles)));
-  $("owngrid").innerHTML=Object.keys(labels).filter(r=>used.has(r)||r==="cap").map(r=>{
-    const rows=[...S.wardrobe.staples.filter(s=>s.role===r).map(s=>({id:s.id,label:s.name,own:stapleOwned(s),src:"",lock:false})),
-      ...S.items.filter(i=>i.role===r).map(i=>({id:String(i.id),label:`${i.brand} ${i.name}`,own:isOwned(i),src:"watch list",lock:!!i.bought}))];
-    if(!rows.length)return"";
-    rows.sort((a,b)=>(b.own-a.own)||(a.src?1:0)-(b.src?1:0));
-    return`<div class="owngroup"><h4>${esc(labels[r])}</h4>${rows.map(x=>`<label><input type="checkbox" data-id="${esc(x.id)}" data-staple="${x.src?"0":"1"}" ${x.own?"checked":""} ${x.lock?"disabled":""}><span>${esc(x.label)}${x.src?` <span class="src">on watch list</span>`:""}</span></label>`).join("")}</div>`;
-  }).join("");
-  $("owngrid").querySelectorAll("input").forEach(cb=>cb.onchange=()=>{
-    const id=cb.dataset.id;
-    if(cb.dataset.staple==="1")S.owned[id]=cb.checked;else{if(cb.checked)S.owned[id]=true;else delete S.owned[id];}
-    persist();renderAll();
-  });
-}
-function shareLink(){
-  const ids=[...S.items.filter(i=>!i.bought&&S.owned[i.id]===true).map(i=>i.id),...S.wardrobe.staples.filter(stapleOwned).map(s=>s.id)];
-  const url=location.origin+location.pathname+"#outfits&own="+(ids.join(",")||"none")+(S.reach?"&reach="+S.reach:"");
-  const ok=()=>toast("Wardrobe link copied. Open it on your phone to bring your ticks across.");
-  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(url).then(ok).catch(()=>prompt("Copy this link",url));else prompt("Copy this link",url);
-}
-function readHash(){
-  const parts=location.hash.slice(1).split("&").filter(Boolean),kv={};let view=null;
-  parts.forEach(p=>{const i=p.indexOf("=");if(i<0)view=p;else kv[p.slice(0,i)]=decodeURIComponent(p.slice(i+1));});
-  if(view==="watch")view="shop";
-  if(kv.own!==undefined){
-    const ids=new Set(kv.own==="none"?[]:kv.own.split(",").map(s=>s.trim()).filter(Boolean));
-    S.owned={};
-    S.items.forEach(i=>{if(ids.has(String(i.id)))S.owned[i.id]=true;});
-    S.wardrobe.staples.forEach(s=>{const want=ids.has(s.id);if(want!==!!s.owned)S.owned[s.id]=want;});
-    if(kv.reach&&!isNaN(parseFloat(kv.reach)))S.reach=parseFloat(kv.reach);
-    persist();toast("Wardrobe loaded from your link");
-    history.replaceState(null,"",location.pathname+"#"+(view||"outfits"));
-  }
-  if(VIEWS.includes(view))S.view=view;
-}
-
-/* deals */
-function renderDeals(){
-  const g=$("dealsGrid");g.innerHTML="";
-  if(!S.finds.length){g.innerHTML=`<p class="empty">Nothing has passed the daily check yet. New candidates from the sale rails are reviewed every morning.</p>`;return;}
-  S.finds.filter(f=>!isNope(f)).forEach(f=>{
-    const el=document.createElement("article");el.className="card";
-    const a=document.createElement("a");a.className="card-hit";a.href=safe(f.url);a.target="_blank";a.rel="noopener";
-    const fresh=f.first_seen&&(Date.now()-new Date(f.first_seen+"T12:00:00Z"))/864e5<=2;
-    a.innerHTML=`<div class="tile">${tileFor(f,700)}<span class="badge sale">−${esc(f.discount_pct)}%</span></div>
-      <div class="info"><p class="brand">${esc(f.brand)}</p><h3 class="name">${esc(f.name)}</h3>
-      <p class="price num"><span class="now red">${gbp(f.price)}</span>${f.was?`<s>${gbp(f.was)}</s>`:""}</p>
-      <p class="meta">${fresh?"New today. ":""}${esc(f.size)} in stock at ${esc(f.store)}</p></div>`;
-    el.appendChild(a);el.insertAdjacentHTML("beforeend",fbRow(f));
-    g.appendChild(el);
-  });
-}
-
-/* chrome */
-function renderMeta(){
-  const s=S.sizes||{};
-  $("sizesLine").textContent=`Stock shown for your sizes: ${s.top||"L"} tops, ${s.waist||"W34"} ${s.leg||"L32"} trousers, ${s.shoe||"UK 10"} shoes.`;
-  if(S.generated){
-    const d=new Date(S.generated),hrs=(Date.now()-d)/36e5;
-    $("updated").textContent="Updated "+d.toLocaleString("en-GB",{weekday:"short",hour:"2-digit",minute:"2-digit"});
-    if(hrs>30){$("stale").hidden=false;$("stale").innerHTML=`Prices were last checked ${Math.round(hrs)} hours ago, so the updater may have stopped. <a href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener">Check its runs</a>`;}
-  }
-  const watching=S.items.filter(i=>!i.bought),stores=new Set(watching.map(i=>i.store)).size,mine=S.items.length-watching.length;
-  $("footNote").textContent=`Tracking ${watching.length} pieces across ${stores} shops${mine?`, plus ${mine} already in your wardrobe`:""}. Prices and stock are checked about three times a day.`;
-  $("dealsLede").textContent=`${S.finds.length} piece${S.finds.length===1?"":"s"} at 25% or more off, in your size, each checked against your brief before it shows here.`;
-}
-function show(v){
-  S.view=v;
-  VIEWS.forEach(x=>{$("view-"+x).hidden=x!==v;});
-  document.querySelectorAll(".nav button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.view===v)));
-  const want=v==="shop"?"":"#"+v;if(location.hash!==want)history.replaceState(null,"",location.pathname+want);
-}
-function renderAll(){renderMeta();renderProgress();renderEdit();renderShop();renderOutfits();renderDeals();}
-
-document.addEventListener("load",e=>{const i=e.target;if(i.tagName==="IMG"&&i.closest(".tile")&&i.naturalHeight>i.naturalWidth*1.08)i.classList.add("fill");},true);
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{show(b.dataset.view);window.scrollTo({top:0});});
-$("q").addEventListener("input",e=>{S.q=e.target.value.trim();renderShop();});
-$("sort").onchange=e=>{S.sort=e.target.value;renderShop();};
-$("hideOwned").onchange=e=>{S.hideOwned=e.target.checked;renderShop();};
-$("winter").onchange=e=>{S.winter=e.target.checked;renderShop();};
-if([9,10,11,0,1,2].includes(new Date().getMonth()))$("winterWrap").hidden=false;
-$("reach").addEventListener("change",e=>{const v=parseFloat(e.target.value);S.reach=(!isNaN(v)&&v>=70&&v<=110)?v:null;persist();renderAll();
-  toast(S.reach?`Sleeve length set to ${S.reach}cm`:"Sleeve length cleared");});
-$("howBtn").onclick=()=>{const h=$("howto");h.hidden=!h.hidden;$("howBtn").setAttribute("aria-expanded",String(!h.hidden));};
-$("shareBtn").onclick=shareLink;
-$("dClose").onclick=closeDrawer;$("scrim").onclick=closeDrawer;
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
-window.addEventListener("hashchange",()=>{const v=location.hash.slice(1).split("&")[0];if(VIEWS.includes(v)&&v!==S.view)show(v);});
-
-const bust="?"+Date.now();
-Promise.all([
-  fetch("data.json"+bust).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}),
-  fetch("history.json"+bust).then(r=>r.ok?r.json():{}).catch(()=>({})),
-  fetch("finds.json"+bust).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([d,h,f])=>{
-  S.items=d.items||[];S.items.forEach(i=>S.byId[i.id]=i);S.sizes=d.sizes||{};S.generated=d.generated||null;S.history=h||{};
-  S.wardrobe=Object.assign({staples:[],formulas:[],role_labels:{}},d.wardrobe||{});
-  if(S.reach==null&&S.sizes.reach_cm)S.reach=S.sizes.reach_cm;
-  if(f){S.finds=Array.isArray(f.finds)?f.finds:[];S.picks=Array.isArray(f.picks)?f.picks:[];S.picksUpdated=f.picks_updated||null;}
-  readHash();$("loading").hidden=true;renderAll();show(S.view);
-}).catch(()=>{$("loading").textContent="Today's prices didn't load. Refresh the page; if it keeps happening, check the updater status link below.";});
-</script>
 </body>
 </html>

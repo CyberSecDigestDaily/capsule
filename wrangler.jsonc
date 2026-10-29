@@ -1,0 +1,29 @@
+// Cloudflare Worker for Capsule: the site from docs/, the API from worker/, data in D1.
+// Deployed by Cloudflare Workers Builds from the `deploy` branch, which the price-check workflow rebuilds on every run
+// and on every change to the site or the Worker. Local dev: npx wrangler dev
+{
+  "name": "capsule",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  // Until a domain is chosen the site lives on the account's workers.dev address.
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./docs",
+    "binding": "ASSETS",
+    // The API, plus the page itself so it gets the full security headers. Everything else is served from the edge.
+    "run_worker_first": ["/api/*", "/", "/index.html"]
+  },
+  // No database_id on purpose: wrangler 4.45+ creates the "capsule" database on the first deploy and keeps it linked.
+  "d1_databases": [{"binding": "DB", "database_name": "capsule"}],
+  "vars": {
+    // SHA-256 of "inv:" + each invite code. Each works once; the owner invite makes the account Claude's review reads.
+    "INVITE_HASHES": "621f68e46b37953cc87499cdd793e080b7da90be76a48c7c70ea87a1faaa1790",
+    "OWNER_INVITE_HASH": "621f68e46b37953cc87499cdd793e080b7da90be76a48c7c70ea87a1faaa1790",
+    // SHA-256 of "rv:" + a review key, for a future reviewer that reads the account (/api/review). Empty: switched off.
+    "REVIEW_HASHES": ""
+    // ORIGIN and RP_ID are unset: the Worker uses the address it is served on. Set both when a custom domain arrives.
+  },
+  "triggers": {"crons": ["17 3 * * *"]},
+  "observability": {"enabled": true, "logs": {"invocation_logs": false}}
+}

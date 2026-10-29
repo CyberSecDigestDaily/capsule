@@ -1169,5 +1169,656 @@
   "https://walklondonshoes.co.uk/products/clapham-chelsea-boot-black-suede",
   "https://walklondonshoes.co.uk/products/hackney-chelsea-boot-brown",
   "https://walklondonshoes.co.uk/products/clapham-chelsea-boot-tan-suede"
- ]
+ ],
+ "pool": {
+  "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
+  "max_items": 1000,
+  "max_per_store": 80,
+  "caps": {
+   "tee": 70,
+   "knit": 220,
+   "overshirt": 220,
+   "jacket": 380,
+   "jeans": 180,
+   "chinos": 160,
+   "trainers": 200,
+   "boots": 320,
+   "accessory": 120
+  },
+  "premium_factor": 1.6,
+  "brands": [
+   "universal works",
+   "folk",
+   "albam",
+   "norse projects",
+   "community clothing",
+   "uskees",
+   "oliver spencer",
+   "finisterre",
+   "armor lux",
+   "armor-lux",
+   "le laboureur",
+   "vetra",
+   "bleu de paname",
+   "arpenteur",
+   "kestin",
+   "lavenham",
+   "barbour",
+   "filson",
+   "sunspel",
+   "merz b. schwanen",
+   "velva sheen",
+   "levi's",
+   "levis",
+   "lee",
+   "wrangler",
+   "edwin",
+   "nudie jeans",
+   "a.p.c.",
+   "apc",
+   "margaret howell",
+   "mhl",
+   "nigel cabourn",
+   "yarmouth oilskins",
+   "peregrine",
+   "william lockie",
+   "howlin'",
+   "howlin",
+   "andersen-andersen",
+   "le tricoteur",
+   "s.n.s. herning",
+   "sns herning",
+   "beams plus",
+   "orslow",
+   "frizmworks",
+   "hawksmill",
+   "rapanui",
+   "patagonia",
+   "napapijri",
+   "nike",
+   "nike sb",
+   "adidas",
+   "adidas originals",
+   "adidas skateboarding",
+   "carhartt",
+   "carhartt wip",
+   "dickies",
+   "ghanda",
+   "galt sand",
+   "idioma",
+   "passenger",
+   "arket",
+   "cos",
+   "asket",
+   "our legacy",
+   "wood wood",
+   "hope",
+   "fjallraven",
+   "fjällräven",
+   "snow peak",
+   "and wander",
+   "gramicci",
+   "taion",
+   "topo designs",
+   "battenwear",
+   "ben davis",
+   "red wing",
+   "danner",
+   "stan ray",
+   "service works",
+   "vans",
+   "new balance",
+   "clarks",
+   "clarks originals",
+   "blundstone",
+   "dr. martens",
+   "dr martens",
+   "solovair",
+   "john white",
+   "birkenstock",
+   "paraboot",
+   "novesta",
+   "converse",
+   "uniqlo",
+   "colorful standard",
+   "kavu",
+   "garbstore",
+   "couverture & the garbstore",
+   "hiut",
+   "blackhorse lane",
+   "percival",
+   "portuguese flannel",
+   "hartford",
+   "olaf hussein",
+   "libertine-libertine",
+   "satta",
+   "story mfg",
+   "by parra",
+   "oi polloi",
+   "nanamica",
+   "ymc",
+   "you must create",
+   "maharishi",
+   "beams",
+   "kapital",
+   "sassafras",
+   "snow peak",
+   "gitman",
+   "drake's",
+   "anglepoint",
+   "sebago",
+   "diemme",
+   "astorflex",
+   "quoddy",
+   "yuketen",
+   "mt rainier",
+   "manastash",
+   "goldwin",
+   "descente",
+   "cayl",
+   "rototo",
+   "merz b schwanen",
+   "anonymous ism",
+   "hestra"
+  ],
+  "exclude_brands": [
+   "stone island",
+   "ralph lauren",
+   "polo ralph lauren",
+   "lacoste",
+   "tommy hilfiger",
+   "tommy jeans",
+   "hugo",
+   "boss",
+   "calvin klein",
+   "the north face",
+   "moncler",
+   "canada goose",
+   "ellesse",
+   "fila",
+   "kappa",
+   "stussy",
+   "supreme",
+   "palace",
+   "obey",
+   "huf",
+   "dime",
+   "polar skate",
+   "c.p. company",
+   "cp company",
+   "ma.strum",
+   "belstaff",
+   "barbour international",
+   "globe",
+   "fred perry",
+   "ben sherman",
+   "farah",
+   "gant",
+   "lyle & scott",
+   "lyle and scott",
+   "pretty green",
+   "puma",
+   "reebok",
+   "le coq sportif",
+   "sergio tacchini",
+   "kangol",
+   "asics",
+   "salomon",
+   "hoka",
+   "on running",
+   "merrell",
+   "columbia",
+   "a bathing ape",
+   "bape",
+   "aape",
+   "amiri",
+   "alexander mcqueen",
+   "balenciaga",
+   "gucci",
+   "prada",
+   "off-white",
+   "palm angels",
+   "represent",
+   "axel arigato",
+   "1017 alyx 9sm",
+   "a-cold-wall",
+   "acne studios",
+   "ami paris",
+   "jacquemus",
+   "maison kitsune",
+   "maison kitsuné",
+   "casablanca",
+   "rhude",
+   "fear of god",
+   "essentials",
+   "air jordan",
+   "jordan",
+   "oakley",
+   "arc'teryx",
+   "arcteryx",
+   "veilance",
+   "comme des garcons",
+   "comme des garçons",
+   "y-3",
+   "kenzo",
+   "moschino",
+   "versace",
+   "dsquared2",
+   "diesel",
+   "g-star",
+   "hollister",
+   "abercrombie",
+   "superdry",
+   "jack & jones",
+   "boohooman",
+   "asos design",
+   "river island",
+   "topman"
+  ],
+  "junk": [
+   "gift card",
+   "gift voucher",
+   "candle",
+   "book",
+   "mug",
+   "poster",
+   "keyring",
+   "key ring",
+   "sticker",
+   "magazine",
+   "fragrance",
+   "cologne",
+   "perfume",
+   "eau de",
+   "soap",
+   "grooming",
+   "shampoo",
+   "conditioner",
+   "sunscreen",
+   "skincare",
+   "balm",
+   "beard",
+   "deodorant",
+   "homeware",
+   "blanket",
+   "throw",
+   "cushion",
+   "umbrella",
+   "ring",
+   "necklace",
+   "bracelet",
+   "earring",
+   "pendant",
+   "pin badge",
+   "enamel pin",
+   "lighter",
+   "phone case",
+   "laces",
+   "insole",
+   "insoles",
+   "shoe care",
+   "cleaner",
+   "spray",
+   "protector",
+   "notebook",
+   "art print",
+   "skate deck",
+   "wheels",
+   "trucks",
+   "bearings",
+   "griptape",
+   "grip tape",
+   "skateboard",
+   "helmet",
+   "knee pad",
+   "surf wax",
+   "changing robe",
+   "poncho",
+   "swimsuit",
+   "bikini",
+   "dress",
+   "skirt",
+   "blouse",
+   "bra",
+   "leggings",
+   "sports bra",
+   "bodysuit",
+   "jumpsuit",
+   "kids",
+   "baby",
+   "toddler",
+   "dog",
+   "bowl",
+   "flask",
+   "towel",
+   "sample",
+   "mystery",
+   "bundle",
+   "repair",
+   "patch kit",
+   "detergent",
+   "hanger",
+   "tray",
+   "sunglasses",
+   "glasses",
+   "eyewear",
+   "wallet",
+   "cardholder",
+   "card holder",
+   "purse",
+   "lanyard",
+   "bandana",
+   "tie",
+   "bow tie",
+   "pocket square",
+   "cufflinks",
+   "suit",
+   "tuxedo",
+   "waistcoat",
+   "water bottle",
+   "chain necklace",
+   "dog lead",
+   "coffee cup"
+  ],
+  "sources": [
+   {
+    "store": "universalworks.com",
+    "label": "Universal Works",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "sale"
+    ]
+   },
+   {
+    "store": "communityclothing.co.uk",
+    "label": "Community Clothing",
+    "new": [
+     "mens-new-arrivals"
+    ],
+    "sale": [
+     "mens-bargain-basement"
+    ]
+   },
+   {
+    "store": "jeanstore.co.uk",
+    "label": "Jeanstore",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "mens-sale"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   },
+   {
+    "store": "parasolstore.co.uk",
+    "label": "Parasol Store",
+    "new": [
+     "latest"
+    ],
+    "sale": [
+     "mens-sale"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   },
+   {
+    "store": "goodhoodstore.com",
+    "label": "Goodhood",
+    "new": [
+     "latest"
+    ],
+    "sale": [
+     "mens-sale"
+    ],
+    "brand_filter": true
+   },
+   {
+    "store": "urbanindustry.co.uk",
+    "label": "Urban Industry",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   },
+   {
+    "store": "stuartslondon.com",
+    "label": "Stuarts London",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   },
+   {
+    "store": "folkclothing.com",
+    "label": "Folk",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "mens-sale"
+    ]
+   },
+   {
+    "store": "albamclothing.com",
+    "label": "Albam",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "sale"
+    ]
+   },
+   {
+    "store": "uskees.co.uk",
+    "label": "Uskees",
+    "new": [
+     "non-sale-items"
+    ],
+    "sale": [
+     "sale"
+    ]
+   },
+   {
+    "store": "oliverspencer.co.uk",
+    "label": "Oliver Spencer",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "all-archive-sale"
+    ]
+   },
+   {
+    "store": "finisterre.com",
+    "label": "Finisterre",
+    "new": [
+     "mens-new-arrivals"
+    ],
+    "sale": [
+     "last-chance"
+    ]
+   },
+   {
+    "store": "routeone.co.uk",
+    "label": "Route One",
+    "new": [
+     "latest"
+    ],
+    "sale": [
+     "sale-footwear"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   },
+   {
+    "store": "slamcity.com",
+    "label": "Slam City",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "brand_filter": true
+   },
+   {
+    "store": "johnwhiteshoes.com",
+    "label": "John White",
+    "new": [
+     "mens-shoes"
+    ],
+    "only": [
+     "Footwear"
+    ]
+   },
+   {
+    "store": "walklondonshoes.co.uk",
+    "label": "Walk London",
+    "new": [
+     "mens-new-arrivals"
+    ],
+    "sale": [
+     "mens-sale"
+    ],
+    "only": [
+     "Footwear"
+    ]
+   },
+   {
+    "store": "www.solovair.co.uk",
+    "label": "Solovair",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "only": [
+     "Footwear"
+    ]
+   },
+   {
+    "store": "www.oipolloi.com",
+    "label": "Oi Polloi",
+    "new": [
+     "latest"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   },
+   {
+    "store": "www.couvertureandthegarbstore.com",
+    "label": "Couverture & The Garbstore",
+    "new": [
+     "mens-new-arrivals"
+    ],
+    "sale": [
+     "mens-sale"
+    ],
+    "brand_filter": true
+   },
+   {
+    "store": "peggsandson.com",
+    "label": "Peggs & Son",
+    "new": [
+     "latest-stock"
+    ],
+    "sale": [
+     "sale-all"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   },
+   {
+    "store": "www.fatbuddhastore.com",
+    "label": "Fat Buddha Store",
+    "new": [
+     "the-latest"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   },
+   {
+    "store": "passenger-clothing.com",
+    "label": "Passenger",
+    "new": [
+     "mens-new-arrivals"
+    ],
+    "sale": [
+     "mens-outlet"
+    ]
+   },
+   {
+    "store": "www.percivalclo.com",
+    "label": "Percival",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "sale"
+    ]
+   },
+   {
+    "store": "www.sunspel.com",
+    "label": "Sunspel",
+    "new": [
+     "mens-new-in"
+    ]
+   },
+   {
+    "store": "www.hiutdenim.co.uk",
+    "label": "Hiut Denim",
+    "new": [
+     "mens"
+    ],
+    "sale": [
+     "the-archive-sale-mens"
+    ]
+   },
+   {
+    "store": "blackhorselane.com",
+    "label": "Blackhorse Lane",
+    "new": [
+     "new-arrivals"
+    ]
+   },
+   {
+    "store": "www.kestin.co",
+    "label": "Kestin",
+    "new": [
+     "new-arrivals"
+    ]
+   },
+   {
+    "store": "endclothing.com",
+    "label": "END.",
+    "new": [
+     "mens-new-in"
+    ],
+    "sale": [
+     "mens-sale"
+    ],
+    "pages": 2,
+    "brand_filter": true
+   }
+  ]
+ }
 }

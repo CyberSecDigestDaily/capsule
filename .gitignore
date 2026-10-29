@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 cloudflare/node_modules/
 cloudflare/.wrangler/
+node_modules/
+.wrangler/
