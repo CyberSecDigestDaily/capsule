@@ -258,7 +258,7 @@ export function normItem(raw, kind) {
     it = {kind, url: r.url, brand: r.brand, name: r.name, store: r.store, category: r.category, role: r.role,
       price: r.price_now ?? r.price ?? null, was: r.was || null, disc: r.discount_pct || 0, image: r.image,
       text: [r.why, r.colour, (r.fit_words || []).join(" "), r.composition].filter(Boolean).join(" ").slice(0, 300),
-      firstSeen: r.first_seen || r.since || null, size: r.size, alt: [], inStock: r.in_stock !== false && !r.verify_error,
+      firstSeen: kind === "pick" ? null : (r.first_seen || null), size: r.size, alt: [], inStock: r.in_stock !== false && !r.verify_error,
       variant: r.variant, why: kind === "pick" ? r.why : undefined, short: r.short, colourHint: r.colour || r.variant || ""};
   }
   it.key = itemKey(it.url, it.variant);

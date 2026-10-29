@@ -39,6 +39,7 @@ export async function api(method, path, body) {
 /* Is there a Capsule Worker behind this page? (The GitHub Pages copy has none.) */
 export async function hasServer() {
   if (acct.server !== null) return acct.server;
+  if (/\.github\.io$/.test(location.hostname)) return (acct.server = false); // the static copy has no API
   try {
     const r = await fetch("/api/health", {cache: "no-store", credentials: "same-origin"});
     const d = r.ok && /json/.test(r.headers.get("Content-Type") || "") ? await r.json() : null;

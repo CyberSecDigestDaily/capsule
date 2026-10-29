@@ -1310,7 +1310,8 @@ async function checkMoved() {
     const bits = [];
     if (kv.item) bits.push("item=" + encodeURIComponent(kv.item));
     else if (view && VIEW_OF[view]) bits.push(HASH_OF[VIEW_OF[view]]);
-    if (kv.join) bits.push("join=" + encodeURIComponent(kv.join));
+    const invite = kv.join || A.pendingInvite();
+    if (invite) bits.push("join=" + encodeURIComponent(invite));
     if (Object.values(S.entries).some(E.reacted) || Object.keys(S.cfg.owned).length || S.cfg.reach) bits.push("carry=" + carryOut());
     $("loading").textContent = "Capsule has moved. Taking you there…";
     location.replace(w.url.replace(/#.*$/, "") + (bits.length ? "#" + bits.join("&") : ""));
