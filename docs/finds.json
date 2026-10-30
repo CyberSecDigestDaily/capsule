@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30T06:16:00.633184Z",
+ "generated": "2026-10-30T09:06:13.427023Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -162,30 +162,7 @@
    "start_price": 34.9
   }
  ],
- "picks_updated": "2026-10-29",
+ "picks_updated": "2026-10-30",
  "errors": [],
- "candidates": [
-  {
-   "key": "folkclothing.com/pintuck-jersey-trouser-navy",
-   "first_seen": "2026-10-30",
-   "store": "Folk",
-   "brand": "Folk",
-   "name": "Pintuck Jersey Trouser, Navy",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/SS25Flats2-377.jpg?v=1763551163",
-   "url": "https://folkclothing.com/products/pintuck-jersey-trouser-navy",
-   "category": "Chinos & Trousers",
-   "price": 75.0,
-   "was": 145.0,
-   "discount_pct": 48,
-   "size": "W34 L32",
-   "colour": "navy",
-   "tier": "deal",
-   "score": 53.3,
-   "role": "trouser",
-   "why": "48% off at Folk · W34 L32 in stock · navy · chinos & trousers",
-   "fit_words": [],
-   "composition": "61% cotton, 34% polyester, 5% elastane",
-   "desc": "pintuck jersey trouser.. model is 6'2\" and wearing size 32.. composition // 61% cotton, 34% polyester, 5% elastane. made in portugal.. . ."
-  }
- ]
+ "candidates": []
 }
