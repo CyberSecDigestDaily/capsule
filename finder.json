@@ -1168,7 +1168,16 @@
   "https://walklondonshoes.co.uk/products/hopper-chelsea-boot-black-leather",
   "https://walklondonshoes.co.uk/products/clapham-chelsea-boot-black-suede",
   "https://walklondonshoes.co.uk/products/hackney-chelsea-boot-brown",
-  "https://walklondonshoes.co.uk/products/clapham-chelsea-boot-tan-suede"
+  "https://walklondonshoes.co.uk/products/clapham-chelsea-boot-tan-suede",
+  "https://www.oipolloi.com/products/barbour-ravenfield-checked-regular-fit-shirt-navy",
+  "https://uskees.co.uk/products/3052-coach-jacket-pastel-yellow-check",
+  "https://www.percivalclo.com/products/relaxed-oxford-shirt-champion-x-percival-ecru",
+  "https://www.percivalclo.com/products/relaxed-oxford-shirt-champion-x-percival-dusty-blue",
+  "https://www.percivalclo.com/products/glossary-patchwork-jacket-twill-grey",
+  "https://www.percivalclo.com/products/bruno-boxy-clerk-shirt-grey",
+  "https://jeanstore.co.uk/products/napapijri-bisenzio-short-jacket-black-beauty",
+  "https://walklondonshoes.co.uk/products/hampstead-trainer-white",
+  "https://folkclothing.com/products/pintuck-jersey-trouser-navy"
  ],
  "pool": {
   "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
