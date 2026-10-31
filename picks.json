@@ -1,43 +1,40 @@
 {
- "updated": "2026-10-30",
+ "updated": "2026-10-31",
  "by": "Claude daily review",
+ "strong": true,
  "picks": [
   {
-   "date": "2026-10-28",
-   "brand": "Uniqlo",
-   "name": "AIRism Cotton Crew Neck T-Shirt, olive",
-   "short": "Olive crew tee",
-   "url": "https://www.uniqlo.com/uk/en/products/E482522-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "date": "2026-10-31",
+   "brand": "Uskees",
+   "name": "3001 Overshirt, army green",
+   "short": "Army green overshirt",
+   "url": "https://uskees.com/products/3001-army-green-button-overshirt",
    "size": "L",
-   "variant": "Olive",
-   "price": 14.9,
-   "category": "Tees",
-   "why": "There's still no plain tee in the wardrobe, and it holds up the office, date-night and everyday outfits. A regular-fit, standard-length crew with a smooth cotton face and no branding, so it sits flat under a knit or overshirt. Olive goes tonal under the Ashby, or with the 502s and Sambas."
+   "price": 59.5,
+   "category": "Jackets & Overshirts",
+   "why": "There's still no overshirt in the wardrobe, and it's the missing layer for the everyday and travel outfits. A heavy cotton chore-coat cut with a regular body, patch pockets and only a small woven label, now 30% off and under target. Wear it open over a charcoal tee with the 502s and Sambas."
   },
   {
-   "date": "2026-10-28",
-   "brand": "Uniqlo",
-   "name": "100% Merino V Neck Cardigan, navy",
-   "short": "Navy merino cardigan",
-   "url": "https://www.uniqlo.com/uk/en/products/E450540-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "date": "2026-10-31",
+   "brand": "Community Clothing",
+   "name": "Lambswool Saddle Shoulder Crew Neck, navy",
+   "short": "Navy lambswool crew",
+   "url": "https://communityclothing.co.uk/products/mens-lambswool-saddle-shoulder-crew-neck-navy",
    "size": "L",
-   "variant": "Navy",
-   "price": 39.9,
+   "price": 87.0,
    "category": "Mid-layers & Knits",
-   "why": "The office and date-night outfits still have no knit or cardigan, and winter is the time for one. A fine-gauge merino cardigan in a regular, hip-length cut with a ribbed hem that sits flat, plain buttons and no logo. Wear it over a tee with the fawn chinos and brown Docs for work, or the 502s for a date."
+   "why": "The office outfit still has no knit, and this is the 'fewer, better' version: fully fashioned 100% lambswool knitted in Hawick, with a saddle shoulder that sits neatly rather than dropping, full-length sleeves and no branding. Wear it over a tee with the fawn chinos and brown Docs for work, or with dark denim on a weekend."
   },
   {
-   "date": "2026-10-28",
-   "brand": "Uniqlo",
-   "name": "Warm Pile Lined Joggers, navy",
-   "short": "Navy lined joggers",
-   "url": "https://www.uniqlo.com/uk/en/products/E491093-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "date": "2026-10-31",
+   "brand": "Community Clothing",
+   "name": "T-Shirt, charcoal",
+   "short": "Charcoal crew tee",
+   "url": "https://communityclothing.co.uk/products/mens-short-sleeve-t-shirt-charcoal-1",
    "size": "L",
-   "variant": "Navy",
-   "price": 34.9,
-   "category": "Chinos & Trousers",
-   "why": "The lounging outfit has no joggers yet. These are a regular, tapered cut with stretch, ribbed cuffs and a soft pile lining for cold evenings, with nothing baggy or branded. Pair them with the navy or grey marl raglan sweat for a tonal look at home."
+   "price": 35.0,
+   "category": "Tees",
+   "why": "Tees remain the biggest gap: none owned against a target of four, and nearly every outfit starts with one. A regular-fit, 200g organic cotton crew made in the UK, heavy enough to sit flat under a knit or the overshirt, with no logo. Charcoal works under navy, olive and stone alike."
   }
- ],
- "strong": false
+ ]
 }
