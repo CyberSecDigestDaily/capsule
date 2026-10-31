@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Capsule</title>
+<meta name="description" content="Don's capsule wardrobe: a taste engine that learns from every tap, live prices and stock in his sizes, outfits and deals.">
+<meta name="theme-color" content="#E8E5DE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F0F0E" media="(prefers-color-scheme: dark)">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Capsule">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<script src="vendor/qrcode.js" defer></script>
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="bar">
+    <a class="mark" href="#for-you" aria-label="Capsule, home">Capsule</a>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" data-view="for-you" aria-selected="true">For you</button>
+      <button role="tab" data-view="train" aria-selected="false">Train</button>
+      <button role="tab" data-view="shop" aria-selected="false">Watch list</button>
+      <button role="tab" data-view="outfits" aria-selected="false">Outfits</button>
+      <button role="tab" data-view="deals" aria-selected="false">Deals</button>
+      <button role="tab" data-view="you" aria-selected="false">You</button>
+    </nav>
+    <span class="who" id="who"><span class="sync-dot" id="syncDot"></span><span id="whoText">This device</span></span>
+  </div>
+</header>
+<div class="banner" id="banner" hidden><div class="in" id="bannerIn"></div></div>
+
+<main id="main">
+  <div class="loading" id="loading">Loading today's pieces</div>
+
+  <!-- FOR YOU -->
+  <section id="view-for-you" hidden>
+    <div class="head">
+      <h1>For you</h1>
+      <p id="fyLede">Everything in your size, ranked by what you like. Tap ♡ or ✕ on anything and it learns.</p>
+    </div>
+    <div class="chips" id="fyFilters" aria-label="Show"></div>
+    <section class="block" id="newBlock" hidden>
+      <h2 class="sec">New since your last visit <small id="newCount"></small></h2>
+      <p class="lede">Pieces that have landed in the shops since you were last here, best matches first.</p>
+      <div class="strip" id="newStrip"></div>
+    </section>
+    <section class="block" id="editBlock" hidden>
+      <h2 class="sec">This week's edit <small id="editWhen"></small></h2>
+      <p class="lede">Claude's three picks: the best buyable pieces for your gaps, checked against the photos.</p>
+      <div class="edit" id="editGrid"></div>
+    </section>
+    <section class="block">
+      <h2 class="sec">Ranked for you <small id="fyCount"></small></h2>
+      <p class="lede" id="fyHow">Best match first, mixed so you don't get three knits in a row. One in five is a labelled wildcard: it's testing something it doesn't know about you yet.</p>
+      <div class="grid" id="fyGrid"></div>
+      <div class="more"><button class="btn ghost" id="fyMore" hidden>Show more</button></div>
+    </section>
+  </section>
+
+  <!-- TRAIN -->
+  <section id="view-train" hidden>
+    <div class="train" id="train"></div>
+  </section>
+
+  <!-- WATCH LIST -->
+  <section id="view-shop" hidden>
+    <section class="progressline" id="progress" hidden aria-label="Capsule progress">
+      <div class="pg-bar" id="pgBar"></div>
+      <p id="pgLine"></p>
+    </section>
+    <div class="head">
+      <h1>Watch list</h1>
+      <p id="sizesLine"></p>
+    </div>
+    <div class="filters">
+      <div class="cats" id="cats" aria-label="Category"></div>
+      <div class="row2">
+        <div class="status" id="status" aria-label="Availability"></div>
+        <div class="tools">
+          <input type="search" id="q" placeholder="Search" aria-label="Search the watch list" autocomplete="off">
+          <select id="sort" aria-label="Sort">
+            <option value="match">Best match</option>
+            <option value="rec">Ready to buy first</option>
+            <option value="low">Price, low to high</option>
+            <option value="high">Price, high to low</option>
+          </select>
+          <label><input type="checkbox" id="hideOwned"> Hide owned</label>
+        </div>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- OUTFITS -->
+  <section id="view-outfits" hidden>
+    <div class="head">
+      <h1>Outfits</h1>
+      <p id="outfitLede"></p>
+    </div>
+    <div class="settings">
+      <label for="reach">Your sleeve length <input id="reach" type="number" min="70" max="120" step="0.5" inputmode="decimal" placeholder="cm"> cm</label>
+      <button class="linkish" id="howBtn" aria-expanded="false" aria-controls="howto">How to measure</button>
+      <p class="howto" id="howto" hidden>Stand relaxed. Measure from the bone at the base of the back of your neck, over the top of your shoulder and down to your wrist bone. Pieces with published measurements are then checked against it, so short sleeves get flagged.</p>
+    </div>
+    <section class="block" id="nextBlock">
+      <h2 class="sec">Best next buys</h2>
+      <p class="lede">In-stock pieces that complete or unlock the most outfits, ranked by how well they match you.</p>
+      <div class="trio" id="nextGrid"></div>
+    </section>
+    <section class="block">
+      <h2 class="sec">Your outfits</h2>
+      <p class="lede">The formulas from your style brief, filled with what you own. Gaps show the best match in stock in your size.</p>
+      <div id="outfits"></div>
+    </section>
+    <section class="block">
+      <h2 class="sec">What you own</h2>
+      <p class="lede">Tick what's already in your wardrobe. Ticks sync to your account, so every device and the morning review see them.</p>
+      <div class="owngrid" id="owngrid"></div>
+    </section>
+  </section>
+
+  <!-- DEALS -->
+  <section id="view-deals" hidden>
+    <div class="head">
+      <h1>Deals</h1>
+      <p id="dealsLede">Reductions in your size. The better the match, the smaller the discount it needs to show here.</p>
+    </div>
+    <div class="grid" id="dealsGrid"></div>
+  </section>
+
+  <!-- YOU -->
+  <section id="view-you" hidden>
+    <div class="head">
+      <h1>You</h1>
+      <p>Your account, what Capsule has learned about your taste, and the limits it works within.</p>
+    </div>
+    <div class="you" id="you"></div>
+  </section>
+</main>
+
+<footer><div class="in">
+  <span id="footNote">Prices and stock are checked automatically about three times a day.</span>
+  <span><a href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener">Updater status</a></span>
+</div></footer>
+
+<nav class="dock" id="dock" aria-label="Sections"></nav>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer closed" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" hidden>
+  <div class="d-close"><button id="dClose" aria-label="Close">&times;</button></div>
+  <div class="d-body" id="dBody"></div>
+</aside>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

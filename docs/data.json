@@ -1,0 +1,1577 @@
+{
+ "generated": "2026-10-31T18:15:56.017696Z",
+ "sizes": {
+  "top": "L",
+  "waist": "W34",
+  "leg": "L32",
+  "sock": "M/L",
+  "boxer": "L",
+  "shoe": "UK 10"
+ },
+ "errors": 0,
+ "counts": {
+  "WATCHING": 21,
+  "BOUGHT": 9,
+  "BUY": 2,
+  "SOLD OUT": 4,
+  "SALE": 1
+ },
+ "items": [
+  {
+   "id": 2,
+   "category": "Mid-layers & Knits",
+   "role": "cardigan",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "Milano Ribbed Shirt Collar Cardigan, olive",
+   "url": "https://www.uniqlo.com/uk/en/products/E478550-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "target": 30,
+   "fit": {
+    "verdict": "check",
+    "note": "Uniqlo calls it regular fit, but the product photo shows the shoulder seam sitting slightly dropped and a straight, squarer body. Try it on before keeping: it should sit on the shoulder, not past it."
+   },
+   "variant": "Olive",
+   "note": "Replaces the sold-out Corduroy Overshirt (end of season).",
+   "checked": "2026-10-31",
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/478550/item/gbgoods_57_478550_3x4.jpg",
+   "price": 39.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "signal": "WATCHING",
+   "low": 39.9,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 56,
+   "category": "Mid-layers & Knits",
+   "role": "cardigan",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "100% Merino V Neck Cardigan, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E450540-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "variant": "Navy",
+   "target": 30,
+   "note": "Fine-gauge 100% merino, plain button front, ribbed cuffs and hem, no branding.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit, hip length, ribbed hem sits flat rather than flaring. Fine gauge keeps it neat under a jacket; model on the product page is 184cm in an L."
+   },
+   "checked": "2026-10-31",
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450540/item/gbgoods_69_450540_3x4.jpg",
+   "price": 39.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "signal": "WATCHING",
+   "low": 39.9,
+   "low_date": "2026-10-19",
+   "change": 0.0
+  },
+  {
+   "id": 6,
+   "category": "Jackets & Overshirts",
+   "role": "jacket",
+   "tier": "premium",
+   "brand": "Universal Works",
+   "name": "Bakers Jacket, olive green twill",
+   "url": "https://universalworks.com/products/olivegreen-twill-bakers-jacket",
+   "check": "shopify",
+   "size": "L",
+   "target": 135,
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit. Reach (centre-back to cuff) ≈90cm in L, 92.5cm in XL; shoulders 48cm in L.",
+    "reach": {
+     "L": 90,
+     "XL": 92.5
+    }
+   },
+   "note": "Re-linked 2026-10-13: light olive listing gone; same 00102 Bakers Jacket now sold as Olive Green Twill.",
+   "checked": "2026-10-31",
+   "store": "Universal Works",
+   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/00102_twill-olive-green_1.jpg?v=1791544029",
+   "price": 170.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "M",
+    "XL",
+    "XXL",
+    "XXXL"
+   ],
+   "signal": "WATCHING",
+   "low": 170.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
+  },
+  {
+   "id": 7,
+   "category": "Jackets & Overshirts",
+   "role": "jacket",
+   "tier": "premium",
+   "brand": "Universal Works",
+   "name": "Parachute Field Jacket, navy",
+   "url": "https://universalworks.com/products/navy-recycled-poly-tech-parachute-field-jacket",
+   "check": "shopify",
+   "size": "L",
+   "target": 170,
+   "fit": {
+    "verdict": "check",
+    "note": "Loose cut with wide 52cm shoulders, so the sleeve is short from the seam (63cm) but reach is ≈89cm in L, 91.5cm in XL. UW's 6ft model (37in chest) wears L.",
+    "reach": {
+     "L": 89,
+     "XL": 91.5
+    }
+   },
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "Universal Works",
+   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34120_recycled-poly-tech-navy_1.jpg?v=1771493476",
+   "signal": "BOUGHT",
+   "low": 89.0,
+   "low_date": "2026-08-06",
+   "change": 0.0
+  },
+  {
+   "id": 9,
+   "category": "Jackets & Overshirts",
+   "role": "jacket",
+   "tier": "premium",
+   "brand": "Barbour",
+   "name": "Ashby Waxed Jacket, olive",
+   "url": "https://www.barbour.com/gb/ashby-waxed-jacket-MWX0339OL71.html",
+   "check": "barbour",
+   "size": "L",
+   "target": 200,
+   "fit": {
+    "verdict": "check",
+    "note": "Barbour list the Ashby as a tailored (slimmer) cut. If you'll layer a knit underneath or need more sleeve, XL is the safer size."
+   },
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "Barbour",
+   "image": "https://www.barbour.com/dw/image/v2/blcl_prd/on/demandware.static/-/Sites-master-catalog/default/dwb0955f72/images/MWX0339OL71/MWX0339OL71_01front.jpg?sw=900&q=70&strip=false",
+   "signal": "BOUGHT",
+   "low": 269.0,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 52,
+   "category": "Jackets & Overshirts",
+   "role": "overshirt",
+   "tier": "budget",
+   "brand": "Uskees",
+   "name": "3001 Overshirt, army green",
+   "url": "https://uskees.com/products/3001-army-green-button-overshirt",
+   "check": "shopify",
+   "size": "L",
+   "target": 60,
+   "note": "Chore-coat overshirt in heavy cotton, no logo. £59.50, was £85.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic chore-coat cut with a regular body (not boxy) and patch pockets; layers over a tee or a thin knit."
+   },
+   "checked": "2026-10-31",
+   "store": "uskees.com",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-army-green-front-flat.jpg?v=1775045996",
+   "price": 59.5,
+   "was": 85.0,
+   "discount_pct": 30,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL"
+   ],
+   "signal": "BUY",
+   "low": 59.5,
+   "low_date": "2026-10-10",
+   "change": 0.0
+  },
+  {
+   "id": 10,
+   "category": "Mid-layers & Knits",
+   "role": "sweat",
+   "tier": "budget",
+   "brand": "Community Clothing",
+   "name": "Raglan Sweatshirt, grey marl",
+   "url": "https://communityclothing.co.uk/products/mens-raglan-sweatshirt-grey-marl",
+   "check": "shopify",
+   "size": "L",
+   "target": 52,
+   "fit": {
+    "verdict": "good",
+    "note": "Raglan sleeve: more reach and shoulder movement for long arms. 335g cotton loopback; can shrink up to 4%, so wash cool."
+   },
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "Community Clothing",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Raglan-Sweatshirt_Grey_Editorial-Thigh-Up-Front-3.jpg?v=1698066297",
+   "signal": "BOUGHT",
+   "low": 52.0,
+   "low_date": "2026-09-25",
+   "change": 0.0
+  },
+  {
+   "id": 11,
+   "category": "Mid-layers & Knits",
+   "role": "sweat",
+   "tier": "budget",
+   "brand": "Community Clothing",
+   "name": "Raglan Sweatshirt, bottle green",
+   "url": "https://communityclothing.co.uk/products/jl-drop-shoulder-sweatshirt-bottle-green",
+   "check": "shopify",
+   "size": "L",
+   "target": 52,
+   "fit": {
+    "verdict": "good",
+    "note": "Raglan sleeve (despite the 'drop-shoulder' in the shop's URL). 335g organic cotton; wash cool, may shrink up to 4%."
+   },
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "Community Clothing",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Mens_Raglan-Sweatshirt_Bottle-Green_Thigh-Up-Front.jpg?v=1710253706",
+   "signal": "BOUGHT",
+   "low": 52.0,
+   "low_date": "2026-09-25",
+   "change": 0.0
+  },
+  {
+   "id": 12,
+   "category": "Mid-layers & Knits",
+   "role": "fleece",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "Fleece Full-Zip Jacket, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E450195-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "target": 20,
+   "fit": {
+    "verdict": "good",
+    "note": "Uniqlo's classic regular-fit fleece with a stand collar. Unisex sizing runs about true: L for a close layer under the field jacket."
+   },
+   "variant": "Navy",
+   "note": "Replaces the sold-out Fleece Half-Zip (end of season).",
+   "checked": "2026-10-31",
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450195/item/gbgoods_69_450195_3x4.jpg",
+   "price": 29.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "signal": "WATCHING",
+   "low": 29.9,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 13,
+   "category": "Mid-layers & Knits",
+   "role": "sweat",
+   "tier": "budget",
+   "brand": "Community Clothing",
+   "name": "Long Fit Raglan Sweatshirt, navy",
+   "url": "https://communityclothing.co.uk/products/mens-long-fit-raglan-sweatshirt-pf-navy",
+   "check": "shopify",
+   "size": "L",
+   "target": 45,
+   "note": "Replaces the drop-shoulder Heritage Sweatshirt. £52 (was £65).",
+   "fit": {
+    "verdict": "good",
+    "note": "Raglan sleeve for reach and shoulder movement; cut about 3cm longer in the body than the regular raglan, so it sits clean at the waist without riding up. 335g organic loopback; wash cool (up to 4% shrink)."
+   },
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "Community Clothing",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Raglan-Sweatshirt-Long-Fit_Navy_Thigh-Up-Front_Community-Clothing-2.jpg?v=1782718389",
+   "signal": "BOUGHT",
+   "low": 52.0,
+   "low_date": "2026-10-04",
+   "change": 0.0
+  },
+  {
+   "id": 14,
+   "category": "Mid-layers & Knits",
+   "role": "knit",
+   "tier": "mid",
+   "brand": "Finisterre",
+   "name": "Barents Jumper, oatmeal",
+   "url": "https://finisterre.com/products/mens-barents-jumper-wool-oatmeal",
+   "check": "shopify",
+   "size": "L",
+   "target": 90,
+   "fit": {
+    "verdict": "good",
+    "note": "Relaxed fisherman knit; reviewers rate it true to size, 'roomy without being baggy'. Finisterre's L is for 180–185cm tall (you're 183cm). Wool/polyamide keeps the cuffs in shape."
+   },
+   "checked": "2026-10-31",
+   "store": "Finisterre",
+   "image": "https://cdn.shopify.com/s/files/1/1074/5128/files/barents-jumper-oatmeal_146677b2-d822-4d41-baf5-92caad6aa735.jpg?v=1776761173",
+   "price": 120.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL"
+   ],
+   "signal": "WATCHING",
+   "low": 120.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
+  },
+  {
+   "id": 55,
+   "category": "Mid-layers & Knits",
+   "role": "knit",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "100% Merino Crew Neck Jumper, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E450535-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "variant": "Navy",
+   "target": 30,
+   "note": "Plain fine-gauge merino crew, no logo, £34.90. Thin enough to sit under a jacket, smart enough for the office.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit with ribbed cuffs and hem; on the 183cm model in size M the sleeves reach the wrist, so L should have length to spare. Uniqlo's size chart blocks bots, so reach isn't recorded."
+   },
+   "checked": "2026-10-31",
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450535/item/gbgoods_69_450535_3x4.jpg",
+   "price": 34.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "signal": "WATCHING",
+   "low": 34.9,
+   "low_date": "2026-10-16",
+   "change": 0.0
+  },
+  {
+   "id": 17,
+   "category": "Tees",
+   "role": "tee",
+   "tier": "budget",
+   "brand": "Community Clothing",
+   "name": "T-Shirt, charcoal",
+   "url": "https://communityclothing.co.uk/products/mens-short-sleeve-t-shirt-charcoal-1",
+   "check": "shopify",
+   "size": "L",
+   "target": 28,
+   "note": "Made in the UK.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit, 200g organic cotton, made in the UK."
+   },
+   "checked": "2026-10-31",
+   "store": "Community Clothing",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Short-Sleeve-T-Shirt_Charcoal_Thigh-Up-Front_Community-Clothing.jpg?v=1749471051",
+   "price": 35.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL"
+   ],
+   "signal": "WATCHING",
+   "low": 35.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
+  },
+  {
+   "id": 53,
+   "category": "Tees",
+   "role": "tee",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "AIRism Cotton Crew Neck T-Shirt, olive",
+   "url": "https://www.uniqlo.com/uk/en/products/E482522-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "variant": "Olive",
+   "target": 12,
+   "note": "Plain crew neck, no logo, £14.90. Smooth and light, so it sits cleanly under knits and overshirts.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit, standard length; cotton outside with an AIRism lining."
+   },
+   "checked": "2026-10-31",
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_57_482522_3x4.jpg",
+   "price": 14.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "signal": "WATCHING",
+   "low": 14.9,
+   "low_date": "2026-10-10",
+   "change": 0.0
+  },
+  {
+   "id": 54,
+   "category": "Tees",
+   "role": "tee",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "AIRism Cotton Crew Neck T-Shirt, navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E482522-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "variant": "Navy",
+   "target": 12,
+   "note": "Plain crew neck, no logo, £14.90. Smooth and light, so it sits cleanly under knits and overshirts.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit, standard length; cotton outside with an AIRism lining."
+   },
+   "checked": "2026-10-31",
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_69_482522_3x4.jpg",
+   "price": 14.9,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "XS",
+    "S",
+    "M",
+    "XL",
+    "XXL",
+    "3XL"
+   ],
+   "signal": "WATCHING",
+   "low": 14.9,
+   "low_date": "2026-10-10",
+   "change": 0.0
+  },
+  {
+   "id": 20,
+   "category": "Jeans",
+   "role": "jeans",
+   "tier": "mid",
+   "brand": "Levi's",
+   "name": "502 Taper Jeans, Rock Cod",
+   "url": "https://jeanstore.co.uk/products/levis%C2%AE-502-regular-tapered-mens-jeans-rock-cod",
+   "check": "shopify",
+   "size": "W34 L32",
+   "target": 70,
+   "fit": {
+    "verdict": "good",
+    "note": "Regular thigh, tapered leg, mid-rise sitting just below the waist; 1% elastane. Exactly the 'elevated straight-taper' in your brief."
+   },
+   "checked": "2026-10-31",
+   "store": "Jeanstore",
+   "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/MB_29507-0280_LSE_CM_D1.jpg?v=1775046075",
+   "price": 95.0,
+   "was": 100.0,
+   "discount_pct": 5,
+   "in_stock": true,
+   "alt_sizes": [
+    "W30 L30",
+    "W30 L32",
+    "W31 L30",
+    "W31 L32",
+    "W31 L34",
+    "W32 L30"
+   ],
+   "signal": "WATCHING",
+   "low": 95.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
+  },
+  {
+   "id": 21,
+   "category": "Jeans",
+   "role": "jeans",
+   "tier": "mid",
+   "brand": "Levi's",
+   "name": "502 Taper Jeans, Jack Of All Trades",
+   "url": "https://jeanstore.co.uk/products/levis%C2%AE-502-regular-tapered-mens-jeans-jack-of-all-trades",
+   "check": "shopify",
+   "size": "W34 L32",
+   "target": 70,
+   "fit": {
+    "verdict": "good",
+    "note": "Regular thigh, tapered, sits at the waist; 27cm front rise. Soft lyocell stretch denim."
+   },
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "Jeanstore",
+   "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/295071460-detail1-pdp.jpg?v=1736866591",
+   "signal": "BOUGHT",
+   "low": 60.0,
+   "low_date": "2026-07-31",
+   "change": 0.0
+  },
+  {
+   "id": 22,
+   "category": "Jeans",
+   "role": "jeans",
+   "tier": "mid",
+   "brand": "Levi's",
+   "name": "502 Taper Jeans, Rainy Afternoon",
+   "url": "https://jeanstore.co.uk/products/levis%C2%AE-502-regular-tapered-mens-jeans-rainy-afternoon",
+   "check": "shopify",
+   "size": "W34 L32",
+   "target": 75,
+   "fit": {
+    "verdict": "good",
+    "note": "Regular thigh, tapered, sits at the waist; 27cm front rise; 1% Lycra."
+   },
+   "checked": "2026-10-31",
+   "store": "Jeanstore",
+   "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/MB_29507-1831_GLO_CM_D1.jpg?v=1773413280",
+   "price": 95.0,
+   "was": 100.0,
+   "discount_pct": 5,
+   "in_stock": true,
+   "alt_sizes": [
+    "W29 L32",
+    "W30 L32",
+    "W31 L32",
+    "W31 L34",
+    "W32 L32",
+    "W33 L32"
+   ],
+   "signal": "WATCHING",
+   "low": 95.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
+  },
+  {
+   "id": 23,
+   "category": "Chinos & Trousers",
+   "role": "chino",
+   "tier": "budget",
+   "brand": "M&S",
+   "name": "Regular Fit Stretch Chinos, fawn",
+   "url": "https://www.marksandspencer.com/regular-fit-stretch-chinos/p/clp60742138?color=FAWN",
+   "check": "mands",
+   "size": "W34 L31|W34 L33",
+   "target": 28,
+   "fit": {
+    "verdict": "good",
+    "note": "Regular fit with stretch. Stone is no longer made; fawn is the nearest shade. M&S only cut 31in or 33in legs: 31 for a clean break, 33 for a slight stack."
+   },
+   "variant": "Fawn",
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "M&S",
+   "image": "https://assets.digitalcontent.marksandspencer.app/images/w_900,q_auto,f_auto/SD_03_T17_6614M_GD_X_EC_90/image",
+   "signal": "BOUGHT",
+   "low": 26.0,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 24,
+   "category": "Chinos & Trousers",
+   "role": "chino",
+   "tier": "mid",
+   "brand": "Levi's",
+   "name": "XX Chino Standard Taper, Bunker Olive",
+   "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-taper-fit-mens-chinos-bunker-olive-shady",
+   "check": "shopify",
+   "size": "W34 L32",
+   "target": 60,
+   "fit": {
+    "verdict": "good",
+    "note": "Standard taper: regular seat and thigh, 2% elastane. This colour is cut to sit a little below the waist."
+   },
+   "checked": "2026-10-31",
+   "store": "Jeanstore",
+   "image": "https://cdn.shopify.com/s/files/1/2577/9994/products/levi-s-xx-chino-standard-taper-fit-mens-chinos-bunker-olive-shady-w28-l32-17196-000128r-5400816974192-levi-s-chinos-non-denim-pants-29621611790530.jpg?v=1628471066",
+   "price": 75.0,
+   "was": 80.0,
+   "discount_pct": 6,
+   "in_stock": true,
+   "alt_sizes": [
+    "W28 L32",
+    "W29 L32",
+    "W30 L30",
+    "W30 L34",
+    "W31 L30",
+    "W31 L32"
+   ],
+   "signal": "WATCHING",
+   "low": 75.0,
+   "low_date": "2026-07-11",
+   "change": 0.0
+  },
+  {
+   "id": 27,
+   "category": "Chinos & Trousers",
+   "role": "chino",
+   "tier": "mid",
+   "brand": "Levi's",
+   "name": "XX Chino Standard Taper Cords, Timber Wolf",
+   "url": "https://jeanstore.co.uk/products/levis%C2%AE-xx-chino-standard-ii-regular-tapered-mens-cords-timber-wolf",
+   "check": "shopify",
+   "size": "W34 L32",
+   "target": 65,
+   "note": "Winter swap for the sold-out Community Clothing khaki chinos: taupe needlecord, adds texture next to the fawn twill chinos.",
+   "fit": {
+    "verdict": "good",
+    "note": "Standard taper: regular seat and thigh, tapered leg (13in opening), 2% elastane stretch cord. Front rise 10.75in, sits just below the waist."
+   },
+   "checked": "2026-10-31",
+   "store": "Jeanstore",
+   "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/MB_17196-0213_GLO_CM_D1.jpg?v=1788520660",
+   "price": 89.0,
+   "was": 95.0,
+   "discount_pct": 6,
+   "in_stock": true,
+   "alt_sizes": [
+    "W28 L32",
+    "W29 L32",
+    "W30 L30",
+    "W30 L32",
+    "W30 L34",
+    "W31 L30"
+   ],
+   "signal": "WATCHING",
+   "low": 37.5,
+   "low_date": "2026-09-25",
+   "change": 0.0
+  },
+  {
+   "id": 28,
+   "category": "Chinos & Trousers",
+   "role": "chino",
+   "tier": "mid",
+   "brand": "Community Clothing",
+   "name": "Relaxed Chinos, navy",
+   "url": "https://communityclothing.co.uk/products/mens-relaxed-chinos-navy-01",
+   "check": "shopify",
+   "size": "W34 L32",
+   "target": 80,
+   "fit": {
+    "verdict": "check",
+    "note": "Regular fit, straight (not tapered) leg in heavyweight pure cotton twill: no stretch."
+   },
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "Community Clothing",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Relaxed-Chino_Navy_Full-Body-Front.jpg?v=1705581249",
+   "signal": "BOUGHT",
+   "low": 59.5,
+   "low_date": "2026-09-25",
+   "change": 0.0
+  },
+  {
+   "id": 32,
+   "category": "Chinos & Trousers",
+   "role": "trouser",
+   "tier": "premium",
+   "brand": "Oliver Spencer",
+   "name": "Morton Pleated Trousers, Purdon charcoal",
+   "url": "https://oliverspencer.co.uk/products/morton-pleated-trousers-purdon-charcoal",
+   "check": "shopify",
+   "size": "34",
+   "target": 155,
+   "note": "Premium: only a buy at 40%+ off (archive sale).",
+   "fit": {
+    "verdict": "good",
+    "note": "High rise sits at the natural waist (comfortable and clean under a knit); straight leg tapering from the knee; wool with a little stretch."
+   },
+   "checked": "2026-10-31",
+   "store": "Oliver Spencer",
+   "image": "https://cdn.shopify.com/s/files/1/0272/3338/6538/files/OSMT68-PUR01CHAFRONT.jpg?v=1785426781",
+   "price": 259.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "28",
+    "30",
+    "32",
+    "36"
+   ],
+   "signal": "WATCHING",
+   "low": 259.0,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 37,
+   "category": "Footwear",
+   "role": "trainer",
+   "tier": "budget",
+   "brand": "Vans",
+   "name": "Skate Era Stub, fade olive",
+   "url": "https://routeone.co.uk/products/vans-skate-era-stub-shoes-fade-olive-black-001189285",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 56,
+   "note": "Padded-collar Era, flat vulc sole. On-palette olive.",
+   "fit": {
+    "verdict": "good",
+    "note": "Vans fit true to size. The Skate Era adds PopCush cushioning and a padded collar, so it's comfier all day than the classic Era."
+   },
+   "checked": "2026-10-31",
+   "store": "Route One",
+   "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001189285.jpg?v=1767803134",
+   "price": 69.95,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "5",
+    "8",
+    "11",
+    "12"
+   ],
+   "signal": "WATCHING",
+   "low": 69.95,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 40,
+   "category": "Footwear",
+   "role": "trainer",
+   "tier": "budget",
+   "brand": "Nike",
+   "name": "SB Zoom Blazer Low Pro GT, blue void",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-blazer-low-pro-gt-skate-shoes-blue-void-sail-blue-void-001186588",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 60,
+   "restock_watch": true,
+   "note": "Navy low Blazer at £60: UK 10 sold out, alerts if it comes back.",
+   "fit": {
+    "verdict": "check",
+    "note": "Narrow Blazer last: go half a size up if your feet are wide."
+   },
+   "checked": "2026-10-31",
+   "store": "Route One",
+   "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001186588.jpg?v=1758641843",
+   "price": 59.95,
+   "was": 74.95,
+   "discount_pct": 20,
+   "in_stock": false,
+   "alt_sizes": [
+    "5",
+    "6",
+    "7",
+    "8",
+    "8.5",
+    "9"
+   ],
+   "signal": "SOLD OUT",
+   "low": 59.95,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 41,
+   "category": "Footwear",
+   "role": "trainer",
+   "tier": "budget",
+   "brand": "Nike",
+   "name": "SB Zoom Janoski OG+, cool grey",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-janoski-og-plus-skate-shoes-cool-grey-white-cool-grey-001184047",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 60,
+   "note": "Tonal grey suede Janoski, already reduced from £85.",
+   "fit": {
+    "verdict": "good",
+    "note": "The OG+ is roomier than the original Janoski and fits true to size; Zoom Air heel, cork insole."
+   },
+   "checked": "2026-10-31",
+   "store": "Route One",
+   "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001184047.jpg?v=1750429497",
+   "price": 69.95,
+   "was": 84.95,
+   "discount_pct": 18,
+   "in_stock": true,
+   "alt_sizes": [
+    "5",
+    "6",
+    "7",
+    "7.5",
+    "8",
+    "8.5"
+   ],
+   "signal": "SALE",
+   "low": 69.95,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 42,
+   "category": "Footwear",
+   "role": "trainer",
+   "tier": "budget",
+   "brand": "Nike",
+   "name": "SB Zoom Janoski OG+, navy gum",
+   "url": "https://slamcity.com/products/nike-sb-zoom-janoski-og-navy-white-navy-gum-light-brown",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 45,
+   "restock_watch": true,
+   "note": "£40 (was £85) but UK 10 sold out: alerts on restock.",
+   "fit": {
+    "verdict": "good",
+    "note": "The OG+ is roomier than the original Janoski and fits true to size."
+   },
+   "checked": "2026-10-31",
+   "store": "Slam City",
+   "image": "https://cdn.shopify.com/s/files/1/0020/1628/0646/files/001_34c52ef8-a08e-442c-b5fd-8d31a93f189c.jpg?v=1708345103",
+   "price": 39.99,
+   "was": 84.99,
+   "discount_pct": 53,
+   "in_stock": false,
+   "alt_sizes": [
+    "UK6.5"
+   ],
+   "signal": "SOLD OUT",
+   "low": 39.99,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 43,
+   "category": "Footwear",
+   "role": "trainer",
+   "tier": "mid",
+   "brand": "Nike",
+   "name": "Air Max 90 SP, Shadow Brown",
+   "url": "https://goodhoodstore.com/products/nike-air-max-90-sp-shadow-brown-shadow-brown-buff-gum-lt-brown",
+   "check": "shopify",
+   "size": "UK10",
+   "target": 110,
+   "restock_watch": true,
+   "note": "Tonal brown with gum sole: the on-brief AM90. Re-linked to Goodhood (Footpatrol now blocks the checker); UK10 currently sold out, restock watched.",
+   "fit": {
+    "verdict": "good",
+    "note": "True to size with a snug toe box. Synthetic upper (not leather), so wipe-clean but less breathable."
+   },
+   "checked": "2026-10-31",
+   "store": "Goodhood",
+   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/AURORA_IR1953-200_PHSRH000-2000.jpg?v=1784651252",
+   "price": 134.99,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": false,
+   "alt_sizes": [
+    "UK7"
+   ],
+   "signal": "SOLD OUT",
+   "low": 134.99,
+   "low_date": "2026-10-08",
+   "change": 0.0
+  },
+  {
+   "id": 44,
+   "category": "Footwear",
+   "role": "trainer",
+   "tier": "mid",
+   "brand": "adidas",
+   "name": "Handball Spezial, olive strata",
+   "url": "https://urbanindustry.co.uk/products/adidas-originals-handball-spezial-olive-stratashadow-oliveolive-strata-2260896",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 72,
+   "note": "Samba-adjacent: tonal olive suede, gum sole. Different enough from your Sambas.",
+   "fit": {
+    "verdict": "good",
+    "note": "True to size, and the widest of the Samba/Gazelle/Spezial trio, so roomier than your Sambas. OrthoLite insole."
+   },
+   "checked": "2026-10-31",
+   "store": "Urban Industry",
+   "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/AdidasOriginals_HandballSpezialShoes_Green_OliveStrata_ShadowOlive_01_82a73b36-3ee1-42c0-af77-753a5abe4900.jpg?v=1791450975",
+   "price": 89.95,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": false,
+   "alt_sizes": [
+    "UK11",
+    "UK12"
+   ],
+   "signal": "SOLD OUT",
+   "low": 89.95,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 45,
+   "category": "Footwear",
+   "role": "wallabee",
+   "tier": "mid",
+   "brand": "Clarks Originals",
+   "name": "Wallabee, maple suede",
+   "url": "https://www.parasolstore.co.uk/products/clarks-wallabee-shoe-maple-suede",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 80,
+   "note": "The classic. Spray with suede protector before wet weather.",
+   "fit": {
+    "verdict": "check",
+    "note": "Wallabees run large: true size for normal or wide feet, half a size down if narrow. This stockist only does whole sizes. Spray the suede with protector first."
+   },
+   "checked": "2026-10-31",
+   "store": "Parasol Store",
+   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/ClarksOriginalsWallabeeShoeMapleSuede_1.jpg?v=1789029568",
+   "price": 99.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "7",
+    "8",
+    "9"
+   ],
+   "signal": "WATCHING",
+   "low": 99.0,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 47,
+   "category": "Footwear",
+   "role": "wallabee",
+   "tier": "premium",
+   "brand": "Clarks Originals",
+   "name": "Wallabee GTX, maple suede",
+   "url": "https://goodhoodstore.com/products/clarks-originals-wallabee-gtx-maple-suede-mens-aw21",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 114,
+   "note": "GORE-TEX: the rain-proof Wallabee. Premium, so only a buy at 40% off.",
+   "fit": {
+    "verdict": "good",
+    "note": "GORE-TEX lining and a Vibram sole: the rain-proof Wallabee. Same large sizing as the others."
+   },
+   "checked": "2026-10-31",
+   "store": "Goodhood",
+   "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/CLARKS-ORIGINALS-WALLABEE-GTX---MAPLE-SUEDE_SS23_GOODHOOD.jpg?v=1690449449",
+   "price": 190.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "UK7",
+    "UK8",
+    "UK11"
+   ],
+   "signal": "WATCHING",
+   "low": 190.0,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 49,
+   "category": "Footwear",
+   "role": "boot",
+   "tier": "mid",
+   "brand": "John White",
+   "name": "Byrne Chelsea Boot, brown suede",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
+   "check": "shopify",
+   "size": "UK 10",
+   "variant": "Brown Suede",
+   "target": 130,
+   "note": "The Byrne Chelsea Don liked, in brown suede (matte). £120, was £280.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic close-fitting Chelsea, snug over the instep. Calf suede (matte), leather-lined, chunky Vibram sole; suede needs protector spray."
+   },
+   "checked": "2026-10-31",
+   "store": "John White",
+   "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
+   "price": 120.0,
+   "was": 280.0,
+   "discount_pct": 57,
+   "in_stock": true,
+   "alt_sizes": [
+    "UK 7",
+    "UK 8",
+    "UK 9",
+    "UK 11",
+    "UK 12"
+   ],
+   "signal": "BUY",
+   "low": 120.0,
+   "low_date": "2026-10-03",
+   "change": 0.0
+  },
+  {
+   "id": 50,
+   "category": "Footwear",
+   "role": "boot",
+   "tier": "mid",
+   "brand": "Blundstone",
+   "name": "#584 Thermal Chelsea Boot, rustic brown",
+   "url": "https://www.blundstone.co.uk/products/blundstone-584-rustic-brown",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 168,
+   "note": "Winter boot: brushed, distressed rustic-brown leather (matte, not shiny), Thinsulate lining and a sheepswool footbed. £210.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
+   },
+   "checked": "2026-10-31",
+   "store": "Blundstone",
+   "image": "https://cdn.shopify.com/s/files/1/0255/2813/9827/files/BLU584-220UK_UNISEX_1.jpg?v=1748349484",
+   "price": 210.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "3 UK",
+    "4 UK",
+    "4.5 UK",
+    "5 UK",
+    "5.5 UK",
+    "6 UK"
+   ],
+   "signal": "WATCHING",
+   "low": 210.0,
+   "low_date": "2026-10-09",
+   "change": 0.0
+  },
+  {
+   "id": 51,
+   "category": "Footwear",
+   "role": "boot",
+   "tier": "mid",
+   "brand": "Blundstone",
+   "name": "#1478 Thermal Chelsea Boot, rustic black",
+   "url": "https://www.blundstone.co.uk/products/blundstone-1478-rustic-black",
+   "check": "shopify",
+   "size": "UK 10",
+   "target": 168,
+   "note": "Winter boot in matte rustic black (brushed, not shiny), Thinsulate lining and a sheepswool footbed. £210.",
+   "fit": {
+    "verdict": "good",
+    "note": "Classic Blundstone Chelsea with a roomy toe. The sheepswool footbed is thick, so stay with UK 10. Water-resistant treated leather with sealed elastic seams: fine for rain and puddles, not for wading."
+   },
+   "checked": "2026-10-31",
+   "store": "Blundstone",
+   "image": "https://cdn.shopify.com/s/files/1/0255/2813/9827/files/BLU1478-001UK_UNISEX_1.jpg?v=1748349518",
+   "price": 210.0,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "3 UK",
+    "3.5 UK",
+    "4.5 UK",
+    "5 UK",
+    "5.5 UK",
+    "6 UK"
+   ],
+   "signal": "WATCHING",
+   "low": 210.0,
+   "low_date": "2026-10-09",
+   "change": 0.0
+  },
+  {
+   "id": 33,
+   "category": "Socks & Boxers",
+   "role": "socks",
+   "tier": "budget",
+   "brand": "Community Clothing",
+   "name": "Rib Socks, RAF blue",
+   "url": "https://communityclothing.co.uk/products/premium-cotton-sock-rib-navy-blue",
+   "check": "shopify",
+   "size": "M/L",
+   "target": 8,
+   "fit": {
+    "verdict": "good",
+    "note": "M/L fits UK 8–13."
+   },
+   "checked": "2026-10-31",
+   "store": "Community Clothing",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Unisex_Premium-Cotton-Sock-Rib_RAF-Blue_Mannequin_Portrait_02555958-6d72-4e8f-924e-d646936a20c7.jpg?v=1694642792",
+   "price": 10.5,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "S/M (UK 3-7)"
+   ],
+   "signal": "WATCHING",
+   "low": 10.3,
+   "low_date": "2026-07-11",
+   "change": 0.0
+  },
+  {
+   "id": 34,
+   "category": "Socks & Boxers",
+   "role": "socks",
+   "tier": "budget",
+   "brand": "Community Clothing",
+   "name": "Rib Socks, black",
+   "url": "https://communityclothing.co.uk/products/premium-cotton-sock-rib-black",
+   "check": "shopify",
+   "size": "M/L",
+   "target": 8,
+   "fit": {
+    "verdict": "good",
+    "note": "M/L fits UK 8–13."
+   },
+   "checked": "2026-10-31",
+   "store": "Community Clothing",
+   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Unisex_Premium-Cotton-Sock-Rib-_Black_Mannequin_Portrait_d5f1b9c7-c2d0-4bf1-bd1c-48e315eedf82.jpg?v=1694642797",
+   "price": 10.5,
+   "was": null,
+   "discount_pct": 0,
+   "in_stock": true,
+   "alt_sizes": [
+    "S/M (UK 3-7)"
+   ],
+   "signal": "WATCHING",
+   "low": 10.3,
+   "low_date": "2026-07-11",
+   "change": 0.0
+  },
+  {
+   "id": 35,
+   "category": "Socks & Boxers",
+   "role": "underwear",
+   "tier": "budget",
+   "brand": "Uniqlo",
+   "name": "Cotton Boxer Briefs (Regular Rise), navy",
+   "url": "https://www.uniqlo.com/uk/en/products/E464311-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "check": "uniqlo",
+   "size": "L",
+   "variant": "Navy",
+   "target": 7,
+   "note": "Replaces the French Connection 7-pack (product page gone). Logo-free; buy several.",
+   "fit": {
+    "verdict": "good",
+    "note": "Regular rise in soft cotton jersey with odour control; Uniqlo underwear runs true to size. Plain waistband, no branding."
+   },
+   "bought": true,
+   "checked": "2026-10-31",
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/WesternCommon/imagesgoods/464311/item/goods_69_464311_3x4.jpg",
+   "signal": "BOUGHT",
+   "low": 7.9,
+   "low_date": "2026-10-06",
+   "change": 0.0
+  }
+ ],
+ "wardrobe": {
+  "_about": "Outfit formulas for the occasions Don dresses for, plus staples he may already own. The site's Outfits tab ticks these against what he owns (watch-list pieces marked bought, staples ticked, pieces marked bought on the site). Roles must match the engine's roles.",
+  "role_labels": {
+   "jacket": "Jackets",
+   "overshirt": "Overshirts",
+   "knit": "Knits",
+   "cardigan": "Cardigans",
+   "sweat": "Sweatshirts & hoodies",
+   "fleece": "Fleece",
+   "tee": "Tees",
+   "jeans": "Jeans",
+   "chino": "Chinos",
+   "trouser": "Smart trousers",
+   "jogger": "Joggers",
+   "trainer": "Trainers",
+   "wallabee": "Wallabees",
+   "boot": "Boots",
+   "clog": "Clogs & slippers",
+   "cap": "Caps",
+   "shorts": "Shorts"
+  },
+  "staples": [
+   {
+    "id": "s1",
+    "name": "adidas Samba OG, white",
+    "role": "trainer",
+    "owned": true
+   },
+   {
+    "id": "s2",
+    "name": "Dr. Martens, brushed brown leather",
+    "role": "boot",
+    "owned": true
+   },
+   {
+    "id": "s3",
+    "name": "Dr. Martens, black",
+    "role": "boot",
+    "owned": true
+   },
+   {
+    "id": "s4",
+    "name": "Vans Era, black/white",
+    "role": "trainer",
+    "owned": true
+   },
+   {
+    "id": "s5",
+    "name": "Nike Air Max 95, black",
+    "role": "trainer",
+    "owned": true
+   },
+   {
+    "id": "s6",
+    "name": "5-panel cap",
+    "role": "cap",
+    "owned": true
+   },
+   {
+    "id": "s7",
+    "name": "Plain tee you already have",
+    "role": "tee"
+   },
+   {
+    "id": "s8",
+    "name": "Dark indigo jeans you already have",
+    "role": "jeans"
+   },
+   {
+    "id": "s9",
+    "name": "Crew-neck knit you already have",
+    "role": "knit"
+   },
+   {
+    "id": "s10",
+    "name": "Hoodie or sweatshirt you already have",
+    "role": "sweat"
+   },
+   {
+    "id": "s11",
+    "name": "Chinos you already have",
+    "role": "chino"
+   },
+   {
+    "id": "s12",
+    "name": "Joggers",
+    "role": "jogger"
+   },
+   {
+    "id": "s13",
+    "name": "Birkenstock Boston or slippers",
+    "role": "clog"
+   }
+  ],
+  "formulas": [
+   {
+    "id": "office",
+    "name": "Office",
+    "when": "a day or two a week, smart casual at most",
+    "slots": [
+     {
+      "label": "Trousers",
+      "roles": [
+       "chino",
+       "trouser"
+      ]
+     },
+     {
+      "label": "Knit or cardigan",
+      "roles": [
+       "knit",
+       "cardigan"
+      ]
+     },
+     {
+      "label": "Tee underneath",
+      "roles": [
+       "tee"
+      ]
+     },
+     {
+      "label": "Shoes",
+      "roles": [
+       "boot",
+       "wallabee"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "everyday",
+    "name": "Everyday",
+    "when": "weekends, errands",
+    "slots": [
+     {
+      "label": "Tee",
+      "roles": [
+       "tee"
+      ]
+     },
+     {
+      "label": "Overshirt or sweat",
+      "roles": [
+       "overshirt",
+       "sweat"
+      ]
+     },
+     {
+      "label": "Denim or chinos",
+      "roles": [
+       "jeans",
+       "chino"
+      ]
+     },
+     {
+      "label": "Trainers or Wallabees",
+      "roles": [
+       "trainer",
+       "wallabee"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "outdoor",
+    "name": "Outdoor & photography",
+    "when": "walks, shoots, room for a camera strap",
+    "slots": [
+     {
+      "label": "Utility jacket",
+      "roles": [
+       "jacket"
+      ]
+     },
+     {
+      "label": "Mid-layer",
+      "roles": [
+       "fleece",
+       "sweat",
+       "knit"
+      ]
+     },
+     {
+      "label": "Denim or chinos",
+      "roles": [
+       "jeans",
+       "chino"
+      ]
+     },
+     {
+      "label": "Trainers",
+      "roles": [
+       "trainer"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "hiking",
+    "name": "Hiking",
+    "when": "hills and coast paths",
+    "slots": [
+     {
+      "label": "Weatherproof jacket",
+      "roles": [
+       "jacket"
+      ]
+     },
+     {
+      "label": "Fleece",
+      "roles": [
+       "fleece"
+      ]
+     },
+     {
+      "label": "Trousers",
+      "roles": [
+       "chino",
+       "jogger"
+      ]
+     },
+     {
+      "label": "Boots",
+      "roles": [
+       "boot"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "travel",
+    "name": "Travel",
+    "when": "trips, packs small",
+    "slots": [
+     {
+      "label": "Layer",
+      "roles": [
+       "overshirt",
+       "knit",
+       "sweat"
+      ]
+     },
+     {
+      "label": "Tee",
+      "roles": [
+       "tee"
+      ]
+     },
+     {
+      "label": "Jeans or chinos",
+      "roles": [
+       "jeans",
+       "chino"
+      ]
+     },
+     {
+      "label": "Trainers",
+      "roles": [
+       "trainer"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "lounge",
+    "name": "Lounging",
+    "when": "home",
+    "slots": [
+     {
+      "label": "Hoodie, sweat or fleece",
+      "roles": [
+       "sweat",
+       "fleece"
+      ]
+     },
+     {
+      "label": "Joggers or relaxed chinos",
+      "roles": [
+       "jogger",
+       "chino"
+      ]
+     },
+     {
+      "label": "Clogs or slippers",
+      "roles": [
+       "clog"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "gym",
+    "name": "Gym",
+    "when": "function first",
+    "slots": [
+     {
+      "label": "Training tee",
+      "roles": [
+       "tee"
+      ]
+     },
+     {
+      "label": "Shorts or joggers",
+      "roles": [
+       "shorts",
+       "jogger"
+      ]
+     },
+     {
+      "label": "Trainers",
+      "roles": [
+       "trainer"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "beach",
+    "name": "Beach & summer",
+    "when": "holidays, warm days",
+    "slots": [
+     {
+      "label": "Tee",
+      "roles": [
+       "tee"
+      ]
+     },
+     {
+      "label": "Shorts",
+      "roles": [
+       "shorts"
+      ]
+     },
+     {
+      "label": "Cap",
+      "roles": [
+       "cap"
+      ]
+     },
+     {
+      "label": "Sandals or clogs",
+      "roles": [
+       "clog"
+      ]
+     }
+    ],
+    "season": "summer"
+   }
+  ]
+ },
+ "drop": {
+  "date": "2026-10-31",
+  "at": "2026-10-31T09:07:03.134229Z",
+  "subject": "The Drop · Sat 31 Oct: Army green overshirt £59.50 (−30%) + 2 more picks",
+  "via": "smtp",
+  "images": 7,
+  "status": "already sent today"
+ }
+}
