@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30T18:15:55.794310Z",
+ "generated": "2026-10-31T06:15:56.537541Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -76,25 +76,6 @@
    "score": 41.3,
    "role": "boot",
    "why": "40% off at Walk London · UK 10 in stock · brown · footwear"
-  },
-  {
-   "key": "jeanstore.co.uk/lee-david-regular-tapered-mens-jeans-rusty-rivet",
-   "first_seen": "2026-10-08",
-   "store": "Jeanstore",
-   "brand": "Lee",
-   "name": "David Regular Tapered Mens Jeans, Rusty Rivet",
-   "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/112380203_2.jpg?v=1774447930",
-   "url": "https://jeanstore.co.uk/products/lee-david-regular-tapered-mens-jeans-rusty-rivet",
-   "category": "Jeans",
-   "price": 57.0,
-   "was": 95.0,
-   "discount_pct": 40,
-   "size": "W34 L32",
-   "colour": "blue",
-   "tier": "deal",
-   "score": 35.9,
-   "role": "jeans",
-   "why": "40% off at Jeanstore · W34 L32 in stock · blue · jeans"
   }
  ],
  "picks": [
@@ -115,7 +96,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-30",
+   "verified": "2026-10-31",
    "since": "2026-10-28",
    "start_price": 14.9
   },
@@ -136,7 +117,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-30",
+   "verified": "2026-10-31",
    "since": "2026-10-28",
    "start_price": 39.9
   },
@@ -157,7 +138,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-30",
+   "verified": "2026-10-31",
    "since": "2026-10-28",
    "start_price": 34.9
   }
