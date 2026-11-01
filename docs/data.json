@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-01T06:15:57.730271Z",
+ "generated": "2026-11-01T09:06:16.468023Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1567,11 +1567,11 @@
   ]
  },
  "drop": {
-  "date": "2026-10-31",
-  "at": "2026-10-31T09:07:03.134229Z",
-  "subject": "The Drop · Sat 31 Oct: Army green overshirt £59.50 (−30%) + 2 more picks",
+  "date": "2026-11-01",
+  "at": "2026-11-01T09:06:16.468023Z",
+  "subject": "The Drop · Sun 1 Nov: nothing new today",
   "via": "smtp",
-  "images": 7,
-  "status": "waiting for today's review"
+  "images": 3,
+  "status": "sent"
  }
 }
