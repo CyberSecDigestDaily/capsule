@@ -1198,7 +1198,11 @@
   "https://passenger-clothing.com/products/daybreak-lightweight-recycled-thermore-insulated-jacket-rich-navy-storm-grey-dark-denim",
   "https://www.percivalclo.com/products/drape-cuban-shirt-percival-x-warren-mint-green",
   "https://www.percivalclo.com/products/sarti-crochet-knitted-shirt-cotton-ecru-with-forest",
-  "https://albamclothing.com/products/oxford-stripe-fenton-shirt-in-dark-navy-alb2211ox002"
+  "https://albamclothing.com/products/oxford-stripe-fenton-shirt-in-dark-navy-alb2211ox002",
+  "https://www.percivalclo.com/products/tote-bag-percival-x-the-gorilla-brand-ecru",
+  "https://www.percivalclo.com/products/carlo-mixologist-tote-bag-ecru",
+  "https://passenger-clothing.com/products/roamer-7-panel-organic-cotton-trucker-cap-wine",
+  "https://jeanstore.co.uk/products/stan-ray-tote-bag-denim-real-tree"
  ],
  "pool": {
   "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
@@ -1781,7 +1785,7 @@
      "the-latest"
     ],
     "sale": [
-     "sale"
+     "sale-all"
     ],
     "pages": 2,
     "brand_filter": true
