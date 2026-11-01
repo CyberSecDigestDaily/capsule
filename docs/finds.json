@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T18:15:56.017696Z",
+ "generated": "2026-11-01T06:15:57.730271Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -19,25 +19,6 @@
    "score": 68.9,
    "role": "jacket",
    "why": "50% off at Community Clothing · L in stock · stone · jackets & overshirts"
-  },
-  {
-   "key": "communityclothing.co.uk/mens-chore-jacket-indigo-denim",
-   "first_seen": "2026-10-22",
-   "store": "Community Clothing",
-   "brand": "Community Clothing",
-   "name": "Chore Jacket, Indigo Denim",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Chore-Jacket_Indigo-Denim_Thigh-Up_Community-Clothing-6.jpg?v=1722614459",
-   "url": "https://communityclothing.co.uk/products/mens-chore-jacket-indigo-denim",
-   "category": "Jackets & Overshirts",
-   "price": 70.0,
-   "was": 140.0,
-   "discount_pct": 50,
-   "size": "L",
-   "colour": "indigo",
-   "tier": "deal",
-   "score": 62.7,
-   "role": "jacket",
-   "why": "50% off at Community Clothing · L in stock · indigo · jackets & overshirts"
   },
   {
    "key": "finisterre.com/mens-organic-cotton-resurge-jacket-indigo-grey",
@@ -95,7 +76,7 @@
    "in_stock": true,
    "discount_pct": 30,
    "was": 85.0,
-   "verified": "2026-10-31",
+   "verified": "2026-11-01",
    "since": "2026-10-31",
    "start_price": 59.5
   },
@@ -115,7 +96,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-31",
+   "verified": "2026-11-01",
    "since": "2026-10-31",
    "start_price": 87.0
   },
@@ -135,7 +116,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-10-31",
+   "verified": "2026-11-01",
    "since": "2026-10-31",
    "start_price": 35.0
   }
