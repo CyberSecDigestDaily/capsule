@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-02T12:16:05.607183Z",
+ "generated": "2026-11-02T18:15:56.051659Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -10,11 +10,11 @@
  },
  "errors": 0,
  "counts": {
-  "WATCHING": 21,
+  "WATCHING": 22,
   "BOUGHT": 9,
-  "BUY": 2,
   "SOLD OUT": 4,
-  "SALE": 1
+  "SALE": 1,
+  "BUY": 1
  },
  "items": [
   {
@@ -201,9 +201,9 @@
    "checked": "2026-11-02",
    "store": "uskees.com",
    "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-army-green-front-flat.jpg?v=1775045996",
-   "price": 59.5,
-   "was": 85.0,
-   "discount_pct": 30,
+   "price": 85.0,
+   "was": null,
+   "discount_pct": 0,
    "in_stock": true,
    "alt_sizes": [
     "XS",
@@ -211,10 +211,10 @@
     "M",
     "XL"
    ],
-   "signal": "BUY",
+   "signal": "WATCHING",
    "low": 59.5,
    "low_date": "2026-10-10",
-   "change": 0.0
+   "change": 25.5
   },
   {
    "id": 10,
