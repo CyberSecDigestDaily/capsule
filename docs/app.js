@@ -1146,7 +1146,7 @@ function renderYou() {
       <p class="soft mt">Next, a few optional questions about your size and build, so it can pick sizes and cuts that fit.</p>`
       : `<p>Sign in to keep your taps, saved pieces and settings in step on every device.</p>`;
     acc += `<div class="row"><button class="btn ${invite ? "ghost" : ""}" data-you="signin">Sign in with a passkey</button><button class="linkish" data-you="signin-phone">Passkey on your phone?</button></div>
-      <p class="mt">Signing in on a new device? On a signed-in one, go to You › Link another device, then enter the code here.</p>
+      <p class="mt">Signing in on a new device? On a signed-in one, go to You › Link another device, then enter the code here. No other device? Use a recovery code under "Lost your passkeys?", then add a passkey on this phone.</p>
       <div class="row"><input class="textin code-in" id="linkIn" placeholder="ABCD-EFGH" autocomplete="one-time-code" autocapitalize="characters" maxlength="12" aria-label="Code from another device" value="${esc(S.linkCode || "")}"><button class="btn ghost" data-you="redeem">Use code</button></div>
       <details class="mt"><summary>Lost your passkeys?</summary><div class="row"><input class="textin" id="recName" placeholder="Your name" aria-label="Your name"><input class="textin" id="recCode" placeholder="Recovery code" aria-label="Recovery code"><button class="btn ghost" data-you="recover">Recover</button></div></details>
       <p class="err" id="accErr" hidden></p>`;
