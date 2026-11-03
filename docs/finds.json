@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03T06:15:55.546451Z",
+ "generated": "2026-11-03T09:07:21.070540Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -57,76 +57,10 @@
    "score": 41.3,
    "role": "boot",
    "why": "40% off at Walk London · UK 10 in stock · brown · footwear"
-  }
- ],
- "picks": [
-  {
-   "date": "2026-10-31",
-   "brand": "Uskees",
-   "name": "3001 Overshirt, army green",
-   "short": "Army green overshirt",
-   "url": "https://uskees.com/products/3001-army-green-button-overshirt",
-   "size": "L",
-   "price": 59.5,
-   "category": "Jackets & Overshirts",
-   "why": "There's still no overshirt in the wardrobe, and it's the missing layer for the everyday and travel outfits. A heavy cotton chore-coat cut with a regular body, patch pockets and only a small woven label, now 30% off and under target. Wear it open over a charcoal tee with the 502s and Sambas.",
-   "store": "uskees.com",
-   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-army-green-front-flat.jpg?v=1775045996",
-   "price_now": 85.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "was": null,
-   "verified": "2026-11-03",
-   "since": "2026-10-31",
-   "start_price": 59.5
   },
-  {
-   "date": "2026-10-31",
-   "brand": "Community Clothing",
-   "name": "Lambswool Saddle Shoulder Crew Neck, navy",
-   "short": "Navy lambswool crew",
-   "url": "https://communityclothing.co.uk/products/mens-lambswool-saddle-shoulder-crew-neck-navy",
-   "size": "L",
-   "price": 87.0,
-   "category": "Mid-layers & Knits",
-   "why": "The office outfit still has no knit, and this is the 'fewer, better' version: fully fashioned 100% lambswool knitted in Hawick, with a saddle shoulder that sits neatly rather than dropping, full-length sleeves and no branding. Wear it over a tee with the fawn chinos and brown Docs for work, or with dark denim on a weekend.",
-   "store": "Community Clothing",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Patrick_Lambswool-Saddle-Shoulder-Crew-Neck-Jumper_Navy_Thigh-Up-Front_Community-Clothing.jpg?v=1731577897",
-   "price_now": 87.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "was": null,
-   "verified": "2026-11-03",
-   "since": "2026-10-31",
-   "start_price": 87.0
-  },
-  {
-   "date": "2026-10-31",
-   "brand": "Community Clothing",
-   "name": "T-Shirt, charcoal",
-   "short": "Charcoal crew tee",
-   "url": "https://communityclothing.co.uk/products/mens-short-sleeve-t-shirt-charcoal-1",
-   "size": "L",
-   "price": 35.0,
-   "category": "Tees",
-   "why": "Tees remain the biggest gap: none owned against a target of four, and nearly every outfit starts with one. A regular-fit, 200g organic cotton crew made in the UK, heavy enough to sit flat under a knit or the overshirt, with no logo. Charcoal works under navy, olive and stone alike.",
-   "store": "Community Clothing",
-   "image": "https://cdn.shopify.com/s/files/1/2530/3930/files/Male_Short-Sleeve-T-Shirt_Charcoal_Thigh-Up-Front_Community-Clothing.jpg?v=1749471051",
-   "price_now": 35.0,
-   "in_stock": true,
-   "discount_pct": 0,
-   "was": null,
-   "verified": "2026-11-03",
-   "since": "2026-10-31",
-   "start_price": 35.0
-  }
- ],
- "picks_updated": "2026-11-02",
- "errors": [],
- "candidates": [
   {
    "key": "routeone.co.uk/adidas-samba-adv-skate-shoes-dark-blue-grey-gum-001183113",
-   "first_seen": "2026-11-02",
+   "first_seen": "2026-11-03",
    "store": "Route One",
    "brand": "adidas",
    "name": "Samba ADV Skate Shoes, Dark Blue/Grey/Gum",
@@ -141,10 +75,73 @@
    "tier": "deal",
    "score": 35.8,
    "role": "trainer",
-   "why": "33% off at Route One · UK 10 in stock · grey · footwear",
-   "fit_words": [],
-   "composition": null,
-   "desc": "the adidas samba adv skate shoes in dark blue/grey/gum are a classic silhouette, inspired by the football boot first released in 1950's and redesigned specifically for skating. the shoe features suede uppers with a suede toe cap, upgraded with a more durable construction. a molded eva sockliner give"
+   "why": "33% off at Route One · UK 10 in stock · grey · footwear"
   }
- ]
+ ],
+ "picks": [
+  {
+   "date": "2026-11-03",
+   "brand": "John White",
+   "name": "Byrne Chelsea Boot, brown suede",
+   "short": "Brown suede Chelsea",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
+   "size": "UK 10",
+   "variant": "Brown Suede",
+   "price": 120.0,
+   "category": "Footwear",
+   "why": "The brushed-brown Chelsea is still missing from the boot rotation, and this one is £120, down from £280 and under target, with UK 10 in stock. Matte calf suede, leather-lined, on a Vibram sole, so it handles wet days. Wear it with the 502s or the fawn chinos and a knit for the office.",
+   "store": "John White",
+   "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
+   "price_now": 120.0,
+   "in_stock": true,
+   "discount_pct": 57,
+   "was": 280.0,
+   "verified": "2026-11-03",
+   "since": "2026-11-03",
+   "start_price": 120.0
+  },
+  {
+   "date": "2026-11-03",
+   "brand": "Uniqlo",
+   "name": "100% Merino Crew Neck Jumper, navy",
+   "short": "Navy merino crew",
+   "url": "https://www.uniqlo.com/uk/en/products/E450535-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "size": "L",
+   "price": 34.9,
+   "category": "Mid-layers & Knits",
+   "why": "The office outfit still has no knit, and this is the cheapest way to fill it properly: fine 100% merino, plain, no branding, sleeves that reach the wrist. Layer it over a tee with the fawn chinos and the brown suede Chelseas.",
+   "store": "Uniqlo",
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450535/item/gbgoods_07_450535_3x4.jpg",
+   "price_now": 34.9,
+   "in_stock": true,
+   "discount_pct": 0,
+   "was": null,
+   "verified": "2026-11-03",
+   "since": "2026-11-03",
+   "start_price": 34.9
+  },
+  {
+   "date": "2026-11-03",
+   "brand": "Uskees",
+   "name": "7006 Essential T-Shirt, norway spruce",
+   "short": "Spruce green tee",
+   "url": "https://uskees.co.uk/products/7006-plain-t-shirt-norway-spruce",
+   "size": "L",
+   "price": 24.5,
+   "category": "Tees",
+   "why": "Tees are still the biggest gap, and every outfit starts with one. A washed organic-cotton crew in a deep green-grey that sits between olive and charcoal, with no logo, 30% off and L in stock. Wear it under the navy merino crew or the field jacket.",
+   "store": "Uskees",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/7006-norway-spruce-t-shirt-front.jpg?v=1772466906",
+   "price_now": 24.5,
+   "in_stock": true,
+   "discount_pct": 30,
+   "was": 35.0,
+   "verified": "2026-11-03",
+   "since": "2026-11-03",
+   "start_price": 24.5
+  }
+ ],
+ "picks_updated": "2026-11-03",
+ "errors": [],
+ "candidates": []
 }
