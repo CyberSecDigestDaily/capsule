@@ -66,7 +66,27 @@ ok(local.cfg && local.cfg.owned && local.cfg.owned.s7 === 1 && local.cfg.owned.s
 ok(await phone.locator("#banner:not([hidden])").count() === 1, "set-up banner shows");
 await shot(phone, "01-you-join");
 
+section("New here: an invite pasted by hand, on a phone that never opened the link");
+const {page: fresh} = await device("fresh", {width: 390, height: 844});
+await fresh.goto(BASE + "/#you");
+await fresh.waitForSelector("#view-you:not([hidden]) #inviteIn", {timeout: 20000});
+ok(await fresh.locator("#pAcct #handle").count() === 0, "no invite yet: sign-up isn't offered");
+await shot(fresh, "01c-new-here");
+await fresh.fill("#inviteIn", "hello");
+await fresh.click("[data-you=invite]");
+ok(/doesn't look like an invite/.test(await fresh.locator("#accErr").textContent()) && await fresh.locator("#accErr:not([hidden])").count() === 1, "rubbish is turned away with a reason");
+await fresh.fill("#inviteIn", `  Here's your invite: ${BASE}/#join=${INVITE}  `);
+await fresh.click("[data-you=invite]");
+await fresh.waitForSelector("#pAcct #handle", {timeout: 15000});
+ok(await fresh.locator("#pAcct .pkwhere [data-where]").count() === 3, "the pasted link opens sign-up, with where to keep the passkey");
+const freshLocal = await lsEntries(fresh);
+ok(freshLocal.brief && freshLocal.brief.colours && freshLocal.brief.colours.olive === "love", "and unlocks the brief, like opening the link");
+ok(await fresh.locator("#inviteIn").count() === 0, "the invite box steps aside");
+
 section("Sign up with a passkey");
+await phone.click("[data-you=invite-show]");
+await phone.waitForSelector("#inviteBox .linkbox");
+ok(await phone.locator("#inviteBox img.qr").count() === 1 && (await phone.inputValue("#inviteOut")).endsWith("#join=" + INVITE), "invite can be handed to another device: QR code and link");
 ok(await phone.locator("#pAcct .pkwhere [data-where]").count() === 3, "choice of where to keep the passkey");
 ok(await phone.locator('#pAcct [data-where=manager][aria-checked=true]').count() === 1, "password manager is the default");
 await phone.click("#pAcct [data-where=device]");
@@ -102,6 +122,16 @@ ok(state.cfg && state.cfg.owned && state.cfg.owned.s7 === 1 && state.cfg.reach =
 await phone.waitForTimeout(1600);
 state = await phone.evaluate(() => fetch("/api/state?since=0").then(r => r.json()));
 ok(state.cfg.profile && state.cfg.profile.height === 183 && state.cfg.profile.build === "middle" && state.cfg.profile.fit === "regular" && state.cfg.profile.chest === 106, "About you synced to the account", state.cfg.profile);
+
+section("A spent invite");
+const seen = problems.length;
+await fresh.click("[data-you=signup]");
+await fresh.waitForSelector("#inviteIn", {timeout: 15000});
+await fresh.waitForTimeout(200);
+// The server's 403 is the point here; Chromium logs any 4xx as a console error, so drop just that one.
+for (let i = problems.length - 1; i >= seen; i--) if (/^\[fresh\] error: Failed to load resource: .*403/.test(problems[i])) problems.splice(i, 1);
+ok(/invite/i.test(await fresh.locator("#accErr").textContent()) && await fresh.locator("#accErr:not([hidden])").count() === 1, "says why, and goes back to New here", await fresh.locator("#accErr").textContent());
+await fresh.context().close();
 
 section("For you");
 await phone.click(".dock [data-view=for-you]");

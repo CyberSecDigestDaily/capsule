@@ -1138,17 +1138,23 @@ function renderYou() {
   if (!server) {
     acc = `<p>Your taps are saved in this browser${S.brief ? ", with your style brief" : ""}.${S.where ? ` Capsule's synced home is <a href="${esc(S.where)}">here</a>; open it to sign in and keep every device in step.` : " Accounts and syncing arrive with Capsule's new home."}</p>`;
   } else if (!u) {
-    const invite = A.pendingInvite();
+    const invite = A.pendingInvite(), touch = matchMedia("(pointer: coarse)").matches;
     acc = invite ? `<p>Your invite is ready${S.brief ? " and your style brief is unlocked" : ""}. Pick a name, choose where to keep your passkey, and you're in. No password, no email.</p>
       <div class="row"><input class="textin" id="handle" value="don" autocomplete="username" aria-label="Your name on Capsule" maxlength="20"></div>
       <h3 class="sub3">Keep the passkey in</h3>${wherePicker()}
       <div class="row"><button class="btn" data-you="signup">Create passkey</button></div>${pmTips()}
-      <p class="soft mt">Next, a few optional questions about your size and build, so it can pick sizes and cuts that fit.</p>`
+      <p class="soft mt">Next, a few optional questions about your size and build, so it can pick sizes and cuts that fit.</p>
+      <p class="mt"><button class="linkish" data-you="invite-show">${touch ? "Sign up on another device instead?" : "Rather sign up on your phone?"}</button></p><div id="inviteBox"></div>
+      <h3 class="sub3">Already have an account?</h3>`
       : `<p>Sign in to keep your taps, saved pieces and settings in step on every device.</p>`;
-    acc += `<div class="row"><button class="btn ${invite ? "ghost" : ""}" data-you="signin">Sign in with a passkey</button><button class="linkish" data-you="signin-phone">Passkey on your phone?</button></div>
-      <p class="mt">Signing in on a new device? On a signed-in one, go to You › Link another device, then enter the code here. No other device? Use a recovery code under "Lost your passkeys?", then add a passkey on this phone.</p>
+    acc += `<div class="row"><button class="btn ${invite ? "ghost" : ""}" data-you="signin">Sign in with a passkey</button><button class="linkish" data-you="signin-phone">${touch ? "Passkey on another device?" : "Passkey on your phone?"}</button></div>
+      ${invite ? "" : `<h3 class="sub3">New here?</h3>
+      <p>Capsule is invite-only for now. Open your invite link on this device, or paste it here. A phone is all you need.</p>
+      <div class="row"><input class="textin" id="inviteIn" placeholder="Invite link or code" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="400" aria-label="Invite link or code"><button class="btn ghost" data-you="invite">Continue</button></div>`}
+      <h3 class="sub3">Signed in on another device?</h3>
+      <p>On that one, go to You › Link another device, then enter the code here.</p>
       <div class="row"><input class="textin code-in" id="linkIn" placeholder="ABCD-EFGH" autocomplete="one-time-code" autocapitalize="characters" maxlength="12" aria-label="Code from another device" value="${esc(S.linkCode || "")}"><button class="btn ghost" data-you="redeem">Use code</button></div>
-      <details class="mt"><summary>Lost your passkeys?</summary><div class="row"><input class="textin" id="recName" placeholder="Your name" aria-label="Your name"><input class="textin" id="recCode" placeholder="Recovery code" aria-label="Recovery code"><button class="btn ghost" data-you="recover">Recover</button></div></details>
+      <details class="mt"><summary>Lost your passkeys?</summary><p class="soft">Use your name and one of the recovery codes you saved when you signed up, then add a new passkey on this device.</p><div class="row"><input class="textin" id="recName" placeholder="Your name" aria-label="Your name"><input class="textin" id="recCode" placeholder="Recovery code" aria-label="Recovery code"><button class="btn ghost" data-you="recover">Recover</button></div></details>
       <p class="err" id="accErr" hidden></p>`;
   } else {
     const me = A.acct.me || {};
@@ -1218,7 +1224,7 @@ function wherePicker() {
 }
 function pmTips() {
   return `<details class="mt tips"><summary>Password manager not popping up?</summary><ul>
-    <li>On iPhone: turn on your password manager under Settings › General › AutoFill & Passwords, then on the "Save a passkey" sheet switch it from iCloud Passwords to your manager.</li>
+    <li>On iPhone or iPad (iOS 17 or later), use Safari: Firefox there can't make passkeys yet. Turn your password manager on under Settings › General › AutoFill & Passwords, then choose it when asked where to save the passkey (in Proton Pass, then tap Confirm).</li>
     <li>Turn on passkey saving in your password manager's browser extension, and unlock it before you start.</li>
     <li>Firefox on Windows can hand the request to Windows Security before the extension sees it. If a Windows Hello box appears, close it, then try again in Chrome or Edge, or pick <b>Phone or security key</b> and save it in the password manager's app on your phone.</li>
     <li>On Windows 11, 1Password and Bitwarden can also look after passkeys for every browser: Settings › Accounts › Passkeys › Advanced options.</li>
@@ -1423,7 +1429,11 @@ async function loadDevices() {
 }
 function accErr(msg) {
   const el = (!$("sheet").hidden && $("sheetErr")) || $("accErr");
-  if (el) { el.textContent = msg; el.hidden = !msg; } else if (msg) toast(msg);
+  if (el) {
+    el.textContent = msg;
+    el.hidden = !msg;
+    if (msg) try { el.scrollIntoView({block: "nearest"}); } catch (e) { /* old browsers */ }
+  } else if (msg) toast(msg);
 }
 async function youAction(what, btn) {
   accErr("");
@@ -1435,6 +1445,38 @@ async function youAction(what, btn) {
         const res = await A.signUp(handle, A.pendingInvite(), S.brief, S.pkWhere);
         showCodes(res.recoveryCodes, true, res.provider);
         afterAuth(res.provider ? `Account created. Your passkey is in ${res.provider}.` : "Account created. Every tap now syncs.");
+        break;
+      }
+      case "invite": {
+        const code = A.parseInvite($("inviteIn").value);
+        if (!code) { accErr("That doesn't look like an invite. Paste the whole link (it has #join= in it), or just the code after join=."); break; }
+        A.rememberInvite(code);
+        try {
+          const brief = await A.readSeed(code);
+          if (brief && typeof brief === "object") { S.brief = brief; saveLocal(true); bump(); }
+        } catch (e) { /* no seed for this invite */ }
+        renderBanner();
+        renderYou();
+        toast(S.brief ? "Invite accepted and your style brief is unlocked. Now create your passkey." : "Invite accepted. Now create your passkey.");
+        const p = $("pAcct");
+        if (p) p.scrollIntoView({block: "start"});
+        break;
+      }
+      case "invite-show": {
+        const code = A.pendingInvite();
+        if (!code) { renderYou(); break; }
+        const url = `${location.origin}/#join=${encodeURIComponent(code)}`;
+        let qr = "";
+        try { if (window.qrcode) { const q = window.qrcode(0, "M"); q.addData(url); q.make(); qr = `<img class="qr" alt="QR code with your invite link" src="${q.createDataURL(5, 2)}">`; } } catch (e) { qr = ""; }
+        $("inviteBox").innerHTML = `<div class="linkbox">${qr}<div><p>Scan this with your phone's camera, or copy the link and open it there. On iPhone, open it in Safari.</p>
+          <div class="row"><input class="textin" id="inviteOut" readonly value="${esc(url)}" aria-label="Your invite link"><button class="btn ghost small" data-you="invite-copy">Copy link</button></div>
+          <p class="soft">It works until someone signs up with it, so keep it to yourself.</p></div></div>`;
+        btn.hidden = true;
+        break;
+      }
+      case "invite-copy": {
+        const inp = $("inviteOut");
+        try { await navigator.clipboard.writeText(inp.value); toast("Invite link copied."); } catch (e) { inp.select(); toast("Select the link and copy it."); }
         break;
       }
       case "signin": await A.signIn(); afterAuth("Signed in."); break;
@@ -1480,7 +1522,9 @@ async function youAction(what, btn) {
       }
     }
   } catch (e) {
-    accErr(A.passkeyError(e));
+    // A spent or wrong invite: drop it, so the panel goes back to "New here?" with the reason showing.
+    if (what === "signup" && e && e.code === "invite_needed") { A.forgetInvite(); renderBanner(); renderYou(); }
+    accErr(A.passkeyError(e, what));
   } finally {
     if (btn && document.contains(btn)) btn.disabled = false;
   }

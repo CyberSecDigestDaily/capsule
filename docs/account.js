@@ -111,10 +111,12 @@ function credentialJSON(c) {
   }
   return out;
 }
-export function passkeyError(e) {
+export function passkeyError(e, what) {
   const n = e && e.name;
   if (e instanceof ApiError) return e.message;
-  if (n === "NotAllowedError") return "No passkey was used: the prompt was closed, timed out, or your password manager has none for Capsule yet. New here? Link this device with a code from one that's signed in (You › Link another device), then add a passkey under You › Devices and security.";
+  if (n === "NotAllowedError") return /^signin/.test(what || "")
+    ? "No passkey was used: the prompt was closed, or your password manager has none for Capsule yet. No account yet? Use your invite under New here. Signed in on another device? Use a code from it, below."
+    : "The passkey prompt was closed or timed out. Try again when you're ready, or pick another place to keep it.";
   if (n === "InvalidStateError") return "That password manager or device already has a passkey for this account.";
   if (n === "SecurityError") return "Passkeys only work on Capsule's own address, over https.";
   if (n === "NotSupportedError") return "This browser can't make a passkey. Try another browser, or sign in with a code.";
@@ -165,6 +167,12 @@ export const pendingInvite = () => {
   return j && j.code && Date.now() - (j.at || 0) < 30 * 864e5 ? j.code : null;
 };
 export const rememberInvite = code => store.set(KEY_JOIN, {code, at: Date.now()});
+/* An invite typed or pasted by hand: the whole link (…#join=CODE) or just the code. */
+export function parseInvite(text) {
+  const s = String(text || "").trim();
+  const m = s.match(/[#&?]join=([A-Za-z0-9_-]{16,64})(?![A-Za-z0-9_-])/) || s.match(/^([A-Za-z0-9_-]{16,64})$/);
+  return m ? m[1] : null;
+}
 export const forgetInvite = () => store.del(KEY_JOIN);
 
 /* ---------- sync ---------- */
