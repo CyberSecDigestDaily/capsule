@@ -1218,6 +1218,7 @@ function wherePicker() {
 }
 function pmTips() {
   return `<details class="mt tips"><summary>Password manager not popping up?</summary><ul>
+    <li>On iPhone: turn on your password manager under Settings › General › AutoFill & Passwords, then on the "Save a passkey" sheet switch it from iCloud Passwords to your manager.</li>
     <li>Turn on passkey saving in your password manager's browser extension, and unlock it before you start.</li>
     <li>Firefox on Windows can hand the request to Windows Security before the extension sees it. If a Windows Hello box appears, close it, then try again in Chrome or Edge, or pick <b>Phone or security key</b> and save it in the password manager's app on your phone.</li>
     <li>On Windows 11, 1Password and Bitwarden can also look after passkeys for every browser: Settings › Accounts › Passkeys › Advanced options.</li>

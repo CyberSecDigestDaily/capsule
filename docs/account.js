@@ -114,7 +114,7 @@ function credentialJSON(c) {
 export function passkeyError(e) {
   const n = e && e.name;
   if (e instanceof ApiError) return e.message;
-  if (n === "NotAllowedError") return "The passkey prompt was closed or timed out. Try again when you're ready, or pick another place to save it.";
+  if (n === "NotAllowedError") return "No passkey was used: the prompt was closed, timed out, or your password manager has none for Capsule yet. New here? Link this device with a code from one that's signed in (You › Link another device), then add a passkey under You › Devices and security.";
   if (n === "InvalidStateError") return "That password manager or device already has a passkey for this account.";
   if (n === "SecurityError") return "Passkeys only work on Capsule's own address, over https.";
   if (n === "NotSupportedError") return "This browser can't make a passkey. Try another browser, or sign in with a code.";
