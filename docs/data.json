@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03T12:15:56.848117Z",
+ "generated": "2026-11-03T18:16:15.482243Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -591,7 +591,7 @@
     "W31 L32",
     "W31 L34",
     "W32 L32",
-    "W33 L32"
+    "W33 L34"
    ],
    "signal": "WATCHING",
    "low": 95.0,
@@ -911,17 +911,17 @@
    "checked": "2026-11-03",
    "store": "Goodhood",
    "image": "https://cdn.shopify.com/s/files/1/0321/4373/6963/files/AURORA_IR1953-200_PHSRH000-2000.jpg?v=1784651252",
-   "price": 134.99,
-   "was": null,
-   "discount_pct": 0,
+   "price": 94.0,
+   "was": 134.99,
+   "discount_pct": 30,
    "in_stock": false,
    "alt_sizes": [
     "UK7"
    ],
    "signal": "SOLD OUT",
-   "low": 134.99,
-   "low_date": "2026-10-08",
-   "change": 0.0
+   "low": 94.0,
+   "low_date": "2026-11-03",
+   "change": -40.99
   },
   {
    "id": 44,
