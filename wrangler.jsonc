@@ -18,8 +18,8 @@
   "d1_databases": [{"binding": "DB", "database_name": "capsule", "database_id": "8ca8e12d-8527-448e-b5e4-8b0cc72a28df"}],
   "vars": {
     // SHA-256 of "inv:" + each invite code. Each works once; the owner invite makes the account Claude's review reads.
-    "INVITE_HASHES": "621f68e46b37953cc87499cdd793e080b7da90be76a48c7c70ea87a1faaa1790",
-    "OWNER_INVITE_HASH": "621f68e46b37953cc87499cdd793e080b7da90be76a48c7c70ea87a1faaa1790",
+    "INVITE_HASHES": "53ef128c3b098fac261732ab1efc2eda1ae34f5057972005d263e8edb48a70f9",
+    "OWNER_INVITE_HASH": "53ef128c3b098fac261732ab1efc2eda1ae34f5057972005d263e8edb48a70f9",
     // SHA-256 of "rv:" + a review key, for a future reviewer that reads the account (/api/review). Empty: switched off.
     "REVIEW_HASHES": ""
     // ORIGIN and RP_ID are unset: the Worker uses the address it is served on. Set both when a custom domain arrives.
