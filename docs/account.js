@@ -78,27 +78,44 @@ function requestOptions(o) {
   }
   return Object.assign({}, o, {challenge: b64u.dec(o.challenge), allowCredentials: (o.allowCredentials || []).map(c => Object.assign({}, c, {id: b64u.dec(c.id)}))});
 }
+/* The credential as JSON for the server. Password managers (1Password, Dashlane, Proton Pass, Bitwarden...) answer
+   with their own objects, which don't always have every method, may throw "Illegal invocation" from the browser's
+   prototypes, or use plain base64. Read every part defensively and send everything as base64url. */
+const tryGet = f => { try { return f(); } catch (e) { return undefined; } };
+const bytes = v => v instanceof ArrayBuffer || ArrayBuffer.isView(v);
+const asB64u = v => v == null ? undefined : bytes(v) ? b64u.enc(v instanceof ArrayBuffer ? v : new Uint8Array(v.buffer, v.byteOffset, v.byteLength))
+  : typeof v === "string" ? v.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "") : undefined;
 function credentialJSON(c) {
-  if (typeof c.toJSON === "function") { try { return c.toJSON(); } catch (e) { /* fall back to by hand */ } }
-  const r = c.response;
-  const out = {id: c.id, rawId: b64u.enc(c.rawId), type: c.type, authenticatorAttachment: c.authenticatorAttachment || undefined,
-    clientExtensionResults: c.getClientExtensionResults ? c.getClientExtensionResults() : {}, response: {clientDataJSON: b64u.enc(r.clientDataJSON)}};
-  if (r.attestationObject) {
-    out.response.attestationObject = b64u.enc(r.attestationObject);
-    if (typeof r.getTransports === "function") out.response.transports = r.getTransports();
+  let j = null;
+  if (typeof c.toJSON === "function") j = tryGet(() => c.toJSON());
+  const r = tryGet(() => c.response) || {};
+  const jr = (j && j.response) || {};
+  const pick = (name, fromJ) => asB64u(tryGet(() => r[name])) || asB64u(fromJ);
+  const id = asB64u(tryGet(() => c.id)) || asB64u(j && j.id) || asB64u(tryGet(() => c.rawId));
+  const out = {id, rawId: asB64u(tryGet(() => c.rawId)) || asB64u(j && j.rawId) || id, type: "public-key",
+    authenticatorAttachment: tryGet(() => c.authenticatorAttachment) || (j && j.authenticatorAttachment) || undefined,
+    clientExtensionResults: tryGet(() => c.getClientExtensionResults()) || (j && j.clientExtensionResults) || {},
+    response: {clientDataJSON: pick("clientDataJSON", jr.clientDataJSON)}};
+  const att = pick("attestationObject", jr.attestationObject);
+  if (att) {
+    out.response.attestationObject = att;
+    const tr = tryGet(() => r.getTransports()) || jr.transports;
+    if (Array.isArray(tr)) out.response.transports = tr.filter(x => typeof x === "string").slice(0, 6);
   }
-  if (r.authenticatorData) {
-    out.response.authenticatorData = b64u.enc(r.authenticatorData);
-    out.response.signature = b64u.enc(r.signature);
-    if (r.userHandle) out.response.userHandle = b64u.enc(r.userHandle);
+  const ad = pick("authenticatorData", jr.authenticatorData);
+  if (ad) {
+    out.response.authenticatorData = ad;
+    out.response.signature = pick("signature", jr.signature);
+    const uh = pick("userHandle", jr.userHandle);
+    if (uh) out.response.userHandle = uh;
   }
   return out;
 }
 export function passkeyError(e) {
   const n = e && e.name;
   if (e instanceof ApiError) return e.message;
-  if (n === "NotAllowedError") return "The passkey prompt was closed or timed out. Try again when you're ready.";
-  if (n === "InvalidStateError") return "This device already has a passkey for this account.";
+  if (n === "NotAllowedError") return "The passkey prompt was closed or timed out. Try again when you're ready, or pick another place to save it.";
+  if (n === "InvalidStateError") return "That password manager or device already has a passkey for this account.";
   if (n === "SecurityError") return "Passkeys only work on Capsule's own address, over https.";
   if (n === "NotSupportedError") return "This browser can't make a passkey. Try another browser, or sign in with a code.";
   if (n === "AbortError") return "Cancelled.";
@@ -275,7 +292,7 @@ async function afterSignIn(user) {
   absorbEntries(full.entries);
   for (const k of Object.keys(st.entries)) if (!full.entries || !full.entries[k]) acct.dirty.add(k);
   const local = st.cfg || {}, sc = full.cfg || null, patch = {};
-  for (const m of ["owned", "pins", "counts", "caps"]) {
+  for (const m of ["owned", "pins", "counts", "caps", "profile"]) {
     for (const [k, v] of Object.entries(local[m] || {})) if (!sc || !sc[m] || !(k in sc[m])) patch[m + "." + k] = v;
   }
   for (const k of ["reach", "rules"]) if (local[k] != null && (!sc || sc[k] == null)) patch[k] = local[k];
@@ -335,16 +352,17 @@ export async function initAccount(h) {
 }
 
 /* ---------- account actions (the You tab calls these) ---------- */
-export async function signUp(handle, invite, brief) {
-  const o = await api("POST", "/api/auth/register/options", {handle, invite});
+/* where: "manager" (a password manager's extension can step in), "device" (Windows Hello, Face ID...), "phone" (QR code). */
+export async function signUp(handle, invite, brief, where) {
+  const o = await api("POST", "/api/auth/register/options", {handle, invite, where});
   const credential = await passkeyCreate(o.options);
   const res = await api("POST", "/api/auth/register/verify", {flow: o.flow, credential, name: deviceName(), brief: brief || undefined});
   forgetInvite();
   await afterSignIn(res.user);
   return res;
 }
-export async function signIn() {
-  const o = await api("POST", "/api/auth/login/options", {});
+export async function signIn(where) {
+  const o = await api("POST", "/api/auth/login/options", where ? {where} : {});
   const res = await api("POST", "/api/auth/login/verify", {flow: o.flow, credential: await passkeyGet(o.options)});
   await afterSignIn(res.user);
   return res;
@@ -364,9 +382,14 @@ export const newRecoveryCodes = () => withFresh(() => api("POST", "/api/me/recov
 export const listSessions = () => api("GET", "/api/me/sessions");
 export const revokeSession = id => api("DELETE", "/api/me/sessions/" + encodeURIComponent(id), {});
 export const listPasskeys = () => api("GET", "/api/me/passkeys");
-export async function addPasskey() {
-  const o = await withFresh(() => api("POST", "/api/me/passkeys/options", {}));
+export async function addPasskey(where) {
+  const o = await withFresh(() => api("POST", "/api/me/passkeys/options", {where}));
   const r = await api("POST", "/api/me/passkeys/verify", {flow: o.flow, credential: await passkeyCreate(o.options), name: deviceName()});
+  await refreshMe();
+  return r;
+}
+export async function removePasskey(id) {
+  const r = await withFresh(() => api("DELETE", "/api/me/passkeys/" + encodeURIComponent(id), {}));
   await refreshMe();
   return r;
 }

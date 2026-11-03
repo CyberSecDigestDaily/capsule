@@ -242,6 +242,31 @@ export function itemKey(url, variant) {
   else if (variant) k += "~" + slug(variant);
   return k.slice(0, 180);
 }
+/* Colourways of one product share a family: brand (or shop host) + the name without its colour + kind. "Milton Cord
+   Trousers, Brown" and "..., Dark Blue" are one family; so are "Classic T-Shirt in Slate" and "... in Petrol Blue".
+   Passing on one colour hides the others too, unless the colour was the problem. */
+let COLOUR_WORDS = null;
+const hostOf = u => String(u || "").replace(/^https?:\/\/(www\.)?/i, "").split(/[/?#]/)[0].toLowerCase();
+export function familyOf(brand, name, role, url) {
+  if (!COLOUR_WORDS) COLOUR_WORDS = new Set(Object.values(COLOURS).flat());
+  let n = norm(name).replace(/\|/g, " ");
+  const comma = n.lastIndexOf(",");
+  if (comma > 2) n = n.slice(0, comma);
+  n = n.replace(/\s*\([^)]*\)\s*$/, "").trim();
+  const m = /^(.{3,}?)\s+(?:in|-|–|—|\/)\s+(.+)$/.exec(n);
+  if (m && firstIn(m[2], COLOURS)) n = m[1];
+  // Colour words left at the end ("Skate Shoes Egret", "Waffle Crew Dark Navy").
+  let words = n.split(" ");
+  for (let guard = 0; guard < 4 && words.length > 2; guard++) {
+    let cut = 0;
+    for (const k of [3, 2, 1]) if (words.length - k >= 2 && COLOUR_WORDS.has(words.slice(-k).join(" "))) { cut = k; break; }
+    if (!cut) break;
+    words = words.slice(0, -cut);
+  }
+  const s = slug(words.join(" ").replace(/[\s/–—-]+$/, ""));
+  const b = brandSlug(brand) || slug(hostOf(url));
+  return b && s ? `${b}|${s}|${role || ""}` : "";
+}
 
 /* ------------------------------------------------------------------ items */
 /* One shape for watch-list items, approved finds, picks and pool items. */
@@ -270,6 +295,7 @@ export function normItem(raw, kind) {
   if (!it.role) it.role = roleOf(`${it.name} ${it.category || ""}`, it.category);
   it.category = it.category || ROLE_CATEGORY[it.role] || "Other";
   it.traits = traitsOf(it);
+  it.fam = familyOf(it.brand, it.name, it.role, it.url);
   return it;
 }
 
@@ -390,6 +416,77 @@ export function priorOf(brief) {
   return {prior, hard, soft, softRules, cats: b.categories ? new Set(b.categories) : null, brief: b};
 }
 
+/* ------------------------------------------------------------------ about you (profile) */
+/* Measurements and preferences from the You tab (cfg.profile, private to your account). Numbers are metric: cm, kg,
+   UK shoe size, trouser waist and leg in inches as labelled. Shared with the Worker, which validates with cleanProfile. */
+export const SIZES = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
+export const PROFILE = {
+  num: {height: [120, 230], weight: [35, 250], chest: [60, 170], waist: [50, 170], seat: [60, 180], inseam: [50, 110], shoe: [3, 16], trw: [24, 50], trl: [24, 38]},
+  one: {fit: ["slim", "regular", "relaxed"], top: SIZES, outer: SIZES, climate: ["cold", "cool-wet", "mild", "warm"],
+    skin: ["fair", "light", "medium", "olive", "brown", "deep"], hair: ["blonde", "red", "brown", "black", "grey"], units: ["metric", "imperial"]},
+  many: {build: ["slim", "athletic", "broad", "middle", "solid", "tall"], avoid: ["wool", "synthetic", "acrylic", "linen", "fleece", "cord", "waxed"]}
+};
+export function cleanProfile(p) {
+  const out = {};
+  if (!p || typeof p !== "object" || Array.isArray(p)) return out;
+  for (const [k, [lo, hi]] of Object.entries(PROFILE.num)) {
+    const v = typeof p[k] === "string" && p[k].trim() !== "" ? Number(p[k]) : p[k];
+    if (typeof v === "number" && isFinite(v) && v >= lo && v <= hi) out[k] = Math.round(v * 10) / 10;
+  }
+  for (const [k, list] of Object.entries(PROFILE.one)) if (list.includes(p[k])) out[k] = p[k];
+  for (const [k, list] of Object.entries(PROFILE.many)) {
+    const v = [...new Set(String(p[k] || "").split("|").filter(x => list.includes(x)))];
+    if (v.length) out[k] = v.join("|");
+  }
+  return out;
+}
+const pset = v => new Set(String(v || "").split("|").filter(Boolean));
+const AVOID = {wool: ["f:wool", "f:lambswool"], synthetic: ["f:nylon", "f:acrylic"], acrylic: ["f:acrylic"], linen: ["f:linen"],
+  fleece: ["f:fleece"], cord: ["f:cord"], waxed: ["f:waxed"]};
+/* What your profile does to the ranking: fit and build lean the cuts, height the lengths, climate the fabrics and
+   finishes, fabrics you avoid sink, and your colouring nudges colours gently. */
+export function profileBias(pr, now) {
+  const prior = {}, soft = {};
+  const add = (t, v) => { prior[t] = Math.round(((prior[t] || 0) + v) * 100) / 100; };
+  const sink = (t, v) => { soft[t] = Math.min(soft[t] || 0, v); };
+  if (!pr || !Object.keys(pr).length) return {prior, soft};
+  const build = pset(pr.build);
+  if (pr.fit === "slim") { add("fit:slim", 0.4); add("fit:tapered", 0.2); sink("fit:relaxed", -0.3); }
+  else if (pr.fit === "regular") { add("fit:regular", 0.3); add("fit:straight", 0.1); }
+  else if (pr.fit === "relaxed") { add("fit:relaxed", 0.45); add("fit:straight", 0.15); sink("fit:slim", -0.4); }
+  if (build.has("middle")) { sink("fit:slim", -0.5); add("fit:regular", 0.2); }
+  if (build.has("broad")) { sink("fit:slim", -0.3); add("fit:raglan", 0.25); }
+  if (build.has("solid")) { sink("fit:slim", -0.3); add("fit:straight", 0.2); }
+  if (build.has("athletic")) add("fit:tapered", 0.2);
+  if (build.has("slim")) { add("fit:slim", 0.15); add("x:cable", 0.15); add("x:waffle", 0.1); }
+  if (pr.seat && pr.waist && pr.seat - pr.waist >= 16) add("fit:tapered", 0.15); // athletic seat and thighs: room up top, taper below
+  if (build.has("tall") || pr.height >= 188 || pr.inseam >= 86) add("fit:longline", 0.35);
+  else if (pr.height && pr.height <= 170) sink("fit:longline", -0.4);
+  const mo = new Date(now || Date.now()).getUTCMonth(), winter = mo >= 9 || mo <= 2;
+  if (pr.climate === "cold" || pr.climate === "cool-wet") {
+    add("det:waterproof", pr.climate === "cool-wet" ? 0.3 : 0.15); add("det:lined", 0.2); sink("f:linen", -0.3);
+    if (winter) add("sea:winter", 0.2);
+  } else if (pr.climate === "warm") { add("f:linen", 0.3); sink("det:lined", -0.3); }
+  for (const a of pset(pr.avoid)) for (const t of AVOID[a] || []) sink(t, -2);
+  if (pr.hair === "red") { add("c:olive", 0.2); add("c:bottle-green", 0.2); add("c:navy", 0.15); add("c:brown", 0.1); for (const c of ["red", "orange", "pink"]) sink("c:" + c, -0.3); }
+  if (pr.hair === "grey") { add("c:navy", 0.1); add("c:charcoal", 0.1); add("c:burgundy", 0.1); }
+  if (pr.skin === "fair" || pr.skin === "light") { add("c:navy", 0.1); add("c:charcoal", 0.1); sink("c:mustard", -0.2); }
+  else if (pr.skin === "medium" || pr.skin === "olive") { add("c:olive", 0.1); add("c:rust", 0.1); add("c:cream", 0.1); }
+  else if (pr.skin === "brown" || pr.skin === "deep") { add("c:cream", 0.15); add("c:white", 0.1); add("c:rust", 0.1); add("c:mustard", 0.1); }
+  return {prior, soft};
+}
+/* A rough size guide from measurements (or height and weight), for the You tab. Brands vary, so it's a guide. */
+const TOP_CHEST = [["XS", 91], ["S", 97], ["M", 103], ["L", 109], ["XL", 116], ["XXL", 123]];
+const TOP_WEIGHT = [["XS", 60], ["S", 70], ["M", 80], ["L", 93], ["XL", 105], ["XXL", 117]];
+export function sizeAdvice(pr) {
+  const p = pr || {}, out = {};
+  if (p.chest) { out.top = (TOP_CHEST.find(([, hi]) => p.chest <= hi) || ["3XL"])[0]; out.topFrom = "chest"; }
+  else if (p.weight && p.height) { out.top = (TOP_WEIGHT.find(([, hi]) => p.weight <= hi) || ["3XL"])[0]; out.topFrom = "height and weight"; }
+  if (p.waist) out.trw = Math.round(p.waist / 2.54);
+  if (p.inseam) out.trl = 2 * Math.round(p.inseam / 2.54 / 2);
+  return out;
+}
+
 /* ------------------------------------------------------------------ learning */
 // What each reaction is worth. Explicit taps dominate; quiet signals nudge.
 export const SIGNAL = {love: 2.5, like: 1, no: -1, nope: -2.5, more: 1.5, save: 0.8, pricey: 0.8, own: 0.6, bought: 2.5,
@@ -450,11 +547,24 @@ export function makeModel({brief: brief0, entries, cfg, now, traitsFor}) {
   // How strict your no's are is a setting you can flip on the You tab; it overrides the brief's answer.
   const brief = c.rules ? Object.assign({}, brief0 || {}, {rules: c.rules}) : brief0;
   const p = priorOf(brief);
+  // About you: your profile leans cuts, lengths, fabrics and colours on top of the brief.
+  const profile = cleanProfile(c.profile);
+  const pb = profileBias(profile, now);
+  for (const [t, v] of Object.entries(pb.prior)) p.prior[t] = Math.round(((p.prior[t] || 0) + v) * 100) / 100;
+  for (const [t, v] of Object.entries(pb.soft)) p.soft[t] = Math.min(p.soft[t] || 0, v);
   const caps = Object.assign({}, DEFAULT_CAPS, (brief && brief.caps) || {}, c.caps || {});
   const counts = Object.assign({}, (brief && brief.counts) || {}, c.counts || {});
   const learned = learn(entries, {now, fadeDays: c.fadeDays || (brief && brief.fade_days) || 90, resetAt: c.resetAt, traitsFor});
+  // Pieces you passed on: their other colourways step aside too, unless the colour was the problem (or you have one).
+  const fams = {};
+  for (const [k, e] of Object.entries(entries || {})) {
+    if (!e || (e.s !== "nope" && e.s !== "no") || !e.f) continue;
+    if ((e.why || []).some(r => r === "colour" || r === "have")) continue;
+    const f = familyOf(e.f.b, e.f.n, e.f.r, e.f.u);
+    if (f && !fams[f]) fams[f] = {key: k, name: e.f.n || "", s: e.s};
+  }
   return {prior: p.prior, hard: p.hard, soft: p.soft, softRules: p.softRules, cats: p.cats, aff: learned.aff, n: learned.n, pins: c.pins || {},
-    caps, counts, explore: c.explore ?? (brief && brief.explore) ?? 0.2, entries: entries || {}, brief: p.brief,
+    caps, counts, explore: c.explore ?? (brief && brief.explore) ?? 0.2, entries: entries || {}, brief: p.brief, profile, fams,
     now: now || Date.now(), repeatDays: (brief && brief.repeat_days) || 14};
 }
 
@@ -494,8 +604,11 @@ export const pctOf = s => Math.round(100 / (1 + Math.exp(-1.5 * (s - 1))));
 export function hiddenWhy(m, it) {
   const e = m.entries[it.key];
   if (e && e.s === "nope") return "nope";
+  if (e && e.s === "no") return "passed";
   if (e && (e.bought || it.bought)) return "owned";
   if (e && e.own) return "own-similar";
+  // Another colour of something you passed on (your own reaction to this one wins).
+  if (!(e && e.s) && it.fam && m.fams && m.fams[it.fam] && m.fams[it.fam].key !== it.key) return "family";
   if (m.cats && it.role && !roleWanted(m.cats, it.role)) return "category";
   const traits = it.traits;
   for (const t of traits) {
@@ -798,7 +911,7 @@ export function brandNames(items) {
 /* ------------------------------------------------------------------ settings */
 /* Settings sync as patches ("owned.s3": 1, "pins.c:olive": null, "explore": 0.33) applied to the account's copy, so a
    change on one device never overwrites a different change made on another. null removes a key. */
-export const CFG_MAPS = ["owned", "pins", "counts", "caps"];
+export const CFG_MAPS = ["owned", "pins", "counts", "caps", "profile"];
 export const CFG_KEYS = ["explore", "theme", "reach", "resetAt", "rules"];
 export function cfgDiff(a, b) {
   const p = {}, x0 = a || {}, y0 = b || {};

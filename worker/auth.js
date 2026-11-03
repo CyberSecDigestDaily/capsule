@@ -8,6 +8,7 @@ import {verifyRegistration, verifyAuthentication, WebAuthnError, ALGS} from "./w
 import {json, readJSON, createSession, clearCookie, requireSession, requireFresh, allowedOrigins, rpId, getSession} from "./http.js";
 import {limitIP, rateLimit} from "./db.js";
 import {checkHandle, normHandle, passkeyName, cleanBrief, bad} from "./validate.js";
+import {providerOf} from "./aaguid.js";
 
 const CHALLENGE_TTL = 300, LINK_TTL = 600, RECOVERY_COUNT = 10, MAX_PASSKEYS = 20;
 
@@ -33,18 +34,34 @@ const webauthnError = e => {
   return e;
 };
 
-function creationOptions(env, request, userId, handle, challenge, exclude) {
-  return {
+/* Where the new passkey should live. "manager" (the default) leaves the choice open, so a password manager's browser
+   extension (1Password, Dashlane, Proton Pass, Bitwarden...) can step in before the browser's own prompt. "device" asks
+   for this device's built-in authenticator (Windows Hello, Face ID, Touch ID); "phone" goes straight to the QR code for
+   a phone, or a security key. hints are WebAuthn Level 3; browsers that don't know them use the attachment alone. */
+const WHERE = {
+  manager: {},
+  device: {authenticatorAttachment: "platform", hints: ["client-device"]},
+  phone: {authenticatorAttachment: "cross-platform", hints: ["hybrid", "security-key"]}
+};
+const whereOf = w => (typeof w === "string" && Object.hasOwn(WHERE, w)) ? w : "manager";
+
+function creationOptions(env, request, userId, handle, challenge, exclude, where) {
+  const w = WHERE[whereOf(where)];
+  const sel = {residentKey: "required", requireResidentKey: true, userVerification: "required"};
+  if (w.authenticatorAttachment) sel.authenticatorAttachment = w.authenticatorAttachment;
+  const o = {
     rp: {id: rpId(env, request), name: "Capsule"},
     user: {id: userId, name: handle, displayName: handle},
     challenge,
     pubKeyCredParams: ALGS.map(alg => ({type: "public-key", alg})),
     timeout: CHALLENGE_TTL * 1000,
     attestation: "none",
-    authenticatorSelection: {residentKey: "required", requireResidentKey: true, userVerification: "required"},
+    authenticatorSelection: sel,
     excludeCredentials: (exclude || []).map(c => ({type: "public-key", id: c.id, transports: c.transports ? JSON.parse(c.transports) : undefined})),
     extensions: {credProps: true}
   };
+  if (w.hints) o.hints = w.hints;
+  return o;
 }
 
 async function newRecoveryCodes(env, userId) {
@@ -97,7 +114,7 @@ export async function registerOptions(env, request) {
   if (await env.DB.prepare("SELECT 1 FROM users WHERE handle = ?").bind(handle).first()) throw new HttpError(409, "handle_taken", "That name is taken. Pick another.");
   const userId = b64url(randomBytes(16));
   const {id, challenge} = await newChallenge(env, "reg", null, {handle, userId, invite: inv.hash, owner: inv.owner});
-  return json({flow: id, options: creationOptions(env, request, userId, handle, challenge)});
+  return json({flow: id, options: creationOptions(env, request, userId, handle, challenge, null, body.where)});
 }
 
 export async function registerVerify(env, request) {
@@ -127,14 +144,18 @@ export async function registerVerify(env, request) {
     throw e;
   }
   const cookie = await createSession(env, request, userId, "passkey");
-  return json({user: {id: userId, handle, owner: !!owner}, recoveryCodes: rc.codes}, 200, {"Set-Cookie": cookie});
+  return json({user: {id: userId, handle, owner: !!owner}, recoveryCodes: rc.codes, provider: providerOf(v.aaguid)}, 200, {"Set-Cookie": cookie});
 }
 
 /* ---- Sign in with a passkey (discoverable: no name needed) ---- */
 export async function loginOptions(env, request) {
   await limitIP(env, request, "login", 60, 600);
+  const body = await readJSON(request);
   const {id, challenge} = await newChallenge(env, "auth", null, null);
-  return json({flow: id, options: {challenge, rpId: rpId(env, request), timeout: CHALLENGE_TTL * 1000, userVerification: "required", allowCredentials: []}});
+  const options = {challenge, rpId: rpId(env, request), timeout: CHALLENGE_TTL * 1000, userVerification: "required", allowCredentials: []};
+  // A passkey saved on your phone: go straight to the QR code instead of this device's own prompt.
+  if (body.where === "phone") options.hints = ["hybrid"];
+  return json({flow: id, options});
 }
 
 async function checkAssertion(env, request, body, flow, onlyUser) {
@@ -240,18 +261,19 @@ export async function redeemLink(env, request) {
 /* ---- Passkeys on the account ---- */
 export async function listPasskeys(env, request, ctx) {
   const s = await requireSession(env, request, ctx);
-  const rows = (await env.DB.prepare("SELECT id, name, created_at, last_used_at, backed_up, transports FROM credentials WHERE user_id = ? ORDER BY created_at").bind(s.user_id).all()).results;
+  const rows = (await env.DB.prepare("SELECT id, name, created_at, last_used_at, backed_up, transports, aaguid FROM credentials WHERE user_id = ? ORDER BY created_at").bind(s.user_id).all()).results;
   return json({passkeys: rows.map(r => ({id: r.id, name: r.name, created: r.created_at, lastUsed: r.last_used_at, synced: !!r.backed_up,
-    transports: r.transports ? JSON.parse(r.transports) : []}))});
+    provider: providerOf(r.aaguid), transports: r.transports ? JSON.parse(r.transports) : []}))});
 }
 
 export async function addPasskeyOptions(env, request, ctx) {
   const s = await requireSession(env, request, ctx);
   requireFresh(s);
+  const body = await readJSON(request);
   const creds = (await env.DB.prepare("SELECT id, transports FROM credentials WHERE user_id = ?").bind(s.user_id).all()).results;
   if (creds.length >= MAX_PASSKEYS) throw new HttpError(400, "too_many", "That's the most passkeys one account can have. Remove one first.");
   const {id, challenge} = await newChallenge(env, "add", s.user_id, null);
-  return json({flow: id, options: creationOptions(env, request, s.user_id, s.handle, challenge, creds)});
+  return json({flow: id, options: creationOptions(env, request, s.user_id, s.handle, challenge, creds, body.where)});
 }
 
 export async function addPasskeyVerify(env, request, ctx) {
@@ -270,7 +292,7 @@ export async function addPasskeyVerify(env, request, ctx) {
     if (/UNIQUE|PRIMARY/i.test(String(e && e.message))) throw new HttpError(409, "duplicate_passkey", "That passkey is already on your account.");
     throw e;
   }
-  return json({ok: true, id: v.id});
+  return json({ok: true, id: v.id, provider: providerOf(v.aaguid)});
 }
 
 export async function deletePasskey(env, request, ctx, credId) {

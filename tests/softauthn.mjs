@@ -53,7 +53,8 @@ export class SoftAuthenticator {
     const rpIdHash = await sha256(te.encode(tweak.rpId || options.rp.id));
     const flags = tweak.flags ?? (0x01 | 0x04 | 0x08 | 0x10 | 0x40);
     const coseBytes = cbor(cose);
-    const authData = concat(rpIdHash, Uint8Array.of(flags, 0, 0, 0, 0), new Uint8Array(16), Uint8Array.of(credId.length >> 8, credId.length & 255), credId, coseBytes);
+    const aaguid = tweak.aaguid ? Uint8Array.from(tweak.aaguid.replace(/-/g, "").match(/../g).map(h => parseInt(h, 16))) : new Uint8Array(16);
+    const authData = concat(rpIdHash, Uint8Array.of(flags, 0, 0, 0, 0), aaguid, Uint8Array.of(credId.length >> 8, credId.length & 255), credId, coseBytes);
     const clientData = te.encode(JSON.stringify({type: tweak.type || "webauthn.create", challenge: tweak.challenge || options.challenge, origin: tweak.origin || origin, crossOrigin: false}));
     const attObj = cbor({fmt: "none", attStmt: new Map(), authData});
     const cred = {id: b64url(credId), keys, alg, userId: options.user.id, counter: 0, useCounter: !!tweak.useCounter};

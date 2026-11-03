@@ -44,6 +44,7 @@
     <div class="head">
       <h1>For you</h1>
       <p id="fyLede">Everything in your size, ranked by what you like. Tap ♡ or ✕ on anything and it learns.</p>
+      <p class="tally" id="fyTally" hidden></p>
     </div>
     <div class="chips" id="fyFilters" aria-label="Show"></div>
     <section class="block" id="newBlock" hidden>
@@ -131,6 +132,19 @@
     <div class="head">
       <h1>Deals</h1>
       <p id="dealsLede">Reductions in your size. The better the match, the smaller the discount it needs to show here.</p>
+    </div>
+    <div class="dealbar">
+      <div class="chips" id="dealCats" aria-label="Category"></div>
+      <label class="sortby"><span>Sort by</span>
+        <select id="dealSort" aria-label="Sort deals">
+          <option value="match">Best match for you</option>
+          <option value="gap">Fills an outfit gap</option>
+          <option value="disc">Biggest discount</option>
+          <option value="save">Biggest saving (£)</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+          <option value="new">Newest first</option>
+        </select></label>
     </div>
     <div class="grid" id="dealsGrid"></div>
   </section>

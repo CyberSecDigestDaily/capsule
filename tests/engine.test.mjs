@@ -100,21 +100,42 @@ t("pieces you only scrolled past teach through traitsFor", () => {
 });
 
 console.log("\nThe feed");
-t("nope hides that piece only; wildcards are labelled, one in five", () => {
+t("nope hides that piece and its other colours; a colour reason or your own tap keeps them; wildcards one in five", () => {
   const items = [];
   const cols = ["olive", "navy", "stone", "charcoal", "burgundy", "oatmeal", "rust", "tan", "khaki", "cream"];
   const roles = [["Waffle Knit", "knit"], ["Chore Jacket", "jacket"], ["Crew Tee", "tee"], ["Tapered Chinos", "chino"], ["Overshirt", "overshirt"]];
   for (const c of cols) for (const [n, r] of roles) items.push(pool({u: `https://shop.example/products/${r}-${c}`, n: `${n}, ${c}`, r}));
   const nope = items[0];
-  const m = E.makeModel({brief, entries: {[nope.key]: {t: new Date().toISOString(), s: "nope", f: E.snapshot(nope)}}, cfg: {explore: 0.2}});
+  const now = new Date().toISOString();
+  const m = E.makeModel({brief, entries: {[nope.key]: {t: now, s: "nope", f: E.snapshot(nope)}}, cfg: {explore: 0.2}});
   const {list, hidden} = E.rank(m, items, {today: "2026-10-29"});
   assert.ok(hidden.some(h => h.it.key === nope.key && h.why === "nope"));
   assert.ok(!list.some(x => x.it.key === nope.key));
-  const sameAsNope = items.find(i => i !== nope && i.role === nope.role);
-  assert.ok(list.some(x => x.it.key === sameAsNope.key), "a similar piece still shows");
+  const sibling = items.find(i => i !== nope && i.role === nope.role);
+  assert.equal(sibling.fam, nope.fam);
+  assert.ok(hidden.some(h => h.it.key === sibling.key && h.why === "family"), "its other colours hide too");
+  assert.ok(list.some(x => x.it.role === "jacket"), "other kinds of piece still show");
+  const m2 = E.makeModel({brief, entries: {[nope.key]: {t: now, s: "nope", why: ["colour"], f: E.snapshot(nope)}}});
+  assert.equal(E.hiddenWhy(m2, sibling), null, "'colour' as the reason keeps the other colours");
+  const m3 = E.makeModel({brief, entries: {[nope.key]: {t: now, s: "nope", f: E.snapshot(nope)}, [sibling.key]: {t: now, s: "like", f: E.snapshot(sibling)}}});
+  assert.equal(E.hiddenWhy(m3, sibling), null, "your own tap on a colour wins");
   const wild = list.filter(x => x.wildcard);
   assert.ok(wild.length >= 1 && wild.every(x => /^Testing/.test(x.note)));
   for (let i = 0; i < 12; i++) if (list[i].wildcard) assert.equal(i % 5, 4);
+});
+t("a pass in Train hides the piece too", () => {
+  const it = pool({u: "https://shop.example/products/cord", n: "Cord Overshirt, rust", r: "overshirt"});
+  const m = E.makeModel({brief, entries: {[it.key]: {t: new Date().toISOString(), s: "no", f: E.snapshot(it)}}});
+  assert.equal(E.hiddenWhy(m, it), "passed");
+  assert.ok(!E.rank(m, [it], {today: "2026-10-29"}).list.length);
+});
+t("colourway families: the name without its colour, per brand and kind", () => {
+  const f = n => E.familyOf("Converse", n, "trainer");
+  assert.equal(f("Louie Lopez Pro 2 Skate Shoes Egret / Black / Gum"), f("Louie Lopez Pro 2 Skate Shoes, Utility/Egret/Gum"));
+  assert.equal(E.familyOf("Albam", "Classic T-Shirt in Grey Marl", "tee"), E.familyOf("Albam", "Classic T-Shirt in Petrol Blue", "tee"));
+  assert.equal(E.familyOf("X", "Fleece Jacket - Olive Green", "fleece"), E.familyOf("X", "Fleece Jacket, Navy", "fleece"));
+  assert.notEqual(E.familyOf("X", "Made in England Tee", "tee"), E.familyOf("X", "Made in Portugal Tee", "tee"));
+  assert.notEqual(E.familyOf("Albam", "Classic T-Shirt in Slate", "tee"), E.familyOf("Folk", "Classic T-Shirt in Slate", "tee"));
 });
 t("no three of a kind in a row at the top", () => {
   const items = [];
@@ -160,6 +181,36 @@ t("settings patches round-trip", () => {
   const p = E.cfgDiff(a, b);
   assert.deepEqual(p, {explore: 0.33, theme: "dark", "owned.s1": 0, "owned.7": 1, "pins.c:olive": null, "counts.tees": 5, "caps.tee": 50});
   assert.deepEqual(E.applyCfgPatch(a, p), b);
+});
+t("profile settings travel as patches too", () => {
+  const a = {profile: {height: 183}}, b = {profile: {height: 183.5, build: "middle|broad"}};
+  const p = E.cfgDiff(a, b);
+  assert.deepEqual(p, {"profile.height": 183.5, "profile.build": "middle|broad"});
+  assert.deepEqual(E.applyCfgPatch(a, p).profile, b.profile);
+});
+
+console.log("\nAbout you");
+t("cleanProfile keeps known keys in range and drops the rest", () => {
+  const p = E.cleanProfile({height: 183, weight: "86.2", chest: 999, fit: "relaxed", top: "L", build: "middle|broad|nonsense", avoid: "wool", junk: 1, skin: "green"});
+  assert.deepEqual(p, {height: 183, weight: 86.2, fit: "relaxed", top: "L", build: "middle|broad", avoid: "wool"});
+});
+t("profile leans the ranking: build, fit, height, climate, fabrics to avoid", () => {
+  const slim = pool({u: "https://shop.example/products/s", n: "Slim Fit Oxford Shirt, navy", r: "shirt"});
+  const reg = pool({u: "https://shop.example/products/r", n: "Regular Fit Oxford Shirt, navy", r: "shirt"});
+  const wool = pool({u: "https://shop.example/products/w", n: "Wool Overshirt, navy", r: "overshirt"});
+  const long = pool({u: "https://shop.example/products/l", n: "Longline Tee, navy", r: "tee"});
+  const none = E.makeModel({brief: {}, entries: {}});
+  const me = E.makeModel({brief: {}, entries: {}, cfg: {profile: {build: "middle", fit: "regular", height: 191, avoid: "wool", climate: "cool-wet"}}});
+  const s = (m, it) => E.score(m, it, {today: "2026-11-03"}).s;
+  assert.ok(s(me, slim) < s(none, slim) && s(me, reg) > s(none, reg), "slim sinks, regular rises");
+  assert.ok(s(me, wool) < s(none, wool) - 0.5, "wool sinks");
+  assert.ok(s(me, long) > s(none, long), "tall: longer cuts rise");
+  assert.ok(E.affinity(me, "det:waterproof") > 0, "cool and wet: waterproofing helps");
+});
+t("size guide from measurements, or height and weight", () => {
+  assert.deepEqual(E.sizeAdvice({chest: 106, waist: 87, inseam: 81}), {top: "L", topFrom: "chest", trw: 34, trl: 32});
+  assert.equal(E.sizeAdvice({height: 183, weight: 86}).top, "L");
+  assert.deepEqual(E.sizeAdvice({}), {});
 });
 t("similar pieces: same kind and shared traits first", () => {
   const it = pool({u: "https://shop.example/products/a", n: "Waffle Crew Knit, olive", r: "knit"});

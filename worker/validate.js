@@ -1,6 +1,7 @@
 /* Input validation. Everything a client sends is reduced to known keys, types and sizes before it reaches D1. */
 
 import {HttpError, isoOk} from "./util.js";
+import {cleanProfile} from "../docs/engine.js";
 
 export const bad = (msg, code = "invalid") => { throw new HttpError(400, code, msg); };
 
@@ -74,19 +75,19 @@ export function cleanCfg(c) {
   }
   return {counts, caps, pins, owned, resetAt: isoOk(c.resetAt) ? c.resetAt : null, explore: num(c.explore, 0, 0.5) ?? 0.2,
     theme: ["auto", "dark", "light"].includes(c.theme) ? c.theme : "auto", reach: num(c.reach, 60, 130) ?? null,
-    rules: ["soft", "hard"].includes(c.rules) ? c.rules : null,
+    rules: ["soft", "hard"].includes(c.rules) ? c.rules : null, profile: cleanProfile(c.profile),
     t: isoOk(c.t) ? c.t : new Date().toISOString()};
 }
 
 /* A settings patch: {"owned.s3": 1, "pins.c:olive": null, "explore": 0.33}. Paths are checked here; values are
    checked by cleanCfg() once the patch is applied. */
-const PATCH_PATH = /^(?:(?:owned|pins|counts|caps)\.[a-z0-9:_-]{1,48}|explore|theme|reach|resetAt|rules)$/;
+const PATCH_PATH = /^(?:(?:owned|pins|counts|caps|profile)\.[a-z0-9:_-]{1,48}|explore|theme|reach|resetAt|rules)$/;
 export function cleanPatch(p) {
   if (!p || typeof p !== "object" || Array.isArray(p)) return null;
   const out = {};
   for (const [k, v] of Object.entries(p).slice(0, 400)) {
     if (!PATCH_PATH.test(k)) continue;
-    if (v === null || typeof v === "number" || typeof v === "string") out[k] = typeof v === "string" ? v.slice(0, 40) : v;
+    if (v === null || typeof v === "number" || typeof v === "string") out[k] = typeof v === "string" ? v.slice(0, 80) : v;
   }
   return Object.keys(out).length ? out : null;
 }
