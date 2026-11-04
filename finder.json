@@ -1236,7 +1236,41 @@
   "https://parasolstore.co.uk/products/carhartt-wip-merton-sweater-sundling-stripe-palisander",
   "https://parasolstore.co.uk/products/gramicci-hemp-tee-natural-pigment",
   "https://urbanindustry.co.uk/products/converse-chuck-70-hi-shoes-citron-this-egret-black",
-  "https://urbanindustry.co.uk/products/new-balance-made-in-usa-993-shoes-team-red-u9935cx"
+  "https://urbanindustry.co.uk/products/new-balance-made-in-usa-993-shoes-team-red-u9935cx",
+  "https://parasolstore.co.uk/products/patagonia-better-sweater-1-4-zip-fleece-black",
+  "https://routeone.co.uk/products/vans-salton-tall-cuff-beanie-black-001194999",
+  "https://parasolstore.co.uk/products/patagonia-capilene-cool-sun-hoody-fitz-roy-trout-caper-green-buckhorn-green-x-dye",
+  "https://jeanstore.co.uk/products/wrangler-blue-bell-11mjz-selvedge-denim-jacket-black-raw",
+  "https://peggsandson.com/products/products-fukushin-beams-japan-sock-charm-keychain-navy-25195",
+  "https://parasolstore.co.uk/products/patagonia-l-s-capilene-cool-sun-shirt-fitz-roy-trout-gumtree-green-light-gumtree-green-x-dye",
+  "https://jeanstore.co.uk/products/wrangler-blue-bell-regular-wool-western-shirt-ombre",
+  "https://parasolstore.co.uk/products/patagonia-fitz-roy-trout-t-shirt-undyed-natural",
+  "https://routeone.co.uk/products/napapijri-full-zip-aop-fleece-fancy-001195676",
+  "https://routeone.co.uk/products/vans-x-atiba-cargo-zip-hoodie-black-001198575",
+  "https://parasolstore.co.uk/products/norse-projects-falster-tencel-oversize-shirt-walnut",
+  "https://routeone.co.uk/products/napapijri-rainforest-next-aop-jacket-fancy-001195675",
+  "https://parasolstore.co.uk/products/gramicci-zip-up-insulated-flannel-shirt-navy-shadow-plaid",
+  "https://routeone.co.uk/products/napapijri-rainforest-next-aop-jacket-bamby-001195673",
+  "https://parasolstore.co.uk/products/gramicci-mohair-splatter-sweater-taupe-splatter",
+  "https://jeanstore.co.uk/products/rototo-r1622-3-pack-everyday-athletic-socks-pack-b",
+  "https://routeone.co.uk/products/vans-larkspur-plaid-l-s-flannel-shirt-parisian-night-poppy-ember-001195622",
+  "https://parasolstore.co.uk/products/gramicci-mohair-splatter-sweater-slate-splatter",
+  "https://parasolstore.co.uk/products/gramicci-mohair-splatter-cardigan-taupe-splatter",
+  "https://jeanstore.co.uk/products/rototo-r5016-bulky-watch-cap-raw-beige",
+  "https://parasolstore.co.uk/products/gramicci-fatigue-denim-pant-stone",
+  "https://parasolstore.co.uk/products/gramicci-fatigue-denim-pant-rinsed-indigo",
+  "https://parasolstore.co.uk/products/snow-peak-cotton-ripstop-shirt-ivory",
+  "https://jeanstore.co.uk/products/rototo-r1255-coarse-ribbed-oldschool-socks-bordeaux-yellow",
+  "https://parasolstore.co.uk/products/patagonia-classic-retro-x-fleece-vest-black-w-black",
+  "https://jeanstore.co.uk/products/rototo-r1255-coarse-ribbed-oldschool-socks-chili-red-blue",
+  "https://parasolstore.co.uk/products/patagonia-fjord-loft-shirt-solstice-new-navy",
+  "https://parasolstore.co.uk/products/patagonia-fjord-flannel-shirt-dissolve-treeline-green",
+  "https://parasolstore.co.uk/products/patagonia-fitz-roy-foothills-daily-hoody-black",
+  "https://parasolstore.co.uk/products/patagonia-p-6-label-uprisal-hoody-gravel-heather",
+  "https://parasolstore.co.uk/products/patagonia-retro-pile-jacket-black",
+  "https://parasolstore.co.uk/products/patagonia-sisar-down-hoody-jacket-black",
+  "https://parasolstore.co.uk/products/patagonia-terravia-peak-pants-regular-black",
+  "https://parasolstore.co.uk/products/patagonia-fishermans-rolled-beanie-contrast-stripe-weathered-stone"
  ],
  "pool": {
   "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
@@ -1866,6 +1900,9 @@
     "label": "Blackhorse Lane",
     "new": [
      "new-arrivals"
+    ],
+    "sale": [
+     "the-archive-sale-mens"
     ]
    },
    {
