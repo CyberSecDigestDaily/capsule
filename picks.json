@@ -1,41 +1,40 @@
 {
- "updated": "2026-11-05",
+ "updated": "2026-11-06",
  "by": "Claude daily review",
- "strong": false,
+ "strong": true,
  "picks": [
   {
-   "date": "2026-11-03",
-   "brand": "John White",
-   "name": "Byrne Chelsea Boot, brown suede",
-   "short": "Brown suede Chelsea",
-   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
-   "size": "UK 10",
-   "variant": "Brown Suede",
-   "price": 120.0,
-   "category": "Footwear",
-   "why": "The brushed-brown Chelsea is still missing from the boot rotation, and this one is £120, down from £280 and under target, with UK 10 in stock. Matte calf suede, leather-lined, on a Vibram sole, so it handles wet days. Wear it with the 502s or the fawn chinos and a knit for the office."
+   "date": "2026-11-06",
+   "brand": "Stan Ray",
+   "name": "Wool Fleece Jacket, Navy Heather",
+   "short": "Navy wool fleece",
+   "url": "https://jeanstore.co.uk/products/stan-ray-wool-fleece-jacket-navy-heather",
+   "size": "L",
+   "price": 79.5,
+   "category": "Fleece",
+   "why": "There's still no fleece, and that leaves the hiking, lounging and outdoor outfits without a mid-layer. This is a regular-fit zip fleece in a textured wool blend, navy heather, half price at £79.50 (was £159), and L is the last size left. Wear it over a grey marl tee with the 502s and the Sambas, or under the waxed Ashby on the coast path."
   },
   {
-   "date": "2026-11-03",
-   "brand": "Uniqlo",
-   "name": "100% Merino Crew Neck Jumper, navy",
-   "short": "Navy merino crew",
-   "url": "https://www.uniqlo.com/uk/en/products/E450535-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "date": "2026-11-06",
+   "brand": "Community Clothing",
+   "name": "Lambswool Saddle Shoulder Crew Neck, Grey",
+   "short": "Grey lambswool crew",
+   "url": "https://communityclothing.co.uk/products/mens-lambswool-saddle-shoulder-crew-neck-grey",
    "size": "L",
-   "price": 34.9,
+   "price": 87.0,
    "category": "Mid-layers & Knits",
-   "why": "The office outfit still has no knit, and this is the cheapest way to fill it properly: fine 100% merino, plain, no branding, sleeves that reach the wrist. Layer it over a tee with the fawn chinos and the brown suede Chelseas."
+   "why": "The office outfit still needs a knit. This is plain 2-ply lambswool knitted in Hawick, with a fully fashioned saddle shoulder (a neat fit, not boxy) and no branding. At £87 it's well under the knit ceiling. Wear it over a tee with the fawn or navy chinos and the brown Docs."
   },
   {
-   "date": "2026-11-03",
-   "brand": "Uskees",
-   "name": "7006 Essential T-Shirt, norway spruce",
-   "short": "Spruce green tee",
-   "url": "https://uskees.co.uk/products/7006-plain-t-shirt-norway-spruce",
+   "date": "2026-11-06",
+   "brand": "Albam",
+   "name": "Classic T-Shirt in Grey Marl",
+   "short": "Grey marl tee",
+   "url": "https://albamclothing.com/products/classic-t-shirt-in-grey-marl",
    "size": "L",
-   "price": 24.5,
+   "price": 45.0,
    "category": "Tees",
-   "why": "Tees are still the biggest gap, and every outfit starts with one. A washed organic-cotton crew in a deep green-grey that sits between olive and charcoal, with no logo, 30% off and L in stock. Wear it under the navy merino crew or the field jacket."
+   "why": "Tees are still the biggest gap, and every formula from office to travel starts with one. This is a clean mercerised-cotton crew, made in Portugal, in grey marl with no logo, and it sits under any knit or overshirt. It goes with the navy chinos and the Vans Era, or under the grey lambswool crew."
   }
  ]
 }

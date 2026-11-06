@@ -1307,7 +1307,30 @@
   "https://peggsandson.com/products/products-nep-denim-zip-blouson-indigo-25183",
   "https://www.percivalclo.com/products/sashiko-boxy-long-sleeve-shirt-brown",
   "https://www.percivalclo.com/products/textured-long-sleeve-boxy-shirt-grey",
-  "https://www.percivalclo.com/products/harlow-boxy-shirt-ecru"
+  "https://www.percivalclo.com/products/harlow-boxy-shirt-ecru",
+  "https://stuartslondon.com/products/levis-blue-tab-short-sleeve-camp-shirt-jacquard",
+  "https://stuartslondon.com/products/levis-r-england-football-type-iii-jacket-navy",
+  "https://folkclothing.com/products/folk-car-coat-navy-brushed-wool",
+  "https://www.percivalclo.com/products/clamped-car-embroidered-t-shirt-100-cotton-burgundy",
+  "https://stuartslondon.com/products/portuguese-flannel-sport-jacket-prince-of-wales-alton",
+  "https://folkclothing.com/products/folk-patch-shirt-dark-amber-flannel-check-folk-x-goss-brothers",
+  "https://www.percivalclo.com/products/sushi-embroidered-t-shirt-100-cotton-navy",
+  "https://folkclothing.com/products/folk-patch-shirt-terracotta-crinkle-check",
+  "https://folkclothing.com/products/folk-patch-shirt-ultramarine-check-folk-x-goss-brothers",
+  "https://www.percivalclo.com/products/camera-embroidered-t-shirt-100-cotton-forest",
+  "https://www.percivalclo.com/products/camera-embroidered-socks-cotton-black",
+  "https://www.percivalclo.com/products/short-brim-trucker-cap-nylon-black",
+  "https://walklondonshoes.co.uk/products/oliver-monk-strap-shoes-brown",
+  "https://endclothing.com/products/carhartt-wip-vestige-t-shirt-i036220-0206",
+  "https://endclothing.com/products/carhartt-wip-vestige-t-shirt-i036220-8906",
+  "https://peggsandson.com/products/products-heavy-s-s-slub-t-shirt-stone-brest-25146",
+  "https://uskees.co.uk/products/3043-foam-green-collared-cardigan",
+  "https://urbanindustry.co.uk/products/new-balance-made-in-usa-993-shoes-taro-u9935ya",
+  "https://walklondonshoes.co.uk/products/sicily-boat-shoe-stone-suede",
+  "https://walklondonshoes.co.uk/products/sicily-boat-shoe-blue-suede",
+  "https://walklondonshoes.co.uk/products/roma-boat-shoe-tan-suede",
+  "https://walklondonshoes.co.uk/products/roma-boat-shoe-navy-suede",
+  "https://urbanindustry.co.uk/products/taion-x-mountain-research-down-zip-parka-black"
  ],
  "pool": {
   "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
@@ -1936,7 +1959,7 @@
     "store": "blackhorselane.com",
     "label": "Blackhorse Lane",
     "new": [
-     "new-arrivals"
+     "mens"
     ]
    },
    {
