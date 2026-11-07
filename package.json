@@ -1,0 +1,13 @@
+{
+  "name": "capsule",
+  "private": true,
+  "type": "module",
+  "description": "Capsule: Don's wardrobe tracker and taste engine. The Worker is deployed by Cloudflare Workers Builds from the deploy branch.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "node tests/engine.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.150.0"
+  }
+}
