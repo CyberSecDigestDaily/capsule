@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07T18:15:55.240951Z",
+ "generated": "2026-11-08T06:15:57.841722Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -90,12 +90,7 @@
    "category": "Fleece",
    "why": "There's still no fleece, and that leaves the hiking, lounging and outdoor outfits without a mid-layer. This is a regular-fit zip fleece in a textured wool blend, navy heather, half price at £79.50 (was £159), and L is the last size left. Wear it over a grey marl tee with the 502s and the Sambas, or under the waxed Ashby on the coast path.",
    "store": "Jeanstore",
-   "image": "https://cdn.shopify.com/s/files/1/2577/9994/files/WOOLFLEECEJACKET_NAVYHEATHER-1_1.jpg?v=1761774915",
-   "price_now": 79.5,
-   "in_stock": true,
-   "discount_pct": 50,
-   "was": 159.0,
-   "verified": "2026-11-07",
+   "verify_error": "HTTP Error 404: Not Found",
    "since": "2026-11-06",
    "start_price": 79.5
   },
@@ -115,7 +110,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-11-07",
+   "verified": "2026-11-08",
    "since": "2026-11-06",
    "start_price": 87.0
   },
@@ -135,7 +130,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-11-07",
+   "verified": "2026-11-08",
    "since": "2026-11-06",
    "start_price": 45.0
   }
