@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-08T06:15:57.841722Z",
+ "generated": "2026-11-08T09:07:25.303699Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -80,19 +80,24 @@
  ],
  "picks": [
   {
-   "date": "2026-11-06",
-   "brand": "Stan Ray",
-   "name": "Wool Fleece Jacket, Navy Heather",
-   "short": "Navy wool fleece",
-   "url": "https://jeanstore.co.uk/products/stan-ray-wool-fleece-jacket-navy-heather",
+   "date": "2026-11-08",
+   "brand": "Patagonia",
+   "name": "Better Sweater Fleece Jacket, Marlow Brown Rib Knit",
+   "short": "Brown rib fleece",
+   "url": "https://parasolstore.co.uk/products/patagonia-better-sweater-fleece-jacket-marlow-brown-rib-knit",
    "size": "L",
-   "price": 79.5,
+   "price": 140.0,
    "category": "Fleece",
-   "why": "There's still no fleece, and that leaves the hiking, lounging and outdoor outfits without a mid-layer. This is a regular-fit zip fleece in a textured wool blend, navy heather, half price at £79.50 (was £159), and L is the last size left. Wear it over a grey marl tee with the 502s and the Sambas, or under the waxed Ashby on the coast path.",
-   "store": "Jeanstore",
-   "verify_error": "HTTP Error 404: Not Found",
-   "since": "2026-11-06",
-   "start_price": 79.5
+   "why": "There's still no fleece, so the hiking, lounging and outdoor outfits have no mid-layer. This is a trim full-zip in a ribbed sweater-knit fleece with raglan sleeves, brown with only a small chest label, so it reads more knit than gilet. Wear it over a grey marl tee with the 502s and the Sambas, or under the waxed Ashby on the coast path.",
+   "store": "Parasol Store",
+   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/PatagoniaBetterSweaterFleeceJacketMarlowBrownRibKnit7.jpg?v=1793700046",
+   "price_now": 140.0,
+   "in_stock": true,
+   "discount_pct": 0,
+   "was": null,
+   "verified": "2026-11-08",
+   "since": "2026-11-08",
+   "start_price": 140.0
   },
   {
    "date": "2026-11-06",
@@ -135,7 +140,7 @@
    "start_price": 45.0
   }
  ],
- "picks_updated": "2026-11-07",
+ "picks_updated": "2026-11-08",
  "errors": [],
  "candidates": []
 }

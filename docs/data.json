@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-08T06:15:57.841722Z",
+ "generated": "2026-11-08T09:07:25.303699Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1569,11 +1569,11 @@
   ]
  },
  "drop": {
-  "date": "2026-11-06",
-  "at": "2026-11-06T09:07:41.753584Z",
-  "subject": "The Drop · Fri 6 Nov: Navy wool fleece £79.50 (−50%) + 2 more picks",
+  "date": "2026-11-08",
+  "at": "2026-11-08T09:07:25.303699Z",
+  "subject": "The Drop · Sun 8 Nov: Brown rib fleece £140 + 2 more picks",
   "via": "smtp",
   "images": 7,
-  "status": "waiting for today's review"
+  "status": "sent"
  }
 }
