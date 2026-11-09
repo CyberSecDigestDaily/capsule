@@ -1409,7 +1409,26 @@
   "https://www.fatbuddhastore.com/products/carhartt-wip-carhartt-camp-sweatshirt-leaf",
   "https://www.fatbuddhastore.com/products/carhartt-wip-paisley-duck-sweatshirt-wip-h-brown",
   "https://www.fatbuddhastore.com/products/carhartt-wip-paisley-duck-sweatshirt-black",
-  "https://urbanindustry.co.uk/products/manastash-manatrooper-pant-olive"
+  "https://urbanindustry.co.uk/products/manastash-manatrooper-pant-olive",
+  "https://urbanindustry.co.uk/products/manastash-river-shirt-24-sand",
+  "https://endclothing.com/products/adidas-x-brain-dead-t-shirt-ks2982",
+  "https://www.oipolloi.com/products/patagonia-fitz-roy-trout-trucker-hat-cover-green",
+  "https://www.oipolloi.com/products/patagonia-fitz-roy-foothills-t-shirt-weathered-stone",
+  "https://www.oipolloi.com/products/patagonia-fitz-roy-trout-t-shirt-cover-green",
+  "https://endclothing.com/products/carhartt-wip-ss-deck-t-shirt-i037548-02xx",
+  "https://endclothing.com/products/carhartt-wip-locked-t-shirt-i036230-89xx",
+  "https://endclothing.com/products/carhartt-wip-ss-column-t-shirt-i037542-02xx",
+  "https://endclothing.com/products/carhartt-wip-cloud-heart-t-shirt-i036244-89xx",
+  "https://stuartslondon.com/products/carhartt-wip-skye-tote-bag-cypress",
+  "https://goodhoodstore.com/products/levis-x-retro-ringer-tee-brasil",
+  "https://folkclothing.com/products/folk-relaxed-fit-shirt-navy-black-houndstooth",
+  "https://www.percivalclo.com/products/gordon-tote-bag-cotton-cream",
+  "https://www.percivalclo.com/products/kingsley-tote-bag-cotton-black",
+  "https://urbanindustry.co.uk/products/carhartt-wip-landon-shorts-blue-stone-washed",
+  "https://urbanindustry.co.uk/products/taion-x-mountain-research-down-coach-jacket-grey",
+  "https://jeanstore.co.uk/products/napapijri-giovi-short-jacket-stormy-weather",
+  "https://urbanindustry.co.uk/products/danner-fullbore-mid-gtx-boots-d-standard-fit-ghost",
+  "https://urbanindustry.co.uk/products/frizmworks-nyco-half-coach-jacket-light-olive"
  ],
  "pool": {
   "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
@@ -2046,6 +2065,9 @@
     "label": "Kestin",
     "new": [
      "new-arrivals"
+    ],
+    "sale": [
+     "sale"
     ]
    },
    {
