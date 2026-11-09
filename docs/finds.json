@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T09:12:35.378621Z",
+ "generated": "2026-11-09T12:15:55.749051Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -57,25 +57,6 @@
    "score": 41.3,
    "role": "boot",
    "why": "40% off at Walk London · UK 10 in stock · brown · footwear"
-  },
-  {
-   "key": "routeone.co.uk/adidas-samba-adv-skate-shoes-dark-blue-grey-gum-001183113",
-   "first_seen": "2026-11-03",
-   "store": "Route One",
-   "brand": "adidas",
-   "name": "Samba ADV Skate Shoes, Dark Blue/Grey/Gum",
-   "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001183113.jpg?v=1755789925",
-   "url": "https://routeone.co.uk/products/adidas-samba-adv-skate-shoes-dark-blue-grey-gum-001183113",
-   "category": "Footwear",
-   "price": 59.95,
-   "was": 89.95,
-   "discount_pct": 33,
-   "size": "UK 10",
-   "colour": "grey",
-   "tier": "deal",
-   "score": 35.8,
-   "role": "trainer",
-   "why": "33% off at Route One · UK 10 in stock · grey · footwear"
   }
  ],
  "picks": [
