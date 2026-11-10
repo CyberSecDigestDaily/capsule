@@ -2097,18 +2097,6 @@
     ],
     "pages": 2,
     "brand_filter": true
-   },
-   {
-    "store": "endclothing.com",
-    "label": "END.",
-    "new": [
-     "mens-new-in"
-    ],
-    "sale": [
-     "mens-sale"
-    ],
-    "pages": 2,
-    "brand_filter": true
    }
   ]
  }
