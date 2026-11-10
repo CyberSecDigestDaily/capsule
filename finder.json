@@ -1428,7 +1428,26 @@
   "https://urbanindustry.co.uk/products/taion-x-mountain-research-down-coach-jacket-grey",
   "https://jeanstore.co.uk/products/napapijri-giovi-short-jacket-stormy-weather",
   "https://urbanindustry.co.uk/products/danner-fullbore-mid-gtx-boots-d-standard-fit-ghost",
-  "https://urbanindustry.co.uk/products/frizmworks-nyco-half-coach-jacket-light-olive"
+  "https://urbanindustry.co.uk/products/frizmworks-nyco-half-coach-jacket-light-olive",
+  "https://communityclothing.co.uk/products/lambswool-fair-isle-hat-navy",
+  "https://communityclothing.co.uk/products/lambswool-cable-scarf-flame-marl",
+  "https://parasolstore.co.uk/products/carhartt-wip-atoka-shirt-jac-black",
+  "https://www.percivalclo.com/products/regent-pyjama-shirt-made-with-liberty-fabric-navy",
+  "https://www.couvertureandthegarbstore.com/products/m-curtis-shirt-navy-multicheck",
+  "https://www.percivalclo.com/products/regent-pyjama-trousers-made-with-liberty-fabric-navy",
+  "https://www.percivalclo.com/products/regent-pyjama-shorts-made-with-liberty-fabric-navy",
+  "https://parasolstore.co.uk/products/carhartt-wip-classic-vest-black-rigid",
+  "https://parasolstore.co.uk/products/carhartt-wip-alton-jacket-alton-check-cypress",
+  "https://jeanstore.co.uk/products/portuguese-flannel-abstract-pied-poule-shirt-green-1",
+  "https://parasolstore.co.uk/products/carhartt-wip-blevin-liner-camo-feather-tree-black",
+  "https://parasolstore.co.uk/products/carhartt-wip-prentis-liner-raven-black",
+  "https://www.percivalclo.com/products/crochet-groundsman-shirt-cotton-ecru",
+  "https://endclothing.com/products/new-balance-abzorb-2000-sneaker-u2000420",
+  "https://endclothing.com/products/adidas-x-brain-dead-track-top-jz1055",
+  "https://endclothing.com/products/adidas-x-brain-dead-track-pant-jy7975",
+  "https://urbanindustry.co.uk/products/gramicci-x-and-wander-jq-tape-corduroy-hat-beige",
+  "https://folkclothing.com/products/folk-relaxed-fit-shirt-marigold-stripe",
+  "https://folkclothing.com/products/folk-relaxed-fit-shirt-blue-minicheck"
  ],
  "pool": {
   "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
@@ -2066,6 +2085,18 @@
     "new": [
      "new-arrivals"
     ]
+   },
+   {
+    "store": "endclothing.com",
+    "label": "END.",
+    "new": [
+     "mens-new-in"
+    ],
+    "sale": [
+     "mens-sale"
+    ],
+    "pages": 2,
+    "brand_filter": true
    },
    {
     "store": "endclothing.com",
