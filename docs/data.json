@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T12:15:56.222014Z",
+ "generated": "2026-11-10T18:15:56.927838Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -941,18 +941,18 @@
    "checked": "2026-11-10",
    "store": "Urban Industry",
    "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/AdidasOriginals_HandballSpezialShoes_Green_OliveStrata_ShadowOlive_01_82a73b36-3ee1-42c0-af77-753a5abe4900.jpg?v=1791450975",
-   "price": 89.95,
-   "was": null,
-   "discount_pct": 0,
+   "price": 71.95,
+   "was": 89.95,
+   "discount_pct": 20,
    "in_stock": false,
    "alt_sizes": [
     "UK8",
     "UK11"
    ],
    "signal": "SOLD OUT",
-   "low": 89.95,
-   "low_date": "2026-10-03",
-   "change": 0.0
+   "low": 71.95,
+   "low_date": "2026-11-10",
+   "change": -18.0
   },
   {
    "id": 45,
