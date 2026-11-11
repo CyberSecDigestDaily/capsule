@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T18:15:55.269859Z",
+ "generated": "2026-11-11T23:29:24.393716Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -946,8 +946,7 @@
    "discount_pct": 20,
    "in_stock": false,
    "alt_sizes": [
-    "UK8",
-    "UK11"
+    "UK8"
    ],
    "signal": "SOLD OUT",
    "low": 71.95,
@@ -1040,9 +1039,9 @@
    "checked": "2026-11-11",
    "store": "John White",
    "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
-   "price": 120.0,
+   "price": 115.0,
    "was": 280.0,
-   "discount_pct": 57,
+   "discount_pct": 59,
    "in_stock": true,
    "alt_sizes": [
     "UK 7",
@@ -1052,9 +1051,9 @@
     "UK 12"
    ],
    "signal": "BUY",
-   "low": 120.0,
-   "low_date": "2026-10-03",
-   "change": 0.0
+   "low": 115.0,
+   "low_date": "2026-11-11",
+   "change": -5.0
   },
   {
    "id": 50,
