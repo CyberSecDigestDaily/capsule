@@ -204,7 +204,7 @@
    "target": 90,
    "fit": {
     "verdict": "good",
-    "note": "Relaxed fisherman knit; reviewers rate it true to size, 'roomy without being baggy'. Finisterre's L is for 180–185cm tall (you're 183cm). Wool/polyamide keeps the cuffs in shape."
+    "note": "Relaxed fisherman knit; reviewers rate it true to size, 'roomy without being baggy'. Finisterre's L is for 180–185cm tall. Wool/polyamide keeps the cuffs in shape."
    }
   },
   {
@@ -498,23 +498,6 @@
    "fit": {
     "verdict": "good",
     "note": "True to size with a snug toe box. Synthetic upper (not leather), so wipe-clean but less breathable."
-   }
-  },
-  {
-   "id": 44,
-   "category": "Footwear",
-   "role": "trainer",
-   "tier": "mid",
-   "brand": "adidas",
-   "name": "Handball Spezial, olive strata",
-   "url": "https://urbanindustry.co.uk/products/adidas-originals-handball-spezial-olive-stratashadow-oliveolive-strata-2260896",
-   "check": "shopify",
-   "size": "UK 10",
-   "target": 72,
-   "note": "Samba-adjacent: tonal olive suede, gum sole. Different enough from your Sambas.",
-   "fit": {
-    "verdict": "good",
-    "note": "True to size, and the widest of the Samba/Gazelle/Spezial trio, so roomier than your Sambas. OrthoLite insole."
    }
   },
   {

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11",
+ "updated": "2026-11-12",
  "by": "Claude daily review",
  "strong": false,
  "picks": [
@@ -15,26 +15,27 @@
    "why": "The hiking and outdoor outfits still have no fleece mid-layer. This is a regular-fit crew in a ribbed wool-blend fleece from an Italian mill, with raglan sleeves for reach and bound cuffs and hem, so it reads like a textured knit rather than a technical fleece. Wear it over a grey marl tee with the 502s and Sambas, or under the waxed Ashby on the coast path."
   },
   {
-   "date": "2026-11-09",
-   "brand": "Community Clothing",
-   "name": "Shetland Jumper, Denim Dark",
-   "short": "Denim Shetland crew",
-   "url": "https://communityclothing.co.uk/products/mens-shetland-jumper-denim-dark",
+   "date": "2026-11-12",
+   "brand": "Uskees",
+   "name": "7006 Essential T-Shirt, Norway Spruce",
+   "short": "Spruce green tee",
+   "url": "https://uskees.co.uk/products/7006-plain-t-shirt-norway-spruce",
    "size": "L",
-   "price": 87.0,
-   "category": "Mid-layers & Knits",
-   "why": "The office and travel outfits still have no knit. This is a 4-ply Shetland wool crew knitted in Hawick, with a saddle shoulder that sits neatly rather than boxy, long ribbed cuffs and no branding, in a washed denim marl that adds texture without pattern. Wear it over a charcoal tee with the fawn chinos and brown Docs, or with the 502s and Sambas at the weekend."
+   "price": 24.5,
+   "category": "Tees",
+   "why": "Tees are still the biggest gap and every formula starts with one. This is a plain organic cotton crew, enzyme-washed for a lived-in feel, in a deep spruce green with only a small woven tab, now 30% off. Wear it under the raglan sweats or the fleece with the 502s and Sambas."
   },
   {
-   "date": "2026-11-09",
-   "brand": "Community Clothing",
-   "name": "Short Sleeve T-Shirt, Charcoal",
-   "short": "Charcoal tee",
-   "url": "https://communityclothing.co.uk/products/mens-short-sleeve-t-shirt-charcoal-1",
+   "date": "2026-11-12",
+   "brand": "Uniqlo",
+   "name": "100% Merino Crew Neck Jumper, Navy",
+   "short": "Navy merino crew",
+   "url": "https://www.uniqlo.com/uk/en/products/E450535-000/00?colorDisplayCode=69&sizeDisplayCode=005",
    "size": "L",
-   "price": 35.0,
-   "category": "Tees",
-   "why": "Tees are still the biggest gap and every formula starts with one. This is a plain, regular-fit organic cotton crew made in the UK, charcoal with no logo, so it layers under the Shetland crew, the raglan sweats or the fleece. Wear it with the navy chinos and Vans, or the 502s and the waxed Ashby."
+   "variant": "Navy",
+   "price": 34.9,
+   "category": "Mid-layers & Knits",
+   "why": "The office outfit still has no knit. A plain fine-gauge merino crew with ribbed cuffs and hem sits neatly under a jacket and reads smart without trying. Wear it over a charcoal tee with the fawn chinos and brown Docs."
   }
  ]
 }
