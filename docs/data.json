@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12T06:15:56.759171Z",
+ "generated": "2026-11-12T09:05:57.161981Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -12,7 +12,7 @@
  "counts": {
   "WATCHING": 21,
   "BOUGHT": 9,
-  "SOLD OUT": 5,
+  "SOLD OUT": 4,
   "SALE": 1,
   "BUY": 1
  },
@@ -340,7 +340,7 @@
    "target": 90,
    "fit": {
     "verdict": "good",
-    "note": "Relaxed fisherman knit; reviewers rate it true to size, 'roomy without being baggy'. Finisterre's L is for 180–185cm tall (you're 183cm). Wool/polyamide keeps the cuffs in shape."
+    "note": "Relaxed fisherman knit; reviewers rate it true to size, 'roomy without being baggy'. Finisterre's L is for 180–185cm tall. Wool/polyamide keeps the cuffs in shape."
    },
    "checked": "2026-11-12",
    "store": "Finisterre",
@@ -923,37 +923,6 @@
    "change": 0.0
   },
   {
-   "id": 44,
-   "category": "Footwear",
-   "role": "trainer",
-   "tier": "mid",
-   "brand": "adidas",
-   "name": "Handball Spezial, olive strata",
-   "url": "https://urbanindustry.co.uk/products/adidas-originals-handball-spezial-olive-stratashadow-oliveolive-strata-2260896",
-   "check": "shopify",
-   "size": "UK 10",
-   "target": 72,
-   "note": "Samba-adjacent: tonal olive suede, gum sole. Different enough from your Sambas.",
-   "fit": {
-    "verdict": "good",
-    "note": "True to size, and the widest of the Samba/Gazelle/Spezial trio, so roomier than your Sambas. OrthoLite insole."
-   },
-   "checked": "2026-11-12",
-   "store": "Urban Industry",
-   "image": "https://cdn.shopify.com/s/files/1/1213/2346/files/AdidasOriginals_HandballSpezialShoes_Green_OliveStrata_ShadowOlive_01_82a73b36-3ee1-42c0-af77-753a5abe4900.jpg?v=1791450975",
-   "price": 71.95,
-   "was": 89.95,
-   "discount_pct": 20,
-   "in_stock": false,
-   "alt_sizes": [
-    "UK8"
-   ],
-   "signal": "SOLD OUT",
-   "low": 71.95,
-   "low_date": "2026-11-10",
-   "change": 0.0
-  },
-  {
    "id": 45,
    "category": "Footwear",
    "role": "wallabee",
@@ -1117,10 +1086,10 @@
    "alt_sizes": [
     "3 UK",
     "3.5 UK",
+    "4 UK",
     "4.5 UK",
     "5 UK",
-    "5.5 UK",
-    "6 UK"
+    "5.5 UK"
    ],
    "signal": "WATCHING",
    "low": 210.0,
@@ -1570,6 +1539,6 @@
   "subject": "The Drop · Sun 8 Nov: Brown rib fleece £140 + 2 more picks",
   "via": "smtp",
   "images": 7,
-  "status": "waiting for today's review"
+  "status": "quiet day: no email (strong days and Sundays only)"
  }
 }
