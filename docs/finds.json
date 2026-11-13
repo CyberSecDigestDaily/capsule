@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12T22:45:01.393876Z",
+ "generated": "2026-11-13T06:15:54.935610Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -76,7 +76,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-11-12",
+   "verified": "2026-11-13",
    "since": "2026-11-11",
    "start_price": 149.0
   },
@@ -96,7 +96,7 @@
    "in_stock": true,
    "discount_pct": 30,
    "was": 35.0,
-   "verified": "2026-11-12",
+   "verified": "2026-11-13",
    "since": "2026-11-12",
    "start_price": 24.5
   },
@@ -117,7 +117,7 @@
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
-   "verified": "2026-11-12",
+   "verified": "2026-11-13",
    "since": "2026-11-12",
    "start_price": 34.9
   }
