@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-14T06:15:55.505304Z",
+ "generated": "2026-11-14T09:07:21.343946Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -61,24 +61,25 @@
  ],
  "picks": [
   {
-   "date": "2026-11-11",
-   "brand": "Kestin",
-   "name": "Junction Crew in Navy Ribbed Fleece",
-   "short": "Navy ribbed fleece",
-   "url": "https://www.kestin.co/products/junction-crew-ribbed-fleece-navy",
-   "size": "L",
-   "price": 149.0,
-   "category": "Fleece",
-   "why": "The hiking and outdoor outfits still have no fleece mid-layer. This is a regular-fit crew in a ribbed wool-blend fleece from an Italian mill, with raglan sleeves for reach and bound cuffs and hem, so it reads like a textured knit rather than a technical fleece. Wear it over a grey marl tee with the 502s and Sambas, or under the waxed Ashby on the coast path.",
-   "store": "kestin.co",
-   "image": "https://cdn.shopify.com/s/files/1/0258/6001/4152/files/AW26-FINAL-27copyLIGHTER1.jpg?v=1787733191",
-   "price_now": 149.0,
+   "date": "2026-11-14",
+   "brand": "John White",
+   "name": "Byrne Chelsea Suede Boot, Brown Suede",
+   "short": "Brown suede Chelsea",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
+   "size": "UK 10",
+   "variant": "Brown Suede",
+   "price": 115.0,
+   "category": "Footwear",
+   "why": "The brushed-brown Chelsea is the one boot the wardrobe is still missing, and this matte brown suede one is now £115, down from £280 and under the £130 target. Leather-lined with a Vibram sole, so it works for the office and the wet walk in. Wear it with the fawn chinos and a navy merino crew, or the 502s and a raglan sweat.",
+   "store": "John White",
+   "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
+   "price_now": 115.0,
    "in_stock": true,
-   "discount_pct": 0,
-   "was": null,
+   "discount_pct": 59,
+   "was": 280.0,
    "verified": "2026-11-14",
-   "since": "2026-11-11",
-   "start_price": 149.0
+   "since": "2026-11-14",
+   "start_price": 115.0
   },
   {
    "date": "2026-11-12",
@@ -122,7 +123,7 @@
    "start_price": 34.9
   }
  ],
- "picks_updated": "2026-11-12",
+ "picks_updated": "2026-11-14",
  "errors": [],
  "candidates": []
 }

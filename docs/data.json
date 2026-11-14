@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-14T06:15:55.505304Z",
+ "generated": "2026-11-14T09:07:21.343946Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1536,11 +1536,11 @@
   ]
  },
  "drop": {
-  "date": "2026-11-08",
-  "at": "2026-11-08T09:07:25.303699Z",
-  "subject": "The Drop · Sun 8 Nov: Brown rib fleece £140 + 2 more picks",
+  "date": "2026-11-14",
+  "at": "2026-11-14T09:07:21.343946Z",
+  "subject": "The Drop · Sat 14 Nov: Brown suede Chelsea £115 (−59%) + 2 more picks",
   "via": "smtp",
-  "images": 7,
-  "status": "waiting for today's review"
+  "images": 6,
+  "status": "sent"
  }
 }
