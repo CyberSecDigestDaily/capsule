@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-14T09:07:21.343946Z",
+ "generated": "2026-11-14T12:15:56.099807Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -948,7 +948,6 @@
    "discount_pct": 0,
    "in_stock": true,
    "alt_sizes": [
-    "7",
     "8",
     "9"
    ],
@@ -1541,6 +1540,6 @@
   "subject": "The Drop · Sat 14 Nov: Brown suede Chelsea £115 (−59%) + 2 more picks",
   "via": "smtp",
   "images": 6,
-  "status": "sent"
+  "status": "already sent today"
  }
 }
