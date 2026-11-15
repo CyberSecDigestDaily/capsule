@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T09:08:04.569415Z",
+ "generated": "2026-11-15T09:17:35.740482Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -88,14 +88,16 @@
    "short": "Green lambswool crew",
    "url": "https://stuartslondon.com/products/carhartt-wip-anglistic-sweater-speckled-dark-scarab",
    "size": "L",
-   "variant": "Speckled Dark Scarab",
    "price": 76.3,
    "category": "Mid-layers & Knits",
    "why": "The office outfit still has no knit. This is a regular-fit lambswool raglan crew in a deep bottle green with a fine fleck, 30% off at £76.30, with only a small woven label at the hem. Wear it over a charcoal tee with the fawn chinos and brown Docs, or with the 502s at the weekend.",
    "store": "Stuarts London",
-   "in_stock": false,
+   "image": "https://cdn.shopify.com/s/files/1/0943/8307/9771/files/21_3a8c3c7c-3b5b-4c85-91b5-617717b736d6.jpg?v=1789555575",
+   "price_now": 76.3,
+   "in_stock": true,
+   "discount_pct": 30,
+   "was": 109.0,
    "verified": "2026-11-15",
-   "verify_error": "size 'L' not offered (has: L, M, S, XL, XXL)",
    "since": "2026-11-15",
    "start_price": 76.3
   },
