@@ -1,20 +1,8 @@
 {
- "updated": "2026-11-16",
+ "updated": "2026-11-17",
  "by": "Claude daily review",
  "strong": false,
  "picks": [
-  {
-   "date": "2026-11-14",
-   "brand": "John White",
-   "name": "Byrne Chelsea Suede Boot, Brown Suede",
-   "short": "Brown suede Chelsea",
-   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
-   "size": "UK 10",
-   "variant": "Brown Suede",
-   "price": 115.0,
-   "category": "Footwear",
-   "why": "The brushed-brown Chelsea is the one boot the wardrobe is still missing, and this matte brown suede one is now £115, down from £280 and under the £130 target. Leather-lined with a Vibram sole, so it works for the office and the wet walk in. Wear it with the fawn chinos and a navy merino crew, or the 502s and a raglan sweat."
-  },
   {
    "date": "2026-11-15",
    "brand": "Carhartt WIP",
@@ -37,6 +25,18 @@
    "price": 14.9,
    "category": "Tees",
    "why": "Tees are still the biggest gap: five of the outfit formulas start with one. A plain regular-fit olive crew with no logo, smooth enough to sit cleanly under the raglan sweats and a knit. Wear it with the navy chinos and Sambas, or under the field jacket for photography walks."
+  },
+  {
+   "date": "2026-11-17",
+   "brand": "Uniqlo",
+   "name": "Fleece Full-Zip Jacket, Navy",
+   "short": "Navy zip fleece",
+   "url": "https://www.uniqlo.com/uk/en/products/E450195-000/00?colorDisplayCode=69&sizeDisplayCode=005",
+   "size": "L",
+   "variant": "Navy",
+   "price": 29.9,
+   "category": "Mid-layers & Knits",
+   "why": "There is no fleece in the wardrobe yet, so the hiking outfit has an empty mid-layer slot and lounging leans on the raglan sweats alone. This is a plain regular-fit navy full-zip with a stand collar and no logo, light enough to sit under the waxed jacket on the hills. Wear it over a plain tee with the navy chinos at home, or under the field jacket with the 502s on photography walks."
   }
  ]
 }
