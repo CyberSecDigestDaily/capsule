@@ -1538,7 +1538,18 @@
   "https://folkclothing.com/products/folk-anniversary-patch-overshirt-ash-navy-brushed-twill",
   "https://jeanstore.co.uk/products/wrangler®-x-stranger-things™-tee-washed-black",
   "https://folkclothing.com/products/folk-anniversary-patch-overshirt-rich-brown-chunky-cord",
-  "https://passenger-clothing.com/products/daybreak-lightweight-recycled-thermore-insulated-hoodless-jacket-black"
+  "https://passenger-clothing.com/products/daybreak-lightweight-recycled-thermore-insulated-hoodless-jacket-black",
+  "https://universalworks.com/products/black-cloud-camo-taion-twill-down-cr-raf-jacket",
+  "https://universalworks.com/products/cloud-camo-nylon-soft-shell-down-cardigan",
+  "https://universalworks.com/products/blue-sand-pop-stripe-three-square-pocket-shirt",
+  "https://parasolstore.co.uk/products/fjallraven-1960-logo-langtradarkeps-cap-dark-navy-1",
+  "https://www.fatbuddhastore.com/products/patagonia-p-6-logo-trucker-hat-lynx-tan",
+  "https://www.fatbuddhastore.com/products/patagonia-p-6-logo-trucker-hat-blue-sage",
+  "https://www.fatbuddhastore.com/products/patagonia-boardshort-label-funfarer-cap-pumice",
+  "https://www.fatbuddhastore.com/products/patagonia-fishermans-rolled-beanie-hat-contrast-stripe-weathered-stone",
+  "https://www.fatbuddhastore.com/products/patagonia-fjord-flannel-shirt-rising-storm-blue-sage",
+  "https://parasolstore.co.uk/products/carhartt-wip-firth-sweater-porphyry",
+  "https://finisterre.com/products/mens-organic-cotton-cape-t-shirt-dusty-blue"
  ],
  "pool": {
   "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
