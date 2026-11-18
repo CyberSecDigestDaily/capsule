@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-18T06:15:59.682245Z",
+ "generated": "2026-11-18T09:07:55.632880Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -42,45 +42,45 @@
  ],
  "picks": [
   {
-   "date": "2026-11-15",
-   "brand": "Carhartt WIP",
-   "name": "Anglistic Sweater, Speckled Dark Scarab",
-   "short": "Green lambswool crew",
-   "url": "https://stuartslondon.com/products/carhartt-wip-anglistic-sweater-speckled-dark-scarab",
-   "size": "L",
-   "price": 76.3,
-   "category": "Mid-layers & Knits",
-   "why": "The office outfit still has no knit. This is a regular-fit lambswool raglan crew in a deep bottle green with a fine fleck, 30% off at £76.30, with only a small woven label at the hem. Wear it over a charcoal tee with the fawn chinos and brown Docs, or with the 502s at the weekend.",
-   "store": "Stuarts London",
-   "image": "https://cdn.shopify.com/s/files/1/0943/8307/9771/files/21_3a8c3c7c-3b5b-4c85-91b5-617717b736d6.jpg?v=1789555575",
-   "price_now": 76.3,
-   "in_stock": true,
-   "discount_pct": 30,
-   "was": 109.0,
-   "verified": "2026-11-18",
-   "since": "2026-11-15",
-   "start_price": 76.3
-  },
-  {
-   "date": "2026-11-15",
+   "date": "2026-11-18",
    "brand": "Uniqlo",
-   "name": "AIRism Cotton Crew Neck T-Shirt, Olive",
-   "short": "Olive crew tee",
-   "url": "https://www.uniqlo.com/uk/en/products/E482522-000/00?colorDisplayCode=57&sizeDisplayCode=005",
+   "name": "100% Merino Crew Neck Jumper, Navy",
+   "short": "Navy merino crew",
+   "url": "https://www.uniqlo.com/uk/en/products/E450535-000/00?colorDisplayCode=69&sizeDisplayCode=005",
    "size": "L",
-   "variant": "Olive",
-   "price": 14.9,
-   "category": "Tees",
-   "why": "Tees are still the biggest gap: five of the outfit formulas start with one. A plain regular-fit olive crew with no logo, smooth enough to sit cleanly under the raglan sweats and a knit. Wear it with the navy chinos and Sambas, or under the field jacket for photography walks.",
+   "variant": "Navy",
+   "price": 34.9,
+   "category": "Mid-layers & Knits",
+   "why": "The office outfit still has no knit, and this is the cheapest proper one: plain fine-gauge merino in navy, regular fit with ribbed cuffs and hem, no logo. Thin enough to sit under the field jacket too. Wear it over a plain tee with the fawn chinos and brown Docs.",
    "store": "Uniqlo",
-   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482522/item/gbgoods_57_482522_3x4.jpg",
-   "price_now": 14.9,
+   "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450535/item/gbgoods_69_450535_3x4.jpg",
+   "price_now": 34.9,
    "in_stock": true,
    "discount_pct": 0,
    "was": null,
    "verified": "2026-11-18",
-   "since": "2026-11-15",
-   "start_price": 14.9
+   "since": "2026-11-18",
+   "start_price": 34.9
+  },
+  {
+   "date": "2026-11-18",
+   "brand": "Uskees",
+   "name": "7006 Essential T-Shirt, Norway Spruce",
+   "short": "Spruce organic tee",
+   "url": "https://uskees.co.uk/products/7006-plain-t-shirt-norway-spruce",
+   "size": "L",
+   "price": 24.5,
+   "category": "Tees",
+   "why": "Tees remain the biggest gap, with most outfit formulas starting from one. This is a plain enzyme-washed organic cotton crew in a deep green-grey, 30% off, with just a tiny hem tab. Wear it under the raglan sweats or the navy merino crew with the 502s and Sambas.",
+   "store": "Uskees",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/7006-norway-spruce-t-shirt-front.jpg?v=1772466906",
+   "price_now": 24.5,
+   "in_stock": true,
+   "discount_pct": 30,
+   "was": 35.0,
+   "verified": "2026-11-18",
+   "since": "2026-11-18",
+   "start_price": 24.5
   },
   {
    "date": "2026-11-17",
@@ -104,7 +104,7 @@
    "start_price": 29.9
   }
  ],
- "picks_updated": "2026-11-17",
+ "picks_updated": "2026-11-18",
  "errors": [],
  "candidates": []
 }
