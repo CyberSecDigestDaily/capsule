@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-19T12:15:55.653288Z",
+ "generated": "2026-11-19T18:16:02.294861Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -11,10 +11,10 @@
  "errors": 0,
  "counts": {
   "SALE": 2,
-  "WATCHING": 19,
+  "WATCHING": 18,
   "BOUGHT": 9,
   "SOLD OUT": 5,
-  "BUY": 1
+  "BUY": 2
  },
  "items": [
   {
@@ -941,18 +941,18 @@
    "checked": "2026-11-19",
    "store": "Parasol Store",
    "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/ClarksOriginalsWallabeeShoeMapleSuede_1.jpg?v=1789029568",
-   "price": 99.0,
-   "was": null,
-   "discount_pct": 0,
+   "price": 79.2,
+   "was": 99.0,
+   "discount_pct": 20,
    "in_stock": true,
    "alt_sizes": [
     "8",
     "9"
    ],
-   "signal": "WATCHING",
-   "low": 99.0,
-   "low_date": "2026-10-03",
-   "change": 0.0
+   "signal": "BUY",
+   "low": 79.2,
+   "low_date": "2026-11-19",
+   "change": -19.8
   },
   {
    "id": 47,
