@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-19T09:07:33.220288Z",
+ "generated": "2026-11-19T12:15:55.653288Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -817,8 +817,7 @@
     "6",
     "7",
     "8",
-    "8.5",
-    "9.5"
+    "8.5"
    ],
    "signal": "SOLD OUT",
    "low": 59.95,
@@ -1049,11 +1048,11 @@
    "in_stock": true,
    "alt_sizes": [
     "3 UK",
+    "3.5 UK",
     "4 UK",
     "4.5 UK",
     "5 UK",
-    "5.5 UK",
-    "6 UK"
+    "5.5 UK"
    ],
    "signal": "WATCHING",
    "low": 210.0,
@@ -1086,10 +1085,10 @@
    "alt_sizes": [
     "3 UK",
     "3.5 UK",
+    "4 UK",
     "4.5 UK",
     "5 UK",
-    "5.5 UK",
-    "6 UK"
+    "5.5 UK"
    ],
    "signal": "WATCHING",
    "low": 210.0,
