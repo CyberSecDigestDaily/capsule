@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-20T12:15:54.920702Z",
+ "generated": "2026-11-20T18:15:57.138868Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -10,10 +10,10 @@
  },
  "errors": 0,
  "counts": {
-  "SALE": 4,
+  "SALE": 5,
   "WATCHING": 16,
   "BOUGHT": 9,
-  "SOLD OUT": 5,
+  "SOLD OUT": 4,
   "BUY": 2
  },
  "items": [
@@ -585,7 +585,7 @@
    "price": 76.0,
    "was": 100.0,
    "discount_pct": 24,
-   "in_stock": false,
+   "in_stock": true,
    "alt_sizes": [
     "W29 L32",
     "W30 L32",
@@ -594,7 +594,7 @@
     "W32 L32",
     "W33 L32"
    ],
-   "signal": "SOLD OUT",
+   "signal": "SALE",
    "low": 76.0,
    "low_date": "2026-11-20",
    "change": -19.0
