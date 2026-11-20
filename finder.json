@@ -1573,7 +1573,32 @@
   "https://parasolstore.co.uk/products/carhartt-wip-watch-gloves-tobacco",
   "https://www.fatbuddhastore.com/products/watch-gloves-dark-grey-heather",
   "https://stuartslondon.com/products/carhartt-wip-watch-gloves-dark-grey-heather",
-  "https://urbanindustry.co.uk/products/carhartt-wip-stratus-hat-low-yosemite"
+  "https://urbanindustry.co.uk/products/carhartt-wip-stratus-hat-low-yosemite",
+  "https://jeanstore.co.uk/products/stan-ray-s-s-painters-shirt-natural-twill",
+  "https://stuartslondon.com/products/carhartt-wip-og-santa-fe-jacket-heather-brown",
+  "https://parasolstore.co.uk/products/filson-tacoma-logo-sweater-earth-brown",
+  "https://parasolstore.co.uk/products/filson-the-rangeland-flannel-shirt-charcoal-steel-plaid",
+  "https://parasolstore.co.uk/products/carhartt-wip-maine-gloves-black-wax",
+  "https://parasolstore.co.uk/products/patagonia-powder-town-beanie-hut-tripper-logo-cinnamon-brown",
+  "https://parasolstore.co.uk/products/patagonia-capilene-midweight-liner-gloves-ink-black",
+  "https://parasolstore.co.uk/products/patagonia-powder-town-headband-classic-fitz-roy-p6-blue",
+  "https://parasolstore.co.uk/products/patagonia-powder-town-beanie-park-stripe-viking-blue",
+  "https://parasolstore.co.uk/products/patagonia-powder-town-headband-hut-tripper-logo-weathered-stone",
+  "https://parasolstore.co.uk/products/patagonia-snowdrifter-beanie-black",
+  "https://parasolstore.co.uk/products/patagonia-brodeo-beanie-black",
+  "https://parasolstore.co.uk/products/patagonia-airfarer-cap-fitz-roy-foothills-weathered-stone",
+  "https://parasolstore.co.uk/products/norse-projects-elmelunde-soft-compact-cotton-t-shirt-black",
+  "https://parasolstore.co.uk/products/norse-projects-dyrehaven-organic-logo-print-t-shirt-beluga",
+  "https://parasolstore.co.uk/products/norse-projects-vrigsted-wide-wale-corduroy-chore-jacket-beluga",
+  "https://parasolstore.co.uk/products/taion-crewneck-w-zip-down-jacket-black",
+  "https://parasolstore.co.uk/products/taion-br-bal-collar-coat-set-navy",
+  "https://parasolstore.co.uk/products/taion-mountain-hooded-fly-front-volume-down-jacket-black",
+  "https://parasolstore.co.uk/products/taion-mountain-boa-fleece-high-neck-jacket-black",
+  "https://parasolstore.co.uk/products/taion-military-hi-neck-w-zip-down-jacket-black",
+  "https://communityclothing.co.uk/products/lambswool-fair-isle-glove-chocolate",
+  "https://communityclothing.co.uk/products/lambswool-fair-isle-glove-navy",
+  "https://walklondonshoes.co.uk/products/hackney-apron-shoe-tan",
+  "https://walklondonshoes.co.uk/products/hackney-apron-shoe-black"
  ],
  "pool": {
   "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
@@ -2210,6 +2235,9 @@
     "label": "Kestin",
     "new": [
      "new-arrivals"
+    ],
+    "sale": [
+     "mens-sale"
     ]
    },
    {

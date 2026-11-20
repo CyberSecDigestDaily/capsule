@@ -1,8 +1,20 @@
 {
- "updated": "2026-11-19",
+ "updated": "2026-11-20",
  "by": "Claude daily review",
- "strong": false,
+ "strong": true,
  "picks": [
+  {
+   "date": "2026-11-20",
+   "brand": "Clarks Originals",
+   "name": "Wallabee Shoe, Maple Suede",
+   "short": "Maple suede Wallabees",
+   "url": "https://www.parasolstore.co.uk/products/clarks-wallabee-shoe-maple-suede",
+   "size": "UK 10",
+   "variant": "Maple Suede",
+   "price": 79.2,
+   "category": "Footwear",
+   "why": "One of the Black Friday targets, now £79.20 (20% off) with UK 10 in stock, already under the target price a week early. There are no Wallabees in the wardrobe, and they fill both the office and everyday shoe slots without the weight of boots. Wear them with the fawn chinos and a navy knit, or the 502s and a raglan sweat. Spray the suede with protector first."
+  },
   {
    "date": "2026-11-18",
    "brand": "Uniqlo",
@@ -25,18 +37,6 @@
    "price": 24.5,
    "category": "Tees",
    "why": "Tees remain the biggest gap, with most outfit formulas starting from one. This is a plain enzyme-washed organic cotton crew in a deep green-grey, 30% off, with just a tiny hem tab. Wear it under the raglan sweats or the navy merino crew with the 502s and Sambas."
-  },
-  {
-   "date": "2026-11-17",
-   "brand": "Uniqlo",
-   "name": "Fleece Full-Zip Jacket, Navy",
-   "short": "Navy zip fleece",
-   "url": "https://www.uniqlo.com/uk/en/products/E450195-000/00?colorDisplayCode=69&sizeDisplayCode=005",
-   "size": "L",
-   "variant": "Navy",
-   "price": 29.9,
-   "category": "Mid-layers & Knits",
-   "why": "There is no fleece in the wardrobe yet, so the hiking outfit has an empty mid-layer slot and lounging leans on the raglan sweats alone. This is a plain regular-fit navy full-zip with a stand collar and no logo, light enough to sit under the waxed jacket on the hills. Wear it over a plain tee with the navy chinos at home, or under the field jacket with the 502s on photography walks."
   }
  ]
 }
