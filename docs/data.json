@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-20T06:15:55.861084Z",
+ "generated": "2026-11-20T09:08:23.349340Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1533,11 +1533,11 @@
   ]
  },
  "drop": {
-  "date": "2026-11-15",
-  "at": "2026-11-15T09:08:04.569415Z",
-  "subject": "The Drop · Sun 15 Nov: Olive crew tee £14.90 + 1 more pick",
+  "date": "2026-11-20",
+  "at": "2026-11-20T09:08:23.349340Z",
+  "subject": "The Drop · Fri 20 Nov: Maple suede Wallabees £79.20 (−20%) + 2 more picks, 2 price drops",
   "via": "smtp",
   "images": 5,
-  "status": "waiting for today's review"
+  "status": "sent"
  }
 }
