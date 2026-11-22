@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-21T18:16:00.836109Z",
+ "generated": "2026-11-22T06:16:01.941770Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -58,7 +58,7 @@
    "in_stock": true,
    "discount_pct": 20,
    "was": 99.0,
-   "verified": "2026-11-21",
+   "verified": "2026-11-22",
    "since": "2026-11-20",
    "start_price": 79.2
   },
@@ -75,7 +75,7 @@
    "why": "Knits are still the biggest gap: none owned, and the office and outdoor outfits both need one. This is a regular-fit lambswool raglan crew in a dark speckled green with just a small woven hem label, 30% off with L in stock (only L and XL left). Wear it over a plain tee with the fawn chinos and brown Docs, or under the waxed jacket with the 502s.",
    "store": "Stuarts London",
    "in_stock": false,
-   "verified": "2026-11-21",
+   "verified": "2026-11-22",
    "verify_error": "size 'L' not offered (has: L, M, S, XL, XXL)",
    "since": "2026-11-21",
    "start_price": 76.3
@@ -93,7 +93,7 @@
    "why": "Tees remain the other big gap. A regular-fit organic slub cotton long-sleeve henley in washed olive, 40% off, with only a small pocket tab. Wear it alone with the navy chinos and Sambas, or under the grey marl raglan sweat or the field jacket.",
    "store": "passenger-clothing.com",
    "in_stock": false,
-   "verified": "2026-11-21",
+   "verified": "2026-11-22",
    "verify_error": "size 'L' not offered (has: L, M, S, XL, XXL)",
    "since": "2026-11-21",
    "start_price": 23.97
