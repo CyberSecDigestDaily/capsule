@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-22T06:16:01.941770Z",
+ "generated": "2026-11-22T09:09:42.639948Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1533,11 +1533,11 @@
   ]
  },
  "drop": {
-  "date": "2026-11-21",
-  "at": "2026-11-21T09:08:36.811506Z",
-  "subject": "The Drop · Sat 21 Nov: nothing new today",
+  "date": "2026-11-22",
+  "at": "2026-11-22T09:09:42.639948Z",
+  "subject": "The Drop · Sun 22 Nov: nothing new today",
   "via": "smtp",
-  "images": 1,
-  "status": "waiting for today's review"
+  "images": 3,
+  "status": "sent"
  }
 }

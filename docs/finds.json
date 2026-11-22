@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-22T06:16:01.941770Z",
+ "generated": "2026-11-22T09:09:42.639948Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -69,14 +69,16 @@
    "short": "Speckled lambswool crew",
    "url": "https://stuartslondon.com/products/carhartt-wip-anglistic-sweater-speckled-dark-scarab",
    "size": "L",
-   "variant": "Speckled Dark Scarab",
    "price": 76.3,
    "category": "Mid-layers & Knits",
    "why": "Knits are still the biggest gap: none owned, and the office and outdoor outfits both need one. This is a regular-fit lambswool raglan crew in a dark speckled green with just a small woven hem label, 30% off with L in stock (only L and XL left). Wear it over a plain tee with the fawn chinos and brown Docs, or under the waxed jacket with the 502s.",
    "store": "Stuarts London",
-   "in_stock": false,
+   "image": "https://cdn.shopify.com/s/files/1/0943/8307/9771/files/21_3a8c3c7c-3b5b-4c85-91b5-617717b736d6.jpg?v=1789555575",
+   "price_now": 76.3,
+   "in_stock": true,
+   "discount_pct": 30,
+   "was": 109.0,
    "verified": "2026-11-22",
-   "verify_error": "size 'L' not offered (has: L, M, S, XL, XXL)",
    "since": "2026-11-21",
    "start_price": 76.3
   },
@@ -87,19 +89,21 @@
    "short": "Olive slub henley",
    "url": "https://passenger-clothing.com/products/headland-ls-slub-henley-dusty-olive",
    "size": "L",
-   "variant": "Dusty Olive",
    "price": 23.97,
    "category": "Tees",
    "why": "Tees remain the other big gap. A regular-fit organic slub cotton long-sleeve henley in washed olive, 40% off, with only a small pocket tab. Wear it alone with the navy chinos and Sambas, or under the grey marl raglan sweat or the field jacket.",
    "store": "passenger-clothing.com",
-   "in_stock": false,
+   "image": "https://cdn.shopify.com/s/files/1/0203/9296/files/MQGgaeGu1_o2iI5MIfwMYoeu1Xl5Y7QyCxHH-pnZAPg.jpg?v=1751991339",
+   "price_now": 23.97,
+   "in_stock": true,
+   "discount_pct": 40,
+   "was": 39.95,
    "verified": "2026-11-22",
-   "verify_error": "size 'L' not offered (has: L, M, S, XL, XXL)",
    "since": "2026-11-21",
    "start_price": 23.97
   }
  ],
- "picks_updated": "2026-11-21",
+ "picks_updated": "2026-11-22",
  "errors": [],
  "candidates": []
 }
