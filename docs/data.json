@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-22T09:09:42.639948Z",
+ "generated": "2026-11-22T12:15:55.090785Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -684,11 +684,11 @@
    "in_stock": true,
    "alt_sizes": [
     "W28 L32",
-    "W29 L32",
     "W30 L30",
     "W30 L32",
     "W30 L34",
-    "W31 L32"
+    "W31 L32",
+    "W31 L34"
    ],
    "signal": "SALE",
    "low": 37.5,
@@ -1538,6 +1538,6 @@
   "subject": "The Drop · Sun 22 Nov: nothing new today",
   "via": "smtp",
   "images": 3,
-  "status": "sent"
+  "status": "already sent today"
  }
 }
