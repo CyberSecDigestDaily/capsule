@@ -1,6 +1,6 @@
 # Capsule
 
-A wardrobe site that learns. It checks ~1,000 pieces in Don's sizes across ~27 vetted UK shops three times a day, ranks them with a taste engine that learns from every tap, plans outfits around what he owns, and emails the Drop on the days worth an email.
+A wardrobe site that learns. It ranks ~1,500 pieces from ~28 vetted UK shops for each person's taste and sizes, builds complete outfits around what they already own, finds the reductions worth having, and (for the owner) checks a watch list three times a day and emails the Drop on the days worth an email.
 
 Live: https://capsule.makingmylifeeasierthroughnonsense.workers.dev/ (Cloudflare Worker `capsule`, D1 `capsule` in the EU jurisdiction). The old https://cybersecdigestdaily.github.io/capsule/ forwards there (`docs/where.json`), carrying any taps saved in that browser.
 
@@ -9,10 +9,11 @@ Live: https://capsule.makingmylifeeasierthroughnonsense.workers.dev/ (Cloudflare
 | Layer | What | Where | When |
 |---|---|---|---|
 | Price/stock checker | `scraper.py` checks every watched piece (`items.json`) for price and stock **in his size only**: Shopify `/products/<handle>.js`, Uniqlo's UK product API, M&S product data, barbour.com's size endpoint | GitHub Actions | ~07:15, 13:15, 19:15 UK (Cloudflare cron in `cloudflare/` starts it) and on edits |
-| Pool | The new-in and sale rails of every source in `finder.json` `pool`: men's pieces in his size, priced in GBP, colour by colour. Round-robin per shop so the big sale rails can't crowd out small shops. First sighting uses the shop's publish date. → `docs/pool.json` | same run | same |
+| Pool | The new-in and sale rails of every source in `finder.json` `pool`: men's pieces in stock in any common size, priced in GBP, colour by colour. Each piece lists every size in stock (`zs`) and the owner's size when it's in stock (`z`); pieces in the owner's size get priority when the pool is capped. Round-robin per shop so the big sale rails can't crowd out small shops. First sighting uses the shop's publish date. → `docs/pool.json` | same run | same |
 | Deal finder | Strict rules nominate candidates; only URLs the daily review approves (`finder.json` `approve`) show as checked deals → `docs/finds.json` | same run | same |
-| Taste engine | `docs/engine.js`: each piece becomes traits (colour, washed finish, texture, fabric, cut, details, brand, style, season, price band). Taps teach trait affinities on top of a prior from the private style brief; old signals fade (~3 month half-life). One slot in five is a labelled wildcard; nothing three-of-a-kind in a row; pieces shown three times with no reaction rest for two weeks unless the price drops | the browser | every visit |
-| Accounts + sync | `worker/`: passkeys (no passwords, no email; a password manager's extension can answer, or ask for this device or a phone), one-time recovery codes, short codes to link another device. Reactions sync piece by piece (newest deliberate tap wins); settings sync as small patches so devices never overwrite each other. Data in D1, never in this repo | Cloudflare Worker (free plan) | always |
+| Taste engine | `docs/engine.js`: each piece becomes traits (colour, washed finish, texture, fabric, cut, details, brand, style, season, price band). Taps teach trait affinities on top of a prior from the style brief (the owner's private one, or the six questions anyone can answer); old signals fade (~3 month half-life). A "no" hides a piece everywhere (soft "sink to the bottom" is a setting). Passing on a piece also hides the same piece under another listing, at another shop or with the same photo, and its other colours unless colour was the reason. Colourways show as one card. One slot in five is a labelled wildcard; nothing three-of-a-kind in a row; pieces shown three times with no reaction rest for two weeks unless the price drops | the browser | every visit |
+| Outfits | `docs/outfits.js`: complete looks for each occasion from what you own plus the best pieces in your size: "wear it now", "complete it" (the fewest new pieces) and a fresh look. Judged on colour (classic pairings, one accent, no brown with black, tonal looks), texture and pattern (one pattern, two textures, no double denim) and what each occasion asks for. Shuffle, today's look, best next buys | the browser | every visit |
+| Accounts + sync | `worker/`: passkeys (no passwords, no email; a password manager's extension can answer, or ask for this device or a phone), one-time recovery codes, short codes to link another device. Invite-only: invites in `wrangler.jsonc` (hashes) or made by the owner on the site (D1, single use, 14 days). Reactions sync piece by piece and the server merges them the same way (newest deliberate tap wins; a quiet update can't undo a tap); settings sync as small patches so devices never overwrite each other. Data in D1, never in this repo | Cloudflare Worker (free plan) | always |
 | Private brief | The style brief is in `docs/seed.enc`, AES-256-GCM encrypted with a key derived (PBKDF2-SHA256) from the owner's invite code. The join link unlocks it in the browser and saves it to the private account | browser + D1 | at sign-up |
 | Curator | Claude's daily review vetoes clear misses in the pool (`finder.json` `block`), approves deals, keeps the watch list healthy, writes this week's edit (`picks.json`) and decides whether today is a strong day | Claude scheduled task | daily ~09:00 UK |
 | The Drop | `docs/drop.html`, emailed over Gmail SMTP with photos only on strong days (`picks.json` `strong`) plus a Sunday roundup. "Rate it in Capsule" opens the piece on the site | GitHub Actions | after the review |
@@ -20,21 +21,28 @@ Live: https://capsule.makingmylifeeasierthroughnonsense.workers.dev/ (Cloudflare
 
 ## The site
 
-- **For you**: everything in his size, best match first, with the reason on each card ("94% match · Olive · Waffle knit · fills 2 outfits"). This week's edit, new since your last visit, filters.
-- **Every piece**: ♡ love (a Loved badge on the photo), ✕ not for me (hides that piece and its other colours, unless you say the colour was the problem, then asks what's off), ⋯ more like this, save, too pricey (rests until the price drops), own something like it, bought it, similar pieces, ask Claude. Undo on everything; a running tally under For you.
-- **Train**: 20 quick swipes with a legend and labelled buttons (← pass hides it from the feed, → like, ↑ love, ↓ skip), what each answer did shown after every card with an undo, and a duel now and then; it picks what the model knows least about.
-- **Watch list**, **Outfits** (formulas for each occasion in `wardrobe.json`, ticks for what he owns, best next buys), **Deals** (the better the match, the smaller the discount it needs; sort by best match, fills a gap, biggest discount, biggest saving, price either way or newest, and filter by kind).
-- **You**: account and devices (passkeys in a password manager, on this device or on a phone, with where each one lives), About you (height, weight, build, fit, measurements, sizes, colouring, climate, fabrics to avoid: they lean the ranking and give a size guide), this week's report, your reactions (loved, liked, saved, hidden, with bring back), what it's learned with pins (▲ always boost, ▼ never show), soft or hard no's, target counts and price ceilings, wildcards, theme.
+Five places (a dock on phones, a top bar on desktop), plus the account button at the top right.
+
+- **For you**: everything in your size, best match first, with the reason on each card. Search, sort (best match, newest, price, discount) and kind filters. The owner also gets Claude's weekly edit; everyone gets "new since your last visit". First visit without a style: six quick questions (sizes, colours, style, fit, budget, occasions) or just browse.
+- **Every piece**: ♡ love, ✕ not for me (hides it everywhere, with its other versions; a reason like "colour" offers "hide everything in black"), ⋯ more like this, save, too pricey, own something like it, bought it, similar pieces, ask Claude. Undo on everything.
+- **Swipe**: 20 quick swipes (← pass hides it for good, → like, ↑ love, ↓ skip), one colour per piece per deck, and cards hidden since the deck was dealt are skipped.
+- **Outfits**: today's look, complete looks per occasion with why they work and shuffle, best next buys, and your wardrobe (tick the owner's staples, or add anything you own by kind and colour).
+- **Deals**: reductions in your size on pieces that match you (nothing you've ruled out), one card per piece, the better the match the smaller the discount it needs; seven sorts.
+- **Saved**: loved, liked, saved and hidden (with bring back); the owner's watch list lives here too.
+- **You**: account and devices, invites (owner), your style, sizes and fit (they decide what's in stock for you), what it's learned with pins, targets and price ceilings, feed and look, privacy and your data (export, delete, clear this device).
+
+The owner's own layer (watch list, Claude's edit and approved deals, wardrobe staples, updater status) shows only to the owner account or a device holding his unlocked brief. Members and visitors get their own Capsule.
 
 ## Privacy
 
-Taps, the brief, settings and About you (measurements, sizes, build) live only in the private account (D1) and on his devices. This repo is public: it holds code, product data, sizes needed for stock checks, and the encrypted brief. Security headers and a strict CSP on every page (`docs/_headers`, `worker/http.js`); same-origin checks on every write; invite-only sign-up (hashes in `wrangler.jsonc`, never the codes).
+Taps, briefs, settings, sizes, measurements and wardrobes live only in each person's private account (D1, EU) and on their devices; signed out, nothing leaves the browser. `docs/privacy.html` is the notice. This repo is public: it holds code, product data, the owner's sizes needed for stock checks, and his encrypted brief. Security headers and a strict CSP on every page (`docs/_headers`, `worker/http.js`); same-origin checks on every write; invite-only sign-up (hashes in `wrangler.jsonc`, never the codes).
 
 ## Common edits
 
-- **Watch list**: `items.json` (read its `_about`). **Pool sources and rules**: `finder.json`. **Outfits**: `wardrobe.json`. Saving any of them re-runs the checker.
+- **Watch list**: `items.json` (read its `_about`). **Pool sources and rules**: `finder.json`. **Occasions**: `docs/outfits.js` `DEFAULT_FORMULAS`, copied to `wardrobe.json` for the Drop (keep them in step); the owner's staples are in `wardrobe.json`. Saving a JSON file re-runs the checker.
 - **Site or Worker**: edit `docs/` or `worker/`; the push republishes in a few minutes without re-checking prices.
-- **Tests**: `node tests/engine.test.mjs` · `tests/run-api.sh` (Worker API, local D1) · `tests/run-ui.sh` (headless Chromium, virtual passkeys). `npm install` first.
+- **Tests**: `npm test` (engine + outfits; CI runs these before every publish) · `tests/run-api.sh` (Worker API, local D1) · `tests/run-ui.sh` (headless Chromium, virtual passkeys, a member invited by the owner, a visitor). `npm install` first.
+- **Invite someone**: You › Invite people (owner), or add `sha256("inv:" + code)` to `INVITE_HASHES`.
 - **New brief seed**: `CAPSULE_INVITE=<code> node tools/seed.mjs brief.json docs/seed.enc` (keep the brief and code out of the repo).
 
 ## On-time runs

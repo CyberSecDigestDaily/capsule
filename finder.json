@@ -1737,9 +1737,9 @@
   "https://routeone.co.uk/products/vans-densmore-wide-cuff-beanie-pale-petal-001194996"
  ],
  "pool": {
-  "_about": "The pool behind the For you feed and the Train deck: new-in and sale rails from these shops, in Don's sizes. Much looser than the deal rules above on purpose: the taste engine on the site ranks it and hides whatever the brief rules out (that logic and Don's own limits live in his private account, not here). Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not his budget.",
-  "max_items": 1000,
-  "max_per_store": 80,
+  "_about": "The pool behind the For you feed, Outfits, Deals and the Swipe deck: new-in and sale rails from these shops, in every common size (each piece lists the sizes in stock as zs; z is Don's size when it's in stock). Much looser than the deal rules above on purpose: the taste engine on the site ranks it, hides whatever each person's style rules out and shows only their sizes. Pieces in Don's size get priority when the pool is capped. Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not anyone's budget.",
+  "max_items": 1500,
+  "max_per_store": 100,
   "caps": {
    "tee": 70,
    "knit": 220,

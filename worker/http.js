@@ -61,10 +61,11 @@ export function rpId(env, request) {
    (which a cross-site form can't send without a CORS preflight we never answer). The session cookie is also
    SameSite=Strict, so this is the third lock on the same door. The review key (a bearer token) is exempt: it never
    rides along with a browser on its own. */
-export function checkOrigin(request, env) {
+export function checkOrigin(request, env, path) {
   const m = request.method;
   if (m === "GET" || m === "HEAD") return;
-  if ((request.headers.get("Authorization") || "").startsWith("Bearer ")) return;
+  // Only the review's own endpoints take a bearer key; everywhere else a bearer header buys nothing.
+  if (/^\/api\/review(\/|$)/.test(path || "") && (request.headers.get("Authorization") || "").startsWith("Bearer ")) return;
   const origin = request.headers.get("Origin");
   if (!origin || !allowedOrigins(env, request).includes(origin)) throw new HttpError(403, "bad_origin", "Requests must come from Capsule itself.");
 }

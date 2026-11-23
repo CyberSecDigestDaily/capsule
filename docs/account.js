@@ -4,7 +4,7 @@
    account's copy (so two devices never overwrite each other). Signed out, or on the GitHub Pages copy, which has no
    server, everything stays in this browser. */
 
-import {mergeEntry, applyCfgPatch} from "./engine.js";
+import {mergeEntry, applyCfgPatch, CFG_MAPS} from "./engine.js";
 
 const KEY_ACCT = "capsule.acct.v1", KEY_JOIN = "capsule.join";
 export const acct = {server: null, user: null, me: null, session: null, rev: 0, dirty: new Set(), cfgPatch: {}, briefDirty: false,
@@ -300,7 +300,7 @@ async function afterSignIn(user) {
   absorbEntries(full.entries);
   for (const k of Object.keys(st.entries)) if (!full.entries || !full.entries[k]) acct.dirty.add(k);
   const local = st.cfg || {}, sc = full.cfg || null, patch = {};
-  for (const m of ["owned", "pins", "counts", "caps", "profile"]) {
+  for (const m of CFG_MAPS) {
     for (const [k, v] of Object.entries(local[m] || {})) if (!sc || !sc[m] || !(k in sc[m])) patch[m + "." + k] = v;
   }
   for (const k of ["reach", "rules"]) if (local[k] != null && (!sc || sc[k] == null)) patch[k] = local[k];
@@ -402,6 +402,10 @@ export async function removePasskey(id) {
   return r;
 }
 export const notes = () => api("GET", "/api/me/notes");
+/* Invites (the owner account only): a one-time link for someone new. */
+export const createInvite = () => api("POST", "/api/invites", {});
+export const listInvites = () => api("GET", "/api/invites");
+export const revokeInvite = id => api("DELETE", "/api/invites/" + encodeURIComponent(id), {});
 export async function signOut() {
   if (pending()) { try { await sync(); } catch (e) { /* best effort */ } }
   try { await api("POST", "/api/auth/logout", {}); } catch (e) { /* signed out locally either way */ }

@@ -79,15 +79,53 @@ function storeCredential(env, userId, v, name) {
 
 const inviteList = env => String(env.INVITE_HASHES || "").split(",").map(s => s.trim().toLowerCase()).filter(h => /^[0-9a-f]{64}$/.test(h));
 
-/* An invite is good if its hash is configured and it hasn't been used. Returns {hash, owner}. */
+/* An invite is good if its hash is configured (wrangler.jsonc) or was made by the owner on the site and hasn't run out,
+   and it hasn't been used. Returns {hash, owner}. Only the configured owner invite ever makes an owner. */
 async function checkInvite(env, raw) {
   const code = String(raw || "").trim();
-  const generic = new HttpError(403, "invite_needed", "Capsule is invite-only for now. That invite isn't valid or has been used.");
+  const generic = new HttpError(403, "invite_needed", "Capsule is invite-only for now. That invite isn't valid, has run out or has been used.");
   if (!/^[A-Za-z0-9_-]{16,64}$/.test(code)) throw generic;
   const hash = await sha256hex("inv:" + code);
-  if (!inviteList(env).includes(hash)) throw generic;
+  if (!inviteList(env).includes(hash)) {
+    const row = await env.DB.prepare("SELECT expires_at FROM invites WHERE hash = ?").bind(hash).first();
+    if (!row || row.expires_at <= now()) throw generic;
+  }
   if (await env.DB.prepare("SELECT 1 FROM invites_used WHERE hash = ?").bind(hash).first()) throw generic;
   return {hash, owner: String(env.OWNER_INVITE_HASH || "").toLowerCase() === hash};
+}
+
+/* ---- Invites the owner makes on the site ---- */
+const INVITE_TTL = 14 * 86400, MAX_OPEN_INVITES = 30;
+async function requireOwner(env, request, ctx) {
+  const s = await requireSession(env, request, ctx);
+  if (s.role !== "owner") throw new HttpError(403, "not_owner", "Only the owner can do that.");
+  return s;
+}
+export async function createInvite(env, request, ctx) {
+  const s = await requireOwner(env, request, ctx);
+  await rateLimit(env, "inv:" + s.user_id, 20, 86400);
+  const t = now();
+  const open = await env.DB.prepare("SELECT COUNT(*) AS n FROM invites WHERE created_by = ? AND expires_at > ? AND hash NOT IN (SELECT hash FROM invites_used)").bind(s.user_id, t).first();
+  if (open.n >= MAX_OPEN_INVITES) throw new HttpError(400, "too_many", "You have plenty of unused invites. Cancel some first.");
+  const code = randomToken(18); // 144 bits, 24 characters
+  await env.DB.prepare("INSERT INTO invites (hash, created_by, created_at, expires_at) VALUES (?, ?, ?, ?)")
+    .bind(await sha256hex("inv:" + code), s.user_id, t, t + INVITE_TTL).run();
+  return json({code, expires: t + INVITE_TTL});
+}
+export async function listInvites(env, request, ctx) {
+  const s = await requireOwner(env, request, ctx);
+  const rows = (await env.DB.prepare(
+    `SELECT i.hash, i.created_at, i.expires_at, u.used_at FROM invites i LEFT JOIN invites_used u ON u.hash = i.hash
+      WHERE i.created_by = ? ORDER BY i.created_at DESC LIMIT 40`).bind(s.user_id).all()).results || [];
+  const t = now();
+  return json({invites: rows.filter(r => r.used_at || r.expires_at > t).map(r => ({id: r.hash.slice(0, 16), created: r.created_at, expires: r.expires_at, used: r.used_at || null})),
+    members: rows.filter(r => r.used_at).length});
+}
+export async function revokeInvite(env, request, ctx, shortId) {
+  const s = await requireOwner(env, request, ctx);
+  if (!/^[0-9a-f]{16}$/.test(shortId)) bad("No such invite.");
+  await env.DB.prepare("DELETE FROM invites WHERE created_by = ? AND substr(hash, 1, 16) = ? AND hash NOT IN (SELECT hash FROM invites_used)").bind(s.user_id, shortId).run();
+  return json({ok: true});
 }
 
 export async function me(env, request, ctx) {

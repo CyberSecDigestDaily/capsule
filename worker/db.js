@@ -3,7 +3,7 @@
 
 import {randomToken, hmacHex, now, HttpError} from "./util.js";
 
-const SCHEMA_VERSION = "1";
+const SCHEMA_VERSION = "2";
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS meta (k TEXT PRIMARY KEY, v TEXT NOT NULL)`,
@@ -86,7 +86,15 @@ const SCHEMA = [
      body TEXT NOT NULL
    )`,
   `CREATE INDEX IF NOT EXISTS notes_user ON notes(user_id, created_at)`,
-  `CREATE TABLE IF NOT EXISTS rl (k TEXT PRIMARY KEY, n INTEGER NOT NULL, reset INTEGER NOT NULL) WITHOUT ROWID`
+  `CREATE TABLE IF NOT EXISTS rl (k TEXT PRIMARY KEY, n INTEGER NOT NULL, reset INTEGER NOT NULL) WITHOUT ROWID`,
+  // v2: invites the owner makes from the site. Only the SHA-256 of "inv:" + code is kept; each works once (invites_used).
+  `CREATE TABLE IF NOT EXISTS invites (
+     hash TEXT PRIMARY KEY,
+     created_by TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+     created_at INTEGER NOT NULL,
+     expires_at INTEGER NOT NULL
+   ) WITHOUT ROWID`,
+  `CREATE INDEX IF NOT EXISTS invites_by ON invites(created_by, created_at)`
 ];
 
 let ready = null, pepperValue = null;
@@ -142,6 +150,7 @@ export async function cleanup(env) {
     env.DB.prepare("DELETE FROM challenges WHERE expires_at <= ?").bind(t),
     env.DB.prepare("DELETE FROM link_codes WHERE expires_at <= ?").bind(t),
     env.DB.prepare("DELETE FROM rl WHERE reset <= ?").bind(t),
+    env.DB.prepare("DELETE FROM invites WHERE expires_at <= ? AND hash NOT IN (SELECT hash FROM invites_used)").bind(t - 30 * 86400),
     env.DB.prepare("DELETE FROM notes WHERE created_at <= ?").bind(t - 120 * 86400)
   ]);
 }
