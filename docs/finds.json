@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-23T13:33:22.990325Z",
+ "generated": "2026-11-23T18:16:00.902283Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -75,7 +75,7 @@
    "store": "Stuarts London",
    "image": "https://cdn.shopify.com/s/files/1/0943/8307/9771/files/21_3a8c3c7c-3b5b-4c85-91b5-617717b736d6.jpg?v=1789555575",
    "price_now": 76.3,
-   "in_stock": false,
+   "in_stock": true,
    "discount_pct": 30,
    "was": 109.0,
    "verified": "2026-11-23",
