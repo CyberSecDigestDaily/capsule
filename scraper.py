@@ -161,6 +161,10 @@ def canon(value):
     """
     s = re.sub(r"\(.*?\)", " ", str(value or "")).upper()
     s = s.replace("EXTRA LARGE", "XLARGE").replace("EXTRA-LARGE", "XLARGE")
+    # Leg lengths sold as a suffix ("S-Regular", "M - Short", "10 Petite") don't change the size itself.
+    s = re.sub(r"\s*[-–]?\s*\b(REGULAR|SHORT|LONG|PETITE|TALL)\b", "", s)
+    # Waist in inches: 24" -> 24 (a waist, so W24 below).
+    s = re.sub(r'(\d{2})\s*(?:"|”|″|IN\b|INCH(?:ES)?\b)', r"W\1", s)
     parts = s.split("/") if ("/" in s and re.search(r"\b(UK|EU|US)\s*\d", s)) else [s]
     out = set()
     for p in parts:
@@ -170,6 +174,9 @@ def canon(value):
         if c in LETTER:
             out.add(LETTER[c])
             continue
+        m = re.fullmatch(r"(XXS|XS|S|M|L|XL|XXL)[-–](XS|S|M|L|XL|XXL|XXXL)", c)  # "XS-S", "M-L"
+        if m:
+            c = f"{m.group(1)}/{m.group(2)}"
         if re.fullmatch(r"(XXS|XS|S|M|L|XL|XXL)/(XS|S|M|L|XL|XXL|XXXL)", c):
             out.add(c)
             continue
@@ -752,51 +759,79 @@ def run_finder(cfg, watched_handles, prev_finds):
 
 
 # -------------------------------------------------------------- the pool
-# The For you feed and the Train deck rank a much bigger, looser pool than the deals above: new-in and sale rails
-# from every source in finder.json "pool", in Don's sizes. The taste engine on the site (docs/engine.js) does the
-# judging, with his private brief and every tap he makes; this only throws out what can never fit (wrong size,
-# women's, kids, homeware, non-GBP shops, brands that are all logo) and keeps the file a sensible size.
+# The For you feed and the Swipe deck rank a much bigger, looser pool than the deals above: new-in and sale rails
+# from every source in finder.json "pool", menswear and womenswear, in every size. The taste engine on the site
+# (docs/engine.js) does the judging for each person, with their own brief and every tap they make; this only throws out
+# what can never be worn (kids', homeware, jewellery, lingerie, non-GBP shops) and keeps the files a sensible size.
+# Don's own house rules (no white or loud colours, no logo brands, no blazers, the daily review's vetoes) no longer
+# remove anything: they're written on each piece as "h" flags that only the owner's view hides.
 POOL_ROLES = [  # keep in step with ROLES in docs/engine.js
     ("wallabee", ["wallabee"]), ("boot", ["chelsea", "boot", "boots", "chukka", "desert boot"]),
-    ("clog", ["clog", "clogs", "mule", "slipper", "slippers", "birkenstock", "boston"]),
-    # Smart shoes (derbies, brogues, loafers) only on footwear: a "Derby jacket" is a jacket.
-    ("shoe", ["derby", "derbies", "brogue", "brogues", "oxfords", "oxford shoe", "oxford shoes", "loafer", "loafers", "monk strap", "double monk", "gibson"]),
+    # Heels and sandals only count on footwear: a "heel tab" or a "sandal-print tee" isn't a shoe.
+    ("heel", ["heel", "heels", "heeled", "stiletto", "stilettos", "court shoe", "court shoes", "pumps", "slingback", "slingbacks", "kitten heel"]),
+    ("sandal", ["sandal", "sandals", "slider", "sliders", "slide", "slides", "flip flop", "flip flops", "flip-flops", "espadrille", "espadrilles"]),
+    ("clog", ["clog", "clogs", "mule", "mules", "slipper", "slippers", "birkenstock", "boston"]),
+    # Smart shoes (derbies, brogues, loafers, Mary Janes, flats) only on footwear: a "Derby jacket" is a jacket.
+    ("shoe", ["derby", "derbies", "brogue", "brogues", "oxfords", "oxford shoe", "oxford shoes", "loafer", "loafers", "monk strap", "double monk",
+              "gibson", "mary jane", "mary janes", "ballet flat", "ballet flats", "ballet pump", "ballet pumps", "ballerina", "ballerinas", "flats"]),
     ("trainer", ["trainer", "trainers", "sneaker", "sneakers", "samba", "gazelle", "spezial", "janoski", "air max", "990", "991", "992",
                  "993", "996", "574", "576", "1500", "shoe", "shoes", "plimsoll", "vulc"]),
     ("socks", ["socks", "sock"]), ("underwear", ["boxer", "boxers", "briefs", "trunks", "boxer shorts"]),
-    ("beanie", ["beanie", "watch cap", "toque"]), ("cap", ["cap", "5 panel", "five panel", "6 panel", "baseball", "snapback", "bucket hat", "hat"]),
-    ("scarf", ["scarf", "snood"]), ("gloves", ["gloves", "mittens", "glove"]), ("belt", ["belt"]),
-    ("bag", ["bag", "tote", "backpack", "rucksack", "holdall", "sling", "pouch", "duffle bag"]), ("watch", ["watch"]),
-    ("overshirt", ["overshirt", "over shirt", "shirt jacket", "shacket", "cpo", "chore shirt"]), ("cardigan", ["cardigan"]),
+    ("beanie", ["beanie", "watch cap", "toque", "beret"]), ("cap", ["cap", "5 panel", "five panel", "6 panel", "baseball", "snapback", "bucket hat", "hat"]),
+    ("scarf", ["scarf", "snood"]), ("gloves", ["gloves", "mittens", "glove"]), ("belt", ["belt", "harness"]),
+    ("bag", ["bag", "tote", "backpack", "rucksack", "holdall", "sling", "pouch", "duffle bag", "handbag", "handbags", "crossbody", "clutch"]),
+    ("watch", ["watch"]),
+    # One-pieces and skirts before shirts and tees: a "shirt dress" is a dress.
+    ("dress", ["dress", "dresses", "gown", "pinafore", "shirtdress"]),
+    ("jumpsuit", ["jumpsuit", "jumpsuits", "playsuit", "playsuits", "romper", "boilersuit", "boiler suit", "dungarees", "dungaree", "overalls", "catsuit"]),
+    ("skirt", ["skirt", "skirts", "skort", "skorts"]),
+    ("overshirt", ["overshirt", "over shirt", "shirt jacket", "shacket", "cpo", "chore shirt"]), ("cardigan", ["cardigan", "shrug", "bolero"]),
     ("fleece", ["fleece", "polartec"]),
-    ("jacket", ["jacket", "coat", "parka", "blouson", "harrington", "bomber", "m-65", "m65", "anorak", "gilet", "smock"]),
+    ("jacket", ["jacket", "coat", "parka", "blouson", "harrington", "bomber", "m-65", "m65", "anorak", "gilet", "smock", "blazer", "trench",
+                "body warmer", "bodywarmer", "puffer", "track top", "track jacket"]),
     ("hoodie", ["hoodie", "hooded sweat", "hooded"]), ("sweat", ["sweatshirt", "sweat", "crewneck sweat"]),
     ("knit", ["jumper", "sweater", "knit", "knitted", "lambswool", "merino", "roll neck", "rollneck", "quarter zip", "half zip", "pullover"]),
-    ("shirt", ["shirt", "oxford", "chambray"]), ("tee", ["t-shirt", "tee", "t shirt", "henley", "long sleeve"]),
+    ("top", ["blouse", "blouses", "bodysuit", "bodysuits", "corset", "corsets", "bustier", "cami", "camisole", "crop top", "tank top", "tank",
+             "vest top", "bralette", "tube top", "halter top", "halterneck", "halter neck", "bandeau", "tunic", "top", "tops"]),
+    ("shirt", ["shirt", "oxford"]), ("tee", ["t-shirt", "tee", "t shirt", "henley", "long sleeve"]),
+    ("shorts", ["shorts", "jorts", "denim short", "jean short", "cargo short", "cycling short", "biker short"]),
     ("jeans", ["jeans", "jean", "denim"]),
     ("jogger", ["jogger", "joggers", "sweatpant", "sweatpants", "track pant", "track pants", "trackpant", "trackpants", "track trousers",
-                "lounge pant", "lounge pants", "sweat pant", "sweat pants"]),
-    ("shorts", ["shorts", "short"]),
+                "lounge pant", "lounge pants", "sweat pant", "sweat pants", "legging", "leggings"]),
     ("chino", ["chino", "chinos", "cord", "cords", "pant", "pants", "fatigue", "trouser", "trousers", "pleated"]),
 ]
-FOOT_ROLES = {"wallabee", "boot", "clog", "shoe", "trainer"}
-TOP_ROLES = {"tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie"}
+FOOT_ROLES = {"wallabee", "boot", "clog", "shoe", "trainer", "heel", "sandal"}
+FOOT_ONLY = {"shoe", "heel", "sandal"}  # roles that need the product to be footwear (or say "shoes")
+TOP_ROLES = {"tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie", "top"}
+ONE_PIECE = {"dress", "jumpsuit"}
+LEG_ROLES = {"jeans", "chino", "trouser", "jogger", "shorts", "skirt"}
 ACC_ROLES = {"cap", "beanie", "scarf", "gloves", "belt", "bag", "watch"}
 POOL_CATEGORY = {
     "tee": "Tees", "shirt": "Shirts", "overshirt": "Jackets & Overshirts", "jacket": "Jackets & Overshirts", "fleece": "Mid-layers & Knits",
     "knit": "Mid-layers & Knits", "cardigan": "Mid-layers & Knits", "sweat": "Mid-layers & Knits", "hoodie": "Mid-layers & Knits",
+    "top": "Tops", "dress": "Dresses & Jumpsuits", "jumpsuit": "Dresses & Jumpsuits", "skirt": "Skirts",
     "jeans": "Jeans", "chino": "Chinos & Trousers", "trouser": "Chinos & Trousers", "jogger": "Joggers & Shorts", "shorts": "Joggers & Shorts",
-    "trainer": "Footwear", "boot": "Footwear", "wallabee": "Footwear", "clog": "Footwear", "shoe": "Footwear", "socks": "Socks & Boxers",
+    "trainer": "Footwear", "boot": "Footwear", "wallabee": "Footwear", "clog": "Footwear", "shoe": "Footwear", "heel": "Footwear",
+    "sandal": "Footwear", "socks": "Socks & Boxers",
     "underwear": "Socks & Boxers", "cap": "Accessories", "beanie": "Accessories", "scarf": "Accessories", "gloves": "Accessories",
     "belt": "Accessories", "bag": "Accessories", "watch": "Accessories"}
 POOL_CAP_GROUP = {"tee": "tee", "shirt": "overshirt", "overshirt": "overshirt", "jacket": "jacket", "fleece": "knit", "knit": "knit",
-                  "cardigan": "knit", "sweat": "knit", "hoodie": "knit", "jeans": "jeans", "chino": "chinos", "trouser": "chinos",
+                  "cardigan": "knit", "sweat": "knit", "hoodie": "knit", "top": "top", "dress": "dress", "jumpsuit": "dress", "skirt": "chinos",
+                  "jeans": "jeans", "chino": "chinos", "trouser": "chinos",
                   "jogger": "chinos", "shorts": "chinos", "trainer": "trainers", "boot": "boots", "wallabee": "boots", "shoe": "boots", "clog": "trainers",
+                  "heel": "boots", "sandal": "trainers",
                   "socks": "accessory", "underwear": "accessory", "cap": "accessory", "beanie": "accessory", "scarf": "accessory",
                   "gloves": "accessory", "belt": "accessory", "bag": "accessory", "watch": "accessory"}
-WOMEN = ["women", "womens", "women's", "wmns", "ladies", "girls", "female", "kids", "kid's", "junior", "youth", "toddler", "baby", "infant"]
-MEN = ["men", "mens", "men's", "male", "unisex"]
-LOUD = ["pink", "purple", "lilac", "lavender", "fuchsia", "magenta", "neon", "fluro", "fluo", "multi", "multicolour", "multicolor", "tie dye", "tie-dye", "rainbow"]
+# Departments: womenswear and menswear both go in the pool now (tagged g); children's clothes never do.
+KIDS = ["girls", "boys", "kids", "kid's", "kids'", "junior", "juniors", "youth", "toddler", "toddlers", "baby", "babies", "infant", "children", "childrens", "children's"]
+WOMEN = ["women", "womens", "women's", "woman", "wmns", "ladies", "female"]
+MEN = ["men", "mens", "men's", "male"]
+UNISEX = ["unisex", "gender neutral", "genderless", "all gender"]
+# Not clothes, whatever the shop files them under (checked against the product type).
+JUNK_TYPE = re.compile(r"jewel|necklace|earring|bracelet|\brings?\b|anklet|choker|homeware|\bhome\b|lighting|candle|gift ?card|beauty|"
+                       r"fragrance|perfume|sticker|lingerie|\bbras?\b|knicker|hosiery|tights|bikini|swimsuit|swimwear|nightwear|pyjama|"
+                       r"sleepwear|\bbooks?\b|stationery|\bart\b|\bprints?\b|poster|keyring|phone|sunglasses|eyewear|\bhair\b", re.I)
+LOUD =["pink", "purple", "lilac", "lavender", "fuchsia", "magenta", "neon", "fluro", "fluo", "multi", "multicolour", "multicolor", "tie dye", "tie-dye", "rainbow"]
 WASHED_WORDS = ["washed", "faded", "garment dyed", "garment-dyed", "pigment dyed", "pigment-dyed", "vintage", "sun faded", "overdyed", "stonewash", "stone wash"]
 KEEP_DESC = ["regular fit", "relaxed fit", "slim fit", "classic fit", "straight leg", "straight fit", "tapered", "boxy", "oversized", "cropped",
              "longline", "drop shoulder", "raglan", "mid rise", "high rise", "stretch", "elastane", "brushed", "waffle", "corduroy", "waxed",
@@ -826,20 +861,28 @@ def shop_currency(store):
 
 
 TEE_WORDS = re.compile(r"\b(?:t|tee)[\s-]?shirts?\b")
+# Vendor fields that name a department or a category rather than a brand.
+GENERIC_VENDORS = {"men's", "mens", "men", "women's", "womens", "women", "unisex", "accessories", "clothing", "apparel", "footwear", "shoes",
+                   "default", "outlet", "sale", "home", "homeware", "store", "shop", "n/a", "none", "other"}
 
 
 def pool_role(title, ptype):
-    # "T-Shirt" isn't a shirt, and a polo shirt is closer to a tee: say so before matching.
-    t = TEE_WORDS.sub("tee", f"{title} {ptype}".lower()).replace("polo shirt", "polo tee")
-    foot = bool(re.search(r"footwear|shoe|trainer|sneaker|boot", (ptype or "").lower()))
-    for role, words in POOL_ROLES:
-        if foot and role not in FOOT_ROLES:
-            continue
-        if role == "shoe" and not foot and not re.search(r"\bshoes?\b", t):
-            continue
-        if words_in(t, words):
-            return role
-    return "trainer" if foot else None
+    """The kind of piece: from the title first (it names the piece), then the title with the shop's product type."""
+    foot = bool(re.search(r"footwear|shoe|trainer|sneaker|boot|heel|sandal", (ptype or "").lower()))
+
+    def match(text):
+        # "T-Shirt" isn't a shirt, a polo shirt is closer to a tee, and a dress shirt or dress trousers aren't dresses.
+        t = TEE_WORDS.sub("tee", text.lower()).replace("polo shirt", "polo tee")
+        t = re.sub(r"\bdress(?=\s+(?:shirts?|trousers?|pants|shoes?|boots?)\b)", "smart", t)
+        for role, words in POOL_ROLES:
+            if foot and role not in FOOT_ROLES:
+                continue
+            if role in FOOT_ONLY and not foot and not re.search(r"\bshoes?\b", t):
+                continue
+            if words_in(t, words):
+                return role
+        return None
+    return match(title) or match(f"{title} {ptype}") or ("trainer" if foot else None)
 
 
 def one_size(o):
@@ -870,14 +913,17 @@ def pool_eval(role, variants):
     return evaluate_variants(variants, size, cents=False)
 
 
-# The sizes a piece is offered in, for everyone (not just Don): letters for tops, waist/leg for trousers, UK/EU/US for shoes.
+# The sizes a piece is offered in, for everyone (not just Don): letters for tops, waist/leg for trousers, UK/EU/US for
+# shoes, and UK dress sizes (D10) for womenswear.
 LETTER_SIZES = {"XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "4XL"}
-SIZED_ROLES = TOP_ROLES | FOOT_ROLES | {"jeans", "chino", "trouser", "jogger", "shorts"}
+SIZED_ROLES = TOP_ROLES | FOOT_ROLES | LEG_ROLES | ONE_PIECE
+DUAL = re.compile(r"(XXS|XS|S|M|L|XL|XXL)/(XS|S|M|L|XL|XXL|XXXL)")
 
 
-def stock_sizes(role, variants):
-    """Every size in stock for one colour's variants, as canonical tokens (L, M/L, W34L32, W34, UK10, EU44). Sorted, unique."""
+def stock_sizes(role, variants, dept="m"):
+    """Every size in stock for one colour's variants, as canonical tokens (L, M/L, W34L32, W34, UK10, EU44, D10). Sorted, unique."""
     out = set()
+    womens = dept in ("w", "u")
     for v in variants:
         if not v.get("available"):
             continue
@@ -889,10 +935,15 @@ def stock_sizes(role, variants):
                         t = "EU" + m.group(1)
                     if re.fullmatch(r"(UK|EU|US)\d{1,2}(\.5)?", t):
                         out.add(t)
-                elif role in ("jeans", "chino", "trouser", "jogger", "shorts"):
-                    if re.fullmatch(r"W\d{2}(L\d{2})?", t) or t in LETTER_SIZES or re.fullmatch(r"(XXS|XS|S|M|L|XL|XXL)/(XS|S|M|L|XL|XXL|XXXL)", t):
+                    continue
+                # Womenswear dresses, tops and trousers come in UK dress sizes (4-26): "UK 10" or a bare "10".
+                m = re.fullmatch(r"UK(\d{1,2})", t)
+                if womens and m and 4 <= int(m.group(1)) <= 26 and int(m.group(1)) % 2 == 0:
+                    out.add("D" + m.group(1))
+                elif role in LEG_ROLES:
+                    if re.fullmatch(r"W\d{2}(L\d{2})?", t) or t in LETTER_SIZES or DUAL.fullmatch(t):
                         out.add(t)
-                elif t in LETTER_SIZES or re.fullmatch(r"(XXS|XS|S|M|L|XL|XXL)/(XS|S|M|L|XL|XXL|XXXL)", t):
+                elif t in LETTER_SIZES or DUAL.fullmatch(t):
                     out.add(t)
     order = {k: i for i, k in enumerate(["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "4XL"])}
 
@@ -925,14 +976,52 @@ def colour_option_index(p):
     return None
 
 
-def run_pool(cfg, prev_pool, blocked_urls):
+def source_collections(src):
+    """(kind, collection, department) for each rail a source lists: "new"/"sale" in the shop's own department ("g",
+    menswear unless it says otherwise), plus "w_new"/"w_sale" (womenswear) and "m_new"/"m_sale" (menswear) at mixed shops."""
+    g0 = src.get("g", "m")
+    out = []
+    for key, kind, g in (("new", "new", g0), ("sale", "sale", g0), ("w_new", "new", "w"), ("w_sale", "sale", "w"),
+                         ("m_new", "new", "m"), ("m_sale", "sale", "m")):
+        for coll in src.get(key) or []:
+            out.append((kind, coll, g))
+    return out
+
+
+def fair_share(items, prior, cap_all, cap_store, store_cap=None):
+    """Deal the best of each shop in turn, so a few big sale rails can't crowd out the smaller shops."""
+    by_store = {}
+    for r in sorted(items, key=lambda r: -prior(r)):
+        by_store.setdefault(r["s"], []).append(r)
+    limit = {s: min(cap_store, (store_cap(lst[0]) if store_cap else None) or cap_store) for s, lst in by_store.items()}
+    per_store, keep = {}, []
+    while len(keep) < cap_all and any(by_store.values()):
+        for store in list(by_store):
+            lst = by_store[store]
+            if not lst or per_store.get(store, 0) >= limit[store]:
+                by_store[store] = []
+                continue
+            keep.append(lst.pop(0))
+            per_store[store] = per_store.get(store, 0) + 1
+            if len(keep) >= cap_all:
+                break
+    return keep, per_store
+
+
+def run_pool(cfg, prev_pools, vetoed_urls):
+    """Two pools: "m" (menswear and unisex, docs/pool.json) and "w" (womenswear and unisex, docs/pool-w.json)."""
     pc = cfg.get("pool") or {}
+    empty = {"m": {"items": []}, "w": {"items": []}}
     if not pc.get("sources"):
-        return {"items": []}, []
+        return empty, []
     low = lambda xs: [x.lower() for x in xs or []]
     caps, factor = pc.get("caps", {}), float(pc.get("premium_factor", 1.6))
     allow, deny, junk = low(pc.get("brands")), low(pc.get("exclude_brands")), low(pc.get("junk"))
-    seen_first = {it.get("k"): it.get("f") for it in prev_pool.get("items", [])}
+    seen_first = {}
+    for prev in prev_pools:
+        for it in prev.get("items", []):
+            if it.get("k") and it.get("f"):
+                seen_first.setdefault(it["k"], it["f"])
     errors, out = [], {}
     for src in pc["sources"]:
         store, label = src["store"], src.get("label") or src["store"]
@@ -941,87 +1030,115 @@ def run_pool(cfg, prev_pool, blocked_urls):
             errors.append(f"{label}: prices are in {cur}, skipped")
             continue
         only = set(src.get("only") or [])
-        for kind in ("new", "sale"):
-            for coll in src.get(kind) or []:
-                for page in range(1, int(src.get("pages", 1)) + 1):
-                    try:
-                        d = collection_page(store, coll, page)
-                    except Exception as e:
-                        errors.append(f"{label} {coll}: {str(e)[:70]}")
-                        break
-                    prods = d.get("products", [])
-                    if not prods:
-                        break
-                    for p in prods:
-                        for rec in pool_records(p, src, store, label, kind, only, caps, factor, allow, deny, junk, blocked_urls):
-                            # First sighting: the shop's own publish date, so a new source (or the first run) doesn't
-                            # make everything look "new in" at once.
-                            pub = rec.pop("pub", "") or ""
-                            rec["f"] = seen_first.get(rec["k"]) or (pub if re.fullmatch(r"\d{4}-\d{2}-\d{2}", pub) and pub < TODAY else TODAY)
-                            old = out.get(rec["k"])
-                            if not old or (rec["d"] or 0) > (old["d"] or 0):
-                                out[rec["k"]] = rec
+        for kind, coll, g in source_collections(src):
+            for page in range(1, int(src.get("pages", 1)) + 1):
+                try:
+                    d = collection_page(store, coll, page)
+                except Exception as e:
+                    errors.append(f"{label} {coll}: {str(e)[:70]}")
+                    break
+                prods = d.get("products", [])
+                if not prods:
+                    break
+                for p in prods:
+                    for rec in pool_records(p, src, store, label, kind, g, only, caps, factor, allow, deny, junk, vetoed_urls):
+                        # First sighting: the shop's own publish date, so a new source (or the first run) doesn't
+                        # make everything look "new in" at once.
+                        pub = rec.pop("pub", "") or ""
+                        rec["f"] = seen_first.get(rec["k"]) or (pub if re.fullmatch(r"\d{4}-\d{2}-\d{2}", pub) and pub < TODAY else TODAY)
+                        old = out.get(rec["k"])
+                        if old and old["g"] != rec["g"]:
+                            rec["g"] = old["g"] = "u"  # on a men's and a women's rail: it's for everyone
+                        if not old or (rec["d"] or 0) > (old["d"] or 0):
+                            out[rec["k"]] = rec
     items = list(out.values())
 
     def prior(r):
         brand = (r["b"] or "").lower()
         fresh = (NOW.date() - dt.date.fromisoformat(r["f"])).days if r.get("f") else 99
-        # In the owner's size counts for a lot, so widening the pool to every size never thins out his feed.
+        # In the owner's size counts for a lot in the menswear pool, so widening it to every size never thins out his feed.
         return ((6 if fresh <= 2 else 3 if fresh <= 7 else 0) + (3 if any(brand.startswith(b) for b in allow) else 0)
-                + min(r["d"] or 0, 50) / 10 + (2 if r["src"] == "new" else 0) + (4 if r.get("_m") else 0))
-    # Fair shares: deal the best of each shop in turn, so a few big sale rails can't crowd out the smaller shops.
-    by_store = {}
-    for r in sorted(items, key=lambda r: -prior(r)):
-        by_store.setdefault(r["s"], []).append(r)
-    per_store, keep = {}, []
-    cap_store, cap_all = int(pc.get("max_per_store", 110)), int(pc.get("max_items", 900))
-    while len(keep) < cap_all and any(by_store.values()):
-        for store in list(by_store):
-            lst = by_store[store]
-            if not lst or per_store.get(store, 0) >= cap_store:
-                by_store[store] = []
-                continue
-            keep.append(lst.pop(0))
-            per_store[store] = per_store.get(store, 0) + 1
-            if len(keep) >= cap_all:
-                break
-    keep.sort(key=lambda r: (r["f"], r["d"] or 0), reverse=True)
-    for r in keep:
-        r.pop("_m", None)
-    return {"generated": NOW.isoformat().replace("+00:00", "Z"), "count": len(keep), "stores": per_store, "items": keep}, errors
+                + min(r["d"] or 0, 50) / 10 + (2 if r["src"] == "new" else 0) + (4 if r.get("_m") else 0)
+                - (5 if r["r"] in ("socks", "underwear") else 0))
+    pools = {}
+    limits = {"m": (int(pc.get("max_items", 900)), int(pc.get("max_per_store", 110))),
+              "w": (int(pc.get("max_items_w", pc.get("max_items", 900))), int(pc.get("max_per_store_w", pc.get("max_per_store", 110))))}
+    # The other department's shops only lend a few unisex pieces (a menswear shop's beanies in the womenswear pool).
+    cross = int(pc.get("max_per_store_cross", 25))
+    for dept, (cap_all, cap_store) in limits.items():
+        keep, per_store = fair_share([r for r in items if r["g"] in (dept, "u")], prior, cap_all, cap_store,
+                                     lambda r, d=dept: cross if r["_sg"] != d else None)
+        keep.sort(key=lambda r: (r["f"], r["d"] or 0), reverse=True)
+        clean = []
+        for r in keep:
+            c = {k: v for k, v in r.items() if k not in ("_m", "_sg") and not (k == "g" and v == "m") and not (k == "h" and not v)}
+            clean.append(c)
+        pools[dept] = {"generated": NOW.isoformat().replace("+00:00", "Z"), "count": len(clean), "stores": per_store, "items": clean}
+    return pools, errors
 
 
-def pool_records(p, src, store, label, kind, only, caps, factor, allow, deny, junk, blocked_urls):
+WOMENS_ROLES = {"dress", "skirt", "heel", "top", "jumpsuit"}
+
+
+def department(tl, tagl, g0, role):
+    """m, w or u for one product: what its title and type say, then its tags, else the rail it was found on. Shops' tags
+    are noisy ("Outlet-Mens-Bottoms" on a skirt), so on a womenswear shop a dress, skirt, top or heel stays womenswear
+    unless its title says otherwise."""
+    if words_in(tl, UNISEX):
+        return "u"
+    w_title, m_title = bool(words_in(tl, WOMEN)), bool(words_in(tl, MEN))
+    if w_title != m_title:
+        return "w" if w_title else "m"
+    if words_in(tagl, UNISEX):
+        return "u"
+    w_tag, m_tag = bool(words_in(tagl, WOMEN)), bool(words_in(tagl, MEN))
+    g = "u" if (w_tag and m_tag) else "w" if w_tag else "m" if m_tag else g0
+    if g0 == "w" and role in WOMENS_ROLES:
+        return "w"
+    return g
+
+
+def pool_records(p, src, store, label, kind, g0, only, caps, factor, allow, deny, junk, vetoed_urls):
     title = (p.get("title") or "").strip()
     ptype = (p.get("product_type") or "").strip()
     tags = p.get("tags") or []
     tags = tags if isinstance(tags, list) else [t.strip() for t in str(tags).split(",")]
     tl, tagl = f"{title} {ptype}".lower(), " ".join(tags).lower()
-    if words_in(tl, WOMEN) or words_in(tl, junk):
+    # Children's clothes, homeware, jewellery and the like never go in.
+    if words_in(tl, KIDS) or words_in(tl, junk) or (ptype and JUNK_TYPE.search(ptype)):
         return []
-    if words_in(tagl, WOMEN) and not words_in(tagl, MEN):
-        return []
-    if "blazer" in tl and not re.search(r"footwear|shoe|trainer|sneaker", tl):
+    if words_in(tagl, KIDS) and not (words_in(tagl, WOMEN) or words_in(tagl, MEN) or words_in(tagl, UNISEX)):
         return []
     role = pool_role(title, ptype)
     if not role:
         return []
+    g = department(tl, tagl, g0, role)
+    if g == "w" and role in ("underwear", "socks"):
+        return []
+    if g == "m" and role == "top":
+        role = "tee"  # menswear "tops" are tank and long-sleeve tops
     cat = POOL_CATEGORY.get(role)
     if only and cat not in only:
         return []
     vendor = (p.get("vendor") or "").strip()
-    if not vendor or vendor.lower() in ("men's", "mens", "men", "women's", "unisex"):
+    # A single-brand shop's "vendor" is often its supplier or a sub-line ("Z034291", "Solovair Vegan"): the shop is the brand.
+    if src.get("own_brand") or not vendor or vendor.lower() in GENERIC_VENDORS:
         vendor = label
     if vendor.isupper() and len(vendor) > 4:
         vendor = vendor.title()
     vl = vendor.lower()
-    if any(vl.startswith(b) for b in deny):
-        return []
-    if src.get("brand_filter") and not any(vl.startswith(b) for b in allow):
+    # A multi-brand shop's menswear is narrowed to the brands it's vetted for; its womenswear isn't (that list is menswear).
+    if src.get("brand_filter") and g == "m" and not any(vl.startswith(b) for b in allow):
         return []
     url = f"https://{store}/products/{p['handle']}"
-    if norm_url(url) in blocked_urls:
-        return []
+    # Don's house rules: flagged for his view only, never removed for anyone else.
+    house = []
+    if any(vl.startswith(b) for b in deny):
+        house.append("brand")
+    if norm_url(url) in vetoed_urls:
+        house.append("veto")
+    if re.search(r"\bblazers?\b", tl) and role not in FOOT_ROLES:
+        house.append("blazer")
     desc = page_text(p.get("body_html")).lower()
     keep_desc = [w for w in KEEP_DESC if w in desc]
     comp = re.findall(r"\d{1,3}\s?%\s?(?:organic |recycled |bci |supima )?[a-z]+", desc)
@@ -1038,21 +1155,25 @@ def pool_records(p, src, store, label, kind, only, caps, factor, allow, deny, ju
     if not groups or len(groups) > 8:
         groups = {"": variants}
     cap = caps.get(POOL_CAP_GROUP.get(role, "jacket"), 300)
+    menswear = g in ("m", "u")
     recs = []
     for colour, vs in list(groups.items())[:4]:
         cl = colour.lower()
+        flags = list(house)
         if words_in(f"{cl} {title.lower()}", LOUD):
-            continue
+            flags.append("loud")
         washed = words_in(f"{cl} {title.lower()} {desc[:200]}", WASHED_WORDS)
         if role not in FOOT_ROLES:
             white = re.search(r"(?<![a-z-])white\b", f"{cl} {title.lower()}") and not re.search(r"off[ -]?white|ecru|cream|chalk|bone|natural", f"{cl} {title.lower()}")
-            if white or (re.search(r"\b(red|orange|scarlet|crimson)\b", f"{cl} {title.lower()}") and not washed):
-                continue
-        mine = pool_eval(role, vs)
+            if white:
+                flags.append("white")
+            elif re.search(r"\b(red|orange|scarlet|crimson)\b", f"{cl} {title.lower()}") and not washed:
+                flags.append("red")
+        mine = pool_eval(role, vs) if menswear else None
         mine_ok = bool(mine and mine["in_stock"] and mine["price"])
-        sizes = stock_sizes(role, vs) if role in SIZED_ROLES else []
+        sizes = stock_sizes(role, vs, g) if role in SIZED_ROLES else []
         # In stock in Don's size, or (for everyone else) in stock in some size the site can match.
-        res = mine if mine_ok else (any_size_eval(vs) if sizes else None)
+        res = mine if mine_ok else (any_size_eval(vs) if (sizes or role not in SIZED_ROLES) else None)
         if not res or not res["in_stock"] or not res["price"]:
             continue
         price, was, disc = res["price"], res["was"], res["discount_pct"]
@@ -1076,8 +1197,10 @@ def pool_records(p, src, store, label, kind, only, caps, factor, allow, deny, ju
         rec = {"k": k, "u": url, "b": vendor, "n": name, "s": label, "c": POOL_CATEGORY.get(role), "r": role,
                "p": round(price, 2), "w": round(was, 2) if was else None, "d": disc, "i": img, "t": text,
                # z: Don's size when it's in stock (empty when only other sizes are); zs: every size in stock.
-               "z": ("UK 10" if role in FOOT_ROLES else "L" if role in TOP_ROLES else "") if mine_ok else "", "src": kind,
-               "pub": str(p.get("published_at") or p.get("created_at") or "")[:10], "_m": mine_ok}
+               "z": ("UK 10" if role in FOOT_ROLES else "W34" if role in ("jeans", "chino", "trouser") else "L" if role in TOP_ROLES | {"jogger", "shorts"} else "")
+               if mine_ok else "", "src": kind,
+               "g": g, "h": flags, "pub": str(p.get("published_at") or p.get("created_at") or "")[:10], "_m": mine_ok,
+               "_sg": src.get("g", "m")}
         if sizes:
             rec["zs"] = sizes
         if colour and len(groups) > 1:
@@ -1570,8 +1693,10 @@ def main():
 
     watched = {urllib.parse.urlsplit(i["url"]).path.rstrip("/").split("/")[-1] for i in cfg["items"]}
     finds, candidates, finder_errors = run_finder(finder, watched, prev_finds) if finder else ([], [], [])
-    blocked_urls = {norm_url(u) for u in finder.get("block", [])}
-    pool, pool_errors = run_pool(finder, load(DOCS / "pool.json", {"items": []}), blocked_urls) if finder else ({"items": []}, [])
+    # The daily review's vetoes (finder.json "block") are Don's: they flag pieces for his view, they don't remove them.
+    vetoed_urls = {norm_url(u) for u in finder.get("block", [])}
+    prev_pools = [load(DOCS / "pool.json", {"items": []}), load(DOCS / "pool-w.json", {"items": []})]
+    pools, pool_errors = run_pool(finder, prev_pools, vetoed_urls) if finder else ({"m": {"items": []}, "w": {"items": []}}, [])
     picked = verify_picks(picks, prev_finds.get("picks", []))
 
     # ---- alerts: only changes since the previous run
@@ -1600,7 +1725,8 @@ def main():
     for r in results:
         counts[r["signal"]] = counts.get(r["signal"], 0) + 1
     save(DOCS / "history.json", hist, compact=True)
-    save(DOCS / "pool.json", pool, compact=True)
+    save(DOCS / "pool.json", pools["m"], compact=True)
+    save(DOCS / "pool-w.json", pools["w"], compact=True)
     save(DOCS / "finds.json", {"generated": NOW.isoformat().replace("+00:00", "Z"), "finds": finds,
                                "picks": picked, "picks_updated": picks.get("updated"), "errors": finder_errors,
                                "candidates": candidates})
@@ -1618,7 +1744,9 @@ def main():
           f"({len(fresh)} new), {len(candidates)} candidates awaiting review, {len(picked)} picks | {len(lines)} alerts")
     for e in finder_errors:
         print("finder:", e)
-    print(f"pool: {pool.get('count', 0)} pieces from {len(pool.get('stores', {}))} shops")
+    for dept, name in (("m", "menswear"), ("w", "womenswear")):
+        pl = pools[dept]
+        print(f"pool ({name}): {pl.get('count', 0)} pieces from {len(pl.get('stores', {}))} shops")
     for e in pool_errors:
         print("pool:", e)
 

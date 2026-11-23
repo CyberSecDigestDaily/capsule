@@ -1,5 +1,5 @@
 {
- "_about": "Rules for the deal finder in scraper.py. Stage 1 (these rules): only on-brief pieces in YOUR size, main colour in the palette, no logo/fit red flags in the description, stretch in trousers, footwear only in the silhouettes Don wants, streetwear shops footwear-only, multi-brand shops limited to apparel_brands. A source may set category/role/skip_style for shops whose titles don't name the product (e.g. boot makers). Stage 2: survivors are CANDIDATES (docs/finds.json 'candidates'); nothing reaches the site or the Drop email until Claude's daily review has looked at the photo and added its URL to 'approve'. 'block' = never show. The daily review may add to approve, block and exclude; edit anything else by hand.",
+ "_about": "Rules for the deal finder in scraper.py. Stage 1 (these rules): only on-brief pieces in YOUR size, main colour in the palette, no logo/fit red flags in the description, stretch in trousers, footwear only in the silhouettes Don wants, streetwear shops footwear-only, multi-brand shops limited to apparel_brands. A source may set category/role/skip_style for shops whose titles don't name the product (e.g. boot makers). Stage 2: survivors are CANDIDATES (docs/finds.json 'candidates'); nothing reaches the site or the Drop email until Claude's daily review has looked at the photo and added its URL to 'approve'. 'block' = never show Don: a deal candidate is dropped, and a pool piece is flagged (h 'veto') so only his view hides it; everyone else still sees it. The daily review may add to approve, block and exclude; edit anything else by hand.",
  "require_approval": true,
  "min_discount": 25,
  "premium_min_discount": 40,
@@ -1737,8 +1737,8 @@
   "https://routeone.co.uk/products/vans-densmore-wide-cuff-beanie-pale-petal-001194996"
  ],
  "pool": {
-  "_about": "The pool behind the For you feed, Outfits, Deals and the Swipe deck: new-in and sale rails from these shops, in every common size (each piece lists the sizes in stock as zs; z is Don's size when it's in stock). Much looser than the deal rules above on purpose: the taste engine on the site ranks it, hides whatever each person's style rules out and shows only their sizes. Pieces in Don's size get priority when the pool is capped. Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not anyone's budget.",
-  "max_items": 1500,
+  "_about": "The pool behind the For you feed, Outfits, Deals and the Swipe deck, for everyone who uses the site: new-in and sale rails from these shops, menswear and womenswear, in every common size (each piece lists the sizes in stock as zs; z is Don's size when it's in stock). Two files: docs/pool.json (menswear and unisex, max_items) and docs/pool-w.json (womenswear and unisex, max_items_w); a shop of the other department lends at most max_per_store_cross unisex pieces. A source's \"new\"/\"sale\" rails are in its own department (\"g\": \"w\" for womenswear shops, menswear otherwise); mixed shops add \"w_new\"/\"w_sale\" or \"m_new\"/\"m_sale\". Much looser than the deal rules above on purpose: the taste engine on the site ranks it for each person, hides whatever their own style rules out and shows only their sizes. Only kids' clothes, homeware, jewellery, lingerie and swimwear (junk) are left out. exclude_brands and the daily review's \"block\" list are Don's house rules: they flag pieces (h) for his view only. \"own_brand\": the shop sells its own label, so the shop's name is the brand (its vendor field is often a supplier). Menswear at brand_filter shops is limited to the brands list. Pieces in Don's size get priority when the menswear pool is capped. Only shops whose base currency is GBP are read (checked against /meta.json each run). Caps here are generous sanity limits, not anyone's budget.",
+  "max_items": 2000,
   "max_per_store": 100,
   "caps": {
    "tee": 70,
@@ -1749,7 +1749,9 @@
    "chinos": 160,
    "trainers": 200,
    "boots": 320,
-   "accessory": 120
+   "accessory": 120,
+   "top": 90,
+   "dress": 350
   },
   "premium_factor": 1.6,
   "brands": [
@@ -2010,14 +2012,12 @@
    "throw",
    "cushion",
    "umbrella",
-   "ring",
    "necklace",
    "bracelet",
    "earring",
    "pendant",
    "pin badge",
    "enamel pin",
-   "lighter",
    "phone case",
    "laces",
    "insole",
@@ -2042,18 +2042,8 @@
    "poncho",
    "swimsuit",
    "bikini",
-   "dress",
-   "skirt",
-   "blouse",
    "bra",
-   "leggings",
    "sports bra",
-   "bodysuit",
-   "jumpsuit",
-   "kids",
-   "baby",
-   "toddler",
-   "dog",
    "bowl",
    "flask",
    "towel",
@@ -2074,7 +2064,6 @@
    "purse",
    "lanyard",
    "bandana",
-   "tie",
    "bow tie",
    "pocket square",
    "cufflinks",
@@ -2084,7 +2073,50 @@
    "water bottle",
    "chain necklace",
    "dog lead",
-   "coffee cup"
+   "coffee cup",
+   "neck tie",
+   "necktie",
+   "silk tie",
+   "knitted tie",
+   "dog collar",
+   "dog coat",
+   "dog toy",
+   "dog bed",
+   "tights",
+   "stockings",
+   "pyjama",
+   "pyjamas",
+   "pajama",
+   "pajamas",
+   "nightdress",
+   "nightie",
+   "knickers",
+   "thong",
+   "lingerie",
+   "nipple",
+   "swim top",
+   "swim bottoms",
+   "bikini top",
+   "bikini bottoms",
+   "tankini",
+   "swimming costume",
+   "scrunchie",
+   "hair clip",
+   "hair clips",
+   "earrings",
+   "rings",
+   "necklaces",
+   "choker",
+   "gift set",
+   "cosmetic bag",
+   "wash bag",
+   "washbag",
+   "make up bag",
+   "makeup bag",
+   "bottle bag",
+   "stove",
+   "pencil case",
+   "coin purse"
   ],
   "sources": [
    {
@@ -2095,7 +2127,8 @@
     ],
     "sale": [
      "sale"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "communityclothing.co.uk",
@@ -2105,7 +2138,11 @@
     ],
     "sale": [
      "mens-bargain-basement"
-    ]
+    ],
+    "w_new": [
+     "womens-new-arrivals"
+    ],
+    "own_brand": true
    },
    {
     "store": "jeanstore.co.uk",
@@ -2140,7 +2177,10 @@
     "sale": [
      "mens-sale"
     ],
-    "brand_filter": true
+    "brand_filter": true,
+    "w_sale": [
+     "womens-sale"
+    ]
    },
    {
     "store": "urbanindustry.co.uk",
@@ -2174,7 +2214,8 @@
     ],
     "sale": [
      "mens-sale"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "albamclothing.com",
@@ -2184,7 +2225,8 @@
     ],
     "sale": [
      "sale"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "uskees.co.uk",
@@ -2194,7 +2236,8 @@
     ],
     "sale": [
      "sale"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "oliverspencer.co.uk",
@@ -2204,7 +2247,8 @@
     ],
     "sale": [
      "all-archive-sale"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "finisterre.com",
@@ -2214,7 +2258,11 @@
     ],
     "sale": [
      "last-chance"
-    ]
+    ],
+    "w_new": [
+     "womens-new-arrivals"
+    ],
+    "own_brand": true
    },
    {
     "store": "routeone.co.uk",
@@ -2273,7 +2321,8 @@
     ],
     "only": [
      "Footwear"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "www.oipolloi.com",
@@ -2330,7 +2379,11 @@
     ],
     "sale": [
      "mens-outlet"
-    ]
+    ],
+    "w_new": [
+     "womens-new-arrivals"
+    ],
+    "own_brand": true
    },
    {
     "store": "www.percivalclo.com",
@@ -2340,14 +2393,16 @@
     ],
     "sale": [
      "sale"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "www.sunspel.com",
     "label": "Sunspel",
     "new": [
      "mens-new-in"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "www.hiutdenim.co.uk",
@@ -2357,21 +2412,24 @@
     ],
     "sale": [
      "the-archive-sale-mens"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "blackhorselane.com",
     "label": "Blackhorse Lane",
     "new": [
      "mens"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "www.kestin.co",
     "label": "Kestin",
     "new": [
      "new-arrivals"
-    ]
+    ],
+    "own_brand": true
    },
    {
     "store": "endclothing.com",
@@ -2383,8 +2441,265 @@
      "mens-sale"
     ],
     "pages": 2,
-    "brand_filter": true
+    "brand_filter": true,
+    "w_new": [
+     "womens-new-in"
+    ],
+    "w_sale": [
+     "womens-sale"
+    ]
+   },
+   {
+    "store": "disturbia.co.uk",
+    "label": "Disturbia",
+    "g": "w",
+    "new": [
+     "womens-new"
+    ],
+    "sale": [
+     "womens-sale"
+    ],
+    "pages": 2,
+    "own_brand": true
+   },
+   {
+    "store": "killstar.com",
+    "label": "Killstar",
+    "g": "w",
+    "new": [
+     "new"
+    ],
+    "sale": [
+     "sale-over-30-percent-off"
+    ],
+    "m_new": [
+     "new-mens"
+    ],
+    "m_sale": [
+     "mens-clearance"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "theraggedpriest.com",
+    "label": "The Ragged Priest",
+    "g": "w",
+    "new": [
+     "womens-new-arrivals"
+    ],
+    "sale": [
+     "womens-sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "www.lazyoaf.com",
+    "label": "Lazy Oaf",
+    "g": "w",
+    "new": [
+     "everyone-new-in"
+    ],
+    "sale": [
+     "all-sale"
+    ],
+    "m_new": [
+     "men-new-in-1"
+    ],
+    "m_sale": [
+     "mens-sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "ohpolly.com",
+    "label": "Oh Polly",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "www.motelrocks.com",
+    "label": "Motel Rocks",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "prettylavish.co.uk",
+    "label": "Pretty Lavish",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "mingalondon.com",
+    "label": "Minga London",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "www.daisystreet.co.uk",
+    "label": "Daisy Street",
+    "g": "w",
+    "new": [
+     "all"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "damsonmadder.com",
+    "label": "Damson Madder",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "sale-dresses",
+     "sale-tops"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "www.rixo.co.uk",
+    "label": "Rixo",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "kitristudio.com",
+    "label": "Kitri",
+    "g": "w",
+    "new": [
+     "all"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "nobodyschild.com",
+    "label": "Nobody's Child",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "all-sale-product"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "neverfullydressed.co.uk",
+    "label": "Never Fully Dressed",
+    "g": "w",
+    "new": [
+     "newness-2"
+    ],
+    "sale": [
+     "end-of-season-sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "lucyandyak.com",
+    "label": "Lucy & Yak",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "collectif.co.uk",
+    "label": "Collectif",
+    "g": "w",
+    "new": [
+     "new-arrivals"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "www.hellbunny.com",
+    "label": "Hell Bunny",
+    "g": "w",
+    "new": [
+     "all"
+    ],
+    "sale": [
+     "sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "www.wearethought.com",
+    "label": "Thought",
+    "g": "w",
+    "new": [
+     "womens-new-in"
+    ],
+    "sale": [
+     "clothing-sale"
+    ],
+    "m_new": [
+     "all-mens"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "wearetala.com",
+    "label": "TALA",
+    "g": "w",
+    "new": [
+     "new-in"
+    ],
+    "sale": [
+     "all-sale"
+    ],
+    "own_brand": true
+   },
+   {
+    "store": "adanola.com",
+    "label": "Adanola",
+    "g": "w",
+    "new": [
+     "new-arrivals"
+    ],
+    "own_brand": true
    }
-  ]
+  ],
+  "max_items_w": 1800,
+  "max_per_store_w": 90,
+  "max_per_store_cross": 25
  }
 }

@@ -197,10 +197,15 @@ const inv3 = r.data.code;
 r = await phone.get("/api/invites");
 ok(r.status === 200 && r.data.invites.length === 2 && r.data.invites.every(x => /^[0-9a-f]{16}$/.test(x.id) && !x.used && !("code" in x)), "listed by fingerprint, never the code", r.data);
 const friend = new Device("friend"), fkey = new SoftAuthenticator(-7);
-r = await signUp(friend, fkey, "pal", inv2, {colours: {navy: "love"}, cuts_no: ["boxy", "rocket"], contexts: ["office"]});
+r = await signUp(friend, fkey, "pal", inv2, {v: 2, dept: ["w", "x", "m", "w"], colours: {navy: "love"}, cuts_no: ["boxy", "rocket", "bodycon"], contexts: ["office"],
+  sizes: {dress: "10", wtop: "S", shoe: "UK 5", evil: "<b>"}, styles: ["alt", "party"], brands_love: ["Oh Polly"]});
 ok(r.status === 200 && r.data.user && r.data.user.owner === false, "a friend joins with it, as a member, not an owner", r.data);
 r = await friend.get("/api/state?since=0");
-ok(r.data.brief && r.data.brief.cuts_no && r.data.brief.cuts_no.join() === "boxy" && r.data.brief.contexts[0] === "office", "their own brief from the six questions", r.data.brief);
+ok(r.data.brief && r.data.brief.cuts_no && r.data.brief.cuts_no.join() === "boxy,bodycon" && r.data.brief.contexts[0] === "office", "their own brief from the questions", r.data.brief);
+ok(r.data.brief.v === 2 && r.data.brief.dept.join() === "w,m" && r.data.brief.sizes.dress === "10" && r.data.brief.sizes.wtop === "S" && !("evil" in r.data.brief.sizes),
+  "a v2 brief keeps who they shop for and womenswear sizes (and nothing else)", r.data.brief);
+r = await friend.post("/api/state", {since: 0, cfgPatch: {"profile.dress": 10, "profile.wtop": "S", "profile.height": 157, "profile.junk": 1}});
+ok(r.data.cfg.profile.dress === 10 && r.data.cfg.profile.wtop === "S" && r.data.cfg.profile.height === 157 && !("junk" in r.data.cfg.profile), "dress size and letters in About you", r.data.cfg.profile);
 r = await signUp(stranger, new SoftAuthenticator(-7), "again", inv2);
 ok(r.status === 403, "each invite works once");
 r = await friend.post("/api/invites");

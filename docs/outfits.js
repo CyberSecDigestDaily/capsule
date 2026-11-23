@@ -40,6 +40,56 @@ export const DEFAULT_FORMULAS = [
     {label: "Cap", roles: ["cap"], optional: true}]}
 ];
 
+/* Womenswear (and both): the same occasions plus going out. "alt" is a second way to dress for it (a dress instead of
+   separates); the better of the two is shown. */
+const SHOES_SMART = ["shoe", "boot", "heel"];
+export const W_FORMULAS = [
+  {id: "office", name: "Office", when: "Smart and polished", slots: [
+    {label: "Top or shirt", roles: ["top", "shirt", "knit", "tee"]}, {label: "Trousers or skirt", roles: ["chino", "trouser", "skirt"]},
+    {label: "Shoes or boots", roles: SHOES_SMART}, {label: "Jacket or coat", roles: ["jacket", "cardigan"], optional: true}],
+    alt: [[{label: "Dress", roles: ["dress"], want: ["det:midi", "det:maxi", "st:classic"]}, {label: "Shoes or boots", roles: SHOES_SMART},
+      {label: "Jacket or cardigan", roles: ["jacket", "cardigan"], optional: true}]]},
+  {id: "everyday", name: "Everyday", when: "Weekends and errands", slots: [
+    {label: "Top", roles: ["tee", "top", "knit", "sweat", "hoodie", "shirt"]}, {label: "Jeans, trousers or skirt", roles: ["jeans", "chino", "trouser", "skirt"]},
+    {label: "Trainers or boots", roles: ["trainer", "boot", "shoe"]}, {label: "Jacket or cardigan", roles: ["jacket", "cardigan", "overshirt"], optional: true, season: "winter"}],
+    alt: [[{label: "Dress or dungarees", roles: ["dress", "jumpsuit"]}, {label: "Trainers or boots", roles: ["trainer", "boot", "shoe"]},
+      {label: "Jacket or cardigan", roles: ["jacket", "cardigan"], optional: true}]]},
+  {id: "date", name: "Date night", when: "Dinner and drinks", slots: [
+    {label: "Top", roles: ["top", "shirt", "knit"]}, {label: "Jeans, trousers or skirt", roles: ["jeans", "skirt", "chino", "trouser"], prefer: ["indigo", "black", "navy", "charcoal"]},
+    {label: "Heels or boots", roles: ["heel", "boot", "shoe"]}, {label: "Jacket", roles: ["jacket"], optional: true}],
+    alt: [[{label: "Dress", roles: ["dress", "jumpsuit"]}, {label: "Heels or boots", roles: ["heel", "boot", "shoe"]},
+      {label: "Jacket", roles: ["jacket", "cardigan"], optional: true}]]},
+  {id: "party", name: "Going out", when: "Nights out and parties", slots: [
+    {label: "Dress", roles: ["dress", "jumpsuit"], want: ["st:party", "det:mini", "x:sequin", "f:satin", "f:velvet"]}, {label: "Heels or boots", roles: ["heel", "boot"]},
+    {label: "Jacket", roles: ["jacket"], optional: true}],
+    alt: [[{label: "Top", roles: ["top"], want: ["st:party", "det:corset", "det:cutout", "x:sequin"]}, {label: "Skirt, jeans or trousers", roles: ["skirt", "jeans", "chino", "trouser"]},
+      {label: "Heels or boots", roles: ["heel", "boot"]}]]},
+  {id: "outdoor", name: "Outdoors", when: "Walks and days out", slots: [
+    {label: "Jacket", roles: ["jacket"]}, {label: "Mid-layer", roles: ["fleece", "sweat", "knit", "hoodie"]},
+    {label: "Jeans or trousers", roles: ["jeans", "chino", "jogger"]}, {label: "Trainers or boots", roles: ["trainer", "boot"]}]},
+  {id: "hiking", name: "Hiking", when: "Hills and coast paths", slots: [
+    {label: "Waterproof jacket", roles: ["jacket"], want: ["det:waterproof", "f:waxed", "st:outdoor"]}, {label: "Fleece", roles: ["fleece", "sweat"]},
+    {label: "Trousers or leggings", roles: ["chino", "jogger"]}, {label: "Boots", roles: ["boot"]}]},
+  {id: "travel", name: "Travel", when: "Packs small, layers well", slots: [
+    {label: "Layer", roles: ["knit", "sweat", "cardigan", "hoodie", "overshirt"]}, {label: "Tee or top", roles: ["tee", "top"]},
+    {label: "Jeans or trousers", roles: ["jeans", "chino", "jogger"]}, {label: "Trainers", roles: ["trainer"]}]},
+  {id: "lounge", name: "Lounging", when: "At home", slots: [
+    {label: "Hoodie, sweat or knit", roles: ["hoodie", "sweat", "knit", "cardigan"]}, {label: "Joggers or leggings", roles: ["jogger"]},
+    {label: "Slippers or sliders", roles: ["clog", "sandal"]}]},
+  {id: "gym", name: "Gym", when: "Function first", slots: [
+    {label: "Top", roles: ["top", "tee"], want: ["st:athleisure"]}, {label: "Leggings or shorts", roles: ["jogger", "shorts"], want: ["st:athleisure"]},
+    {label: "Trainers", roles: ["trainer"]}]},
+  {id: "beach", name: "Summer", when: "Holidays and warm days", season: "summer", slots: [
+    {label: "Top", roles: ["top", "tee", "shirt"]}, {label: "Shorts or skirt", roles: ["shorts", "skirt"]}, {label: "Sandals", roles: ["sandal", "clog"]},
+    {label: "Cap", roles: ["cap"], optional: true}],
+    alt: [[{label: "Dress", roles: ["dress", "jumpsuit"]}, {label: "Sandals or trainers", roles: ["sandal", "clog", "trainer"]}]]}
+];
+/* The occasions for a brief: womenswear's when it includes womenswear, menswear's otherwise. */
+export function formulasFor(brief) {
+  const dept = (brief && Array.isArray(brief.dept)) ? brief.dept : [];
+  return occasionsFor(brief, dept.includes("w") ? W_FORMULAS : DEFAULT_FORMULAS);
+}
+
 /* ------------------------------------------------------------------ colour */
 // How light each colour reads (0 black .. 5 white), for contrast.
 const LIGHT = {black: 0, navy: 1, charcoal: 1, indigo: 1, "bottle-green": 1, burgundy: 1, brown: 1, olive: 2, rust: 2, teal: 2, purple: 1,
@@ -82,17 +132,19 @@ const cname = c => NICE_COLOUR[c] || c;
 const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 /* ------------------------------------------------------------------ pieces */
-const FOOT = new Set(["trainer", "boot", "wallabee", "clog", "shoe"]);
+const FOOT = new Set(["trainer", "boot", "wallabee", "clog", "shoe", "heel", "sandal"]);
 const ACC = new Set(["cap", "beanie", "scarf", "gloves", "belt", "bag", "watch", "socks", "underwear"]);
-const PATTERNS = new Set(["x:stripe", "x:check", "x:camo", "x:fairisle", "x:graphic", "x:pinstripe"]);
+const PATTERNS = new Set(["x:stripe", "x:check", "x:camo", "x:fairisle", "x:graphic", "x:pinstripe", "x:floral", "x:animal", "x:polka", "x:paisley"]);
 const TEXTURES = new Set(["x:waffle", "x:rib", "x:cable", "x:honeycomb", "x:herringbone", "x:donegal", "x:slub", "x:textured",
-  "f:cord", "f:waxed", "f:fleece", "f:moleskin", "f:suede"]);
+  "f:cord", "f:waxed", "f:fleece", "f:moleskin", "f:suede", "x:lace", "x:mesh", "x:sequin", "f:velvet", "f:faux-fur", "f:pvc"]);
 const TEXTURE_NAME = {"x:waffle": "waffle knit", "x:rib": "rib", "x:cable": "cable knit", "x:honeycomb": "honeycomb knit",
   "x:herringbone": "herringbone", "x:donegal": "donegal fleck", "x:slub": "slub jersey", "x:textured": "textured knit", "f:cord": "cord",
-  "f:waxed": "waxed cotton", "f:fleece": "fleece", "f:moleskin": "moleskin", "f:suede": "suede"};
+  "f:waxed": "waxed cotton", "f:fleece": "fleece", "f:moleskin": "moleskin", "f:suede": "suede", "x:lace": "lace", "x:mesh": "mesh",
+  "x:sequin": "sequins", "f:velvet": "velvet", "f:faux-fur": "faux fur", "f:pvc": "PVC"};
 const ROLE_WORD = {tee: "tee", shirt: "shirt", overshirt: "overshirt", jacket: "jacket", fleece: "fleece", knit: "knit", cardigan: "cardigan",
   sweat: "sweat", hoodie: "hoodie", jeans: "jeans", chino: "chinos", trouser: "trousers", jogger: "joggers", shorts: "shorts",
-  trainer: "trainers", boot: "boots", wallabee: "Wallabees", clog: "clogs", shoe: "shoes", cap: "cap", beanie: "beanie"};
+  trainer: "trainers", boot: "boots", wallabee: "Wallabees", clog: "clogs", shoe: "shoes", cap: "cap", beanie: "beanie", top: "top",
+  dress: "dress", jumpsuit: "jumpsuit", skirt: "skirt", heel: "heels", sandal: "sandals"};
 
 /* Something you own, as a candidate. o: {id, role, name, colour?, image?, traits?, key?, brand?, similar?} */
 export function ownedPiece(o) {
@@ -139,7 +191,10 @@ export function judge(pieces, formula) {
   if (tonal) s += 0.35;
   // Contrast: all dark or all light falls flat.
   const ls = cols.map(c => LIGHT[c] ?? 3);
-  if (ls.length >= 2 && Math.max(...ls) <= 1) s -= 0.35;
+  const every = pieces.map(p => p.c.colour).filter(Boolean);
+  const allBlack = every.length >= 2 && every.length === pieces.length && every.every(c => c === "black");
+  if (allBlack) s += 0.2;
+  else if (ls.length >= 2 && Math.max(...ls) <= 1) s -= 0.35;
   if (ls.length >= 2 && Math.min(...ls) >= 4) s -= 0.35;
   // Pattern and texture: one pattern, two textures at most, never two denims.
   const pats = new Set(), texs = new Set();
@@ -155,7 +210,8 @@ export function judge(pieces, formula) {
   const st = new Set(pieces.flatMap(p => p.c.traits.filter(t => t.startsWith("st:"))));
   if (st.has("st:smart") && (st.has("st:skate") || st.has("st:90s"))) s -= 0.3;
   // Notes: what makes it work, in a few words.
-  if (tonal) {
+  if (allBlack) notes.push("All black");
+  else if (tonal) {
     const fam = tonal[0], shades = [...new Set(cols.filter(c => TONE[c] === fam))];
     notes.push(shades.length > 1 ? `Tonal ${shades.slice(0, 2).map(cname).join(" and ")}` : `Tonal ${cname(shades[0])}`);
   } else if (best) notes.push(`${cap1(cname(best.a))} with ${cname(best.b)}`);
@@ -275,8 +331,13 @@ export function buildLooks(ranked, owned, formulas, o = {}) {
     const rnd = rngFrom((o.seed || "") + f.id + n);
     // A shuffle steps away from the new pieces it showed last time.
     const looks = [], avoid = new Set((o.avoid && o.avoid[f.id]) || []);
+    const ways = [f, ...(f.alt || []).map(slots => Object.assign({}, f, {slots}))];
     for (const mode of ["own", "few", "fresh"]) {
-      const look = search(f, cands, mode, {now, rnd, jitter: n ? 0.9 : 0, used, avoid});
+      let look = null;
+      for (const way of ways) {
+        const l = search(way, cands, mode, {now, rnd, jitter: n ? 0.9 : 0, used, avoid});
+        if (l && (!look || l.s > look.s)) look = l;
+      }
       if (!look) continue;
       // Not the same outfit twice; a fresh look has to change at least two pieces.
       const ids = new Set(look.pieces.map(p => p.c.id));
@@ -292,7 +353,8 @@ export function buildLooks(ranked, owned, formulas, o = {}) {
 }
 
 /* Which occasions to dress for: from the brief's answers, or all of them. */
-const CONTEXT_ID = [[/office|work/, "office"], [/everyday|weekend|casual/, "everyday"], [/date|dinner|evening/, "date"], [/outdoor|photo|walk/, "outdoor"],
+const CONTEXT_ID = [[/office|work/, "office"], [/everyday|weekend|casual/, "everyday"], [/date|dinner|evening/, "date"], [/party|going out|night out|club/, "party"],
+  [/outdoor|photo|walk/, "outdoor"],
   [/hik|hill|trail/, "hiking"], [/travel|trip/, "travel"], [/loung|home/, "lounge"], [/gym|train|sport/, "gym"], [/beach|summer|holiday/, "beach"]];
 export function occasionsFor(brief, formulas) {
   const all = formulas || DEFAULT_FORMULAS;

@@ -185,7 +185,7 @@ t("sizes: in stock in yours, from the size list each piece carries", () => {
   assert.equal(E.sizeOk(pool({n: "Boston, taupe", c: "Footwear", zs: ["EU42", "EU43"]}), us), true, "EU 43 is about a UK 9");
   assert.equal(E.sizeOk(pool({n: "Old data tee", r: "tee"}), us), true, "no size list: assume it fits (older data was in the owner's size)");
   const don = E.sizesFrom({}, null, {top: "L", waist: "W34", leg: "L32", shoe: "UK 10"});
-  assert.deepEqual(don, {top: "L", trw: 34, trl: 32, shoe: 10});
+  assert.deepEqual(don, {top: "L", trw: 34, trl: 32, shoe: 10, dress: null, wtop: null});
   const r = E.rank(E.makeModel({brief, entries: {}}), [tee, jeans], {today: "2026-10-29", sizes: us});
   assert.ok(r.hidden.some(h => h.it.key === tee.key && h.why === "size") && r.list.some(x => x.it.key === jeans.key));
 });
@@ -290,6 +290,125 @@ t("similar pieces: same kind and shared traits first", () => {
   const others = [pool({u: "https://shop.example/products/b", n: "Waffle Crew Knit, olive", r: "knit", b: "Other"}), pool({u: "https://shop.example/products/c", n: "Crew Tee, navy", r: "tee"}),
     pool({u: "https://shop.example/products/d", n: "Chore Jacket, olive", r: "jacket"})];
   assert.equal(E.similar(it, others, 3)[0].url, "https://shop.example/products/b");
+});
+
+
+console.log("\nFor anyone: departments, womenswear, a brief of your own");
+const v2 = (o) => Object.assign({v: 2, colours: {}, styles: [], logos: "ok", rules: "hard"}, o);
+t("womenswear pieces are read for what they are", () => {
+  const role = (n, c) => pool({u: "https://shop.example/products/" + n.replace(/\W+/g, "-"), n, c: c || ""}).role;
+  assert.equal(role("Satin Cowl Midi Dress"), "dress");
+  assert.equal(role("Shirt Dress, navy"), "dress");
+  assert.equal(role("Lace Corset Top"), "top");
+  assert.equal(role("Denim Mini Skirt"), "skirt");
+  assert.equal(role("Cargo Denim Shorts"), "shorts");
+  assert.equal(role("Chambray Shorts, navy"), "shorts");
+  assert.equal(role("Organic Cotton Dungarees"), "jumpsuit");
+  assert.equal(role("Slingback Heels", "Footwear"), "heel");
+  assert.equal(role("Leather Sandals", "Footwear"), "sandal");
+  assert.equal(role("Mary Jane Flats", "Footwear"), "shoe");
+  assert.equal(role("Seamless Sculpt Leggings"), "jogger");
+});
+t("styles anyone might pick are read from the piece and the brand", () => {
+  const dress = pool({n: "Pentagram Velvet Mini Dress", r: "dress", b: "Killstar"});
+  assert.ok(dress.traits.includes("st:alt"), dress.traits.join());
+  assert.ok(dress.traits.includes("f:velvet") && dress.traits.includes("det:mini"), dress.traits.join());
+  const party = pool({n: "Cut-Out Bodycon Mini Dress", r: "dress", b: "Oh Polly"});
+  assert.ok(party.traits.includes("st:party") && party.traits.includes("fit:bodycon") && party.traits.includes("det:cutout"), party.traits.join());
+  assert.ok(pool({n: "Floral Puff Sleeve Midi Dress", r: "dress", b: "Rixo"}).traits.includes("st:romantic"));
+});
+t("menswear, womenswear or both: the brief decides, unisex shows for everyone", () => {
+  const dress = pool({u: "https://shop.example/products/d", n: "Slip Dress, black", r: "dress", g: "w"});
+  const hood = pool({u: "https://shop.example/products/h", n: "Zip Hoodie, grey", r: "hoodie", g: "u"});
+  const tee = pool({u: "https://shop.example/products/t", n: "Crew Tee, navy", r: "tee"});
+  assert.equal(tee.dept, "m");
+  const vis = (b) => E.rank(E.makeModel({brief: b, entries: {}}), [dress, hood, tee], {today: "2026-11-23"}).list.map(x => x.it.key).sort();
+  assert.deepEqual(vis(v2({dept: ["w"]})), [dress.key, hood.key].sort());
+  assert.deepEqual(vis(v2({dept: ["m"]})), [hood.key, tee.key].sort());
+  assert.deepEqual(vis(v2({dept: ["m", "w"]})), [dress.key, hood.key, tee.key].sort());
+  assert.deepEqual(vis({}), [hood.key, tee.key].sort(), "no brief: menswear, as the site always was");
+  assert.equal(E.hiddenWhy(E.makeModel({brief: v2({dept: ["m"]}), entries: {}}), dress), "department");
+});
+t("a new person's brief starts neutral: the owner's house defaults stay with his", () => {
+  const pink = pool({u: "https://shop.example/products/p", n: "Pink Satin Slip Dress", r: "dress", g: "w"});
+  const graphic = pool({u: "https://shop.example/products/g", n: "Graphic Print Tee, black", r: "tee"});
+  const chunky = pool({u: "https://shop.example/products/c", n: "Chunky Platform Trainer, black", c: "Footwear"});
+  const newbie = E.makeModel({brief: v2({dept: ["m", "w"]}), entries: {}});
+  assert.equal(E.hiddenWhy(newbie, pink), null, "pink isn't a no unless you say so");
+  assert.equal(E.hiddenWhy(newbie, graphic), null, "graphics show unless you say no logos");
+  assert.ok(E.score(newbie, chunky, {}).s > -0.5, "chunky soles aren't sunk for you");
+  const owner = E.makeModel({brief: {rubric: 1, colours: {}}, entries: {}});
+  assert.ok(E.hiddenWhy(owner, pink), "the owner's brief still rules out vivid colours");
+  assert.ok(String(E.hiddenWhy(owner, graphic)).startsWith("graphic"));
+  const noLogos = E.makeModel({brief: v2({logos: "none"}), entries: {}});
+  assert.ok(String(E.hiddenWhy(noLogos, graphic)).startsWith("graphic"));
+  const lover = E.makeModel({brief: v2({logos: "love"}), entries: {}});
+  assert.ok(E.score(lover, graphic, {}).s > E.score(newbie, graphic, {}).s, "graphics rise for someone who loves them");
+  const neverBlack = E.makeModel({brief: v2({colours: {black: "no"}}), entries: {}});
+  assert.ok(String(E.hiddenWhy(neverBlack, graphic)).startsWith("colour"));
+});
+t("the owner's house flags hide pieces in his view only", () => {
+  const white = pool({u: "https://shop.example/products/w", n: "Boxy Tee, white", r: "tee", h: ["white"]});
+  const ok = pool({u: "https://shop.example/products/o", n: "Crew Tee, navy", r: "tee", h: ["nonsense"]});
+  assert.deepEqual(ok.house, [], "only known flags are kept");
+  const m = E.makeModel({brief: v2({}), entries: {}});
+  const own = E.rank(m, [white, ok], {today: "2026-11-23", house: true});
+  assert.ok(own.hidden.some(h => h.it.key === white.key && h.why === "house:white"));
+  const anyone = E.rank(m, [white, ok], {today: "2026-11-23"});
+  assert.equal(anyone.list.length, 2);
+});
+t("womenswear sizes: UK dress size, letters and waists that go with it, shoes either side", () => {
+  const us = E.sizesFrom({dress: 10, shoe: 5}, null, null);
+  assert.equal(us.dress, 10);
+  const dress = pool({u: "https://shop.example/products/d1", n: "Midi Dress", r: "dress", g: "w", zs: ["D8", "D10", "D12"]});
+  assert.equal(E.sizeOk(dress, us), true);
+  assert.equal(E.sizeOk(Object.assign({}, dress, {sizes: ["D14", "D16"]}), us), false);
+  const top = pool({u: "https://shop.example/products/t1", n: "Corset Top", r: "top", g: "w", zs: ["S", "M"]});
+  assert.equal(E.sizeOk(top, us), true, "a 10 is an S or M");
+  assert.equal(E.sizeOk(Object.assign({}, top, {sizes: ["XL", "XXL"]}), us), false);
+  assert.equal(E.sizeOk(Object.assign({}, top, {sizes: ["XL"]}), {dress: 10, wtop: "XL"}), true, "your own letter wins");
+  const jeans = pool({u: "https://shop.example/products/j1", n: "Flared Jeans", r: "jeans", g: "w", zs: ["W26L30", "W28L32"]});
+  assert.equal(E.sizeOk(jeans, us), true, "a 10 is about a 27 waist");
+  const heels = pool({u: "https://shop.example/products/h1", n: "Slingback Heels", c: "Footwear", g: "w", zs: ["EU37", "EU38"]});
+  assert.equal(heels.role, "heel");
+  assert.equal(E.sizeOk(heels, us), true, "EU 38 is a UK 5");
+  assert.equal(E.sizeOk(Object.assign({}, heels, {sizes: ["EU40", "EU41"]}), us), false);
+  assert.equal(E.sizeOk(dress, {top: "L", trw: 34}), true, "no womenswear sizes given: can't tell, so it shows");
+  const hood = pool({u: "https://shop.example/products/u1", n: "Zip Hoodie", r: "hoodie", g: "u", zs: ["XS", "S"]});
+  assert.equal(E.sizeOk(hood, us), true, "unisex letters read from your dress size");
+  assert.equal(E.sizeOk(Object.assign({}, hood, {sizes: ["XL", "XXL"]}), us), false);
+  const uJeans = pool({u: "https://shop.example/products/u2", n: "Straight Jeans", r: "jeans", g: "u", zs: ["W32L32", "W34L32"]});
+  assert.equal(E.sizeOk(uJeans, us), false, "unisex jeans by the waist that goes with a 10");
+  assert.equal(E.sizeOk(Object.assign({}, uJeans, {sizes: ["W27L30"]}), us), true);
+});
+t("height: petite ranges for 5'3\" and under, tall from 5'10\"", () => {
+  const petite = pool({u: "https://shop.example/products/pe", n: "Petite Straight Jeans", r: "jeans", g: "w"});
+  const tall = pool({u: "https://shop.example/products/ta", n: "Tall Wide Leg Trousers", r: "chino", g: "w"});
+  const short = E.makeModel({brief: v2({dept: ["w"]}), entries: {}, cfg: {profile: {height: 157}}});
+  const longer = E.makeModel({brief: v2({dept: ["w"]}), entries: {}, cfg: {profile: {height: 180}}});
+  const sc = (m, it) => E.score(m, it, {}).s;
+  assert.ok(sc(short, petite) > sc(longer, petite) && sc(longer, tall) > sc(short, tall));
+});
+t("taste test: 30 cards across your styles and others, every kind of piece, two a brand at most", () => {
+  const items = [];
+  const looks = [["alt", "Pentagram Velvet", "Killstar"], ["party", "Cut-Out Bodycon", "Oh Polly"], ["romantic", "Floral Ruffle", "Rixo"],
+    ["boho", "Crochet Fringe", "Spell"], ["athleisure", "Seamless Sculpt", "TALA"], ["preppy", "Cable Knit Polo", "Gant"]];
+  const kinds = [["Mini Dress", "dress"], ["Top", "top"], ["Mini Skirt", "skirt"], ["Jacket", "jacket"], ["Boots", "boot"]];
+  let k = 0;
+  for (const [, words, brand] of looks) for (const [kind, role] of kinds) for (let i = 0; i < 4; i++)
+    items.push(pool({u: `https://shop.example/products/t${k++}`, n: `${words} ${kind} ${i}, black`, r: role, b: `${brand} ${i % 2 ? "A" : "B"}${k % 7}`, g: "w"}));
+  const m = E.makeModel({brief: v2({dept: ["w"], styles: ["alt", "party"]}), entries: {}});
+  const deck = E.tasteDeck(m, items, {today: "2026-11-23", seed: "s"}, 30);
+  assert.equal(deck.length, 30);
+  const its = deck.map(d => d.card.it);
+  const st = it => it.traits.filter(t => t === "st:alt" || t === "st:party").length > 0;
+  const mine = its.filter(st).length;
+  assert.ok(mine >= 18 && mine <= 22, "about two in three from your styles: " + mine);
+  assert.ok(new Set(its.map(i => i.role)).size >= 5, "every kind of piece");
+  const brands = {};
+  for (const it of its) brands[it.brand] = (brands[it.brand] || 0) + 1;
+  assert.ok(Object.values(brands).every(n => n <= 2), JSON.stringify(brands));
+  assert.equal(new Set(its.map(i => i.fam)).size, its.length, "one colour of a piece");
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
