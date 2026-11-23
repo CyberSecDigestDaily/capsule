@@ -31,6 +31,26 @@ async function seedFor(code) {
 }
 const SEED = await seedFor(INVITE);
 
+// The owner's house rules: the scraper flags pieces (white, loud, logo brands, Claude's vetoes) that only his view hides.
+const houseKeys = new Set();
+const doctor = j => { j.items.forEach((x, i) => { if (i % 7 === 3) { x.h = ["white"]; houseKeys.add(x.k); } }); return j; };
+// A womenswear pool (pool-w.json): dresses, tops, skirts, heels and boots across styles, half in a UK 10.
+const W_STYLES = [["Velvet Corset", "Killstar"], ["Cut-Out Bodycon", "Oh Polly"], ["Floral Ruffle", "Rixo"], ["Seamless Sculpt", "TALA"],
+  ["Crochet Fringe", "Lucy & Yak"], ["Tartan Studded", "The Ragged Priest"]];
+const W_KINDS = [["Mini Dress", "dress"], ["Top", "top"], ["Mini Skirt", "skirt"], ["Heels", "heel"], ["Platform Boots", "boot"], ["Flared Jeans", "jeans"], ["Jacket", "jacket"]];
+const W_COLOURS = ["black", "burgundy", "cream", "olive", "pink"];
+const W_POOL = {generated: new Date().toISOString(), items: []};
+let wn = 0;
+for (const [words, brand] of W_STYLES) for (const [kind, role] of W_KINDS) for (let i = 0; i < 3; i++) {
+  wn++;
+  const foot = role === "heel" || role === "boot";
+  const zs = foot ? (wn % 2 ? ["UK4", "UK5", "EU38"] : ["UK7", "UK8"]) : role === "jeans" ? (wn % 2 ? ["W26L30", "W28L32"] : ["W32L32"]) : (wn % 2 ? ["D8", "D10", "D12"] : ["D16", "D18"]);
+  W_POOL.items.push({k: `fixture.example/products/w${wn}`, u: `https://fixture.example/products/w${wn}`, b: brand, n: `${words} ${kind} ${i}, ${W_COLOURS[wn % 5]}`,
+    s: brand, c: foot ? "Footwear" : "", r: role, p: 30 + (wn % 9) * 7, w: wn % 4 ? null : 80, d: wn % 4 ? 0 : 40, i: `https://fixture.example/w${wn}.jpg`, t: "",
+    f: "2026-11-20", src: "new", z: "", zs, g: wn % 10 === 0 ? "u" : "w"});
+}
+const W_FIT = new Set(W_POOL.items.filter(x => x.zs.some(z => ["D10", "UK5", "EU38", "W26L30", "W28L32"].includes(z))).map(x => x.k));
+
 const browser = await chromium.launch();
 const problems = [];
 async function device(name, viewport) {
@@ -39,6 +59,8 @@ async function device(name, viewport) {
   page.on("console", m => { if (m.type() === "error" || /Content Security Policy|Refused to/.test(m.text())) problems.push(`[${name}] ${m.type()}: ${m.text()}`); });
   page.on("pageerror", e => problems.push(`[${name}] pageerror: ${e.message}`));
   await page.route("**/seed.enc", r => r.fulfill({status: 200, contentType: "application/json", body: SEED}));
+  await page.route("**/pool.json", async route => { const res = await route.fetch(); await route.fulfill({response: res, json: doctor(await res.json())}); });
+  await page.route("**/pool-w.json", r => r.fulfill({status: 200, contentType: "application/json", body: JSON.stringify(W_POOL)}));
   // Product photos come from the shops' CDNs; keep the test offline and quick.
   await page.route(/^https:\/\/(?!localhost)/, r => r.fulfill({status: 200, contentType: "image/svg+xml",
     body: '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500"><rect width="400" height="500" fill="#bbb"/></svg>'}));
@@ -141,6 +163,8 @@ ok(await phone.locator("#fyGrid .badge.wild").count() >= 1, "wildcards are label
 ok(/% match/.test(await phone.locator("#fyGrid .card .why").first().textContent()), "match % and why on each card");
 ok(await phone.locator("#editBlock:not([hidden])").count() === 1, "the owner sees Claude's weekly edit");
 ok(await phone.locator("#welcome:not([hidden])").count() === 0, "no welcome questions when the brief is already unlocked");
+const ownerKeys = await cards(phone).evaluateAll(els => els.map(e => e.dataset.key));
+ok(houseKeys.size > 10 && ownerKeys.every(k => !houseKeys.has(k)), "the owner's house rules hide flagged pieces in his view", ownerKeys.filter(k => houseKeys.has(k)).slice(0, 3));
 await shot(phone, "03-for-you");
 const k1 = await cards(phone).nth(0).getAttribute("data-key");
 await cards(phone).nth(0).locator("[data-act=love]").click();
@@ -384,23 +408,45 @@ await pal.route("**/pool.json", async route => {
   // Sized pieces only, as the scraper does (caps, socks and bags are one size).
   const sized = new Set(["tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie", "jeans", "chino", "trouser", "jogger", "shorts", "trainer", "boot", "wallabee", "clog", "shoe"]);
   j.items.forEach((x, i) => { if (!sized.has(x.r)) return; x.zs = i % 2 ? ["M", "L", "W32L32", "UK9"] : ["S", "W28L30", "UK6"]; zsOf[x.k] = x.zs; });
-  await route.fulfill({response: res, json: j});
+  await route.fulfill({response: res, json: doctor(j)});
 });
 await pal.goto(friendLink.replace(/^https?:\/\/[^/]+/, BASE));
 await pal.waitForSelector("#sheet .quiz", {timeout: 20000});
-ok(true, "the invite opens the six questions first");
+ok(true, "the invite opens the questions first");
+ok(await pal.locator("#sheet [data-qnav=next][disabled]").count() === 1, "who you shop for comes first, and it's needed");
+await pal.click('#sheet [data-q=dept][data-v=m]');
+await pal.selectOption("#qHeight", {label: "5′7″ · 170 cm"});
+await pal.click("#sheet [data-qnav=next]");
 await pal.click('#sheet [data-q=top][data-v=M]');
 await pal.click('#sheet [data-q=trw][data-v="32"]');
 await pal.click('#sheet [data-q=trl][data-v="32"]');
 await pal.click('#sheet [data-q=shoe][data-v="9"]');
 await shot(pal, "20-pal-sizes");
 await pal.click("#sheet [data-qnav=next]");
+await pal.waitForSelector('#sheet [data-q=brands]');
+ok(await pal.locator("#sheet [data-q=brands]").count() >= 5, "brands from the shops to pick from");
+await pal.click("#sheet [data-q=brands] >> nth=0");
+await pal.click("#sheet [data-qnav=next]");
+await pal.click('#sheet [data-q=styles][data-v=workwear]');
+await pal.click("#sheet [data-qnav=next]");
 await pal.click('#sheet [data-q=love][data-v=navy]');
 await pal.click('#sheet [data-q=never][data-v=black]');
-for (let i = 0; i < 4; i++) await pal.click("#sheet [data-qnav=next]");
+await pal.click("#sheet [data-qnav=next]");
+await pal.click("#sheet [data-qnav=next]");
 await pal.click("#sheet [data-qnav=done]");
+await pal.waitForSelector("#view-train:not([hidden]) #tcard", {timeout: 15000});
+ok(/Taste test · 1 of 30/.test(await pal.locator("#view-train .train-top").textContent()), "then the 30-piece taste test", await pal.locator("#view-train .train-top").textContent());
+for (let i = 0; i < 5; i++) {
+  const key = await pal.locator("#tcard").getAttribute("data-key");
+  await pal.click(i % 2 ? "#view-train .tbtn.yes" : "#view-train .tbtn.no");
+  await pal.waitForFunction(k => { const c = document.getElementById("tcard"); return !c || c.dataset.key !== k; }, key, {timeout: 5000});
+}
+await pal.click("#view-train [data-train=finish]");
+await pal.waitForSelector("#view-train .tdone [data-go=you]");
+ok(true, "finishing early still saves what it learned, and offers the account");
+await pal.click("#view-train .tdone [data-go=you]");
 await pal.waitForSelector("#view-you:not([hidden]) #handle");
-ok(true, "then straight to making the account");
+ok(true, "then making the account");
 await pal.fill("#handle", "pal2");
 await pal.click("[data-you=signup]");
 await pal.waitForSelector("#sheet:not([hidden]) .codes", {timeout: 20000});
@@ -410,12 +456,16 @@ ok(true, "signed in as a member");
 await pal.waitForTimeout(1600);
 const palState = await pal.evaluate(() => fetch("/api/state?since=0").then(r => r.json()));
 ok(palState.brief && palState.brief.colours.navy === "love" && palState.brief.colours.black === "no" && palState.cfg.profile.top === "M" && palState.cfg.profile.trw === 32, "their answers and sizes are in their account", {b: palState.brief && palState.brief.colours, p: palState.cfg && palState.cfg.profile});
+ok(palState.brief.v === 2 && JSON.stringify(palState.brief.dept) === '["m"]' && palState.brief.brands_love.length === 1 && palState.cfg.profile.height === 170, "a brief of their own (v2, menswear, a brand), and their height", {v: palState.brief.v, d: palState.brief.dept, h: palState.cfg.profile.height});
+ok(Object.values(palState.entries || {}).filter(e => e.s).length >= 4, "the taste test's swipes went into the account", Object.keys(palState.entries || {}).length);
 await pal.click(".dock [data-view=for-you]");
 await pal.waitForSelector("#fyGrid .card[data-key]");
 ok(await pal.locator("#editBlock:not([hidden])").count() === 0, "no owner's edit for a member");
 const palKeys = await pal.locator("#fyGrid .card[data-key]").evaluateAll(els => els.map(e => e.dataset.key));
 const wrong = palKeys.filter(k => zsOf[k] && !zsOf[k].includes("M"));
 ok(palKeys.length > 4 && wrong.length === 0, "only pieces in stock in their size", {n: palKeys.length, wrong: wrong.slice(0, 3)});
+ok(palKeys.some(k => houseKeys.has(k)), "the owner's house rules don't narrow a member's feed");
+ok(palKeys.every(k => !/^fixture\.example/.test(k)), "a menswear shopper doesn't get the womenswear pool");
 ok(await pal.locator("#updaterLink:not([hidden])").count() === 0, "no updater link for members");
 // A piece that's also one of Claude's picks for the owner: a member sees the shop's version, never the owner's notes.
 await pal.goto(BASE + "/#item=" + encodeURIComponent("passenger-clothing.com/products/headland-ls-slub-henley-dusty-olive"));
@@ -431,11 +481,80 @@ await pal.waitForSelector("#occasions .look, #occasions .empty");
 ok(await pal.locator("#owngrid label input[data-own=staple]").count() === 0, "none of the owner's wardrobe");
 await shot(pal, "21-pal-outfits");
 
+section("A womenswear member: her own shops, sizes, taste test and occasions");
+await desk.click("#pInvite [data-you=invite-new]");
+await desk.waitForFunction(prev => { const el = document.querySelector("#inviteNew #inviteOut"); return el && el.value && el.value !== prev; }, friendLink);
+const wrenLink = await desk.inputValue("#inviteNew #inviteOut");
+const {page: wren} = await device("wren", {width: 390, height: 844});
+await wren.goto(wrenLink.replace(/^https?:\/\/[^/]+/, BASE));
+await wren.waitForSelector("#sheet .quiz", {timeout: 20000});
+await wren.click('#sheet [data-q=dept][data-v=w]');
+await wren.selectOption("#qHeight", {label: "5′2″ · 157 cm"});
+await wren.click("#sheet [data-qnav=next]");
+ok(await wren.locator('#sheet [data-q=dress]').count() >= 10 && await wren.locator('#sheet [data-q=trw]').count() === 0, "womenswear sizes: a UK dress size, no trouser waist");
+await wren.click('#sheet [data-q=dress][data-v="10"]');
+await wren.click('#sheet [data-q=shoe][data-v="5"]');
+await shot(wren, "23-wren-sizes");
+await wren.click("#sheet [data-qnav=next]");
+await wren.waitForSelector('#sheet [data-q=brands][data-v="Oh Polly"]', {timeout: 15000});
+ok(true, "the womenswear shops' brands to pick from");
+await wren.click('#sheet [data-q=brands][data-v="Oh Polly"]');
+await wren.click("#sheet [data-qnav=next]");
+await wren.click('#sheet [data-q=styles][data-v=party]');
+await wren.click('#sheet [data-q=styles][data-v=alt]');
+await shot(wren, "24-wren-style");
+await wren.click("#sheet [data-qnav=next]");
+await wren.click('#sheet [data-q=love][data-v=black]');
+await wren.click("#sheet [data-qnav=next]");
+await wren.click("#sheet [data-qnav=next]");
+await wren.click('#sheet [data-q=occasions][data-v=party]');
+await wren.click("#sheet [data-qnav=done]");
+await wren.waitForSelector("#view-train:not([hidden]) #tcard", {timeout: 15000});
+const tasted = [];
+for (let i = 0; i < 40; i++) {
+  const card = wren.locator("#tcard");
+  if (!(await card.count())) break;
+  const key = await card.getAttribute("data-key");
+  tasted.push(key);
+  const name = await wren.locator("#tcard .name").textContent();
+  await wren.click(/Velvet|Bodycon/.test(name) ? "#view-train .tbtn.love" : /Floral|Fringe/.test(name) ? "#view-train .tbtn.no" : "#view-train .tbtn.yes");
+  await wren.waitForFunction(k => { const c = document.getElementById("tcard"); return !c || c.dataset.key !== k; }, key, {timeout: 5000});
+}
+await wren.waitForSelector("#view-train .tdone");
+await shot(wren, "25-wren-taste-done");
+ok(tasted.length >= 20 && tasted.every(k => /^fixture\.example/.test(k)), "the taste test is womenswear only", {n: tasted.length, odd: tasted.filter(k => !/^fixture/.test(k)).slice(0, 3)});
+ok(tasted.every(k => W_FIT.has(k)), "and only in her sizes (a 10, a UK 5)", tasted.filter(k => !W_FIT.has(k)).slice(0, 3));
+const tastedKinds = new Set(W_POOL.items.filter(x => tasted.includes(x.k)).map(x => x.r));
+ok(tastedKinds.size >= 5, "every kind of piece", [...tastedKinds]);
+ok(/Going out|Alternative/.test(await wren.locator("#view-train .tdone").textContent()), "what it learned, in plain words", (await wren.locator("#view-train .tdone").textContent()).slice(0, 200));
+await wren.click("#view-train .tdone [data-go=you]");
+await wren.fill("#handle", "wren");
+await wren.click("[data-you=signup]");
+await wren.waitForSelector("#sheet:not([hidden]) .codes", {timeout: 20000});
+await wren.click("#sheet [data-close-sheet]");
+await wren.waitForFunction(() => /@wren/.test(document.getElementById("whoText").textContent), null, {timeout: 15000});
+await wren.waitForTimeout(1600);
+const wrenState = await wren.evaluate(() => fetch("/api/state?since=0").then(r => r.json()));
+ok(wrenState.brief.v === 2 && JSON.stringify(wrenState.brief.dept) === '["w"]' && wrenState.cfg.profile.dress === 10 && wrenState.brief.styles.includes("party"),
+  "her brief and sizes are in her account", {v: wrenState.brief.v, d: wrenState.brief.dept, p: wrenState.cfg.profile});
+await wren.click(".dock [data-view=for-you]");
+await wren.waitForSelector("#fyGrid .card[data-key]");
+const wrenKeys = await wren.locator("#fyGrid .card[data-key]").evaluateAll(els => els.map(e => e.dataset.key));
+ok(wrenKeys.length >= 4 && wrenKeys.every(k => /^fixture\.example/.test(k) && W_FIT.has(k)), "her feed: womenswear in her sizes", wrenKeys.slice(0, 4));
+const wrenTop = W_POOL.items.find(x => x.k === wrenKeys[0]);
+ok(wrenTop && /Velvet|Bodycon/.test(wrenTop.n), "led by what she loved", wrenTop && wrenTop.n);
+ok(await wren.locator("#fyFilters [data-f=dresses], #fyFilters [data-filter=dresses], #fyFilters button").evaluateAll(els => els.some(e => /Dresses/.test(e.textContent))), "a Dresses filter");
+await shot(wren, "26-wren-for-you");
+await wren.click(".dock [data-view=outfits]");
+await wren.waitForSelector("#occasions .look, #occasions .empty", {timeout: 15000});
+ok(/Going out/.test(await wren.locator("#occasions").textContent()), "outfits for going out");
+await shot(wren, "27-wren-outfits");
+
 section("A visitor without an invite");
 const {page: guest} = await device("guest", {width: 1360, height: 900});
 await guest.goto(BASE + "/");
 await guest.waitForSelector("#fyGrid .card[data-key]");
-ok(await guest.locator("#welcome:not([hidden]) [data-onb=start]").count() === 1, "a welcome with the six questions");
+ok(await guest.locator("#welcome:not([hidden]) [data-onb=start][data-dept]").count() === 3, "a welcome that asks who they shop for");
 ok(await guest.locator("#editBlock:not([hidden])").count() === 0 && /Sign in/.test(await guest.locator("#whoText").textContent()), "nothing personal, a sign-in button");
 await guest.click("[data-onb=skip]");
 ok(await guest.locator("#welcome[hidden]").count() === 1, "or just browse");

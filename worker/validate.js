@@ -62,7 +62,7 @@ export function cleanEntry(e, serverNowMs) {
 }
 
 const COUNT_KEYS = ["tees", "knits", "sweats", "overshirts", "jackets", "jeans", "trousers", "trainers", "boots"];
-const CAP_KEYS = ["tee", "knit", "overshirt", "jacket", "jeans", "chinos", "trainers", "boots"];
+const CAP_KEYS = ["tee", "knit", "overshirt", "jacket", "jeans", "chinos", "trainers", "boots", "dresses"];
 export function cleanCfg(c) {
   if (!c || typeof c !== "object" || Array.isArray(c)) return null;
   const counts = {}, caps = {}, pins = {};
@@ -121,15 +121,17 @@ export function cleanBrief(b) {
   for (const k of CAP_KEYS) { const v = int(b.caps && b.caps[k], 0, 5000); if (v !== undefined) caps[k] = v; }
   for (const k of COUNT_KEYS) { const v = int(b.counts && b.counts[k], 0, 30); if (v !== undefined) counts[k] = v; }
   const out = {
-    v: 1, updated: day(b.updated) || new Date().toISOString().slice(0, 10),
+    // v2: written by the questions, starts neutral (see legacyBrief in the engine); the owner's older brief stays v1.
+    v: Number(b.v) >= 2 ? 2 : 1, updated: day(b.updated) || new Date().toISOString().slice(0, 10),
+    dept: [...new Set(words(b.dept, 6, 1).filter(x => x === "m" || x === "w"))],
     colours: levels(b.colours, 40), patterns: levels(b.patterns, 30), fabrics: levels(b.fabrics, 30),
-    washed_only: words(b.washed_only, 20, 20), styles: words(b.styles, 12, 20), style_note: str(b.style_note, 300), inspo: str(b.inspo, 600),
+    washed_only: words(b.washed_only, 20, 20), styles: words(b.styles, 20, 20), style_note: str(b.style_note, 300), inspo: str(b.inspo, 600),
     brands_love: words(b.brands_love, 40), brands_never: words(b.brands_never, 40),
     logos: choice(b.logos), topfit: choice(b.topfit), leg: choice(b.leg), rise: choice(b.rise), hem: choice(b.hem),
     denim: words(b.denim, 8, 12), shoes: words(b.shoes, 12, 20), categories: words(b.categories, 30, 20), nontoxic: words(b.nontoxic, 8, 12),
     ethics: choice(b.ethics), fitprob: words(b.fitprob, 10, 20), xl_ok: b.xl_ok === true,
     sizes: b.sizes && typeof b.sizes === "object" ? {top: choice(b.sizes.top, 10), outer: choice(b.sizes.outer, 10), waist: choice(b.sizes.waist, 10),
-      leg: choice(b.sizes.leg, 10), shoe: choice(b.sizes.shoe, 10)} : undefined,
+      leg: choice(b.sizes.leg, 10), shoe: choice(b.sizes.shoe, 10), dress: choice(b.sizes.dress, 10), wtop: choice(b.sizes.wtop, 10)} : undefined,
     size_change: choice(b.size_change), size_note: str(b.size_note, 300), returns: choice(b.returns), caps, counts,
     explore: num(b.explore, 0, 0.5), fade_days: int(b.fade_days, 14, 730), rules: choice(b.rules), nope_hides: choice(b.nope_hides),
     reasons: choice(b.reasons), love_chips: b.love_chips === true, implicit: b.implicit !== false,
@@ -141,7 +143,7 @@ export function cleanBrief(b) {
     drop: choice(b.drop), drop_time: choice(b.drop_time), instant: words(b.instant, 8, 20), channel: choice(b.channel),
     email_buttons: choice(b.email_buttons), learned_note: choice(b.learned_note), device: choice(b.device), home: choice(b.home),
     look: choice(b.look), theme: choice(b.theme), layout: choice(b.layout), ask_claude: b.ask_claude === true, wore_log: choice(b.wore_log),
-    contexts: words(b.contexts, 15, 20), cuts_no: Array.isArray(b.cuts_no) ? words(b.cuts_no, 8, 12).filter(x => /^(boxy|oversized|drop|skinny|cropped|wide)$/.test(x)) : undefined,
+    contexts: words(b.contexts, 15, 20), cuts_no: Array.isArray(b.cuts_no) ? words(b.cuts_no, 10, 12).filter(x => /^(boxy|oversized|drop|skinny|cropped|wide|bodycon|lowrise|flared)$/.test(x)) : undefined,
     office_days: choice(b.office_days), smart_max: choice(b.smart_max), daily_outfit: choice(b.daily_outfit),
     wardrobe_import: choice(b.wardrobe_import), capsule_size: choice(b.capsule_size), measure_store: choice(b.measure_store),
     reach_cm: num(b.reach_cm, 60, 130),

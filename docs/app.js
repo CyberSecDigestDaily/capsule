@@ -63,11 +63,14 @@ const ROLE_ICON = {
   trainer: '<path d="M3.5 17.5V13l5-4 3 2.5 3-1 5 3.5c.9.6 1 1.5 1 2.5v1z"/><path d="M3.5 17.5h17M10 11l1.5 1.5M12.5 10.5L14 12"/>',
   clog: '<path d="M3.5 15c0-3.5 3.5-6 8-6s9 2.5 9 6v2.5H3.5z"/>',
   cap: '<path d="M4 15c0-4.4 3.6-8 8-8s8 3.6 8 8z"/><path d="M12 15h9"/>',
+  dress: '<path d="M9.5 3.5h5l-.8 4.5 4.8 12.5h-13L10.3 8z"/><path d="M10.3 8h3.4"/>',
+  skirt: '<path d="M8 5.5h8l3.5 13.5h-15z"/><path d="M8 8h8"/>',
+  heel: '<path d="M4 17.5c3-.5 5.5-2.5 7.5-6l1.5-3c2.5 2.5 5 4.5 7 5.5v4h-3.5l-1-2.5-2 2.5H4z"/><path d="M17 17.5v3"/>',
   other: '<rect x="5" y="5" width="14" height="14" rx="2"/>'
 };
 const ICON_FOR = {tee: "tee", shirt: "shirt", overshirt: "shirt", jacket: "jacket", fleece: "knit", knit: "knit", cardigan: "knit", sweat: "knit", hoodie: "knit",
   jeans: "trousers", chino: "trousers", trouser: "trousers", jogger: "trousers", shorts: "shorts", boot: "boot", wallabee: "boot", shoe: "trainer",
-  trainer: "trainer", clog: "clog", cap: "cap", beanie: "cap"};
+  trainer: "trainer", clog: "clog", cap: "cap", beanie: "cap", top: "tee", dress: "dress", jumpsuit: "dress", skirt: "skirt", heel: "heel", sandal: "clog"};
 const roleIcon = role => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" fill-opacity=".22" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">${ROLE_ICON[ICON_FOR[role] || "other"]}</svg>`;
 
 /* ------------------------------------------------------------------ state */
@@ -80,7 +83,7 @@ const HASH_OF = {"for-you": "for-you", train: "swipe", outfits: "outfits", deals
 const VIEW_OF = {"for-you": "for-you", train: "train", swipe: "train", watch: "saved", shop: "saved", saved: "saved", outfits: "outfits", deals: "deals", you: "you"};
 const S = {
   data: null, finds: null, pool: null, history: {}, items: [], byKey: new Map(), brands: {}, picks: [], picksKeys: new Set(),
-  entries: {}, cfg: null, brief: null, poolByKey: new Map(),
+  entries: {}, cfg: null, brief: null, poolByKey: new Map(), pools: {},
   view: "for-you", model: null, version: 0, modelAt: -1, R: null, Rat: -1, Rday: "", og: null,
   fy: {filter: "all", keys: null, meta: {}, extra: [], at: 0, q: "", sort: "match"}, shop: {cat: "all", status: "all", q: "", sort: "match", hideOwned: false},
   occ: "all", shuffle: {}, shuffleAvoid: {}, looks: null, looksAt: -1,
@@ -295,16 +298,22 @@ function ownerView() {
   if (A.acct.user) return !!A.acct.user.owner;
   return !!(S.brief && (S.brief.rubric || device.seeded));
 }
+/* Who you shop for: menswear, womenswear or both (the brief's answer; menswear until you say). */
+function depts() {
+  const d = S.brief && Array.isArray(S.brief.dept) ? S.brief.dept.filter(x => x === "m" || x === "w") : [];
+  return d.length ? d : ["m"];
+}
+const womens = () => depts().includes("w");
 /* Your sizes: About you, then the brief, then (owner only) the sizes the watch list is checked in. */
 const mySizes = () => E.sizesFrom(S.cfg.profile, S.brief, ownerView() && S.data ? S.data.sizes : null);
-const hasSizes = () => { const z = mySizes(); return !!(z.top || z.trw || z.shoe); };
+const hasSizes = () => { const z = mySizes(); return !!(z.top || z.trw || z.shoe || z.dress || z.wtop); };
 /* What can be ranked for you: the shops' pool for everyone, plus the owner's watch list, picks and approved deals. */
 function feedItems() {
   const own = ownerView();
   if (!S.feed || S.feed.own !== own || S.feed.n !== S.items.length) S.feed = {own, n: S.items.length, list: own ? S.items : S.items.filter(it => it.kind === "pool")};
   return S.feed.list;
 }
-const formulas = () => O.occasionsFor(S.brief, O.DEFAULT_FORMULAS);
+const formulas = () => O.formulasFor(S.brief);
 const staples = () => (ownerView() && S.data && S.data.wardrobe && S.data.wardrobe.staples) || [];
 const isOwned = it => !!(it.bought || (it.kind === "watch" && ownerView() && S.cfg.owned[String(it.id)] === 1) || (ent(it.key) || {}).bought);
 const stapleOwned = s => { const v = S.cfg.owned[s.id]; return v === undefined ? !!s.owned : v === 1; };
@@ -328,7 +337,8 @@ function gaps() {
   if (!S.og) S.og = E.outfitGaps(E.formulasNow(formulas(), Date.now()), ownedPieces());
   return S.og;
 }
-const ctx = () => ({today: localDay(), gapRoles: gaps().gapRoles, owned: gaps().owned, picks: S.picksKeys, brands: S.brands, sizes: mySizes()});
+// house: the owner's house rules (white, loud, logo brands, Claude's vetoes) hide pieces in his view only.
+const ctx = () => ({today: localDay(), gapRoles: gaps().gapRoles, owned: gaps().owned, picks: S.picksKeys, brands: S.brands, sizes: mySizes(), house: ownerView()});
 /* Everything visible, ranked. Cached until something changes. by: each visible piece's row (colourways included). */
 function ranked() {
   const day = localDay();
@@ -363,11 +373,14 @@ function gapLabel(role) {
 }
 
 /* ------------------------------------------------------------------ cards */
-const GROUP_OF = {tee: "tops", shirt: "tops", knit: "layers", cardigan: "layers", sweat: "layers", hoodie: "layers", fleece: "layers",
-  overshirt: "outer", jacket: "outer", jeans: "bottoms", chino: "bottoms", trouser: "bottoms", jogger: "bottoms", shorts: "bottoms",
-  trainer: "shoes", boot: "shoes", wallabee: "shoes", clog: "shoes"};
-const FILTERS = [["all", "All"], ["new", "New in"], ["sale", "On sale"], ["tops", "Tees & shirts"], ["layers", "Knits & sweats"],
+const GROUP_OF = {tee: "tops", shirt: "tops", top: "tops", knit: "layers", cardigan: "layers", sweat: "layers", hoodie: "layers", fleece: "layers",
+  overshirt: "outer", jacket: "outer", jeans: "bottoms", chino: "bottoms", trouser: "bottoms", jogger: "bottoms", shorts: "bottoms", skirt: "bottoms",
+  dress: "dresses", jumpsuit: "dresses", trainer: "shoes", boot: "shoes", wallabee: "shoes", clog: "shoes", shoe: "shoes", heel: "shoes", sandal: "shoes"};
+const FILTERS_ALL = [["all", "All"], ["new", "New in"], ["sale", "On sale"], ["tops", "Tops & shirts"], ["dresses", "Dresses"], ["layers", "Knits & sweats"],
+  ["outer", "Jackets"], ["bottoms", "Trousers, jeans & skirts"], ["shoes", "Shoes"], ["extras", "Extras"]];
+const FILTERS_M = [["all", "All"], ["new", "New in"], ["sale", "On sale"], ["tops", "Tees & shirts"], ["layers", "Knits & sweats"],
   ["outer", "Jackets"], ["bottoms", "Trousers & jeans"], ["shoes", "Shoes"], ["extras", "Extras"]];
+const filtersNow = () => womens() ? FILTERS_ALL : FILTERS_M;
 const isNew = it => it.firstSeen && E.daysBetween(it.firstSeen, localDay()) <= 3;
 function inFilter(it, f) {
   if (f === "all") return true;
@@ -702,8 +715,8 @@ function renderForYou(reset) {
   const f = S.fy.filter, own = ownerView(), browsing = !!S.fy.q || S.fy.sort !== "match";
   // Filter chips with counts.
   const counts = {};
-  for (const x of R.list) for (const [k] of FILTERS) if (inFilter(x.it, k)) counts[k] = (counts[k] || 0) + 1;
-  $("fyFilters").innerHTML = FILTERS.filter(([k]) => k === "all" || counts[k] || k === f)
+  for (const x of R.list) for (const [k] of filtersNow()) if (inFilter(x.it, k)) counts[k] = (counts[k] || 0) + 1;
+  $("fyFilters").innerHTML = filtersNow().filter(([k]) => k === "all" || counts[k] || k === f)
     .map(([k, l]) => `<button class="chip" data-fy="${k}" aria-pressed="${f === k}">${esc(l)}<span class="n">${counts[k] || 0}</span></button>`).join("");
   renderWelcome();
   const exclude = new Set();
@@ -776,23 +789,33 @@ function renderWelcome() {
   const show = !S.brief && !device.onbSkip;
   box.hidden = !show;
   if (!show) return;
-  box.innerHTML = `<div class="w-in"><h2>Make it yours in a minute</h2>
-    <p>Six quick questions (your sizes, the colours you wear, your style and budget) and everything here is ranked for you. No account needed.</p>
-    <div class="row"><button class="btn" data-onb="start">Start</button><button class="btn ghost" data-onb="skip">Just browse</button></div></div>`;
+  box.innerHTML = `<div class="w-in"><h2>Make it yours in two minutes</h2>
+    <p>A few quick questions (your sizes, brands and style), then a 30-piece taste test, and everything here is picked for you: the feed, the deals,
+    the outfits. No account needed.</p><p class="plabel">Who are you shopping for?</p>
+    <div class="row wrap"><button class="btn" data-onb="start" data-dept="m">Menswear</button><button class="btn" data-onb="start" data-dept="w">Womenswear</button>
+    <button class="btn" data-onb="start" data-dept="mw">Both</button><button class="btn ghost" data-onb="skip">Just browse</button></div></div>`;
 }
 
 /* ------------------------------------------------------------------ Train */
-function newDeck() {
+/* A round of Swipe. test: the 30-piece taste test after the questions, spread across styles, kinds of piece and brands. */
+const TASTE_CARDS = 30;
+function newDeck(test) {
   const m = model(), b = S.brief || {};
   const n = (b.train && b.train.cards) || 20, duels = b.train && b.train.duels === "never" ? 0 : 6;
-  S.train = {deck: E.trainDeck(m, feedItems(), Object.assign(ctx(), {seed: String(Date.now())}), n, duels), i: 0, before: Object.assign({}, m.aff), done: 0,
-    tally: {love: 0, like: 0, no: 0, skip: 0}, last: null, undo: null};
+  const c = Object.assign(ctx(), {seed: String(Date.now())});
+  S.train = {deck: test ? E.tasteDeck(m, feedItems(), c, TASTE_CARDS) : E.trainDeck(m, feedItems(), c, n, duels), i: 0, before: Object.assign({}, m.aff),
+    done: 0, tally: {love: 0, like: 0, no: 0, skip: 0}, last: null, undo: null, test: !!test};
+}
+function startTasteTest() {
+  newDeck(true);
+  device.tasteTest = 1; saveDevice();
+  show("train");
 }
 /* Skip past cards hidden or answered since the deck was dealt: passed on in For you, another colour of one you just
    passed, a reaction from another device. */
 function skipDead(T) {
-  const m = model(), sz = mySizes();
-  while (T.i < T.deck.length && !E.stepLive(m, T.deck[T.i], sz)) T.i++;
+  const m = model(), sz = mySizes(), house = ownerView();
+  while (T.i < T.deck.length && !E.stepLive(m, T.deck[T.i], sz, house)) T.i++;
 }
 // What each answer does, said back to you after every card.
 const TRAIN_SAID = {
@@ -821,10 +844,11 @@ function renderTrain() {
   }
   if (T.i >= T.deck.length) return trainDone();
   const step = T.deck[T.i], t = T.tally;
-  const top = `<div class="train-top"><span class="num">${T.i + 1} of ${T.deck.length}</span>
+  const top = `<div class="train-top"><span class="num">${T.test ? "Taste test · " : ""}${T.i + 1} of ${T.deck.length}</span>
     <span class="ttally num" title="This round so far"><span class="t-love">♥ ${t.love}</span><span class="t-like">✓ ${t.like}</span><span class="t-no">✕ ${t.no}</span></span>
     <button class="linkish" data-train="finish">Finish</button></div><div class="progress"><i></i></div>`;
-  const coach = device.coach ? "" : `<div class="coach" role="note"><p><b>Swipe to teach it your taste.</b> <span class="c-no">← Pass</span> hides a piece (and its other colours) for good.
+  const coach = device.coach ? (T.test && T.i === 0 ? `<div class="coach" role="note"><p><b>Your taste test.</b> ${TASTE_CARDS} pieces from every corner of the shops, so it learns what you like and what you don't. Go with your gut.</p></div>` : "")
+    : `<div class="coach" role="note"><p><b>${T.test ? `Your taste test: ${TASTE_CARDS} pieces.` : "Swipe to teach it your taste."}</b> <span class="c-no">← Pass</span> hides a piece (and its other colours) for good.
     <span class="c-yes">Like →</span> shows you more like it. <span class="c-love">↑ Love</span> is the strongest yes. Or tap the buttons.</p>
     <button class="linkish" data-train="coach-ok">Got it</button></div>`;
   if (step.duel) {
@@ -905,6 +929,7 @@ function trainGo(kind, j) {
 function trainDone() {
   const T = S.train;
   T.closed = true;
+  if (T.test) return tasteDone();
   const m = model(), t = T.tally;
   const moved = Object.keys(m.aff).filter(x => !/^(s|d|p|sea):/.test(x)).map(x => [x, (m.aff[x] || 0) - (T.before[x] || 0)])
     .filter(([, d]) => Math.abs(d) >= 0.08).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 10);
@@ -914,6 +939,22 @@ function trainDone() {
     <div class="chips">${moved.map(([x, d]) => `<span class="chip">${d > 0 ? "▲" : "▼"} ${esc(E.label(x, S.brands))}</span>`).join("")}</div>
     <div class="d-row center"><button class="btn" data-train="again">Another ${(S.brief && S.brief.train && S.brief.train.cards) || 20}</button>
     <a class="btn ghost" href="#for-you">See your feed</a><button class="btn ghost" data-go="saved" data-saved="hidden">What you've hidden</button></div></div>`;
+}
+/* After the taste test: what it learned, in plain words, then your feed (or your account, if you came with an invite). */
+function tasteDone() {
+  const T = S.train, m = model(), t = T.tally;
+  const sum = E.summary(m, S.brands, 40);
+  const pick = (re, n) => sum.likes.filter(r => re.test(r.t) && r.learned > 0.05).slice(0, n).map(r => r.label);
+  const styles = pick(/^st:/, 3), brands = pick(/^b:/, 3), colours = pick(/^c:/, 3), kinds = pick(/^(r|fit|det|x|f):/, 4);
+  const not = sum.dislikes.filter(r => /^(st|c|r|fit|det|x|f):/.test(r.t) && r.learned < -0.05).slice(0, 4).map(r => r.label);
+  const row = (h, list) => list.length ? `<h3 class="sub3">${h}</h3><div class="chips wrap center">${list.map(x => `<span class="chip">${esc(x)}</span>`).join("")}</div>` : "";
+  const invite = A.acct.server && !A.acct.user && A.pendingInvite();
+  $("train").innerHTML = `<div class="tdone"><h2>${T.done >= 10 ? "That's your taste" : "A good start"}</h2>
+    <p class="ttally big num"><span class="t-love">♥ ${t.love} loved</span><span class="t-like">✓ ${t.like} liked</span><span class="t-no">✕ ${t.no} passed</span></p>
+    <p class="lede">${T.done >= 10 ? "Your feed, deals and outfits are ranked for you now, and every tap keeps sharpening it." : "Swipe a few more any time to sharpen it."}</p>
+    ${row("You're into", [...styles, ...kinds])}${row("Brands", brands)}${row("Colours", colours)}${row("Less so", not)}
+    <div class="d-row center">${invite ? `<button class="btn" data-go="you">Save it: make your account</button><a class="btn ghost" href="#for-you">See your feed</a>`
+      : `<a class="btn" href="#for-you">See your feed</a>`}<button class="btn ghost" data-train="again">Swipe 20 more</button></div></div>`;
 }
 const clamp01 = v => Math.max(0, Math.min(1, v));
 function swipe(card) {
@@ -1206,7 +1247,7 @@ function renderDeals() {
   const counts = {};
   for (const x of all) { const g = GROUP_OF[x.it.role] || "extras"; counts[g] = (counts[g] || 0) + 1; }
   if (D.cat !== "all" && !counts[D.cat]) D.cat = "all";
-  $("dealCats").innerHTML = FILTERS.filter(([k]) => k === "all" || (k !== "new" && k !== "sale" && counts[k]))
+  $("dealCats").innerHTML = filtersNow().filter(([k]) => k === "all" || (k !== "new" && k !== "sale" && counts[k]))
     .map(([k, l]) => `<button class="chip" data-dcat="${k}" aria-pressed="${D.cat === k}">${esc(l)}<span class="n">${k === "all" ? all.length : counts[k]}</span></button>`).join("");
   if (!DEAL_SORTS.some(([k]) => k === D.sort)) D.sort = "match";
   $("dealSort").value = D.sort;
@@ -1427,19 +1468,22 @@ function renderYou() {
   if (u) loadDevices();
   if (u && u.owner) loadInvites();
 }
-/* The style behind the ranking: the owner's private brief, the answers to the six questions, or nothing yet. */
+/* The style behind the ranking: the owner's private brief, the answers to the questions, or nothing yet. */
 function styleBody() {
   const b = S.brief;
-  if (!b) return `<p>No style set yet, so it ranks on general good taste and learns from your taps.</p><div class="row"><button class="btn" data-onb="start">Answer six quick questions</button></div>`;
+  if (!b) return `<p>No style set yet, so it ranks on general good taste and learns from your taps.</p><div class="row"><button class="btn" data-onb="start">Answer a few quick questions</button></div>`;
   if (b.rubric || device.seeded) return `<p>Your private style brief is in place: it sets the starting point, and every tap refines it. It never leaves your account and your devices.</p>`;
   const love = Object.entries(b.colours || {}).filter(([, v]) => v === "love").map(([k]) => k);
   const no = Object.entries(b.colours || {}).filter(([, v]) => v === "no").map(([k]) => k);
   const chip = t => `<span class="chip">${esc(t)}</span>`;
+  const who = {m: "Menswear", w: "Womenswear"};
   return `<p>From your answers. Every tap refines it.</p>
+    <h3 class="sub3">Shopping for</h3><div class="chips wrap">${depts().map(d => chip(who[d])).join("")}</div>
+    ${(b.brands_love || []).length ? `<h3 class="sub3">Brands</h3><div class="chips wrap">${b.brands_love.slice(0, 12).map(x => chip(x)).join("")}</div>` : ""}
     ${love.length ? `<h3 class="sub3">Colours you wear</h3><div class="chips wrap">${love.map(c => chip(cword(c))).join("")}</div>` : ""}
     ${no.length ? `<h3 class="sub3">Never</h3><div class="chips wrap">${no.map(c => chip(cword(c))).join("")}</div>` : ""}
     ${(b.styles || []).length ? `<h3 class="sub3">Style</h3><div class="chips wrap">${b.styles.map(x => chip(STYLE_NAME[x] || x)).join("")}</div>` : ""}
-    <div class="row"><button class="btn ghost small" data-onb="start">Change your answers</button></div>`;
+    <div class="row"><button class="btn ghost small" data-onb="start">Change your answers</button><button class="btn ghost small" data-taste>Take the taste test again</button></div>`;
 }
 /* ------------------------------------------------------------------ passkeys: where to keep one */
 const WHERE = [["manager", "Password manager", "1Password, Dashlane, Proton Pass, Bitwarden: its own prompt appears"],
@@ -1489,7 +1533,7 @@ function profileForm() {
     const u = imp && unitI ? unitI : unitM, input = `<input id="pf_${k}" type="number" inputmode="decimal" step="any" data-prof="${k}" value="${profShown(k)}" placeholder="${ph || ""}">`;
     return `<div class="field"><label for="pf_${k}">${label}</label><div class="in">${pre ? `<b>${u}</b>${input}` : `${input}<b class="unit">${u}</b>`}</div></div>`;
   };
-  const sel = (k, label) => `<div class="field"><label for="pf_${k}">${label}</label><div class="in"><select id="pf_${k}" data-prof="${k}"><option value="">–</option>${E.SIZES.map(z => `<option${p[k] === z ? " selected" : ""}>${z}</option>`).join("")}</select></div></div>`;
+  const sel = (k, label, list) => `<div class="field"><label for="pf_${k}">${label}</label><div class="in"><select id="pf_${k}" data-prof="${k}"><option value="">–</option>${(list || E.SIZES).map(z => `<option${String(p[k]) === String(z) ? " selected" : ""}>${z}</option>`).join("")}</select></div></div>`;
   const chips = (k, list, multi) => {
     const on = new Set(String(p[k] || "").split("|"));
     return `<div class="chips wrap" role="group">${list.map(([v, l]) => `<button type="button" class="chip" data-pchip="${k}" data-v="${v}"${multi ? " data-multi" : ""} aria-pressed="${on.has(v)}">${esc(l)}</button>`).join("")}</div>`;
@@ -1502,7 +1546,9 @@ function profileForm() {
   } else height = num("height", "Height", "cm", "");
   return `<div class="prof">
     <h3 class="sub3">Sizes you buy <span class="faint">you only see pieces in stock in these</span></h3>
-    <div class="fields">${sel("top", "Tops")}${sel("outer", "Jackets")}${num("trw", "Trouser waist", "W", "W", "", true)}${num("trl", "Leg", "L", "L", "", true)}${num("shoe", "Shoes", "UK", "UK", "", true)}</div>
+    <div class="fields">${womens() ? `${sel("dress", "Dress size (UK)", E.DRESS_SIZES)}${sel("wtop", womens() && depts().includes("m") ? "Womenswear tops" : "Tops", E.W_SIZES)}` : ""}
+      ${depts().includes("m") ? `${sel("top", womens() ? "Menswear tops" : "Tops")}${sel("outer", "Jackets")}${num("trw", "Trouser waist", "W", "W", "", true)}${num("trl", "Leg", "L", "L", "", true)}` : ""}
+      ${num("shoe", "Shoes", "UK", "UK", "", true)}</div>
     <div class="row"><span class="soft">Units</span><div class="seg" role="group" aria-label="Units"><button type="button" data-units="metric" aria-pressed="${!imp}">cm and kg</button><button type="button" data-units="imperial" aria-pressed="${imp}">inches and lb</button></div></div>
     <h3 class="sub3">Body</h3>
     <div class="fields">${height}${num("weight", "Weight", "kg", "lb")}</div>
@@ -1587,79 +1633,158 @@ function profileSheet() {
     ${profileForm()}<div class="row"><button class="btn" data-close-sheet>Done</button></div>`);
 }
 
-/* ------------------------------------------------------------------ the six questions (new people) */
-const STYLE_NAME = {workwear: "Workwear", scandi: "Scandi minimal", "90s": "90s sportswear", heritage: "Heritage", outdoor: "Outdoor", skate: "Skate", smart: "Smart casual", military: "Military"};
-const BUDGETS = {
-  budget: {label: "Budget", sub: "Tees to £25, knits to £60, jackets to £120", caps: {tee: 25, knit: 60, overshirt: 70, jacket: 120, jeans: 60, chinos: 45, trainers: 80, boots: 120}},
-  mid: {label: "Mid", sub: "Tees to £40, knits to £120, jackets to £220", caps: {tee: 40, knit: 120, overshirt: 120, jacket: 220, jeans: 110, chinos: 80, trainers: 130, boots: 220}},
-  premium: {label: "Premium", sub: "Tees to £70, knits to £220, jackets to £400", caps: {tee: 70, knit: 220, overshirt: 220, jacket: 400, jeans: 180, chinos: 150, trainers: 200, boots: 320}}
+/* ------------------------------------------------------------------ the questions (new people) */
+// Styles anyone might pick, each with a few words, in an order that suits who you shop for.
+const STYLE_INFO = {
+  scandi: ["Minimal", "clean lines, plain, neutral"], classic: ["Classic", "tailoring, trench coats, polished"],
+  smart: ["Smart casual", "tailored but relaxed"], workwear: ["Workwear", "chore jackets, canvas, cargo"],
+  heritage: ["Heritage", "waxed cotton, tweed, good boots"], outdoor: ["Outdoor", "fleece, waterproofs, trail"],
+  "90s": ["90s sportswear", "track tops, retro runners"], streetwear: ["Streetwear", "graphics, cargos, hoodies"],
+  skate: ["Skate", "loose, worn in, skate shoes"], preppy: ["Preppy", "polos, cable knits, loafers"],
+  vintage: ["Vintage", "70s cuts, retro prints"], military: ["Military", "field jackets, olive drab"],
+  athleisure: ["Athleisure", "gym to street, leggings"], party: ["Going out", "bodycon, corsets, satin, sequins"],
+  romantic: ["Romantic", "florals, ruffles, lace"], boho: ["Boho", "crochet, fringe, flowing"],
+  y2k: ["Y2K", "low rise, baby tees, sparkle"], alt: ["Alternative / goth", "black, velvet, lace, platforms"],
+  grunge: ["Grunge / punk", "ripped, tartan, studs"]
 };
-const OCCASIONS = [["office", "Office"], ["everyday", "Everyday"], ["date", "Date night"], ["outdoor", "Outdoors"], ["hiking", "Hiking"], ["travel", "Travel"],
+const STYLE_ORDER_M = ["scandi", "workwear", "heritage", "outdoor", "90s", "streetwear", "skate", "smart", "preppy", "vintage", "military", "athleisure", "alt", "grunge"];
+const STYLE_ORDER_W = ["scandi", "classic", "party", "romantic", "boho", "y2k", "alt", "grunge", "streetwear", "vintage", "preppy", "athleisure", "outdoor", "workwear", "90s", "skate"];
+const STYLE_NAME = Object.fromEntries(Object.entries(STYLE_INFO).map(([k, v]) => [k, v[0]]));
+const BUDGETS = {
+  budget: {label: "Budget", sub: "Tees to £25, knits to £60, jackets to £120", subW: "Tops to £25, dresses to £50, jackets to £120",
+    caps: {tee: 25, knit: 60, overshirt: 70, jacket: 120, jeans: 60, chinos: 45, trainers: 80, boots: 120, dresses: 50}},
+  mid: {label: "Mid", sub: "Tees to £40, knits to £120, jackets to £220", subW: "Tops to £40, dresses to £110, jackets to £220",
+    caps: {tee: 40, knit: 120, overshirt: 120, jacket: 220, jeans: 110, chinos: 80, trainers: 130, boots: 220, dresses: 110}},
+  premium: {label: "Premium", sub: "Tees to £70, knits to £220, jackets to £400", subW: "Tops to £70, dresses to £250, jackets to £400",
+    caps: {tee: 70, knit: 220, overshirt: 220, jacket: 400, jeans: 180, chinos: 150, trainers: 200, boots: 320, dresses: 250}}
+};
+const OCCASIONS_M = [["office", "Office"], ["everyday", "Everyday"], ["date", "Date night"], ["outdoor", "Outdoors"], ["hiking", "Hiking"], ["travel", "Travel"],
   ["lounge", "Lounging"], ["gym", "Gym"], ["beach", "Summer"]];
-const CUTS = [["boxy", "Boxy"], ["oversized", "Oversized"], ["drop", "Drop shoulder"], ["skinny", "Skinny"], ["cropped", "Cropped"]];
-const Q_STEPS = ["sizes", "colours", "style", "fit", "budget", "occasions"];
-function quizStart() {
+const OCCASIONS_W = [["office", "Office"], ["everyday", "Everyday"], ["date", "Date night"], ["party", "Going out"], ["outdoor", "Outdoors"], ["hiking", "Hiking"],
+  ["travel", "Travel"], ["lounge", "Lounging"], ["gym", "Gym"], ["beach", "Summer"]];
+const CUTS_M = [["boxy", "Boxy"], ["oversized", "Oversized"], ["drop", "Drop shoulder"], ["skinny", "Skinny"], ["cropped", "Cropped"]];
+const CUTS_W = [["cropped", "Crop tops"], ["bodycon", "Bodycon"], ["lowrise", "Low rise"], ["oversized", "Oversized"], ["boxy", "Boxy"], ["skinny", "Skinny"],
+  ["wide", "Wide leg"], ["flared", "Flared"]];
+const LEGS_M = [["slim", "Slim"], ["tapered", "Tapered"], ["straight", "Straight"], ["relaxed", "Relaxed"]];
+const LEGS_W = [["slim", "Skinny or slim"], ["straight", "Straight"], ["wide", "Wide"], ["flared", "Flared"], ["relaxed", "Relaxed"]];
+const DEPTS = [["m", "Menswear"], ["w", "Womenswear"], ["mw", "Both"]];
+const Q_STEPS = ["who", "sizes", "brands", "style", "colours", "fit", "plans"];
+// Heights from 4'10" to 6'8", one inch apart: "5′7″ · 170 cm" (stored in cm).
+const HEIGHTS = Array.from({length: 23}, (_, i) => 58 + i).map(inch => [Math.round(inch * 2.54), `${Math.floor(inch / 12)}′${inch % 12}″ · ${Math.round(inch * 2.54)} cm`]);
+const qDepts = a => a.dept === "mw" ? ["m", "w"] : a.dept === "w" ? ["w"] : a.dept === "m" ? ["m"] : [];
+function quizStart(dept) {
   const b = S.brief && !(S.brief.rubric || device.seeded) ? S.brief : {};
   const p = S.cfg.profile || {}, love = [], never = [];
   for (const [k, v] of Object.entries(b.colours || {})) (v === "love" ? love : v === "no" ? never : []).push(k);
-  const capsKey = Object.entries(BUDGETS).find(([, x]) => JSON.stringify(x.caps) === JSON.stringify(b.caps || {}));
-  S.quiz = {i: 0, a: {top: p.top || null, trw: p.trw || null, trl: p.trl || null, shoe: p.shoe || null, love, never, styles: (b.styles || []).slice(),
-    logos: b.logos || "tiny", fit: p.fit || "regular", leg: b.leg || "tapered", cuts: b.cuts_no || CUTS.map(c => c[0]),
-    budget: capsKey ? capsKey[0] : "mid", occasions: OCCASIONS.map(o => o[0]).filter(id => !(b.contexts || []).length || (b.contexts || []).includes(id))}};
+  const capsKey = Object.entries(BUDGETS).find(([k, x]) => (b.caps || {}).jacket === x.caps.jacket) || ["mid"];
+  const bd = Array.isArray(b.dept) ? b.dept : [];
+  S.quiz = {i: 0, a: {dept: dept || (bd.includes("m") && bd.includes("w") ? "mw" : bd[0] || null), height: p.height || null,
+    top: p.top || null, trw: p.trw || null, trl: p.trl || null, shoe: p.shoe || null, dress: p.dress || null, wtop: p.wtop || null,
+    brands: (b.brands_love || []).slice(), other: "", love, never, styles: (b.styles || []).slice(), logos: b.logos || "ok",
+    fit: p.fit || "regular", leg: b.leg || null, cuts: (b.cuts_no || []).slice(), budget: capsKey[0],
+    occasions: (b.contexts || []).slice()}};
   quizRender();
+  if (S.quiz.a.dept) ensurePools(qDepts(S.quiz.a)).then(changed => { if (changed && S.quiz) quizRender(); });
+}
+function quizBrands(a) {
+  // The brands in the shops for who you shop for, most pieces first.
+  const want = new Set(qDepts(a).length ? qDepts(a) : ["m"]);
+  const n = new Map(), name = new Map();
+  for (const it of S.items) {
+    if (it.kind !== "pool" || !(want.has(it.dept) || it.dept === "u") || !it.brand) continue;
+    const b = it.brand.replace(/[®™]/g, "").trim(), k = E.brandSlug(b);
+    if (b.length < 2 || !k || /\.[a-z]{2,}$/i.test(b)) continue;
+    // Brands made for who you shop for count most; unisex pieces from the other side's shops a little.
+    n.set(k, (n.get(k) || 0) + (it.dept === "u" ? 0.3 : 1));
+    if (!name.has(k)) name.set(k, b);
+  }
+  const top = [...n.entries()].filter(([, c]) => c >= 3).sort((x, y) => y[1] - x[1]).slice(0, 36).map(([k]) => name.get(k)).sort((x, y) => x.localeCompare(y));
+  for (const b of a.brands) if (!top.includes(b)) top.unshift(b);
+  return top;
 }
 function quizRender() {
-  const Q = S.quiz, a = Q.a, step = Q_STEPS[Q.i];
+  const Q = S.quiz, a = Q.a, step = Q_STEPS[Q.i], dd = qDepts(a), w = dd.includes("w"), m = dd.includes("m") || !dd.length;
   const chipRow = (key, list, multi) => `<div class="chips wrap">${list.map(([v, l]) => {
     const on = multi ? (a[key] || []).includes(v) : String(a[key]) === String(v);
     return `<button type="button" class="chip" data-q="${key}" data-v="${esc(v)}"${multi ? " data-multi" : ""} aria-pressed="${on}">${esc(l)}</button>`; }).join("")}</div>`;
   const swatchRow = key => `<div class="swatches big" role="group">${COLOUR_CHOICES.map(c => `<button type="button" class="sw sw-${c}" data-q="${key}" data-v="${c}" data-multi aria-pressed="${(a[key] || []).includes(c)}" title="${esc(cword(c))}"><span class="swl">${esc(cword(c))}</span></button>`).join("")}</div>`;
-  let body = "";
-  if (step === "sizes") body = `<h3>Your sizes</h3><p class="sub">Only pieces in stock in your sizes show. Skip any you don't buy.</p>
-    <p class="plabel">Tops and jackets</p>${chipRow("top", E.SIZES.map(z => [z, z]))}
-    <p class="plabel">Trouser waist</p>${chipRow("trw", [28, 29, 30, 31, 32, 33, 34, 36, 38, 40, 42].map(n => [n, "W" + n]))}
-    <p class="plabel">Leg</p>${chipRow("trl", [28, 30, 32, 34, 36].map(n => [n, "L" + n]))}
-    <p class="plabel">Shoes (UK)</p>${chipRow("shoe", [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 12, 13].map(n => [n, String(n)]))}`;
-  else if (step === "colours") body = `<h3>Colours</h3><p class="sub">Pick the ones you wear most, then any you never wear.</p>
+  let body = "", ready = true;
+  if (step === "who") {
+    ready = !!a.dept;
+    body = `<h3>Who are you shopping for?</h3><p class="sub">Menswear, womenswear or both: the feed, sizes and outfits follow.</p>
+    <div class="pkwhere three">${DEPTS.map(([v, l]) => `<button type="button" role="radio" data-q="dept" data-v="${v}" aria-checked="${a.dept === v}"><b>${esc(l)}</b></button>`).join("")}</div>
+    <p class="plabel">Your height <span class="faint">optional: it picks petite, regular or tall cuts</span></p>
+    <div class="in"><select id="qHeight" data-qsel="height" aria-label="Your height"><option value="">Rather not say</option>${HEIGHTS.map(([cm, l]) =>
+      `<option value="${cm}"${Math.abs((a.height || 0) - cm) < 1.3 ? " selected" : ""}>${esc(l)}</option>`).join("")}</select></div>`;
+  } else if (step === "sizes") {
+    body = `<h3>Your sizes</h3><p class="sub">Only pieces in stock in your sizes show. Skip any you don't buy.</p>`;
+    if (w) body += `<p class="plabel">${m ? "Womenswear: " : ""}dress size (UK)</p>${chipRow("dress", E.DRESS_SIZES.map(n => [n, String(n)]))}
+      <p class="plabel">${m ? "Womenswear: " : ""}tops in letters <span class="faint">if you know it</span></p>${chipRow("wtop", E.W_SIZES.map(z => [z, z]))}`;
+    if (m) body += `<p class="plabel">${w ? "Menswear: " : ""}tops and jackets</p>${chipRow("top", E.SIZES.map(z => [z, z]))}
+      <p class="plabel">${w ? "Menswear: " : ""}trouser waist</p>${chipRow("trw", [28, 29, 30, 31, 32, 33, 34, 36, 38, 40, 42].map(n => [n, "W" + n]))}
+      <p class="plabel">Leg</p>${chipRow("trl", [28, 30, 32, 34, 36].map(n => [n, "L" + n]))}`;
+    const shoes = w && !m ? [2, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 9] : w ? [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] : [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 12, 13];
+    body += `<p class="plabel">Shoes (UK)</p>${chipRow("shoe", shoes.map(n => [n, String(n)]))}`;
+  } else if (step === "brands") {
+    if (qDepts(a).some(d => !S.pools[d])) ensurePools(qDepts(a)).then(() => { if (S.quiz && Q_STEPS[S.quiz.i] === "brands") quizRender(); });
+    const list = qDepts(a).some(d => !S.pools[d]) ? [] : quizBrands(a);
+    body = `<h3>Brands you like</h3><p class="sub">Pick any you'd buy. They lead your taste test and your feed. Skip if none.</p>
+      ${list.length ? chipRow("brands", list.map(b => [b, b]), true) : `<p class="faint">Loading the shops…</p>`}
+      <p class="plabel">Others <span class="faint">separated by commas</span></p>
+      <div class="in"><input id="qOther" type="text" data-qtext="other" value="${esc(a.other || "")}" maxlength="200" placeholder="e.g. Ganni, Represent, Dr. Martens" autocomplete="off"></div>`;
+  } else if (step === "style") {
+    const order = w && !m ? STYLE_ORDER_W : w ? [...new Set([...STYLE_ORDER_W, ...STYLE_ORDER_M])] : STYLE_ORDER_M;
+    body = `<h3>Your style</h3><p class="sub">Pick any that sound like you. Your taste test covers these and a few others.</p>
+      <div class="pkwhere styles">${order.map(k => `<button type="button" data-q="styles" data-v="${k}" data-multi aria-pressed="${a.styles.includes(k)}"><b>${esc(STYLE_INFO[k][0])}</b><small>${esc(STYLE_INFO[k][1])}</small></button>`).join("")}</div>
+      <p class="plabel">Logos and graphics</p>${chipRow("logos", [["none", "None at all"], ["tiny", "A small label is fine"], ["ok", "Don't mind"], ["love", "Love graphics and prints"]])}`;
+  } else if (step === "colours") body = `<h3>Colours</h3><p class="sub">Pick the ones you wear most, then any you never wear.</p>
     <p class="plabel">Wear most</p>${swatchRow("love")}<p class="plabel">Never</p>${swatchRow("never")}`;
-  else if (step === "style") body = `<h3>Your style</h3><p class="sub">Pick any that sound like you.</p>
-    ${chipRow("styles", Object.entries(STYLE_NAME), true)}<p class="plabel">Logos</p>${chipRow("logos", [["none", "None at all"], ["tiny", "A small label is fine"], ["ok", "Don't mind"]])}`;
   else if (step === "fit") body = `<h3>Fit</h3><p class="sub">How you like things to sit.</p>
-    <p class="plabel">Tops</p>${chipRow("fit", [["slim", "Slim"], ["regular", "Regular"], ["relaxed", "Relaxed"]])}
-    <p class="plabel">Trousers</p>${chipRow("leg", [["slim", "Slim"], ["tapered", "Tapered"], ["straight", "Straight"], ["relaxed", "Relaxed"]])}
-    <p class="plabel">Never show me</p>${chipRow("cuts", CUTS, true)}`;
-  else if (step === "budget") body = `<h3>Budget</h3><p class="sub">The most you'd pay at full price. Deals below it always show; you can fine-tune each kind of piece later.</p>
-    <div class="pkwhere">${Object.entries(BUDGETS).map(([k, x]) => `<button type="button" role="radio" data-q="budget" data-v="${k}" aria-checked="${a.budget === k}"><b>${esc(x.label)}</b><small>${esc(x.sub)}</small></button>`).join("")}</div>`;
-  else body = `<h3>What you dress for</h3><p class="sub">Outfits are put together for these.</p>${chipRow("occasions", OCCASIONS, true)}`;
+    <p class="plabel">Tops</p>${chipRow("fit", [["slim", "Fitted"], ["regular", "Regular"], ["relaxed", "Relaxed"]])}
+    <p class="plabel">Trousers and jeans</p>${chipRow("leg", w && !m ? LEGS_W : m && !w ? LEGS_M : [...LEGS_M, ...LEGS_W.filter(([k]) => !LEGS_M.some(x => x[0] === k))])}
+    <p class="plabel">Never show me</p>${chipRow("cuts", w && !m ? CUTS_W : m && !w ? CUTS_M : [...CUTS_M, ...CUTS_W.filter(([k]) => !CUTS_M.some(x => x[0] === k))], true)}`;
+  else {
+    body = `<h3>Budget and plans</h3><p class="sub">The most you'd pay at full price (deals below it always show), and what you dress for.</p>
+    <div class="pkwhere">${Object.entries(BUDGETS).map(([k, x]) => `<button type="button" role="radio" data-q="budget" data-v="${k}" aria-checked="${a.budget === k}"><b>${esc(x.label)}</b><small>${esc(w && !m ? x.subW : x.sub)}</small></button>`).join("")}</div>
+    <p class="plabel">What you dress for</p>${chipRow("occasions", w ? OCCASIONS_W : OCCASIONS_M, true)}`;
+  }
   const last = Q.i === Q_STEPS.length - 1;
   openSheet(`<div class="quiz" data-step="${step}"><div class="qdots" aria-label="Question ${Q.i + 1} of ${Q_STEPS.length}">${Q_STEPS.map((x, j) => `<i class="${j <= Q.i ? "on" : ""}"></i>`).join("")}</div>${body}
     <div class="row qnav">${Q.i ? `<button class="btn ghost" data-qnav="back">Back</button>` : `<button class="btn ghost" data-close-sheet>Not now</button>`}
-    <button class="btn" data-qnav="${last ? "done" : "next"}">${last ? "Show me my feed" : "Next"}</button></div></div>`);
+    <button class="btn" data-qnav="${last ? "done" : "next"}"${ready ? "" : " disabled"}>${last ? "Start my taste test" : "Next"}</button></div></div>`);
 }
 function quizPick(btn) {
   const a = S.quiz.a, k = btn.dataset.q, raw = btn.dataset.v;
-  const v = /^(trw|trl|shoe)$/.test(k) ? Number(raw) : raw;
+  const v = /^(trw|trl|shoe|dress)$/.test(k) ? Number(raw) : raw;
   if (btn.hasAttribute("data-multi")) {
     const set = new Set(a[k] || []);
     if (set.has(v)) set.delete(v); else set.add(v);
     a[k] = [...set];
     if (k === "love" && set.has(v)) a.never = (a.never || []).filter(x => x !== v);
     if (k === "never" && set.has(v)) a.love = (a.love || []).filter(x => x !== v);
-  } else a[k] = String(a[k]) === String(v) && /^(top|trw|trl|shoe)$/.test(k) ? null : v;
+  } else a[k] = String(a[k]) === String(v) && /^(top|trw|trl|shoe|dress|wtop|leg)$/.test(k) ? null : v;
+  // Who you shop for decides which shops load (womenswear is a second file), ready for the brands question.
+  if (k === "dept") ensurePools(qDepts(a)).then(changed => { if (changed && S.quiz && Q_STEPS[S.quiz.i] === "brands") quizRender(); });
   const sh = $("sheet"), top = sh.scrollTop;
   quizRender();
   sh.scrollTop = top;
 }
-function quizDone() {
+async function quizDone() {
   const a = S.quiz.a, colours = {};
   for (const c of a.love || []) colours[c] = "love";
   for (const c of a.never || []) colours[c] = "no";
-  const brief = {v: 1, updated: localDay(), colours, styles: a.styles || [], logos: a.logos, leg: a.leg, cuts_no: a.cuts || [],
-    caps: Object.assign({}, BUDGETS[a.budget || "mid"].caps), contexts: a.occasions && a.occasions.length ? a.occasions : OCCASIONS.map(o => o[0]),
-    sizes: {top: a.top || undefined, waist: a.trw ? "W" + a.trw : undefined, leg: a.trl ? "L" + a.trl : undefined, shoe: a.shoe ? "UK " + a.shoe : undefined},
+  const dept = qDepts(a).length ? qDepts(a) : ["m"];
+  const others = String(a.other || "").split(/[,;\n]/).map(x => x.trim()).filter(x => x.length >= 2 && x.length <= 40).slice(0, 12);
+  const occ = (dept.includes("w") ? OCCASIONS_W : OCCASIONS_M).map(o => o[0]);
+  const brief = {v: 2, updated: localDay(), dept, colours, styles: a.styles || [], brands_love: [...new Set([...(a.brands || []), ...others])].slice(0, 40),
+    logos: a.logos, leg: a.leg || undefined, cuts_no: a.cuts || [],
+    caps: Object.assign({}, BUDGETS[a.budget || "mid"].caps), contexts: a.occasions && a.occasions.length ? a.occasions : occ,
+    sizes: {top: a.top || undefined, waist: a.trw ? "W" + a.trw : undefined, leg: a.trl ? "L" + a.trl : undefined, shoe: a.shoe ? "UK " + a.shoe : undefined,
+      dress: a.dress ? String(a.dress) : undefined, wtop: a.wtop || undefined},
     explore: 0.2, rules: "hard"};
   S.brief = brief;
-  for (const [k, v] of [["top", a.top], ["trw", a.trw], ["trl", a.trl], ["shoe", a.shoe], ["fit", a.fit]]) setProfile(k, v == null ? null : v);
+  for (const [k, v] of [["top", a.top], ["trw", a.trw], ["trl", a.trl], ["shoe", a.shoe], ["fit", a.fit], ["dress", a.dress], ["wtop", a.wtop], ["height", a.height]])
+    setProfile(k, v == null ? null : v);
   saveLocal(true);
   A.markBrief();
   bump();
@@ -1667,10 +1792,8 @@ function quizDone() {
   closeSheet();
   device.onbSkip = 1; saveDevice();
   S.fy.keys = null;
-  if (A.acct.server && !A.acct.user && A.pendingInvite()) { show("you"); toast("Your feed is ready. Now make your account so it's kept on every device."); return; }
-  show("for-you");
-  renderView("for-you", true);
-  toast("Your feed is ready. Swipe 20 pieces to sharpen it.");
+  await ensurePools(dept);
+  startTasteTest();
 }
 
 /* ------------------------------------------------------------------ Saved */
@@ -1937,7 +2060,8 @@ function renderBanner() {
 }
 function renderFoot() {
   const own = ownerView(), live = own ? watchItems().filter(i => !i.bought).length : 0;
-  const items = feedItems(), shops = new Set(items.map(i => i.store).filter(Boolean)).size;
+  const dd = depts(), items = feedItems().filter(i => i.kind !== "pool" || i.dept === "u" || dd.includes(i.dept));
+  const shops = new Set(items.map(i => i.store).filter(Boolean)).size;
   const gen = S.data && S.data.generated ? new Date(S.data.generated).toLocaleString("en-GB", {weekday: "short", hour: "2-digit", minute: "2-digit"}) : "";
   $("footNote").textContent = `${items.length.toLocaleString("en-GB")} pieces from ${shops} independent UK shops${own ? `, ${live} on your watch list` : ""}. Prices and stock checked about three times a day${gen ? `, last ${gen}` : ""}.`;
   $("updaterLink").hidden = !own;
@@ -1975,7 +2099,7 @@ function refreshAll(soft) {
     return;
   } else if (S.view === "train") {
     // Don't re-deal under your thumb, but drop a card that's just been hidden.
-    if (S.train && S.train.deck[S.train.i] && !E.stepLive(model(), S.train.deck[S.train.i], mySizes())) renderTrain();
+    if (S.train && S.train.deck[S.train.i] && !E.stepLive(model(), S.train.deck[S.train.i], mySizes(), ownerView())) renderTrain();
   } else renderView(S.view);
   S.rendered = {[S.view]: S.version};
 }
@@ -2133,6 +2257,8 @@ const host = {
     saveLocal();
     applyTheme();
     if (!S.data) return;
+    // Your account's brief may shop for a department this device hasn't loaded yet.
+    ensurePools().then(changed => { if (changed) refreshAll(true); });
     if (S.taps === 0 && S.view === "for-you") renderView("for-you", true);
     else refreshAll(true);
     renderWho();
@@ -2161,11 +2287,12 @@ function wire() {
     const onb = t.closest("[data-onb]");
     if (onb) {
       if (onb.dataset.onb === "skip") { device.onbSkip = 1; saveDevice(); $("welcome").hidden = true; toast("Browsing. Your taps still teach it; the questions are under You any time."); }
-      else quizStart();
+      else quizStart(onb.dataset.dept || undefined);
       return;
     }
     const qb = t.closest("[data-q]");
     if (qb && S.quiz) { quizPick(qb); return; }
+    if (t.closest("[data-taste]")) { startTasteTest(); return; }
     const qn = t.closest("[data-qnav]");
     if (qn && S.quiz) {
       const k = qn.dataset.qnav;
@@ -2296,6 +2423,7 @@ function wire() {
   });
   document.addEventListener("change", ev => {
     const t = ev.target;
+    if (t.dataset.qsel && S.quiz) { S.quiz.a[t.dataset.qsel] = Number(t.value) || null; return; }
     if (t.dataset.own) { setOwnedTick(t.dataset.own, t.dataset.id, t.checked); return; }
     if (t.dataset.prof) {
       const k = t.dataset.prof, v = profInput(t);
@@ -2321,6 +2449,7 @@ function wire() {
   });
   $("q").addEventListener("input", e => { S.shop.q = e.target.value.trim(); renderShop(); });
   let fyT = 0;
+  document.addEventListener("input", ev => { const t = ev.target; if (t.dataset && t.dataset.qtext && S.quiz) S.quiz.a[t.dataset.qtext] = t.value.slice(0, 200); });
   $("fyQ").addEventListener("input", e => { clearTimeout(fyT); fyT = setTimeout(() => { S.fy.q = e.target.value.trim().slice(0, 60); renderForYou(true); }, 180); });
   document.addEventListener("submit", ev => {
     if (ev.target.id !== "addOwn") return;
@@ -2367,6 +2496,35 @@ function wire() {
   tc();
 }
 
+/* ------------------------------------------------------------------ the shops' pools */
+/* Menswear (pool.json) and womenswear (pool-w.json), loaded for whoever you shop for; unisex pieces are in both. */
+const POOL_FILE = {m: "pool.json", w: "pool-w.json"};
+async function ensurePools(list) {
+  const want = (list || depts()).filter(d => POOL_FILE[d] && !S.pools[d]);
+  if (!want.length || !S.data) return false;
+  const got = await Promise.all(want.map(d => getJSON(POOL_FILE[d], null)));
+  want.forEach((d, i) => { S.pools[d] = got[i] || {items: []}; });
+  rebuildItems();
+  if (!$("loading") || $("loading").hidden) renderFoot();
+  return true;
+}
+function rebuildItems() {
+  const seen = new Set(), items = [];
+  for (const d of ["m", "w"]) for (const x of (S.pools[d] && S.pools[d].items) || []) if (x && x.k && !seen.has(x.k)) { seen.add(x.k); items.push(x); }
+  S.pool = {generated: (S.pools.m || S.pools.w || {}).generated, items};
+  S.items = E.allItems(S.data, S.finds, S.pool);
+  S.byKey = new Map();
+  S.poolByKey = new Map();
+  for (const it of S.items) {
+    if (!S.byKey.has(it.key)) S.byKey.set(it.key, it);
+    if (it.kind === "pool" && !S.poolByKey.has(it.key)) S.poolByKey.set(it.key, it);
+  }
+  S.brands = E.brandNames(S.items);
+  S.feed = null;
+  S.fy.keys = null;
+  bump();
+}
+
 /* ------------------------------------------------------------------ start */
 async function getJSON(path, fallback) {
   try {
@@ -2390,21 +2548,17 @@ async function init() {
     if (A.acct.user) { try { S.notes = (await A.notes()).notes; } catch (e) { /* none yet */ } }
     if (S.data) { renderBanner(); if (S.view === "you") renderYou(); }
   });
-  let data, finds, pool;
+  let data, finds, pools;
+  const want = depts();
   try {
-    [data, finds, pool] = await Promise.all([getJSON("data.json"), getJSON("finds.json", null), getJSON("pool.json", null)]);
+    [data, finds, ...pools] = await Promise.all([getJSON("data.json"), getJSON("finds.json", null), ...want.map(d => getJSON(POOL_FILE[d], null))]);
   } catch (e) {
     $("loading").textContent = "Today's pieces didn't load. Refresh the page; if it keeps happening, check the updater status link below.";
     return;
   }
-  S.data = data; S.finds = finds; S.pool = pool;
-  S.items = E.allItems(data, finds, pool);
-  S.poolByKey = new Map();
-  for (const it of S.items) {
-    if (!S.byKey.has(it.key)) S.byKey.set(it.key, it);
-    if (it.kind === "pool" && !S.poolByKey.has(it.key)) S.poolByKey.set(it.key, it);
-  }
-  S.brands = E.brandNames(S.items);
+  S.data = data; S.finds = finds;
+  want.forEach((d, i) => { S.pools[d] = pools[i] || {items: []}; });
+  rebuildItems();
   S.picks = ((finds && finds.picks) || []).map(p => E.normItem(p, "pick")).filter(p => p.key);
   S.picksKeys = new Set(S.picks.map(p => p.key));
   getJSON("history.json", {}).then(h => { S.history = h || {}; refreshDrawer(); });

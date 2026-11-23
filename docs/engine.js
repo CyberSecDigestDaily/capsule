@@ -60,7 +60,9 @@ export const FABRICS = {
   acrylic: ["acrylic"],
   suede: ["suede", "nubuck"],
   leather: ["leather", "crazy horse", "oiled leather", "pull-up", "pull up"],
-  hemp: ["hemp"]
+  hemp: ["hemp"],
+  satin: ["satin", "silk", "silky", "charmeuse"], velvet: ["velvet", "velour", "crushed velvet"],
+  pvc: ["pvc", "vinyl", "latex", "patent"], "faux-fur": ["faux fur", "faux-fur", "shearling-look"], viscose: ["viscose", "rayon", "modal", "ecovero"]
 };
 export const TEXTURES = {
   waffle: ["waffle"], rib: ["rib", "ribbed"], cable: ["cable", "aran"], honeycomb: ["honeycomb"],
@@ -68,7 +70,10 @@ export const TEXTURES = {
   textured: ["textured", "boucle", "bouclé", "seed stitch", "moss stitch", "pique", "piqué"],
   stripe: ["breton", "stripe", "striped", "stripes", "stripy"], pinstripe: ["pinstripe", "pin stripe"],
   check: ["check", "checked", "plaid", "tartan", "gingham", "houndstooth", "buffalo"], camo: ["camo", "camouflage"],
-  fairisle: ["fair isle", "fairisle", "nordic", "jacquard", "intarsia"], graphic: ["graphic", "print", "printed", "slogan", "screen print", "all-over print"]
+  fairisle: ["fair isle", "fairisle", "nordic", "jacquard", "intarsia"], graphic: ["graphic", "print", "printed", "slogan", "screen print", "all-over print"],
+  floral: ["floral", "florals", "flower", "flowers", "ditsy", "rose print", "botanical", "rosebud"], animal: ["leopard", "zebra", "snake print", "snakeskin", "cow print", "animal print", "tiger print"],
+  polka: ["polka dot", "polka-dot", "polka"], paisley: ["paisley"], lace: ["lace", "broderie", "pointelle", "crochet"],
+  mesh: ["mesh", "sheer", "fishnet", "organza", "tulle", "chiffon"], sequin: ["sequin", "sequins", "sequinned", "sequined", "beaded", "embellished", "rhinestone", "diamante", "glitter", "metallic", "shimmer"]
 };
 export const FITS = {
   regular: ["regular fit", "classic fit", "regular"], relaxed: ["relaxed", "loose", "easy fit", "roomy", "generous fit"],
@@ -76,7 +81,10 @@ export const FITS = {
   tapered: ["tapered", "taper", "slim taper", "regular taper"], straight: ["straight", "straight leg", "straight fit"],
   wide: ["wide", "wide leg", "baggy", "barrel", "balloon", "loose leg"], boxy: ["boxy"], oversized: ["oversized", "oversize"],
   cropped: ["cropped", "crop"], longline: ["longline", "long fit", "long length", "longer length", "tall"],
-  raglan: ["raglan"], drop: ["drop shoulder", "drop-shoulder", "dropped shoulder", "dropped shoulders"]
+  raglan: ["raglan"], drop: ["drop shoulder", "drop-shoulder", "dropped shoulder", "dropped shoulders"],
+  petite: ["petite"], tall: ["tall"], bodycon: ["bodycon", "body con", "figure hugging", "second skin", "sculpt", "sculpting"],
+  flared: ["flare", "flared", "flares", "bootcut", "boot cut", "kick flare"], highrise: ["high rise", "high-rise", "high waist", "high-waisted", "high waisted"],
+  lowrise: ["low rise", "low-rise", "extra low rise"]
 };
 export const DETAILS = {
   hood: ["hoodie", "hooded", "hood"], zip: ["quarter zip", "quarter-zip", "half zip", "half-zip", "1/4 zip", "full zip", "full-zip", "zip neck", "zip-up", "zip up"],
@@ -88,7 +96,12 @@ export const DETAILS = {
   organic: ["organic", "gots", "oeko-tex", "oeko tex", "oekotex", "bluesign"], recycled: ["recycled"],
   logo: ["logo", "badge", "patch", "embroidered", "embroidery", "branded", "monogram"],
   madeuk: ["made in england", "made in britain", "made in the uk", "made in scotland", "made in wales", "made in portugal", "made in italy", "made in japan"],
-  pockets: ["cargo", "patch pocket", "chest pocket", "utility"]
+  pockets: ["cargo", "patch pocket", "chest pocket", "utility"],
+  mini: ["mini"], midi: ["midi"], maxi: ["maxi"], cutout: ["cut out", "cut-out", "cutout", "keyhole"], backless: ["backless", "open back", "open-back", "low back", "low-back", "cowl back"],
+  corset: ["corset", "corseted", "corsetry", "bustier", "boned"], ruffle: ["ruffle", "ruffled", "frill", "frilled", "frills", "tiered"],
+  puff: ["puff sleeve", "puff-sleeve", "balloon sleeve", "puffed sleeve"], strappy: ["strappy", "spaghetti strap", "halter", "halterneck", "tie strap", "cami"],
+  studs: ["studded", "studs", "spiked", "spikes", "grommet", "eyelet", "buckle", "buckles", "chain", "chains", "o-ring", "hardware"],
+  platform: ["platform", "flatform", "chunky sole"], heel: ["heel", "heels", "heeled", "stiletto"]
 };
 // Footwear silhouettes: the classics the brief names, and the chunky or trend shapes it rules out (trainers only).
 const CLASSIC_SHOES = ["samba", "gazelle", "spezial", "campus", "janoski", "era", "authentic", "blazer", "air max 90", "air max 1", "990", "991",
@@ -97,28 +110,40 @@ const CHUNKY_SHOES = ["chunky", "platform", "air max plus", "air max tn", "tn pl
   "9060", "1906", "2002r", "530", "gel-1130", "tl 2", "ozweego", "superstar adv"];
 export const ROLES = [
   ["wallabee", ["wallabee"]], ["boot", ["chelsea", "boot", "boots", "chukka", "desert boot"]],
-  ["clog", ["clog", "clogs", "mule", "slipper", "slippers", "birkenstock", "boston"]],
-  // Smart shoes only count as such on footwear (a "Derby jacket" is a jacket).
-  ["shoe", ["derby", "derbies", "brogue", "brogues", "oxfords", "oxford shoe", "oxford shoes", "loafer", "loafers", "monk strap", "double monk", "gibson", "apron derby"]],
+  // Heels, sandals and smart shoes only count as such on footwear (a "Derby jacket" is a jacket).
+  ["heel", ["heel", "heels", "heeled", "stiletto", "stilettos", "court shoe", "court shoes", "pumps", "slingback", "slingbacks", "kitten heel"]],
+  ["sandal", ["sandal", "sandals", "slider", "sliders", "slide", "slides", "flip flop", "flip flops", "flip-flops", "espadrille", "espadrilles"]],
+  ["clog", ["clog", "clogs", "mule", "mules", "slipper", "slippers", "birkenstock", "boston"]],
+  ["shoe", ["derby", "derbies", "brogue", "brogues", "oxfords", "oxford shoe", "oxford shoes", "loafer", "loafers", "monk strap", "double monk", "gibson", "apron derby",
+    "mary jane", "mary janes", "ballet flat", "ballet flats", "ballet pump", "ballet pumps", "ballerina", "ballerinas", "flats"]],
   ["trainer", ["trainer", "trainers", "sneaker", "sneakers", "samba", "gazelle", "spezial", "janoski", "air max", "990", "991", "992", "993", "996", "574", "576", "1500", "shoe", "shoes", "plimsoll", "vulc"]],
   ["socks", ["socks", "sock"]], ["underwear", ["boxer", "boxers", "briefs", "trunks", "boxer shorts"]],
-  ["beanie", ["beanie", "watch cap", "toque"]], ["cap", ["cap", "5 panel", "five panel", "6 panel", "baseball", "snapback", "bucket hat", "hat"]],
-  ["scarf", ["scarf", "snood"]], ["gloves", ["gloves", "mittens", "glove"]], ["belt", ["belt"]],
-  ["bag", ["bag", "tote", "backpack", "rucksack", "holdall", "sling", "pouch", "duffle bag", "camera"]], ["watch", ["watch"]],
-  ["overshirt", ["overshirt", "over shirt", "shirt jacket", "shacket", "cpo", "chore shirt"]], ["cardigan", ["cardigan"]],
-  ["fleece", ["fleece", "polartec"]], ["jacket", ["jacket", "coat", "parka", "blouson", "harrington", "bomber", "m-65", "m65", "anorak", "gilet", "smock"]],
+  ["beanie", ["beanie", "watch cap", "toque", "beret"]], ["cap", ["cap", "5 panel", "five panel", "6 panel", "baseball", "snapback", "bucket hat", "hat"]],
+  ["scarf", ["scarf", "snood"]], ["gloves", ["gloves", "mittens", "glove"]], ["belt", ["belt", "harness"]],
+  ["bag", ["bag", "tote", "backpack", "rucksack", "holdall", "sling", "pouch", "duffle bag", "camera", "handbag", "handbags", "crossbody", "clutch"]], ["watch", ["watch"]],
+  // One-pieces and skirts before shirts and tees: a "shirt dress" is a dress.
+  ["dress", ["dress", "dresses", "gown", "pinafore", "shirtdress"]],
+  ["jumpsuit", ["jumpsuit", "jumpsuits", "playsuit", "playsuits", "romper", "boilersuit", "boiler suit", "dungarees", "dungaree", "overalls", "catsuit"]],
+  ["skirt", ["skirt", "skirts", "skort", "skorts"]],
+  ["overshirt", ["overshirt", "over shirt", "shirt jacket", "shacket", "cpo", "chore shirt"]], ["cardigan", ["cardigan", "shrug", "bolero"]],
+  ["fleece", ["fleece", "polartec"]], ["jacket", ["jacket", "coat", "parka", "blouson", "harrington", "bomber", "m-65", "m65", "anorak", "gilet", "smock", "blazer",
+    "trench", "body warmer", "bodywarmer", "puffer", "track top", "track jacket"]],
   ["hoodie", ["hoodie", "hooded sweat", "hooded"]], ["sweat", ["sweatshirt", "sweat", "crewneck sweat"]],
   ["knit", ["jumper", "sweater", "knit", "knitted", "lambswool", "merino", "roll neck", "rollneck", "quarter zip", "half zip", "pullover"]],
-  ["shirt", ["shirt", "oxford", "chambray"]], ["tee", ["t-shirt", "tee", "t shirt", "henley", "long sleeve", "ls top", "top"]],
-  ["jeans", ["jeans", "jean", "denim"]], ["jogger", ["jogger", "joggers", "sweatpant", "sweatpants", "track pant", "track pants", "trackpant", "trackpants", "track trousers", "lounge pant", "lounge pants", "sweat pant", "sweat pants"]],
-  ["shorts", ["shorts", "short"]], ["chino", ["chino", "chinos", "cord", "cords", "pant", "pants", "fatigue", "trouser", "trousers", "pleated"]]
+  ["top", ["blouse", "blouses", "bodysuit", "bodysuits", "corset", "corsets", "bustier", "cami", "camisole", "crop top", "tank top", "tank", "vest top", "bralette",
+    "tube top", "halter top", "halterneck", "halter neck", "bandeau", "tunic"]],
+  ["shirt", ["shirt", "oxford"]], ["tee", ["t-shirt", "tee", "t shirt", "henley", "long sleeve", "ls top", "top"]],
+  ["shorts", ["shorts", "jorts", "denim short", "jean short", "cargo short", "cycling short", "biker short"]],
+  ["jeans", ["jeans", "jean", "denim"]], ["jogger", ["jogger", "joggers", "sweatpant", "sweatpants", "track pant", "track pants", "trackpant", "trackpants", "track trousers", "lounge pant", "lounge pants", "sweat pant", "sweat pants", "legging", "leggings"]],
+  ["chino", ["chino", "chinos", "cord", "cords", "pant", "pants", "fatigue", "trouser", "trousers", "pleated"]]
 ];
 // The site's category for each role (outfit formulas and filters use these).
 export const ROLE_CATEGORY = {
   tee: "Tees", shirt: "Shirts", overshirt: "Jackets & Overshirts", jacket: "Jackets & Overshirts", fleece: "Mid-layers & Knits",
   knit: "Mid-layers & Knits", cardigan: "Mid-layers & Knits", sweat: "Mid-layers & Knits", hoodie: "Mid-layers & Knits",
+  top: "Tops", dress: "Dresses & Jumpsuits", jumpsuit: "Dresses & Jumpsuits", skirt: "Skirts",
   jeans: "Jeans", chino: "Chinos & Trousers", trouser: "Chinos & Trousers", jogger: "Joggers & Shorts", shorts: "Joggers & Shorts",
-  trainer: "Footwear", boot: "Footwear", wallabee: "Footwear", clog: "Footwear", shoe: "Footwear",
+  trainer: "Footwear", boot: "Footwear", wallabee: "Footwear", clog: "Footwear", shoe: "Footwear", heel: "Footwear", sandal: "Footwear",
   socks: "Socks & Boxers", underwear: "Socks & Boxers", cap: "Accessories", beanie: "Accessories", scarf: "Accessories",
   gloves: "Accessories", belt: "Accessories", bag: "Accessories", watch: "Accessories"
 };
@@ -127,9 +152,9 @@ export const CAP_GROUP = {
   tee: "tee", shirt: "overshirt", overshirt: "overshirt", jacket: "jacket", fleece: "knit", knit: "knit", cardigan: "knit", sweat: "knit",
   hoodie: "knit", jeans: "jeans", chino: "chinos", trouser: "chinos", jogger: "chinos", shorts: "chinos", trainer: "trainers",
   boot: "boots", wallabee: "boots", shoe: "boots", clog: "trainers", socks: "tee", underwear: "tee", cap: "tee", beanie: "tee", scarf: "knit",
-  gloves: "tee", belt: "tee", bag: "jacket", watch: "jacket"
+  gloves: "tee", belt: "tee", bag: "jacket", watch: "jacket", top: "tee", dress: "dresses", jumpsuit: "dresses", skirt: "chinos", heel: "boots", sandal: "trainers"
 };
-export const DEFAULT_CAPS = {tee: 40, knit: 120, overshirt: 120, jacket: 220, jeans: 110, chinos: 80, trainers: 130, boots: 220};
+export const DEFAULT_CAPS = {tee: 40, knit: 120, overshirt: 120, jacket: 220, jeans: 110, chinos: 80, trainers: 130, boots: 220, dresses: 150};
 const STYLE_WORDS = {
   workwear: ["chore", "carpenter", "work jacket", "workwear", "utility", "duck canvas", "double knee", "painter", "bakers", "coverall", "travail", "engineer", "work pant", "workshirt", "work shirt"],
   military: ["m-65", "m65", "field jacket", "fatigue", "army", "military", "cargo", "deck jacket", "jungle", "flight", "officer", "surplus", "gurkha"],
@@ -138,7 +163,21 @@ const STYLE_WORDS = {
   skate: ["skate", "janoski", "blazer low", "era", "sb ", "vulc", "skateboarding"],
   outdoor: ["hiking", "trail", "waterproof", "gore-tex", "goretex", "outdoor", "mountain", "camp", "fleece"],
   heritage: ["waxed", "harris tweed", "made in england", "made in scotland", "lambswool", "shetland", "moleskin", "wallabee", "chelsea", "brogue", "gansey", "guernsey"],
-  smart: ["blazer", "suit", "tailored", "pleated", "wool trouser", "oxford shirt", "loafer", "loafers"]
+  smart: ["blazer", "suit", "tailored", "pleated", "wool trouser", "oxford shirt", "loafer", "loafers"],
+  classic: ["trench", "tailored", "camel coat", "wool coat", "pea coat", "peacoat", "cashmere", "silk", "cigarette trouser", "court shoe", "slingback", "kitten heel", "pencil skirt", "wrap dress"],
+  streetwear: ["streetwear", "cargo", "puffer", "track top", "tracksuit", "graphic", "oversized hoodie", "zip up hoodie", "baggy", "parachute"],
+  y2k: ["y2k", "low rise", "low-rise", "baby tee", "butterfly", "rhinestone", "diamante", "velour", "micro mini", "halter", "capri", "bandana print"],
+  alt: ["goth", "gothic", "pentagram", "occult", "skull", "skulls", "coffin", "witch", "witchy", "bats", "spider web", "cobweb", "harness", "studded",
+    "spiked", "pvc", "vinyl", "fishnet", "creeper", "creepers", "crucifix", "vampire", "celestial", "corset", "chains", "velvet"],
+  grunge: ["grunge", "punk", "distressed", "ripped", "destroyed", "safety pin", "band tee", "studs", "flannel", "tartan", "plaid", "moto", "biker"],
+  party: ["bodycon", "cut out", "cut-out", "backless", "plunge", "sheer", "sequin", "sequins", "satin", "slip dress", "mini dress", "halterneck",
+    "bustier", "corset", "strappy", "thigh split", "ruched", "open back", "bralette", "going out", "party", "sparkle", "glitter", "metallic", "feather"],
+  romantic: ["floral", "ruffle", "ruffled", "frill", "frilled", "puff sleeve", "broderie", "bow", "bows", "milkmaid", "smocked", "shirred", "tiered",
+    "rosebud", "ditsy", "gingham", "tea dress", "prairie", "lace trim", "sweetheart", "pointelle"],
+  boho: ["boho", "bohemian", "crochet", "fringe", "fringed", "paisley", "peasant", "kaftan", "festival", "tie dye", "tie-dye", "western", "cowboy", "suede fringe", "patchwork"],
+  preppy: ["cable knit", "polo", "rugby", "varsity", "pleated skirt", "cricket", "argyle", "tennis", "boat shoe", "button down", "button-down", "crest", "collegiate"],
+  vintage: ["retro", "70s", "1970s", "60s", "1960s", "50s", "1950s", "seventies", "sixties", "groovy", "psychedelic", "disco", "swing dress", "pin up", "pin-up", "rockabilly", "tea dress"],
+  athleisure: ["gym", "training", "seamless", "sports bra", "leggings", "yoga", "dri-fit", "workout", "cycling short", "biker short", "sculpt", "activewear"]
 };
 const STYLE_BRANDS = {
   workwear: ["universal works", "dickies", "carhartt", "uskees", "le laboureur", "vetra", "bleu de paname", "lee", "wrangler", "yarmouth oilskins", "community clothing", "albam", "orslow", "nigel cabourn", "arpenteur"],
@@ -147,7 +186,18 @@ const STYLE_BRANDS = {
   "90s": ["patagonia", "napapijri", "nike", "adidas", "new balance", "the north face", "columbia", "helly hansen"],
   skate: ["vans", "dickies", "carhartt", "nike sb", "polar", "converse"],
   outdoor: ["finisterre", "patagonia", "passenger", "fjallraven", "fjällräven", "snow peak", "arc'teryx", "rab", "salomon", "napapijri"],
-  heritage: ["barbour", "gloverall", "solovair", "grenson", "sanders", "clarks", "john white", "blundstone", "dr. martens", "dr martens", "william lockie", "howlin", "lavenham", "private white"]
+  heritage: ["barbour", "gloverall", "solovair", "grenson", "sanders", "clarks", "john white", "blundstone", "dr. martens", "dr martens", "william lockie", "howlin", "lavenham", "private white"],
+  streetwear: ["stussy", "stüssy", "supreme", "palace", "represent", "trapstar", "corteiz", "obey", "huf", "jordan", "air jordan", "bape", "a bathing ape", "daily paper", "kith", "jaded london", "minga london"],
+  y2k: ["minga london", "jaded london", "daisy street", "i saw it first", "edikted"],
+  alt: ["disturbia", "killstar", "new rock", "demonia", "hell bunny", "banned", "punk rave", "dark in love", "too fast"],
+  grunge: ["the ragged priest", "minga london", "dr martens", "dr. martens"],
+  party: ["oh polly", "pretty lavish", "meshki", "club l", "motel rocks", "white fox", "house of cb", "i saw it first"],
+  romantic: ["rixo", "damson madder", "kitri", "never fully dressed", "nobody's child", "sister jane", "o pioneers", "doen", "dôen", "collectif"],
+  boho: ["free people", "spell", "never fully dressed", "lucy & yak", "lucy and yak"],
+  preppy: ["ralph lauren", "polo ralph lauren", "aime leon dore", "aimé leon dore", "gant", "tommy hilfiger", "lacoste", "rowing blazers", "j.crew", "jcrew", "sebago", "fred perry"],
+  vintage: ["collectif", "hell bunny", "lucy & yak", "lucy and yak", "levi's vintage"],
+  athleisure: ["tala", "adanola", "gymshark", "lululemon", "sweaty betty", "alo", "under armour"],
+  classic: ["me+em", "jigsaw", "whistles", "reiss", "massimo dutti", "hobbs", "boden", "hush", "baukjen", "toteme"]
 };
 const SEASON = {
   winter: ["wool", "waxed", "fleece", "lined", "thermal", "cord", "corduroy", "shearling", "quilted", "moleskin", "flannel", "brushed",
@@ -260,7 +310,8 @@ const KIND_NOUNS = {
   jogger: ["joggers", "jogger", "sweatpants", "sweat pants"], shorts: ["shorts", "short"],
   trainer: ["trainers", "trainer", "sneakers", "sneaker", "shoes", "shoe"], boot: ["boots", "boot"], wallabee: ["shoes", "shoe", "boots", "boot"],
   clog: ["clogs", "clog", "slippers", "slipper"], shoe: ["shoes", "shoe"], beanie: ["beanie", "hat"], cap: ["cap", "hat"], socks: ["socks", "sock"],
-  scarf: ["scarf"], gloves: ["gloves", "glove"], bag: ["bag"], belt: ["belt"]
+  scarf: ["scarf"], gloves: ["gloves", "glove"], bag: ["bag"], belt: ["belt"], top: ["top", "tops", "blouse", "cami", "bodysuit"],
+  dress: ["dress"], jumpsuit: ["jumpsuit", "playsuit", "dungarees"], skirt: ["skirt"], heel: ["heels", "heel"], sandal: ["sandals", "sandal"]
 };
 const ROLE_WORDS = new Map();
 function roleNouns(role) {
@@ -320,6 +371,8 @@ export function imgOf(url) {
 const N = v => { const n = typeof v === "string" && v.trim() !== "" ? Number(v) : v; return typeof n === "number" && isFinite(n) ? n : null; };
 const T = (v, max = 300) => v == null ? "" : String(v).slice(0, max);
 const SIZE_TOKEN = /^[A-Z0-9./]{1,10}$/;
+// The owner's house rules, as the scraper flags them on pool pieces: hidden in his view only.
+export const HOUSE = new Set(["white", "loud", "red", "brand", "blazer", "veto"]);
 /* One shape for watch-list items, approved finds, picks and pool items. */
 export function normItem(raw, kind) {
   const r = raw || {};
@@ -329,7 +382,9 @@ export function normItem(raw, kind) {
       image: r.i, text: r.t || "", firstSeen: r.f || null, size: r.z || "", alt: r.x || [], src: r.src || "", inStock: true,
       variant: r.v || undefined, colourHint: r.v || "",
       // Every size in stock for this colour (newer data); older data only says it's in Don's size.
-      sizes: Array.isArray(r.zs) ? r.zs.map(String).filter(z => SIZE_TOKEN.test(z)).slice(0, 40) : null};
+      sizes: Array.isArray(r.zs) ? r.zs.map(String).filter(z => SIZE_TOKEN.test(z)).slice(0, 40) : null,
+      // Department (menswear unless the shop said womenswear or unisex), and the owner's house flags (his view only).
+      dept: r.g === "w" || r.g === "u" ? r.g : "m", house: Array.isArray(r.h) ? r.h.map(String).filter(h => HOUSE.has(h)) : []};
   } else if (kind === "watch") {
     it = {kind, id: r.id, url: r.url, brand: r.brand, name: r.name, store: r.store, category: r.category, role: r.role,
       price: r.price ?? r.last_price ?? r.last_seen_price ?? null, was: r.was || null, disc: r.discount_pct || 0, image: r.image,
@@ -351,6 +406,8 @@ export function normItem(raw, kind) {
   it.text = T(it.text, 300);
   if (it.variant != null) it.variant = T(it.variant, 60);
   if (!ROLE_CATEGORY[it.role]) it.role = null;
+  if (!it.dept) it.dept = "m";
+  if (!it.house) it.house = [];
   it.key = itemKey(it.url, it.variant);
   if (!it.role) it.role = roleOf(`${it.name} ${it.category || ""}`, it.category);
   it.role = refineRole(it.role, it.name);
@@ -364,31 +421,53 @@ export function normItem(raw, kind) {
 
 /* ------------------------------------------------------------------ sizes */
 /* Your sizes, from About you, the brief, or (for the owner) the watch list's: {top, trw, trl, shoe}. */
-const TOP_ROLES = new Set(["tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie"]);
+const TOP_ROLES = new Set(["tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie", "top", "dress", "jumpsuit"]);
 const LEG_ROLES = new Set(["jeans", "chino", "trouser"]);
-const LOOSE_LEG = new Set(["jogger", "shorts"]);
+const LOOSE_LEG = new Set(["jogger", "shorts", "skirt"]);
 export function sizesFrom(profile, brief, fallback) {
   const p = profile || {}, b = (brief && brief.sizes) || {}, f = fallback || {};
   const top = p.top || (SIZES.includes(String(b.top || "").toUpperCase()) ? String(b.top).toUpperCase() : null) ||
     (SIZES.includes(String(f.top || "").toUpperCase()) ? String(f.top).toUpperCase() : null);
   const num = v => { const m = /(\d{1,2}(?:\.5)?)/.exec(String(v == null ? "" : v)); return m ? Number(m[1]) : null; };
-  return {top: top || null, trw: p.trw || num(b.waist) || num(f.waist), trl: p.trl || num(b.leg) || num(f.leg), shoe: p.shoe || num(b.shoe) || num(f.shoe)};
+  const wtop = p.wtop || (W_SIZES.includes(String(b.wtop || "").toUpperCase()) ? String(b.wtop).toUpperCase() : null);
+  return {top: top || null, trw: p.trw || num(b.waist) || num(f.waist), trl: p.trl || num(b.leg) || num(f.leg), shoe: p.shoe || num(b.shoe) || num(f.shoe),
+    dress: p.dress || num(b.dress) || null, wtop: wtop || null};
 }
+// A UK dress size as letters (brands vary: 10 is S or M), and as a jeans waist in inches.
+const DRESS_LETTERS = {4: ["XXS"], 6: ["XS"], 8: ["S", "XS"], 10: ["S", "M"], 12: ["M"], 14: ["L", "M"], 16: ["L", "XL"], 18: ["XL"], 20: ["XXL", "XL"],
+  22: ["XXL", "3XL"], 24: ["3XL"], 26: ["3XL"]};
+const DRESS_WAIST = {4: 23, 6: 24, 8: 26, 10: 27, 12: 29, 14: 31, 16: 33, 18: 35, 20: 37, 22: 39, 24: 41, 26: 43};
 const sameTop = (t, top) => t === top || (t.includes("/") && t.split("/").includes(top)) || (top === "XXL" && t === "2XL") || (top === "3XL" && t === "XXXL");
-function shoeFits(t, uk) {
+function shoeFits(t, uk, womens) {
   const m = /^(UK|EU|US)(\d{1,2}(?:\.5)?)$/.exec(t);
   if (!m) return false;
   const n = Number(m[2]);
   if (m[1] === "UK") return Math.abs(n - uk) < 0.26;
-  if (m[1] === "EU") return Math.abs(n - 34.5 - uk) <= 0.5; // UK 10 ≈ EU 44.5 (brands vary by half a size)
-  return Math.abs(n - 0.5 - uk) <= 0.5; // US men's run half a size above UK
+  // EU runs about 33 above UK at a UK 5 and 34.5 above at a UK 10 (brands vary by half a size).
+  if (m[1] === "EU") return Math.abs(n - (33 + uk + Math.max(0, uk - 5) * 0.3)) <= 0.6;
+  return Math.abs(n - (womens ? 2 : 0.5) - uk) <= 0.5; // US men's run half a size above UK, women's two
 }
 /* Is this piece in stock in your size? Pieces without a size list (older data, one-size things) count as yes. */
 export function sizeOk(it, us) {
   const zs = it && it.sizes;
   if (!zs || !zs.length || !us) return true;
   const role = it.role;
-  if (FOOTWEAR.has(role)) return !us.shoe || zs.some(t => shoeFits(t, us.shoe));
+  if (FOOTWEAR.has(role)) return !us.shoe || zs.some(t => shoeFits(t, us.shoe, it.dept === "w"));
+  const hasD = zs.some(t => /^D\d/.test(t));
+  if (it.dept === "w" || hasD) {
+    // Womenswear: your UK dress size, or the letters (and jeans waists) that go with it. No womenswear sizes given: show it.
+    if (!us.dress && !us.wtop) return true;
+    if (us.dress && zs.includes("D" + us.dress)) return true;
+    if (womensLetters(zs, us)) return true;
+    const waist = us.dress && DRESS_WAIST[us.dress];
+    return !!waist && zs.some(t => { const m = /^W(\d{2})/.exec(t); return !!m && Math.abs(Number(m[1]) - waist) <= 1; });
+  }
+  if (it.dept === "u" && !us.top && !us.trw && (us.dress || us.wtop)) {
+    // Unisex pieces for someone who gave womenswear sizes only: the letters, or the waist, that go with them.
+    const waist = us.dress && DRESS_WAIST[us.dress];
+    if (zs.some(t => /^W\d/.test(t)) && !zs.some(t => /^[XSML]/.test(t))) return !!waist && zs.some(t => { const m = /^W(\d{2})/.exec(t); return !!m && Math.abs(Number(m[1]) - waist) <= 1; });
+    return !zs.some(t => /^[XSML]/.test(t)) || womensLetters(zs, us);
+  }
   if (LEG_ROLES.has(role) || LOOSE_LEG.has(role)) {
     const w = us.trw, l = us.trl;
     const byLetter = us.top && zs.some(t => sameTop(t, us.top));
@@ -400,6 +479,10 @@ export function sizeOk(it, us) {
   }
   if (TOP_ROLES.has(role)) return !us.top || zs.some(t => sameTop(t, us.top));
   return true;
+}
+function womensLetters(zs, us) {
+  const want = us.wtop ? [us.wtop] : (DRESS_LETTERS[us.dress] || []);
+  return want.length > 0 && zs.some(t => want.some(w => sameTop(t, w)));
 }
 
 /* Older data filed derbies under trainers and trackpants under chinos: put them right. */
@@ -414,8 +497,8 @@ export function roleOf(text, category) {
   const t = norm(text).replace(/\b(?:t|tee)[\s-]?shirts?\b/g, "tee").replace(/\bpolo shirts?\b/g, "polo tee");
   const foot = /footwear/i.test(category || "");
   for (const [role, words] of ROLES) {
-    if (foot && !["wallabee", "boot", "clog", "shoe", "trainer"].includes(role)) continue;
-    if (role === "shoe" && !foot && !/\bshoes?\b/.test(t)) continue;
+    if (foot && !FOOTWEAR.has(role)) continue;
+    if (FOOT_ONLY.has(role) && !foot && !/\bshoes?\b/.test(t)) continue;
     if (words.some(w => rx(w).test(t))) return role;
   }
   return foot ? "trainer" : null;
@@ -428,7 +511,8 @@ export function colourOf(it) {
   return firstIn(hint, COLOURS) || firstIn(tail, COLOURS) || firstIn(name, COLOURS) || firstIn(norm(it.text).slice(0, 120), COLOURS);
 }
 
-const FOOTWEAR = new Set(["trainer", "boot", "wallabee", "clog", "shoe"]);
+const FOOTWEAR = new Set(["trainer", "boot", "wallabee", "clog", "shoe", "heel", "sandal"]);
+const FOOT_ONLY = new Set(["shoe", "heel", "sandal"]);
 export function traitsOf(it) {
   const name = norm(it.name), text = norm(`${it.name} ${it.colourHint || ""} ${it.text || ""}`), brand = norm(it.brand);
   const foot = FOOTWEAR.has(it.role);
@@ -481,32 +565,43 @@ const DEFAULT_NO = new Set(["red", "orange", "pink", "purple", "teal", "bright-b
 // With soft rules (the brief's default), a "no" sinks a piece to the bottom instead of hiding it.
 const RULE_WEIGHT = -2.5;
 /* Turns the style brief into starting affinities and rules. Hard rules hide a piece outright. */
+/* Briefs written by the questions (v2 and up) start from nothing but what the person said. Older briefs (the owner's)
+   keep the house defaults the site was built on: vivid colours only washed, no graphics, no chunky soles or collabs,
+   none of the cuts he rules out. */
+export const legacyBrief = b => !!(b && b.rubric) || !(b && Number(b.v) >= 2);
 export function priorOf(brief) {
   const b = brief || {}, prior = {}, hard = {}, soft = {};
+  const legacy = legacyBrief(b);
   const softRules = !/^hard/.test(b.rules || "");
   const rule = (t, why) => { if (softRules) soft[t] = Math.min(soft[t] || 0, RULE_WEIGHT); else hard[t] = why; };
   const col = b.colours || {}, washedOnly = new Set(b.washed_only || []);
   for (const fam of Object.keys(COLOURS)) {
     // A colour you allow only washed isn't a "no": unwashed pieces in it are caught by washedMiss().
-    const lv = col[fam] || (DEFAULT_NO.has(fam) && !washedOnly.has(fam) ? "no" : "ok");
+    const lv = col[fam] || (legacy && DEFAULT_NO.has(fam) && !washedOnly.has(fam) ? "no" : "ok");
     if (lv === "no") rule("c:" + fam, "colour");
     else prior["c:" + fam] = LEVEL[lv] ?? 0;
   }
   for (const [k, lv] of Object.entries(b.patterns || {})) {
     if (lv === "no") rule("x:" + k, "pattern"); else prior["x:" + k] = lv === "love" ? 0.45 : 0;
   }
-  hard["x:graphic"] = "graphic";
+  // Graphics and prints: the owner's brief never; for anyone else it's their answer about logos and graphics.
+  if (legacy || b.logos === "none") hard["x:graphic"] = "graphic";
+  else if (b.logos === "tiny") soft["x:graphic"] = -0.8;
+  else if (b.logos === "love") prior["x:graphic"] = 0.5;
   for (const [k, lv] of Object.entries(b.fabrics || {})) {
     if (lv === "no") soft["f:" + k] = -2; else prior["f:" + k] = lv === "love" ? 0.5 : 0;
   }
   for (const s of b.styles || []) for (const st of s === "heritage" ? ["heritage", "outdoor"] : [s]) prior["st:" + st] = (prior["st:" + st] || 0) + 0.5;
   for (const br of b.brands_love || []) prior["b:" + brandSlug(br)] = 0.8;
   for (const br of b.brands_never || []) rule("b:" + brandSlug(br), "brand");
-  if (b.logos === "none") soft["det:logo"] = -1.2; else if (b.logos === "tiny") soft["det:logo"] = -0.6; else soft["det:logo"] = -0.15;
-  // Cut: the brief's hard nos (by default none of boxy, oversized, drop shoulder, skinny or cropped), then the softer leanings.
-  const cutsNo = Array.isArray(b.cuts_no) ? b.cuts_no : ["boxy", "oversized", "drop", "skinny", "cropped"];
-  for (const k of cutsNo) if (["boxy", "oversized", "drop", "skinny", "cropped", "wide"].includes(k)) hard["fit:" + k] = "cut";
-  if (b.leg === "relaxed") prior["fit:relaxed"] = 0.3; else { soft["fit:wide"] = -1.4; soft["fit:relaxed"] = -0.25; }
+  if (b.logos === "none") soft["det:logo"] = -1.2; else if (b.logos === "tiny") soft["det:logo"] = -0.6;
+  else if (b.logos === "love") prior["det:logo"] = 0.3; else soft["det:logo"] = -0.15;
+  // Cut: the brief's hard nos (the owner's brief: none of boxy, oversized, drop shoulder, skinny or cropped), then leanings.
+  const cutsNo = Array.isArray(b.cuts_no) ? b.cuts_no : legacy ? ["boxy", "oversized", "drop", "skinny", "cropped"] : [];
+  for (const k of cutsNo) if (["boxy", "oversized", "drop", "skinny", "cropped", "wide", "bodycon", "lowrise", "flared"].includes(k)) hard["fit:" + k] = "cut";
+  if (b.leg === "relaxed" || b.leg === "wide") { prior["fit:relaxed"] = 0.3; if (b.leg === "wide") prior["fit:wide"] = 0.45; }
+  else if (legacy || ["slim", "tapered", "slightly-tapered", "straight"].includes(b.leg)) { soft["fit:wide"] = -1.4; soft["fit:relaxed"] = -0.25; }
+  if (b.leg === "flared") prior["fit:flared"] = 0.45;
   if (b.topfit === "longer") prior["fit:longline"] = 0.45;
   if ((b.fitprob || []).includes("middle")) soft["fit:slim"] = -0.5;
   if (b.leg === "slightly-tapered" || b.leg === "tapered") prior["fit:tapered"] = 0.35;
@@ -518,8 +613,7 @@ export function priorOf(brief) {
     for (const t of m) prior[t] = (prior[t] || 0) + 0.3;
   }
   if ((b.shoes || []).length) prior["det:classic"] = 0.8;
-  soft["det:chunky"] = -1.5;
-  soft["det:collab"] = -1.2;
+  if (legacy) { soft["det:chunky"] = -1.5; soft["det:collab"] = -1.2; }
   const nt = new Set(b.nontoxic || []);
   if (nt.has("silver")) hard["det:silver"] = "treatment";
   if (nt.has("pfas")) soft["det:waterproof"] = (soft["det:waterproof"] || 0) - 0.35, prior["det:pfcfree"] = 0.5;
@@ -527,16 +621,21 @@ export function priorOf(brief) {
   if (b.ethics === "big") prior["det:madeuk"] = 0.5, prior["det:recycled"] = 0.3;
   else if (b.ethics === "small") prior["det:madeuk"] = 0.2, prior["det:recycled"] = 0.1;
   // No categories chosen (or an empty list from the account) means every kind of piece, not none.
-  return {prior, hard, soft, softRules, cats: Array.isArray(b.categories) && b.categories.length ? new Set(b.categories) : null, brief: b};
+  const dept = new Set((Array.isArray(b.dept) ? b.dept : []).filter(d => d === "m" || d === "w"));
+  if (!dept.size) dept.add("m");
+  return {prior, hard, soft, softRules, cats: Array.isArray(b.categories) && b.categories.length ? new Set(b.categories) : null, brief: b, dept, legacy};
 }
 
 /* ------------------------------------------------------------------ about you (profile) */
 /* Measurements and preferences from the You tab (cfg.profile, private to your account). Numbers are metric: cm, kg,
    UK shoe size, trouser waist and leg in inches as labelled. Shared with the Worker, which validates with cleanProfile. */
 export const SIZES = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
+export const W_SIZES = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "3XL"];
+export const DRESS_SIZES = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26];
 export const PROFILE = {
-  num: {height: [120, 230], weight: [35, 250], chest: [60, 170], waist: [50, 170], seat: [60, 180], inseam: [50, 110], shoe: [3, 16], trw: [24, 50], trl: [24, 38]},
-  one: {fit: ["slim", "regular", "relaxed"], top: SIZES, outer: SIZES, climate: ["cold", "cool-wet", "mild", "warm"],
+  num: {height: [120, 230], weight: [35, 250], chest: [60, 170], waist: [50, 170], seat: [60, 180], inseam: [50, 110], shoe: [2, 16], trw: [24, 50], trl: [24, 38],
+    dress: [4, 26]},
+  one: {fit: ["slim", "regular", "relaxed"], top: SIZES, wtop: W_SIZES, outer: SIZES, climate: ["cold", "cool-wet", "mild", "warm"],
     skin: ["fair", "light", "medium", "olive", "brown", "deep"], hair: ["blonde", "red", "brown", "black", "grey"], units: ["metric", "imperial"]},
   many: {build: ["slim", "athletic", "broad", "middle", "solid", "tall"], avoid: ["wool", "synthetic", "acrylic", "linen", "fleece", "cord", "waxed"]}
 };
@@ -576,6 +675,10 @@ export function profileBias(pr, now) {
   if (pr.seat && pr.waist && pr.seat - pr.waist >= 16) add("fit:tapered", 0.15); // athletic seat and thighs: room up top, taper below
   if (build.has("tall") || pr.height >= 188 || pr.inseam >= 86) add("fit:longline", 0.35);
   else if (pr.height && pr.height <= 170) sink("fit:longline", -0.4);
+  // Height: petite ranges for 5'3" and under, tall ranges from 5'10" (womenswear) or 6'2" (menswear).
+  if (pr.height && pr.height <= 160) { add("fit:petite", 0.8); sink("fit:tall", -1.2); }
+  else if (pr.height && pr.height >= 178) { add("fit:tall", 0.5); sink("fit:petite", -1.5); }
+  else if (pr.height) { sink("fit:petite", -0.8); sink("fit:tall", -0.8); }
   const mo = new Date(now || Date.now()).getUTCMonth(), winter = mo >= 9 || mo <= 2;
   if (pr.climate === "cold" || pr.climate === "cool-wet") {
     add("det:waterproof", pr.climate === "cool-wet" ? 0.3 : 0.15); add("det:lined", 0.2); sink("f:linen", -0.3);
@@ -686,7 +789,7 @@ export function makeModel({brief: brief0, entries, cfg, now, traitsFor}) {
   }
   return {prior: p.prior, hard: p.hard, soft: p.soft, softRules: p.softRules, cats: p.cats, aff: learned.aff, n: learned.n, pins: c.pins || {},
     caps, counts, explore: c.explore ?? (brief && brief.explore) ?? 0.2, entries: entries || {}, brief: p.brief, profile, fams, pids, imgs,
-    now: now || Date.now(), repeatDays: (brief && brief.repeat_days) || 14};
+    now: now || Date.now(), repeatDays: (brief && brief.repeat_days) || 14, dept: p.dept};
 }
 /* The piece you passed on that hides this one (same photo, same listing, or another colour of it), or null. */
 export function passedTwin(m, it) {
@@ -708,7 +811,7 @@ export function washedMiss(m, it) {
   const col = traits.find(t => t.startsWith("c:"));
   if (!col || !CLOTHING_ROLES.has(it.role) || traits.includes("w:washed") || m.pins[col] != null) return null;
   const fam = col.slice(2), b = m.brief || {};
-  const washedOnly = b.washed_only || ["black", ...VIBRANT];
+  const washedOnly = b.washed_only || (legacyBrief(b) ? ["black", ...VIBRANT] : []);
   if (!washedOnly.includes(fam)) return null;
   if (fam === "black" && it.role === "jeans" && (b.denim || []).includes("black")) return null;
   return fam;
@@ -730,7 +833,8 @@ export function affinity(m, t) {
   return (m.prior[t] || 0) + (m.soft[t] || 0) + (m.aff[t] || 0);
 }
 
-const CLOTHING_ROLES = new Set(["tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie", "jeans", "chino", "trouser", "jogger", "shorts", "scarf", "beanie", "cap", "gloves"]);
+const CLOTHING_ROLES = new Set(["tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie", "jeans", "chino", "trouser", "jogger", "shorts",
+  "scarf", "beanie", "cap", "gloves", "top", "dress", "jumpsuit", "skirt"]);
 // Centred so a typical in-size piece reads about 45% and only the best few pass 85%.
 export const pctOf = s => Math.round(100 / (1 + Math.exp(-1.5 * (s - 1))));
 
@@ -744,6 +848,8 @@ export function hiddenWhy(m, it) {
   // Another listing, shop, photo or colour of something you passed on (your own reaction to this one wins).
   const twin = passedTwin(m, it);
   if (twin) return twin.why;
+  // Menswear, womenswear or both: unisex pieces show for everyone.
+  if (m.dept && it.dept && it.dept !== "u" && !m.dept.has(it.dept)) return "department";
   if (m.cats && it.role && !roleWanted(m.cats, it.role)) return "category";
   const traits = it.traits;
   for (const t of traits) {
@@ -766,7 +872,8 @@ export function hiddenWhy(m, it) {
 const ROLE_CAT = {tee: "tees", shirt: "shirts", overshirt: "overshirts", jacket: "jackets", fleece: "fleece", knit: "knitwear", cardigan: "knitwear",
   sweat: "sweats", hoodie: "sweats", jeans: "jeans", chino: "trousers", trouser: "trousers", jogger: "joggers", shorts: "shorts",
   trainer: "trainers", boot: "boots", wallabee: "casual-shoes", shoe: "smart-shoes", clog: "clogs", socks: "socks", underwear: "socks", cap: "caps",
-  beanie: "caps", scarf: "scarves", gloves: "scarves", belt: "belts", bag: "bags", watch: "watches"};
+  beanie: "caps", scarf: "scarves", gloves: "scarves", belt: "belts", bag: "bags", watch: "watches", top: "tops", dress: "dresses", jumpsuit: "dresses",
+  skirt: "skirts", heel: "heels", sandal: "sandals"};
 export const roleWanted = (cats, role) => !cats || !ROLE_CAT[role] || cats.has(ROLE_CAT[role]);
 
 /* Score one piece. ctx: {gapRoles:Set, owned:{role:count}, picks:Set(keys), today:'YYYY-MM-DD'} */
@@ -847,7 +954,12 @@ const NICE = {
   "d:10": "On sale", "d:25": "25%+ off", "d:40": "40%+ off", "r:tee": "Tees", "r:knit": "Knitwear", "r:sweat": "Sweats", "r:hoodie": "Hoodies",
   "r:jogger": "Joggers", "r:chino": "Chinos", "r:trouser": "Trousers", "r:trainer": "Trainers", "r:boot": "Boots", "r:clog": "Clogs and slippers",
   "r:overshirt": "Overshirts", "r:jacket": "Jackets", "r:cardigan": "Cardigans", "r:fleece": "Fleece", "r:jeans": "Jeans", "r:shirt": "Shirts",
-  "r:wallabee": "Wallabees", "r:shoe": "Smart shoes", "r:cap": "Caps", "r:beanie": "Beanies", "r:bag": "Bags", "r:socks": "Socks", "r:shorts": "Shorts"
+  "r:wallabee": "Wallabees", "r:shoe": "Smart shoes", "r:cap": "Caps", "r:beanie": "Beanies", "r:bag": "Bags", "r:socks": "Socks", "r:shorts": "Shorts",
+  "r:top": "Tops", "r:dress": "Dresses", "r:jumpsuit": "Jumpsuits and dungarees", "r:skirt": "Skirts", "r:heel": "Heels", "r:sandal": "Sandals",
+  "st:alt": "Alternative and goth", "st:party": "Going out", "st:y2k": "Y2K", "st:streetwear": "Streetwear", "st:athleisure": "Athleisure",
+  "fit:bodycon": "Bodycon", "fit:flared": "Flared", "fit:highrise": "High rise", "fit:lowrise": "Low rise", "fit:petite": "Petite fit", "fit:tall": "Tall fit",
+  "det:cutout": "Cut-outs", "det:backless": "Open back", "det:puff": "Puff sleeves", "det:studs": "Studs and hardware", "det:strappy": "Strappy",
+  "x:polka": "Polka dot", "x:animal": "Animal print", "x:sequin": "Sequins and shine", "f:faux-fur": "Faux fur", "f:pvc": "PVC and vinyl"
 };
 export function label(t, brands) {
   if (NICE[t]) return NICE[t];
@@ -914,6 +1026,7 @@ export function rank(m, items, ctx) {
     seen.add(it.key);
     if (it.inStock === false) { hidden.push({it, why: "sold-out"}); continue; }
     if (c.sizes && !sizeOk(it, c.sizes)) { hidden.push({it, why: "size"}); continue; }
+    if (c.house && it.house && it.house.length) { hidden.push({it, why: "house:" + it.house[0]}); continue; }
     const h = hiddenWhy(m, it);
     if (h) { hidden.push({it, why: h}); continue; }
     if (!c.ignoreCooldown && cooling(m, it, today)) { hidden.push({it, why: "cooldown"}); continue; }
@@ -980,7 +1093,7 @@ export function trainDeck(m, items, ctx, n = 20, duelEvery = 6) {
   for (const it of items) {
     if (!it || seen.has(it.key) || !it.image) continue;
     seen.add(it.key);
-    if (it.inStock === false || (c.sizes && !sizeOk(it, c.sizes)) || hiddenWhy(m, it)) continue;
+    if (it.inStock === false || (c.sizes && !sizeOk(it, c.sizes)) || (c.house && it.house && it.house.length) || hiddenWhy(m, it)) continue;
     const e = m.entries[it.key];
     if (reacted(e)) continue;
     const sc = score(m, it, c);
@@ -1013,10 +1126,71 @@ export function trainDeck(m, items, ctx, n = 20, duelEvery = 6) {
   }
   return deck;
 }
+/* The taste test: n cards that cover the ground, so a new person's first swipes teach the engine as much as possible.
+   Two of every three come from the styles they picked (and a few from brands they named), the third from styles they
+   didn't, so it learns what they don't want as well; the kinds of piece take turns; two pieces a brand at most and one
+   colour of a piece. */
+const TASTE_GROUP = {tee: "top", top: "top", shirt: "top", knit: "top", sweat: "top", hoodie: "top", cardigan: "top", fleece: "top",
+  jeans: "bottom", chino: "bottom", trouser: "bottom", jogger: "bottom", shorts: "bottom", skirt: "bottom", dress: "one", jumpsuit: "one",
+  jacket: "outer", overshirt: "outer", trainer: "shoes", boot: "shoes", wallabee: "shoes", clog: "shoes", shoe: "shoes", heel: "shoes", sandal: "shoes"};
+export function tasteDeck(m, items, ctx, n = 30) {
+  const c = ctx || {}, rnd = rngFrom((c.seed || "") + "taste");
+  const cand = [], seen = new Set();
+  for (const it of items) {
+    if (!it || !it.key || seen.has(it.key) || !it.image || !TASTE_GROUP[it.role]) continue;
+    seen.add(it.key);
+    if (it.inStock === false || (c.sizes && !sizeOk(it, c.sizes)) || (c.house && it.house && it.house.length) || hiddenWhy(m, it)) continue;
+    if (reacted(m.entries[it.key])) continue;
+    const sc = score(m, it, c);
+    if (sc.s < -0.8) continue;
+    const st = it.traits.filter(t => t.startsWith("st:")).sort((a, b) => (m.prior[b] || 0) - (m.prior[a] || 0))[0] || "st:none";
+    const b = it.traits.find(t => t.startsWith("b:")) || "";
+    cand.push({it, sc, st, b, g: TASTE_GROUP[it.role], v: sc.s + rnd() * 1.2});
+  }
+  const byStyle = new Map();
+  for (const x of cand) (byStyle.get(x.st) || byStyle.set(x.st, []).get(x.st)).push(x);
+  for (const list of byStyle.values()) list.sort((a, b) => b.v - a.v);
+  const liked = s => (m.prior[s] || 0) > 0;
+  const styles = [...byStyle.keys()].sort((a, b) => ((m.prior[b] || 0) - (m.prior[a] || 0)) || byStyle.get(b).length - byStyle.get(a).length);
+  const chosen = styles.filter(liked), others = styles.filter(s => !liked(s));
+  const deck = [], sameAs = new Set(), perBrand = new Map(), perGroup = new Map();
+  // Two a brand, unless there are too few brands in your sizes to fill the deck that way.
+  const brandMax = Math.max(2, Math.ceil(n / Math.max(1, new Set(cand.map(x => x.b)).size)) + 1);
+  const ids = it => [it.fam && "f:" + it.fam, it.img && "i:" + it.img, it.pid && "p:" + it.pid].filter(Boolean);
+  const free = x => !ids(x.it).some(k => sameAs.has(k)) && (perBrand.get(x.b) || 0) < brandMax;
+  const take = (list, want) => {
+    let i = list.findIndex(x => free(x) && (!want || x.g === want));
+    if (i < 0) i = list.findIndex(free);
+    if (i < 0) return false;
+    const [x] = list.splice(i, 1);
+    for (const k of ids(x.it)) sameAs.add(k);
+    perBrand.set(x.b, (perBrand.get(x.b) || 0) + 1);
+    perGroup.set(x.g, (perGroup.get(x.g) || 0) + 1);
+    deck.push({card: {it: x.it, sc: x.sc}});
+    return true;
+  };
+  const groups = [...new Set(cand.map(x => x.g))];
+  const want = () => groups.slice().sort((a, b) => (perGroup.get(a) || 0) - (perGroup.get(b) || 0))[0];
+  // A few from the brands you named, first.
+  const fromBrands = cand.filter(x => x.b && (m.prior[x.b] || 0) > 0).sort((a, b) => b.v - a.v);
+  for (let k = 0; k < Math.min(4, Math.floor(n / 6)) && fromBrands.length; k++) {
+    take(fromBrands, want());
+    const last = deck[deck.length - 1];
+    if (last) for (const list of byStyle.values()) { const i = list.findIndex(x => x.it.key === last.card.it.key); if (i >= 0) list.splice(i, 1); }
+  }
+  let ci = 0, oi = 0, misses = 0;
+  while (deck.length < n && misses < styles.length * 2 + 4) {
+    const fromChosen = chosen.length && (deck.length % 3 !== 2 || !others.length);
+    const st = fromChosen ? chosen[ci++ % chosen.length] : others[oi++ % others.length];
+    if (st && take(byStyle.get(st), want())) misses = 0; else misses++;
+  }
+  return deck;
+}
 /* Is a deck step still worth showing? A piece hidden or answered since the deck was dealt (here or on another device,
    or because you passed on another colour of it) is skipped. */
-export function stepLive(m, step, sizes) {
-  const ok = x => x && x.it && x.it.inStock !== false && (!sizes || sizeOk(x.it, sizes)) && !hiddenWhy(m, x.it) && !reacted(m.entries[x.it.key]);
+export function stepLive(m, step, sizes, house) {
+  const ok = x => x && x.it && x.it.inStock !== false && (!sizes || sizeOk(x.it, sizes)) && !(house && x.it.house && x.it.house.length) &&
+    !hiddenWhy(m, x.it) && !reacted(m.entries[x.it.key]);
   return step && (step.duel ? step.duel.every(ok) : ok(step.card));
 }
 
@@ -1052,7 +1226,12 @@ export function outfitGaps(formulas, ownedPieces) {
   const gapRoles = new Set(), gaps = [];
   let ready = 0;
   for (const f of formulas || []) {
-    const missing = (f.slots || []).filter(sl => !sl.optional && !(sl.roles || []).some(r => owned[r]));
+    // A formula with alternatives (separates or a dress) counts the one you're closest to.
+    let missing = null;
+    for (const set of [f.slots || [], ...(f.alt || [])]) {
+      const miss = set.filter(sl => !sl.optional && !(sl.roles || []).some(r => owned[r]));
+      if (!missing || miss.length < missing.length) missing = miss;
+    }
     if (!missing.length) ready++;
     for (const sl of missing) { for (const r of sl.roles || []) gapRoles.add(r); gaps.push({outfit: f.name, label: sl.label, roles: sl.roles}); }
   }

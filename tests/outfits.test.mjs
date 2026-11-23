@@ -113,5 +113,36 @@ t("occasions from the brief's answers", () => {
   assert.equal(O.occasionsFor({}).length, O.DEFAULT_FORMULAS.length);
 });
 
+
+console.log("\nWomenswear and both");
+t("occasions follow the brief: womenswear gets going out and dress-or-separates looks", () => {
+  const w = O.formulasFor({v: 2, dept: ["w"], contexts: ["everyday", "party"]});
+  assert.deepEqual(w.map(f => f.id), ["everyday", "date", "party"]);
+  assert.ok(w.find(f => f.id === "party").alt.length >= 1);
+  assert.deepEqual(O.formulasFor({v: 2, dept: ["m"], contexts: ["office"]}).map(f => f.id), ["office"]);
+  assert.equal(O.formulasFor({}).length, O.DEFAULT_FORMULAS.length, "no brief: the menswear occasions");
+});
+t("a night out from a dress or from separates, whichever is better; all black is a look", () => {
+  const party = O.W_FORMULAS.find(f => f.id === "party");
+  const ranked = [piece("Sequin Mini Dress, black", "dress", {s: 2.2, raw: {g: "w"}}), piece("Strappy Heels, black", "heel", {c: "Footwear", raw: {g: "w"}}),
+    piece("Lace Corset Top, burgundy", "top", {s: 0.4, raw: {g: "w"}}), piece("Satin Mini Skirt, mustard", "skirt", {s: 0.2, raw: {g: "w"}})];
+  const res = O.buildLooks(ranked, [], [party], {now: NOW, seed: "x"});
+  const look = res[0].looks[0];
+  assert.ok(look, "a look");
+  const roles = look.pieces.map(p => p.c.role).sort();
+  assert.deepEqual(roles, ["dress", "heel"], roles.join());
+  assert.ok(look.notes.includes("All black"), look.notes.join(" | "));
+});
+t("owned womenswear counts: a dress you own completes the everyday look with one new piece", () => {
+  const everyday = O.W_FORMULAS.find(f => f.id === "everyday");
+  const owned = [O.ownedPiece({id: "c1", role: "dress", name: "Navy midi dress", colour: "navy"})];
+  const ranked = [piece("Leather Chelsea Boots, brown", "boot", {c: "Footwear"}), piece("Crew Tee, white", "tee"), piece("Straight Jeans, indigo", "jeans")];
+  const res = O.buildLooks(ranked, owned, [everyday], {now: NOW, seed: "y"});
+  const few = res[0].looks.find(l => l.mode === "few");
+  assert.ok(few && few.buys === 1 && few.pieces.some(p => p.c.owned && p.c.role === "dress"), JSON.stringify(res[0].looks.map(l => [l.mode, l.buys])));
+  const gaps = E.outfitGaps([everyday], [{role: "dress"}, {role: "boot"}]);
+  assert.equal(gaps.ready, 1, "a dress and boots make the everyday look");
+});
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

@@ -51,7 +51,8 @@ export async function getReview(env, request) {
   const picks = new Set(((finds && finds.picks) || []).map(p => E.itemKey(p.url, p.variant)));
   // The pool carries every size now: rank only what's in the owner's sizes.
   const sizes = E.sizesFrom(cfg.profile, brief, data && data.sizes);
-  const {list, hidden} = E.rank(m, items, {today, gapRoles: og.gapRoles, owned: og.owned, picks, brands, sizes});
+  // It's the owner's review: his house flags (white, loud, logo brands, his vetoes) hide pieces as they do in his view.
+  const {list, hidden} = E.rank(m, items, {today, gapRoles: og.gapRoles, owned: og.owned, picks, brands, sizes, house: true});
   const card = x => ({key: x.it.key, url: x.it.url, brand: x.it.brand, name: x.it.name, store: x.it.store, role: x.it.role,
     kind: x.it.kind, price: x.it.price, was: x.it.was, disc: x.it.disc, image: x.it.image, firstSeen: x.it.firstSeen,
     pct: x.sc.pct, why: E.why(m, x.it, x.sc, {brands}), wildcard: x.wildcard || undefined, note: x.note || undefined,
