@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-23T06:15:55.399705Z",
+ "generated": "2026-11-23T09:03:10.287308Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -42,25 +42,25 @@
  ],
  "picks": [
   {
-   "date": "2026-11-20",
-   "brand": "Clarks Originals",
-   "name": "Wallabee Shoe, Maple Suede",
-   "short": "Maple suede Wallabees",
-   "url": "https://www.parasolstore.co.uk/products/clarks-wallabee-shoe-maple-suede",
+   "date": "2026-11-23",
+   "brand": "John White",
+   "name": "Byrne Chelsea Suede Boot, Brown Suede",
+   "short": "Brown suede Chelseas",
+   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
    "size": "UK 10",
-   "variant": "Maple Suede",
-   "price": 79.2,
+   "variant": "Brown Suede",
+   "price": 115.0,
    "category": "Footwear",
-   "why": "One of the Black Friday targets, now £79.20 (20% off) with UK 10 in stock, already under the target price a week early. There are no Wallabees in the wardrobe, and they fill both the office and everyday shoe slots without the weight of boots. Wear them with the fawn chinos and a navy knit, or the 502s and a raglan sweat. Spray the suede with protector first.",
-   "store": "Parasol Store",
-   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/ClarksOriginalsWallabeeShoeMapleSuede_1.jpg?v=1789029568",
-   "price_now": 79.2,
+   "why": "A watch-list BUY at £115, down from £280, with UK 10 in stock. There's no Chelsea boot in the wardrobe yet, and a matte brown suede one covers the office and date-night shoe slot with more polish than the Docs. Wear it with the fawn chinos and a navy knit, or the 502s and the waxed jacket; spray the suede first.",
+   "store": "John White",
+   "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
+   "price_now": 115.0,
    "in_stock": true,
-   "discount_pct": 20,
-   "was": 99.0,
+   "discount_pct": 59,
+   "was": 280.0,
    "verified": "2026-11-23",
-   "since": "2026-11-20",
-   "start_price": 79.2
+   "since": "2026-11-23",
+   "start_price": 115.0
   },
   {
    "date": "2026-11-21",
@@ -103,7 +103,7 @@
    "start_price": 23.97
   }
  ],
- "picks_updated": "2026-11-22",
+ "picks_updated": "2026-11-23",
  "errors": [],
  "candidates": []
 }
