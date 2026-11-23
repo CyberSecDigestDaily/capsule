@@ -6,7 +6,11 @@ import {HttpError} from "./util.js";
 import {json, readJSON, requireSession} from "./http.js";
 import {rateLimit} from "./db.js";
 import {cleanEntry, cleanCfg, cleanPatch, cleanBrief, ITEM_KEY, bad} from "./validate.js";
-import {applyCfgPatch} from "../docs/engine.js";
+import {applyCfgPatch, mergeEntry} from "../docs/engine.js";
+
+/* The parts of an entry that decide whether a write changes anything. */
+const SAME = ["s", "et", "more", "save", "pricey", "own", "bought", "why", "wins", "losses", "open", "view", "linger", "shownTotal", "shown", "sd", "cool", "lp"];
+const sig = e => e ? JSON.stringify(SAME.map(k => e[k] === undefined ? null : e[k])) + (e.f ? "f" : "") : "";
 
 const MAX_BATCH = 2000, MAX_ENTRIES = 20000;
 
@@ -48,11 +52,26 @@ export async function postState(env, request, ctx) {
   if (body.entries && typeof body.entries === "object" && !Array.isArray(body.entries)) {
     const keys = Object.keys(body.entries);
     if (keys.length > MAX_BATCH) bad(`Send at most ${MAX_BATCH} pieces at a time.`);
+    const incoming = new Map();
     for (const key of keys) {
       if (!ITEM_KEY.test(key)) continue;
       const e = cleanEntry(body.entries[key], serverNow);
-      if (!e) continue;
-      const {t, ...rest} = e;
+      if (e) incoming.set(key, e);
+    }
+    // Merge with the account's copy piece by piece (the same rule every device uses): the newest deliberate tap wins and
+    // counters keep the larger value, so a quiet update from a device that hadn't heard about a tap ("shown", "opened")
+    // can never undo it.
+    const have = new Map();
+    if (incoming.size) {
+      const rows = (await env.DB.prepare("SELECT item, t, v FROM entries WHERE user_id = ?1 AND item IN (SELECT value FROM json_each(?2))")
+        .bind(s.user_id, JSON.stringify([...incoming.keys()])).all()).results || [];
+      for (const r of rows) { try { have.set(r.item, Object.assign(JSON.parse(r.v), {t: r.t})); } catch (e) { /* a damaged row is replaced */ } }
+    }
+    for (const [key, e] of incoming) {
+      const cur = have.get(key) || null;
+      const merged = cur ? cleanEntry(mergeEntry(cur, e), serverNow) : e;
+      if (!merged || (cur && sig(merged) === sig(cur) && merged.t === cur.t)) continue;
+      const {t, ...rest} = merged;
       const v = JSON.stringify(rest);
       if (v.length > 6000) continue;
       batch.push({k: key, t, s: rest.s || null, v});
@@ -83,7 +102,7 @@ export async function postState(env, request, ctx) {
                 (SELECT rev FROM users WHERE id = ?1)
            FROM json_each(?2) WHERE true
          ON CONFLICT(user_id, item) DO UPDATE SET t = excluded.t, s = excluded.s, v = excluded.v, rev = excluded.rev
-         WHERE excluded.t > entries.t`).bind(s.user_id, JSON.stringify(batch)));
+         WHERE excluded.t >= entries.t`).bind(s.user_id, JSON.stringify(batch)));
     }
     if (cfg && patched) {
       stmts.push(env.DB.prepare(`UPDATE users SET cfg = ?2, cfg_t = ?3, cfg_rev = rev WHERE id = ?1`).bind(s.user_id, JSON.stringify(cfg), cfg.t));

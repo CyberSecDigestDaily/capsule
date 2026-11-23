@@ -49,7 +49,9 @@ export async function getReview(env, request) {
   ];
   const og = E.outfitGaps(E.formulasNow(data && data.wardrobe && data.wardrobe.formulas, Date.now()), ownedPieces);
   const picks = new Set(((finds && finds.picks) || []).map(p => E.itemKey(p.url, p.variant)));
-  const {list, hidden} = E.rank(m, items, {today, gapRoles: og.gapRoles, owned: og.owned, picks, brands});
+  // The pool carries every size now: rank only what's in the owner's sizes.
+  const sizes = E.sizesFrom(cfg.profile, brief, data && data.sizes);
+  const {list, hidden} = E.rank(m, items, {today, gapRoles: og.gapRoles, owned: og.owned, picks, brands, sizes});
   const card = x => ({key: x.it.key, url: x.it.url, brand: x.it.brand, name: x.it.name, store: x.it.store, role: x.it.role,
     kind: x.it.kind, price: x.it.price, was: x.it.was, disc: x.it.disc, image: x.it.image, firstSeen: x.it.firstSeen,
     pct: x.sc.pct, why: E.why(m, x.it, x.sc, {brands}), wildcard: x.wildcard || undefined, note: x.note || undefined,

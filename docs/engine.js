@@ -98,6 +98,8 @@ const CHUNKY_SHOES = ["chunky", "platform", "air max plus", "air max tn", "tn pl
 export const ROLES = [
   ["wallabee", ["wallabee"]], ["boot", ["chelsea", "boot", "boots", "chukka", "desert boot"]],
   ["clog", ["clog", "clogs", "mule", "slipper", "slippers", "birkenstock", "boston"]],
+  // Smart shoes only count as such on footwear (a "Derby jacket" is a jacket).
+  ["shoe", ["derby", "derbies", "brogue", "brogues", "oxfords", "oxford shoe", "oxford shoes", "loafer", "loafers", "monk strap", "double monk", "gibson", "apron derby"]],
   ["trainer", ["trainer", "trainers", "sneaker", "sneakers", "samba", "gazelle", "spezial", "janoski", "air max", "990", "991", "992", "993", "996", "574", "576", "1500", "shoe", "shoes", "plimsoll", "vulc"]],
   ["socks", ["socks", "sock"]], ["underwear", ["boxer", "boxers", "briefs", "trunks", "boxer shorts"]],
   ["beanie", ["beanie", "watch cap", "toque"]], ["cap", ["cap", "5 panel", "five panel", "6 panel", "baseball", "snapback", "bucket hat", "hat"]],
@@ -108,7 +110,7 @@ export const ROLES = [
   ["hoodie", ["hoodie", "hooded sweat", "hooded"]], ["sweat", ["sweatshirt", "sweat", "crewneck sweat"]],
   ["knit", ["jumper", "sweater", "knit", "knitted", "lambswool", "merino", "roll neck", "rollneck", "quarter zip", "half zip", "pullover"]],
   ["shirt", ["shirt", "oxford", "chambray"]], ["tee", ["t-shirt", "tee", "t shirt", "henley", "long sleeve", "ls top", "top"]],
-  ["jeans", ["jeans", "jean", "denim"]], ["jogger", ["jogger", "joggers", "sweatpant", "sweatpants", "track pant", "lounge pant", "sweat pant"]],
+  ["jeans", ["jeans", "jean", "denim"]], ["jogger", ["jogger", "joggers", "sweatpant", "sweatpants", "track pant", "track pants", "trackpant", "trackpants", "track trousers", "lounge pant", "lounge pants", "sweat pant", "sweat pants"]],
   ["shorts", ["shorts", "short"]], ["chino", ["chino", "chinos", "cord", "cords", "pant", "pants", "fatigue", "trouser", "trousers", "pleated"]]
 ];
 // The site's category for each role (outfit formulas and filters use these).
@@ -116,7 +118,7 @@ export const ROLE_CATEGORY = {
   tee: "Tees", shirt: "Shirts", overshirt: "Jackets & Overshirts", jacket: "Jackets & Overshirts", fleece: "Mid-layers & Knits",
   knit: "Mid-layers & Knits", cardigan: "Mid-layers & Knits", sweat: "Mid-layers & Knits", hoodie: "Mid-layers & Knits",
   jeans: "Jeans", chino: "Chinos & Trousers", trouser: "Chinos & Trousers", jogger: "Joggers & Shorts", shorts: "Joggers & Shorts",
-  trainer: "Footwear", boot: "Footwear", wallabee: "Footwear", clog: "Footwear",
+  trainer: "Footwear", boot: "Footwear", wallabee: "Footwear", clog: "Footwear", shoe: "Footwear",
   socks: "Socks & Boxers", underwear: "Socks & Boxers", cap: "Accessories", beanie: "Accessories", scarf: "Accessories",
   gloves: "Accessories", belt: "Accessories", bag: "Accessories", watch: "Accessories"
 };
@@ -124,7 +126,7 @@ export const ROLE_CATEGORY = {
 export const CAP_GROUP = {
   tee: "tee", shirt: "overshirt", overshirt: "overshirt", jacket: "jacket", fleece: "knit", knit: "knit", cardigan: "knit", sweat: "knit",
   hoodie: "knit", jeans: "jeans", chino: "chinos", trouser: "chinos", jogger: "chinos", shorts: "chinos", trainer: "trainers",
-  boot: "boots", wallabee: "boots", clog: "trainers", socks: "tee", underwear: "tee", cap: "tee", beanie: "tee", scarf: "knit",
+  boot: "boots", wallabee: "boots", shoe: "boots", clog: "trainers", socks: "tee", underwear: "tee", cap: "tee", beanie: "tee", scarf: "knit",
   gloves: "tee", belt: "tee", bag: "jacket", watch: "jacket"
 };
 export const DEFAULT_CAPS = {tee: 40, knit: 120, overshirt: 120, jacket: 220, jeans: 110, chinos: 80, trainers: 130, boots: 220};
@@ -244,9 +246,33 @@ export function itemKey(url, variant) {
 }
 /* Colourways of one product share a family: brand (or shop host) + the name without its colour + kind. "Milton Cord
    Trousers, Brown" and "..., Dark Blue" are one family; so are "Classic T-Shirt in Slate" and "... in Petrol Blue".
-   Passing on one colour hides the others too, unless the colour was the problem. */
+   The brand's own name and the word for the kind of piece are dropped too, so "Carhartt WIP Chase Sweatshirt" at one
+   shop and "Chase Sweat" at another are the same piece. Passing on one hides the others, unless the colour was the
+   problem. */
 let COLOUR_WORDS = null;
-const hostOf = u => String(u || "").replace(/^https?:\/\/(www\.)?/i, "").split(/[/?#]/)[0].toLowerCase();
+export const hostOf = u => String(u || "").replace(/^https?:\/\/(www\.)?/i, "").split(/[/?#]/)[0].toLowerCase();
+/* Plain words for the kind of piece only (not "roll neck", "merino" or "cargo": those tell two pieces apart). */
+const KIND_NOUNS = {
+  tee: ["tee", "tees", "tshirt"], sweat: ["sweatshirt", "sweat"], hoodie: ["hoodie", "hooded sweatshirt", "hooded sweat"],
+  knit: ["jumper", "sweater", "knit", "pullover"], cardigan: ["cardigan"], fleece: ["fleece"], jacket: ["jacket", "coat"],
+  overshirt: ["overshirt", "over shirt", "shirt jacket"], shirt: ["shirt"], jeans: ["jeans", "jean"],
+  chino: ["chinos", "chino", "trousers", "trouser", "pants", "pant"], trouser: ["trousers", "trouser", "pants", "pant"],
+  jogger: ["joggers", "jogger", "sweatpants", "sweat pants"], shorts: ["shorts", "short"],
+  trainer: ["trainers", "trainer", "sneakers", "sneaker", "shoes", "shoe"], boot: ["boots", "boot"], wallabee: ["shoes", "shoe", "boots", "boot"],
+  clog: ["clogs", "clog", "slippers", "slipper"], shoe: ["shoes", "shoe"], beanie: ["beanie", "hat"], cap: ["cap", "hat"], socks: ["socks", "sock"],
+  scarf: ["scarf"], gloves: ["gloves", "glove"], bag: ["bag"], belt: ["belt"]
+};
+const ROLE_WORDS = new Map();
+function roleNouns(role) {
+  if (!role) return null;
+  let r = ROLE_WORDS.get(role);
+  if (r === undefined) {
+    const words = (KIND_NOUNS[role] || []).slice().sort((a, b) => b.length - a.length);
+    r = words.length ? new RegExp("(?<![a-z0-9])(?:" + words.map(w => esc(w).replace(/ /g, "[\\s-]?")).join("|") + ")(?![a-z0-9])", "g") : null;
+    ROLE_WORDS.set(role, r);
+  }
+  return r;
+}
 export function familyOf(brand, name, role, url) {
   if (!COLOUR_WORDS) COLOUR_WORDS = new Set(Object.values(COLOURS).flat());
   let n = norm(name).replace(/\|/g, " ");
@@ -263,12 +289,37 @@ export function familyOf(brand, name, role, url) {
     if (!cut) break;
     words = words.slice(0, -cut);
   }
-  const s = slug(words.join(" ").replace(/[\s/–—-]+$/, ""));
+  n = words.join(" ").replace(/[\s/–—-]+$/, "");
+  // The brand's name at the start, said by the shop ("Carhartt WIP Chase Sweat" vs "Chase Sweat").
+  const bw = norm(brand).replace(/[^a-z0-9& ]+/g, " ").replace(/\s+/g, " ").trim();
+  for (const pre of bw ? [bw, bw.split(" ")[0]] : []) {
+    if (pre.length >= 3 && n.startsWith(pre + " ")) { n = n.slice(pre.length + 1).trim(); break; }
+  }
+  n = n.replace(/\b(?:men'?s|unisex)\b/g, " ").replace(/\b(?:t|tee)[\s-]?shirts?\b/g, "tee");
+  // The word for the kind of piece ("Sweatshirt" / "Sweat", "Jumper" / "Sweater"): the role says it already.
+  const rn = roleNouns(role);
+  const core = rn ? n.replace(rn, " ").replace(/\s+/g, " ").trim() : n;
+  const s = slug(core.length >= 2 ? core : n);
   const b = brandSlug(brand) || slug(hostOf(url));
   return b && s ? `${b}|${s}|${role || ""}` : "";
 }
+/* One listing, whatever colour: host + path. */
+export function pidOf(url) {
+  const u = String(url || "").trim().replace(/^https?:\/\/(www\.)?/i, "").split(/[?#]/)[0];
+  return u.replace(/\/+$/, "").toLowerCase().slice(0, 180);
+}
+/* The photo itself (no size or cache query, no Shopify size suffix): two listings with one photo are one piece. */
+export function imgOf(url) {
+  const u = String(url || "").trim().replace(/^https?:\/\/(www\.)?/i, "").split(/[?#]/)[0].toLowerCase();
+  if (!u || !/\.(jpe?g|png|webp|avif)$/.test(u)) return "";
+  return u.replace(/_(\d+x\d*|\d*x\d+|small|medium|large|grande|compact|master)(?=\.[a-z]+$)/, "").slice(0, 240);
+}
 
 /* ------------------------------------------------------------------ items */
+/* Published data is treated as untrusted: numbers are numbers, text is text, before anything renders it. */
+const N = v => { const n = typeof v === "string" && v.trim() !== "" ? Number(v) : v; return typeof n === "number" && isFinite(n) ? n : null; };
+const T = (v, max = 300) => v == null ? "" : String(v).slice(0, max);
+const SIZE_TOKEN = /^[A-Z0-9./]{1,10}$/;
 /* One shape for watch-list items, approved finds, picks and pool items. */
 export function normItem(raw, kind) {
   const r = raw || {};
@@ -276,7 +327,9 @@ export function normItem(raw, kind) {
   if (kind === "pool") {
     it = {kind, url: r.u, brand: r.b, name: r.n, store: r.s, category: r.c, role: r.r, price: r.p, was: r.w || null, disc: r.d || 0,
       image: r.i, text: r.t || "", firstSeen: r.f || null, size: r.z || "", alt: r.x || [], src: r.src || "", inStock: true,
-      variant: r.v || undefined, colourHint: r.v || ""};
+      variant: r.v || undefined, colourHint: r.v || "",
+      // Every size in stock for this colour (newer data); older data only says it's in Don's size.
+      sizes: Array.isArray(r.zs) ? r.zs.map(String).filter(z => SIZE_TOKEN.test(z)).slice(0, 40) : null};
   } else if (kind === "watch") {
     it = {kind, id: r.id, url: r.url, brand: r.brand, name: r.name, store: r.store, category: r.category, role: r.role,
       price: r.price ?? r.last_price ?? r.last_seen_price ?? null, was: r.was || null, disc: r.discount_pct || 0, image: r.image,
@@ -291,20 +344,78 @@ export function normItem(raw, kind) {
       firstSeen: kind === "pick" ? null : (r.first_seen || null), size: r.size, alt: [], inStock: r.in_stock !== false && !r.verify_error,
       variant: r.variant, why: kind === "pick" ? r.why : undefined, short: r.short, colourHint: r.colour || r.variant || ""};
   }
+  for (const k of ["price", "was"]) it[k] = N(it[k]);
+  it.disc = Math.max(0, Math.min(99, Math.round(N(it.disc) || 0)));
+  for (const k of ["url", "image"]) it[k] = /^https?:\/\//i.test(String(it[k] || "")) ? T(it[k], 700) : "";
+  for (const k of ["brand", "name", "store", "category", "colourHint"]) it[k] = T(it[k], k === "name" ? 160 : 80);
+  it.text = T(it.text, 300);
+  if (it.variant != null) it.variant = T(it.variant, 60);
+  if (!ROLE_CATEGORY[it.role]) it.role = null;
   it.key = itemKey(it.url, it.variant);
   if (!it.role) it.role = roleOf(`${it.name} ${it.category || ""}`, it.category);
+  it.role = refineRole(it.role, it.name);
   it.category = it.category || ROLE_CATEGORY[it.role] || "Other";
   it.traits = traitsOf(it);
   it.fam = familyOf(it.brand, it.name, it.role, it.url);
+  it.pid = pidOf(it.url);
+  it.img = imgOf(it.image);
   return it;
 }
 
+/* ------------------------------------------------------------------ sizes */
+/* Your sizes, from About you, the brief, or (for the owner) the watch list's: {top, trw, trl, shoe}. */
+const TOP_ROLES = new Set(["tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie"]);
+const LEG_ROLES = new Set(["jeans", "chino", "trouser"]);
+const LOOSE_LEG = new Set(["jogger", "shorts"]);
+export function sizesFrom(profile, brief, fallback) {
+  const p = profile || {}, b = (brief && brief.sizes) || {}, f = fallback || {};
+  const top = p.top || (SIZES.includes(String(b.top || "").toUpperCase()) ? String(b.top).toUpperCase() : null) ||
+    (SIZES.includes(String(f.top || "").toUpperCase()) ? String(f.top).toUpperCase() : null);
+  const num = v => { const m = /(\d{1,2}(?:\.5)?)/.exec(String(v == null ? "" : v)); return m ? Number(m[1]) : null; };
+  return {top: top || null, trw: p.trw || num(b.waist) || num(f.waist), trl: p.trl || num(b.leg) || num(f.leg), shoe: p.shoe || num(b.shoe) || num(f.shoe)};
+}
+const sameTop = (t, top) => t === top || (t.includes("/") && t.split("/").includes(top)) || (top === "XXL" && t === "2XL") || (top === "3XL" && t === "XXXL");
+function shoeFits(t, uk) {
+  const m = /^(UK|EU|US)(\d{1,2}(?:\.5)?)$/.exec(t);
+  if (!m) return false;
+  const n = Number(m[2]);
+  if (m[1] === "UK") return Math.abs(n - uk) < 0.26;
+  if (m[1] === "EU") return Math.abs(n - 34.5 - uk) <= 0.5; // UK 10 ≈ EU 44.5 (brands vary by half a size)
+  return Math.abs(n - 0.5 - uk) <= 0.5; // US men's run half a size above UK
+}
+/* Is this piece in stock in your size? Pieces without a size list (older data, one-size things) count as yes. */
+export function sizeOk(it, us) {
+  const zs = it && it.sizes;
+  if (!zs || !zs.length || !us) return true;
+  const role = it.role;
+  if (FOOTWEAR.has(role)) return !us.shoe || zs.some(t => shoeFits(t, us.shoe));
+  if (LEG_ROLES.has(role) || LOOSE_LEG.has(role)) {
+    const w = us.trw, l = us.trl;
+    const byLetter = us.top && zs.some(t => sameTop(t, us.top));
+    if (!w) return LOOSE_LEG.has(role) ? (!us.top || byLetter || !zs.some(t => /^[XSML]/.test(t))) : true;
+    const exact = zs.some(t => t === `W${w}L${l}` || t === `W${w}` || (!l && t.startsWith(`W${w}L`)));
+    if (exact) return true;
+    // Joggers and shorts usually come in S/M/L.
+    return (LOOSE_LEG.has(role) || !zs.some(t => /^W\d/.test(t))) && !!byLetter;
+  }
+  if (TOP_ROLES.has(role)) return !us.top || zs.some(t => sameTop(t, us.top));
+  return true;
+}
+
+/* Older data filed derbies under trainers and trackpants under chinos: put them right. */
+export function refineRole(role, name) {
+  const n = norm(name);
+  if ((role === "trainer" || role === "boot") && /\b(?:derby|derbies|brogues?|oxfords?|loafers?|monk strap|double monk|gibson)\b/.test(n) && !/\bboots?\b/.test(n)) return "shoe";
+  if (role === "chino" && /\btrack ?(?:pants?|trousers?)\b|\bjoggers?\b|\bsweat ?pants?\b|\blounge ?pants?\b/.test(n)) return "jogger";
+  return role;
+}
 export function roleOf(text, category) {
   // "T-Shirt" isn't a shirt, and a polo shirt is closer to a tee: say so before matching (as pool_role() does).
   const t = norm(text).replace(/\b(?:t|tee)[\s-]?shirts?\b/g, "tee").replace(/\bpolo shirts?\b/g, "polo tee");
   const foot = /footwear/i.test(category || "");
   for (const [role, words] of ROLES) {
-    if (foot && !["wallabee", "boot", "clog", "trainer"].includes(role)) continue;
+    if (foot && !["wallabee", "boot", "clog", "shoe", "trainer"].includes(role)) continue;
+    if (role === "shoe" && !foot && !/\bshoes?\b/.test(t)) continue;
     if (words.some(w => rx(w).test(t))) return role;
   }
   return foot ? "trainer" : null;
@@ -317,7 +428,7 @@ export function colourOf(it) {
   return firstIn(hint, COLOURS) || firstIn(tail, COLOURS) || firstIn(name, COLOURS) || firstIn(norm(it.text).slice(0, 120), COLOURS);
 }
 
-const FOOTWEAR = new Set(["trainer", "boot", "wallabee", "clog"]);
+const FOOTWEAR = new Set(["trainer", "boot", "wallabee", "clog", "shoe"]);
 export function traitsOf(it) {
   const name = norm(it.name), text = norm(`${it.name} ${it.colourHint || ""} ${it.text || ""}`), brand = norm(it.brand);
   const foot = FOOTWEAR.has(it.role);
@@ -388,17 +499,19 @@ export function priorOf(brief) {
   for (const [k, lv] of Object.entries(b.fabrics || {})) {
     if (lv === "no") soft["f:" + k] = -2; else prior["f:" + k] = lv === "love" ? 0.5 : 0;
   }
-  for (const s of b.styles || []) prior["st:" + s] = (prior["st:" + s] || 0) + 0.5;
+  for (const s of b.styles || []) for (const st of s === "heritage" ? ["heritage", "outdoor"] : [s]) prior["st:" + st] = (prior["st:" + st] || 0) + 0.5;
   for (const br of b.brands_love || []) prior["b:" + brandSlug(br)] = 0.8;
   for (const br of b.brands_never || []) rule("b:" + brandSlug(br), "brand");
   if (b.logos === "none") soft["det:logo"] = -1.2; else if (b.logos === "tiny") soft["det:logo"] = -0.6; else soft["det:logo"] = -0.15;
-  // Cut: the brief's hard nos, then the softer leanings.
-  for (const k of ["boxy", "oversized", "drop", "skinny", "cropped"]) hard["fit:" + k] = "cut";
-  soft["fit:wide"] = -1.4; soft["fit:relaxed"] = -0.25;
+  // Cut: the brief's hard nos (by default none of boxy, oversized, drop shoulder, skinny or cropped), then the softer leanings.
+  const cutsNo = Array.isArray(b.cuts_no) ? b.cuts_no : ["boxy", "oversized", "drop", "skinny", "cropped"];
+  for (const k of cutsNo) if (["boxy", "oversized", "drop", "skinny", "cropped", "wide"].includes(k)) hard["fit:" + k] = "cut";
+  if (b.leg === "relaxed") prior["fit:relaxed"] = 0.3; else { soft["fit:wide"] = -1.4; soft["fit:relaxed"] = -0.25; }
   if (b.topfit === "longer") prior["fit:longline"] = 0.45;
   if ((b.fitprob || []).includes("middle")) soft["fit:slim"] = -0.5;
   if (b.leg === "slightly-tapered" || b.leg === "tapered") prior["fit:tapered"] = 0.35;
   if (b.leg === "straight") prior["fit:straight"] = 0.35;
+  if (b.leg === "slim") prior["fit:slim"] = 0.3;
   for (const s of b.shoes || []) {
     const m = {wallabee: ["r:wallabee"], "winter-boot": ["r:boot", "det:waterproof", "det:lined"], "brown-chelsea": ["r:boot"], "black-chelsea": ["r:boot"],
       runner: ["st:90s"], terrace: ["st:90s"], skate: ["st:skate"], clog: ["r:clog"], hiking: ["st:outdoor"], loafer: ["st:smart"]}[s] || [];
@@ -413,7 +526,8 @@ export function priorOf(brief) {
   if (nt.has("oeko")) prior["det:organic"] = 0.35;
   if (b.ethics === "big") prior["det:madeuk"] = 0.5, prior["det:recycled"] = 0.3;
   else if (b.ethics === "small") prior["det:madeuk"] = 0.2, prior["det:recycled"] = 0.1;
-  return {prior, hard, soft, softRules, cats: b.categories ? new Set(b.categories) : null, brief: b};
+  // No categories chosen (or an empty list from the account) means every kind of piece, not none.
+  return {prior, hard, soft, softRules, cats: Array.isArray(b.categories) && b.categories.length ? new Set(b.categories) : null, brief: b};
 }
 
 /* ------------------------------------------------------------------ about you (profile) */
@@ -544,8 +658,9 @@ export function learn(entries, opts) {
 /* traitsFor(key) lets entries without a snapshot (pieces you only scrolled past) still teach while the piece is listed. */
 export function makeModel({brief: brief0, entries, cfg, now, traitsFor}) {
   const c = cfg || {};
-  // How strict your no's are is a setting you can flip on the You tab; it overrides the brief's answer.
-  const brief = c.rules ? Object.assign({}, brief0 || {}, {rules: c.rules}) : brief0;
+  // A "no" means no: it hides the piece everywhere unless you switch your no's to soft on the You tab (they then sink
+  // to the bottom instead). The setting overrides the brief's answer.
+  const brief = Object.assign({}, brief0 || {}, {rules: c.rules === "soft" ? "soft" : "hard"});
   const p = priorOf(brief);
   // About you: your profile leans cuts, lengths, fabrics and colours on top of the brief.
   const profile = cleanProfile(c.profile);
@@ -555,17 +670,36 @@ export function makeModel({brief: brief0, entries, cfg, now, traitsFor}) {
   const caps = Object.assign({}, DEFAULT_CAPS, (brief && brief.caps) || {}, c.caps || {});
   const counts = Object.assign({}, (brief && brief.counts) || {}, c.counts || {});
   const learned = learn(entries, {now, fadeDays: c.fadeDays || (brief && brief.fade_days) || 90, resetAt: c.resetAt, traitsFor});
-  // Pieces you passed on: their other colourways step aside too, unless the colour was the problem (or you have one).
-  const fams = {};
+  // Pieces you passed on: the same piece under another listing, another shop or another photo steps aside too, and so
+  // do its other colourways unless the colour was the problem (or you have one).
+  const fams = {}, pids = {}, imgs = {};
   for (const [k, e] of Object.entries(entries || {})) {
     if (!e || (e.s !== "nope" && e.s !== "no") || !e.f) continue;
+    const hit = {key: k, name: e.f.n || "", s: e.s};
+    const im = imgOf(e.f.i);
+    if (im && !imgs[im]) imgs[im] = hit;
     if ((e.why || []).some(r => r === "colour" || r === "have")) continue;
     const f = familyOf(e.f.b, e.f.n, e.f.r, e.f.u);
-    if (f && !fams[f]) fams[f] = {key: k, name: e.f.n || "", s: e.s};
+    if (f && !fams[f]) fams[f] = hit;
+    const pid = pidOf(e.f.u);
+    if (pid && !pids[pid]) pids[pid] = hit;
   }
   return {prior: p.prior, hard: p.hard, soft: p.soft, softRules: p.softRules, cats: p.cats, aff: learned.aff, n: learned.n, pins: c.pins || {},
-    caps, counts, explore: c.explore ?? (brief && brief.explore) ?? 0.2, entries: entries || {}, brief: p.brief, profile, fams,
+    caps, counts, explore: c.explore ?? (brief && brief.explore) ?? 0.2, entries: entries || {}, brief: p.brief, profile, fams, pids, imgs,
     now: now || Date.now(), repeatDays: (brief && brief.repeat_days) || 14};
+}
+/* The piece you passed on that hides this one (same photo, same listing, or another colour of it), or null. */
+export function passedTwin(m, it) {
+  if (!it || !m) return null;
+  const e = m.entries[it.key];
+  if (e && e.s) return null; // your own reaction to this exact piece wins
+  const a = it.img && m.imgs && m.imgs[it.img];
+  if (a && a.key !== it.key) return Object.assign({why: "same"}, a);
+  const b = it.pid && m.pids && m.pids[it.pid];
+  if (b && b.key !== it.key) return Object.assign({why: "family"}, b);
+  const c = it.fam && m.fams && m.fams[it.fam];
+  if (c && c.key !== it.key) return Object.assign({why: "family"}, c);
+  return null;
 }
 
 /* A clothing piece in a colour you only wear washed (black, the vibrant ones), without a washed finish. */
@@ -607,8 +741,9 @@ export function hiddenWhy(m, it) {
   if (e && e.s === "no") return "passed";
   if (e && (e.bought || it.bought)) return "owned";
   if (e && e.own) return "own-similar";
-  // Another colour of something you passed on (your own reaction to this one wins).
-  if (!(e && e.s) && it.fam && m.fams && m.fams[it.fam] && m.fams[it.fam].key !== it.key) return "family";
+  // Another listing, shop, photo or colour of something you passed on (your own reaction to this one wins).
+  const twin = passedTwin(m, it);
+  if (twin) return twin.why;
   if (m.cats && it.role && !roleWanted(m.cats, it.role)) return "category";
   const traits = it.traits;
   for (const t of traits) {
@@ -630,7 +765,7 @@ export function hiddenWhy(m, it) {
 }
 const ROLE_CAT = {tee: "tees", shirt: "shirts", overshirt: "overshirts", jacket: "jackets", fleece: "fleece", knit: "knitwear", cardigan: "knitwear",
   sweat: "sweats", hoodie: "sweats", jeans: "jeans", chino: "trousers", trouser: "trousers", jogger: "joggers", shorts: "shorts",
-  trainer: "trainers", boot: "boots", wallabee: "casual-shoes", clog: "clogs", socks: "socks", underwear: "socks", cap: "caps",
+  trainer: "trainers", boot: "boots", wallabee: "casual-shoes", shoe: "smart-shoes", clog: "clogs", socks: "socks", underwear: "socks", cap: "caps",
   beanie: "caps", scarf: "scarves", gloves: "scarves", belt: "belts", bag: "bags", watch: "watches"};
 export const roleWanted = (cats, role) => !cats || !ROLE_CAT[role] || cats.has(ROLE_CAT[role]);
 
@@ -712,7 +847,7 @@ const NICE = {
   "d:10": "On sale", "d:25": "25%+ off", "d:40": "40%+ off", "r:tee": "Tees", "r:knit": "Knitwear", "r:sweat": "Sweats", "r:hoodie": "Hoodies",
   "r:jogger": "Joggers", "r:chino": "Chinos", "r:trouser": "Trousers", "r:trainer": "Trainers", "r:boot": "Boots", "r:clog": "Clogs and slippers",
   "r:overshirt": "Overshirts", "r:jacket": "Jackets", "r:cardigan": "Cardigans", "r:fleece": "Fleece", "r:jeans": "Jeans", "r:shirt": "Shirts",
-  "r:wallabee": "Wallabees", "r:cap": "Caps", "r:beanie": "Beanies", "r:bag": "Bags", "r:socks": "Socks", "r:shorts": "Shorts"
+  "r:wallabee": "Wallabees", "r:shoe": "Smart shoes", "r:cap": "Caps", "r:beanie": "Beanies", "r:bag": "Bags", "r:socks": "Socks", "r:shorts": "Shorts"
 };
 export function label(t, brands) {
   if (NICE[t]) return NICE[t];
@@ -748,7 +883,29 @@ function rngFrom(seed) {
   return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 1e6) / 1e6; };
 }
 
-/* Rank everything you could see. Returns [{it, sc, wildcard, note}] in display order, plus the hidden ones. */
+/* Colourways and duplicate listings of one piece (same family, or the same photo) share a group: the feed shows the
+   best of each once, with the rest as its other colours. */
+function groupKey(it) { return it.fam || it.img || it.key; }
+export function collapse(rows) {
+  const byImg = new Map(), groups = new Map();
+  for (const r of rows) {
+    // Same photo under two listings: one piece, whatever the names say.
+    const g0 = r.it.img && byImg.get(r.it.img);
+    const g = g0 || groupKey(r.it);
+    if (r.it.img && !g0) byImg.set(r.it.img, g);
+    const list = groups.get(g);
+    if (list) list.push(r); else groups.set(g, [r]);
+  }
+  const out = [];
+  for (const list of groups.values()) {
+    list.sort((a, b) => b.sc.s - a.sc.s);
+    const head = list[0];
+    out.push(Object.assign({}, head, {alts: list.slice(1).map(x => x.it)}));
+  }
+  return out;
+}
+/* Rank everything you could see. Returns [{it, sc, wildcard, note, alts}] in display order (one per piece, its other
+   colours in alts), every visible row (all), plus the hidden ones. */
 export function rank(m, items, ctx) {
   const c = ctx || {}, today = c.today || new Date().toISOString().slice(0, 10);
   const seen = new Set(), visible = [], hidden = [];
@@ -756,13 +913,14 @@ export function rank(m, items, ctx) {
     if (!it || !it.key || seen.has(it.key)) continue;
     seen.add(it.key);
     if (it.inStock === false) { hidden.push({it, why: "sold-out"}); continue; }
+    if (c.sizes && !sizeOk(it, c.sizes)) { hidden.push({it, why: "size"}); continue; }
     const h = hiddenWhy(m, it);
     if (h) { hidden.push({it, why: h}); continue; }
     if (!c.ignoreCooldown && cooling(m, it, today)) { hidden.push({it, why: "cooldown"}); continue; }
     visible.push({it, sc: score(m, it, Object.assign({today}, c))});
   }
   // Greedy diversity: the best next piece, discounted when the last few shared its role, brand or colour.
-  const pool = visible.slice().sort((a, b) => b.sc.s - a.sc.s);
+  const pool = (c.noCollapse ? visible : collapse(visible)).sort((a, b) => b.sc.s - a.sc.s);
   const out = [], explore = Math.max(0, Math.min(0.5, m.explore || 0)), every = explore ? Math.max(2, Math.round(1 / explore)) : 0;
   const rnd = rngFrom(c.seed || today);
   const used = new Set();
@@ -800,9 +958,9 @@ export function rank(m, items, ctx) {
     }
     if (!choice) break;
     used.add(choice.it.key);
-    out.push({it: choice.it, sc: choice.sc, wildcard, note: wildcard ? wildcardNote(m, choice.it, c.brands) : ""});
+    out.push({it: choice.it, sc: choice.sc, wildcard, note: wildcard ? wildcardNote(m, choice.it, c.brands) : "", alts: choice.alts || []});
   }
-  return {list: out, hidden};
+  return {list: out, all: visible, hidden};
 }
 
 /* "Testing: rust knits" — names the least-known traits so you know what a tap will teach. */
@@ -822,7 +980,7 @@ export function trainDeck(m, items, ctx, n = 20, duelEvery = 6) {
   for (const it of items) {
     if (!it || seen.has(it.key) || !it.image) continue;
     seen.add(it.key);
-    if (it.inStock === false || hiddenWhy(m, it)) continue;
+    if (it.inStock === false || (c.sizes && !sizeOk(it, c.sizes)) || hiddenWhy(m, it)) continue;
     const e = m.entries[it.key];
     if (reacted(e)) continue;
     const sc = score(m, it, c);
@@ -831,25 +989,35 @@ export function trainDeck(m, items, ctx, n = 20, duelEvery = 6) {
   }
   const unsure = cand.slice().sort((a, b) => b.u - a.u);
   const likely = cand.slice().sort((a, b) => b.sc.s - a.sc.s);
-  const deck = [], used = new Set();
-  const take = list => { for (const x of list) if (!used.has(x.it.key)) { used.add(x.it.key); return x; } return null; };
+  const deck = [], used = new Set(), sameAs = new Set();
+  // One colour of a piece per deck: a second colourway (or the same photo at another shop) is a wasted swipe.
+  const ids = it => [it.fam && "f:" + it.fam, it.img && "i:" + it.img, it.pid && "p:" + it.pid].filter(Boolean);
+  const free = x => !used.has(x.it.key) && !ids(x.it).some(k => sameAs.has(k));
+  const mark = x => { used.add(x.it.key); for (const k of ids(x.it)) sameAs.add(k); };
+  const take = list => { for (const x of list) if (free(x)) { mark(x); return x; } return null; };
   while (deck.length < n && used.size < cand.length) {
     const pos = deck.length;
     if (duelEvery && pos % duelEvery === duelEvery - 1) {
       const a = take(likely);
       if (a) {
         let b = null;
-        for (const x of likely) if (!used.has(x.it.key) && x.it.role === a.it.role && Math.abs(x.sc.s - a.sc.s) < 1.2) { b = x; break; }
-        if (b) { used.add(b.it.key); deck.push({duel: [a, b]}); continue; }
+        for (const x of likely) if (free(x) && x.it.role === a.it.role && Math.abs(x.sc.s - a.sc.s) < 1.2) { b = x; break; }
+        if (b) { mark(b); deck.push({duel: [a, b]}); continue; }
         deck.push({card: a});
         continue;
       }
     }
-    const pick = rnd() < 0.65 ? take(unsure) : take(likely);
+    const pick = rnd() < 0.65 ? (take(unsure) || take(likely)) : (take(likely) || take(unsure));
     if (!pick) break;
     deck.push({card: pick});
   }
   return deck;
+}
+/* Is a deck step still worth showing? A piece hidden or answered since the deck was dealt (here or on another device,
+   or because you passed on another colour of it) is skipped. */
+export function stepLive(m, step, sizes) {
+  const ok = x => x && x.it && x.it.inStock !== false && (!sizes || sizeOk(x.it, sizes)) && !hiddenWhy(m, x.it) && !reacted(m.entries[x.it.key]);
+  return step && (step.duel ? step.duel.every(ok) : ok(step.card));
 }
 
 /* ------------------------------------------------------------------ profile summary */
@@ -884,7 +1052,7 @@ export function outfitGaps(formulas, ownedPieces) {
   const gapRoles = new Set(), gaps = [];
   let ready = 0;
   for (const f of formulas || []) {
-    const missing = (f.slots || []).filter(sl => !(sl.roles || []).some(r => owned[r]));
+    const missing = (f.slots || []).filter(sl => !sl.optional && !(sl.roles || []).some(r => owned[r]));
     if (!missing.length) ready++;
     for (const sl of missing) { for (const r of sl.roles || []) gapRoles.add(r); gaps.push({outfit: f.name, label: sl.label, roles: sl.roles}); }
   }
@@ -898,7 +1066,14 @@ export function allItems(data, finds, pool) {
   for (const x of (finds && finds.picks) || []) out.push(normItem(x, "pick"));
   for (const x of (finds && finds.finds) || []) out.push(normItem(x, "find"));
   for (const x of (pool && pool.items) || []) out.push(normItem(x, "pool"));
-  return out;
+  return sharedPhotos(out);
+}
+/* A photo used by three or more different pieces is a shop's placeholder, not the piece: it can't identify one. */
+export function sharedPhotos(items) {
+  const fams = new Map();
+  for (const it of items) if (it.img) { const s = fams.get(it.img) || new Set(); s.add(it.fam || it.key); fams.set(it.img, s); }
+  for (const it of items) if (it.img && fams.get(it.img).size >= 3) it.img = "";
+  return items;
 }
 
 /* Brand slug -> display name, for labels. */
@@ -911,7 +1086,7 @@ export function brandNames(items) {
 /* ------------------------------------------------------------------ settings */
 /* Settings sync as patches ("owned.s3": 1, "pins.c:olive": null, "explore": 0.33) applied to the account's copy, so a
    change on one device never overwrites a different change made on another. null removes a key. */
-export const CFG_MAPS = ["owned", "pins", "counts", "caps", "profile"];
+export const CFG_MAPS = ["owned", "pins", "counts", "caps", "profile", "closet"];
 export const CFG_KEYS = ["explore", "theme", "reach", "resetAt", "rules"];
 export function cfgDiff(a, b) {
   const p = {}, x0 = a || {}, y0 = b || {};
@@ -943,8 +1118,16 @@ const COUNTERS = ["wins", "losses", "open", "view", "shownTotal"];
 export function mergeEntry(a, b) {
   if (!a) return b;
   if (!b) return a;
-  const ea = Date.parse(a.et || 0) || 0, eb = Date.parse(b.et || 0) || 0;
-  const src = eb > ea ? b : a, out = {};
+  const ea = a.et ? Date.parse(a.et) || 0 : 0, eb = b.et ? Date.parse(b.et) || 0 : 0;
+  let src;
+  if (ea || eb) src = eb > ea ? b : a;
+  else {
+    // Neither copy says when its tap was made (older data): a copy with no taps at all never wipes one that has them;
+    // otherwise the newer copy wins.
+    const xa = EXPLICIT.some(k => a[k] !== undefined), xb = EXPLICIT.some(k => b[k] !== undefined);
+    src = xa && !xb ? a : xb && !xa ? b : (Date.parse(b.t || 0) > Date.parse(a.t || 0) ? b : a);
+  }
+  const out = {};
   for (const k of EXPLICIT) if (src[k] !== undefined) out[k] = src[k];
   if (src.et) out.et = src.et;
   for (const k of COUNTERS) { const v = Math.max(a[k] || 0, b[k] || 0); if (v) out[k] = v; }

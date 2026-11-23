@@ -1,7 +1,9 @@
 /* Input validation. Everything a client sends is reduced to known keys, types and sizes before it reaches D1. */
 
 import {HttpError, isoOk} from "./util.js";
-import {cleanProfile} from "../docs/engine.js";
+import {cleanProfile, COLOURS} from "../docs/engine.js";
+
+const COLOUR_KEYS = new Set(Object.keys(COLOURS));
 
 export const bad = (msg, code = "invalid") => { throw new HttpError(400, code, msg); };
 
@@ -29,7 +31,7 @@ const day = v => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : un
 const httpsUrl = (v, max) => typeof v === "string" && v.length <= max && /^https:\/\/[a-z0-9.-]+(?::\d+)?\/[^\s<>"]*$/i.test(v) ? v : undefined;
 const TRAIT = /^[a-z]{1,4}:[a-z0-9-]{1,40}$/;
 const ROLES = new Set(["tee", "shirt", "overshirt", "jacket", "fleece", "knit", "cardigan", "sweat", "hoodie", "jeans", "chino", "trouser",
-  "jogger", "shorts", "trainer", "boot", "wallabee", "clog", "socks", "underwear", "cap", "beanie", "scarf", "gloves", "belt", "bag", "watch"]);
+  "jogger", "shorts", "trainer", "boot", "wallabee", "clog", "shoe", "socks", "underwear", "cap", "beanie", "scarf", "gloves", "belt", "bag", "watch"]);
 const REASONS = new Set(["colour", "fit", "fabric", "price", "brand", "logo", "dressy", "young", "have", "texture", "cut", "versatile"]);
 const STATES = new Set(["love", "like", "nope", "no"]);
 
@@ -73,7 +75,18 @@ export function cleanCfg(c) {
   if (c.owned && typeof c.owned === "object") {
     for (const [k, v] of Object.entries(c.owned).slice(0, 300)) if (/^(s\d{1,3}|\d{1,5})$/.test(k) && (v === 0 || v === 1)) owned[k] = v;
   }
-  return {counts, caps, pins, owned, resetAt: isoOk(c.resetAt) ? c.resetAt : null, explore: num(c.explore, 0, 0.5) ?? 0.2,
+  // Pieces you've added to your wardrobe yourself: "role|colour|name".
+  const closet = {};
+  if (c.closet && typeof c.closet === "object" && !Array.isArray(c.closet)) {
+    for (const [k, v] of Object.entries(c.closet).slice(0, 120)) {
+      if (Object.keys(closet).length >= 80 || !/^c[a-z0-9]{4,10}$/.test(k) || typeof v !== "string") continue;
+      const [role, colour, ...rest] = v.split("|");
+      if (!ROLES.has(role) || (colour && !COLOUR_KEYS.has(colour))) continue;
+      const name = (str(rest.join(" "), 40) || "").replace(/[<>]/g, "").trim();
+      closet[k] = `${role}|${colour || ""}|${name}`;
+    }
+  }
+  return {counts, caps, pins, owned, closet, resetAt: isoOk(c.resetAt) ? c.resetAt : null, explore: num(c.explore, 0, 0.5) ?? 0.2,
     theme: ["auto", "dark", "light"].includes(c.theme) ? c.theme : "auto", reach: num(c.reach, 60, 130) ?? null,
     rules: ["soft", "hard"].includes(c.rules) ? c.rules : null, profile: cleanProfile(c.profile),
     t: isoOk(c.t) ? c.t : new Date().toISOString()};
@@ -81,7 +94,7 @@ export function cleanCfg(c) {
 
 /* A settings patch: {"owned.s3": 1, "pins.c:olive": null, "explore": 0.33}. Paths are checked here; values are
    checked by cleanCfg() once the patch is applied. */
-const PATCH_PATH = /^(?:(?:owned|pins|counts|caps|profile)\.[a-z0-9:_-]{1,48}|explore|theme|reach|resetAt|rules)$/;
+const PATCH_PATH = /^(?:(?:owned|pins|counts|caps|profile|closet)\.[a-z0-9:_-]{1,48}|explore|theme|reach|resetAt|rules)$/;
 export function cleanPatch(p) {
   if (!p || typeof p !== "object" || Array.isArray(p)) return null;
   const out = {};
@@ -128,7 +141,8 @@ export function cleanBrief(b) {
     drop: choice(b.drop), drop_time: choice(b.drop_time), instant: words(b.instant, 8, 20), channel: choice(b.channel),
     email_buttons: choice(b.email_buttons), learned_note: choice(b.learned_note), device: choice(b.device), home: choice(b.home),
     look: choice(b.look), theme: choice(b.theme), layout: choice(b.layout), ask_claude: b.ask_claude === true, wore_log: choice(b.wore_log),
-    contexts: words(b.contexts, 15, 20), office_days: choice(b.office_days), smart_max: choice(b.smart_max), daily_outfit: choice(b.daily_outfit),
+    contexts: words(b.contexts, 15, 20), cuts_no: Array.isArray(b.cuts_no) ? words(b.cuts_no, 8, 12).filter(x => /^(boxy|oversized|drop|skinny|cropped|wide)$/.test(x)) : undefined,
+    office_days: choice(b.office_days), smart_max: choice(b.smart_max), daily_outfit: choice(b.daily_outfit),
     wardrobe_import: choice(b.wardrobe_import), capsule_size: choice(b.capsule_size), measure_store: choice(b.measure_store),
     reach_cm: num(b.reach_cm, 60, 130),
     // The judgement rubric Claude's review applies (likes, hard nos), kept private with the rest of the brief.

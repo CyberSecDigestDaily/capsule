@@ -107,12 +107,27 @@ r = await phone.post("/api/state", {since: rev1, entries: {"universalworks.com/p
 ok(r.data.entries["universalworks.com/products/bakers-jacket"] && r.data.entries["universalworks.com/products/bakers-jacket"].s === "nope", "a newer change wins");
 r = await phone.post("/api/state", {since: 0, entries: {"example.com/products/y": {t: new Date(Date.now() + 9 * 864e5).toISOString(), s: "love"}}});
 ok(Date.parse(r.data.entries["example.com/products/y"].t) <= Date.now() + 864e5, "far-future timestamps are pulled back");
+// Another device that hadn't heard about a "not for me" sends a quieter, newer update for the same piece (shown, opened):
+// the server merges it, so the deliberate tap survives and the counters still add up.
+const tN = new Date(Date.now() - 5000).toISOString();
+r = await phone.post("/api/state", {since: 0, entries: {"example.com/products/z": {t: tN, et: tN, s: "nope", why: ["colour"], f: snap}}});
+ok(r.data.entries["example.com/products/z"].s === "nope", "a not-for-me is stored");
+r = await phone.post("/api/state", {since: 0, entries: {"example.com/products/z": {t: new Date().toISOString(), shownTotal: 4, open: 1, sd: "2026-11-23"}}});
+const zz = r.data.entries["example.com/products/z"];
+ok(zz && zz.s === "nope" && zz.why && zz.why[0] === "colour" && zz.shownTotal === 4 && zz.open === 1, "a quiet update from another device can't undo it", zz);
+r = await phone.post("/api/state", {since: 0, entries: {"example.com/products/z": {t: new Date(Date.now() + 1000).toISOString(), et: new Date(Date.now() + 1000).toISOString()}}});
+ok(!r.data.entries["example.com/products/z"].s, "but a newer deliberate undo does", r.data.entries["example.com/products/z"]);
+r = await phone.post("/api/state", {since: 0, cfgPatch: {"closet.cab12cd": "chino|navy|Navy chinos", "closet.cbad999": "rocket|navy|x", "closet.cxyz123": "tee|neon|<b>tee</b>", "closet.c11aa22": "boot|brown|Docs <script>"}});
+ok(r.data.cfg.closet && r.data.cfg.closet.cab12cd === "chino|navy|Navy chinos" && !r.data.cfg.closet.cbad999 && !r.data.cfg.closet.cxyz123, "wardrobe items saved; unknown kinds and colours dropped", r.data.cfg.closet);
+ok(r.data.cfg.closet.c11aa22 === "boot|brown|Docs script", "names can't carry markup", r.data.cfg.closet.c11aa22);
 
 section("Origin and auth checks");
 r = await phone.post("/api/state", {since: 0}, {headers: {Origin: "https://evil.example"}});
 ok(r.status === 403 && r.data.error === "bad_origin", "foreign Origin refused");
 r = await phone.post("/api/state", {since: 0}, {headers: {Origin: null}});
 ok(r.status === 403, "missing Origin refused");
+r = await phone.post("/api/state", {since: 0}, {headers: {Origin: null, Authorization: "Bearer anything-at-all-anything-at-all"}});
+ok(r.status === 403 && r.data.error === "bad_origin", "a bearer header doesn't skip the Origin check outside the review", r.data);
 r = await phone.req("POST", "/api/state", "since=0", {headers: {"Content-Type": "application/x-www-form-urlencoded"}});
 ok(r.status === 415, "form posts refused");
 r = await stranger.get("/api/state?since=0");
@@ -170,6 +185,39 @@ r = await phone.get("/api/me/passkeys");
 ok(r.data.passkeys.length === 1 && r.data.passkeys[0].provider === "Proton Pass", "the other one stays");
 r = await phone.del("/api/me/passkeys/" + encodeURIComponent(r.data.passkeys[0].id));
 ok(r.status === 400 && r.data.error === "last_passkey", "can't remove the last passkey", r.data);
+
+section("Invites made on the site");
+r = await stranger.post("/api/invites");
+ok(r.status === 401, "signed out: no invites");
+r = await phone.post("/api/invites");
+ok(r.status === 200 && /^[A-Za-z0-9_-]{24}$/.test(r.data.code) && r.data.expires > Date.now() / 1000 + 13 * 86400, "the owner makes an invite: shown once, 14 days", r.data);
+const inv2 = r.data.code;
+r = await phone.post("/api/invites");
+const inv3 = r.data.code;
+r = await phone.get("/api/invites");
+ok(r.status === 200 && r.data.invites.length === 2 && r.data.invites.every(x => /^[0-9a-f]{16}$/.test(x.id) && !x.used && !("code" in x)), "listed by fingerprint, never the code", r.data);
+const friend = new Device("friend"), fkey = new SoftAuthenticator(-7);
+r = await signUp(friend, fkey, "pal", inv2, {colours: {navy: "love"}, cuts_no: ["boxy", "rocket"], contexts: ["office"]});
+ok(r.status === 200 && r.data.user && r.data.user.owner === false, "a friend joins with it, as a member, not an owner", r.data);
+r = await friend.get("/api/state?since=0");
+ok(r.data.brief && r.data.brief.cuts_no && r.data.brief.cuts_no.join() === "boxy" && r.data.brief.contexts[0] === "office", "their own brief from the six questions", r.data.brief);
+r = await signUp(stranger, new SoftAuthenticator(-7), "again", inv2);
+ok(r.status === 403, "each invite works once");
+r = await friend.post("/api/invites");
+ok(r.status === 403 && r.data.error === "not_owner", "members can't make invites", r.data);
+r = await friend.get("/api/invites");
+ok(r.status === 403, "or list them");
+r = await phone.get("/api/invites");
+const open3 = r.data.invites.find(x => !x.used);
+ok(r.data.members === 1 && r.data.invites.some(x => x.used), "the used one shows as used", r.data);
+r = await friend.del("/api/invites/" + open3.id);
+ok(r.status === 403, "members can't cancel the owner's invites");
+r = await phone.del("/api/invites/" + open3.id);
+ok(r.status === 200, "the owner cancels one");
+r = await stranger.post("/api/auth/register/options", {handle: "late", invite: inv3});
+ok(r.status === 403, "a cancelled invite no longer works");
+r = await friend.get("/api/review", {headers: {Authorization: "Bearer " + REVIEW}});
+ok(r.status === 200 && r.data.owner === "don", "the review still reads only the owner's account");
 
 section("Claude's review");
 r = await stranger.get("/api/review");

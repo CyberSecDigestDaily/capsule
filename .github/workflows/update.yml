@@ -14,7 +14,7 @@ on:
     # Data commits (docs/*.json from this workflow) don't retrigger.
     paths: ["items.json", "finder.json", "picks.json", "wardrobe.json", "scraper.py", ".github/workflows/update.yml",
             "docs/*.js", "docs/*.html", "docs/*.css", "docs/_headers", "docs/seed.enc", "docs/where.json", "docs/manifest.webmanifest",
-            "docs/*.png", "docs/fonts/**", "docs/vendor/**", "worker/**", "wrangler.jsonc", "package.json", "package-lock.json"]
+            "docs/*.png", "docs/fonts/**", "docs/vendor/**", "worker/**", "wrangler.jsonc", "package.json", "package-lock.json", "tests/*.mjs"]
   workflow_dispatch: # manual "Run workflow" button
 
 concurrency:
@@ -75,6 +75,10 @@ jobs:
           # Rebase onto anything pushed meanwhile (Claude's daily review, manual edits).
           git pull --rebase --autostash origin main
           git push
+
+      # The taste engine and outfit builder are pure functions: if their tests fail, the site isn't republished.
+      - name: Engine and outfit tests
+        run: node tests/engine.test.mjs && node tests/outfits.test.mjs
 
       # Cloudflare Workers Builds deploys whatever lands on the deploy branch: the Worker, its config and the site with
       # today's data. Each publish is one fresh commit, so the branch never grows. No deploy tokens anywhere.

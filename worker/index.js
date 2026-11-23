@@ -35,6 +35,9 @@ const ROUTES = [
   ["POST", "/api/auth/recover", (env, req) => auth.recover(env, req)],
   ["POST", "/api/auth/link", (env, req) => auth.redeemLink(env, req)],
   ["POST", "/api/auth/logout", (env, req, ctx) => auth.logout(env, req, ctx)],
+  ["GET", "/api/invites", (env, req, ctx) => auth.listInvites(env, req, ctx)],
+  ["POST", "/api/invites", (env, req, ctx) => auth.createInvite(env, req, ctx)],
+  ["DELETE", "/api/invites/:id", (env, req, ctx, p) => auth.revokeInvite(env, req, ctx, p.id)],
   ["GET", "/api/state", (env, req, ctx, p, url) => getState(env, req, ctx, url)],
   ["POST", "/api/state", (env, req, ctx) => postState(env, req, ctx)],
   ["GET", "/api/review", (env, req) => getReview(env, req)],
@@ -55,7 +58,7 @@ async function api(request, env, ctx, url) {
     const params = {};
     try { r.names.forEach((n, i) => { params[n] = decodeURIComponent(m[i + 1]); }); }
     catch (e) { throw new HttpError(400, "bad_path", "Malformed address."); }
-    checkOrigin(request, env);
+    checkOrigin(request, env, url.pathname);
     await ensureSchema(env);
     return r.fn(env, request, ctx, params, url);
   }
