@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-25T12:15:57.386073Z",
+ "generated": "2026-11-25T18:15:54.504985Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -126,6 +126,28 @@
    "fit_words": [],
    "composition": null,
    "desc": "a take on the classic 20th century workwear jacket realised in hardcore drill. the 3001 in drill is a firm chore coat that’s practical and malleable getting better and better the more you wear it in.."
+  },
+  {
+   "key": "uskees.co.uk/3053-chalet-blouson-jacket-midnight-blue",
+   "first_seen": "2026-11-25",
+   "store": "Uskees",
+   "brand": "Uskees",
+   "name": "3053 Chalet blouson jacket, midnight blue",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3053-midnight-blue-chalet-blouson-jacket-model-standing.jpg?v=1792755476",
+   "url": "https://uskees.co.uk/products/3053-chalet-blouson-jacket-midnight-blue",
+   "category": "Jackets & Overshirts",
+   "price": 129.5,
+   "was": 185.0,
+   "discount_pct": 30,
+   "size": "L",
+   "colour": "midnight",
+   "tier": "deal",
+   "score": 35.8,
+   "role": "jacket",
+   "why": "30% off at Uskees · L in stock · midnight · jackets & overshirts",
+   "fit_words": [],
+   "composition": null,
+   "desc": "an a-1 flight jacket with a check flannel lining straight from the lodges of après ski. the 3053 embeds the warmth of a chalet blanket into a military garment crafted from strong yet soft workwear twill.."
   },
   {
    "key": "uskees.co.uk/7023-pennant-t-shirt-midnight-blue",
