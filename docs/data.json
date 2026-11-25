@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-25T09:05:02.337719Z",
+ "generated": "2026-11-25T09:06:58.847161Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -1168,8 +1168,7 @@
    "note": "Replaces the French Connection 7-pack (product page gone). Logo-free; buy several.",
    "fit": {
     "verdict": "good",
-    "note": "Regular fit with ribbed cuffs and hem; on the 183cm model in size M the sleeves reach the wrist, so L should have length to spare. Uniqlo's size chart blocks bots, so reach isn't recorded.",
-    "_x": null
+    "note": "Regular rise in soft cotton jersey with odour control; Uniqlo underwear runs true to size. Plain waistband, no branding."
    },
    "bought": true,
    "checked": "2026-11-25",
@@ -1612,6 +1611,6 @@
   "subject": "The Drop · Wed 25 Nov: Maple suede Wallabees £79.20 (−20%) + 2 more picks, 1 price drop",
   "via": "smtp",
   "images": 5,
-  "status": "sent"
+  "status": "already sent today"
  }
 }
