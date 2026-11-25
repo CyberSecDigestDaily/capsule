@@ -546,11 +546,12 @@
    "size": "UK 10",
    "variant": "Brown Suede",
    "target": 130,
-   "note": "The Byrne Chelsea Don liked, in brown suede (matte). £120, was £280.",
+   "note": "The Byrne Chelsea Don liked, in brown suede (matte). £115, was £280. Brown UK 10 sold out 25 Nov: restock watched (cognac suede UK 10 still in stock at £115).",
    "fit": {
     "verdict": "good",
     "note": "Classic close-fitting Chelsea, snug over the instep. Calf suede (matte), leather-lined, chunky Vibram sole; suede needs protector spray."
-   }
+   },
+   "restock_watch": true
   },
   {
    "id": 50,
@@ -633,7 +634,8 @@
    "note": "Replaces the French Connection 7-pack (product page gone). Logo-free; buy several.",
    "fit": {
     "verdict": "good",
-    "note": "Regular rise in soft cotton jersey with odour control; Uniqlo underwear runs true to size. Plain waistband, no branding."
+    "note": "Regular fit with ribbed cuffs and hem; on the 183cm model in size M the sleeves reach the wrist, so L should have length to spare. Uniqlo's size chart blocks bots, so reach isn't recorded.",
+    "_x": null
    },
    "bought": true
   }
