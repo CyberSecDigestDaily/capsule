@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-25T06:15:55.342350Z",
+ "generated": "2026-11-25T09:05:02.337719Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -11,10 +11,10 @@
  "errors": 0,
  "counts": {
   "SALE": 5,
-  "WATCHING": 16,
+  "WATCHING": 15,
   "BOUGHT": 9,
-  "SOLD OUT": 5,
-  "BUY": 1
+  "BUY": 2,
+  "SOLD OUT": 5
  },
  "items": [
   {
@@ -202,9 +202,9 @@
    "checked": "2026-11-25",
    "store": "uskees.com",
    "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-army-green-front-flat.jpg?v=1775045996",
-   "price": 85.0,
-   "was": null,
-   "discount_pct": 0,
+   "price": 59.5,
+   "was": 85.0,
+   "discount_pct": 30,
    "in_stock": true,
    "alt_sizes": [
     "XS",
@@ -212,10 +212,10 @@
     "M",
     "XL"
    ],
-   "signal": "WATCHING",
+   "signal": "BUY",
    "low": 59.5,
    "low_date": "2026-10-10",
-   "change": 0.0
+   "change": -25.5
   },
   {
    "id": 10,
@@ -592,7 +592,7 @@
     "W31 L32",
     "W31 L34",
     "W32 L32",
-    "W33 L32"
+    "W33 L34"
    ],
    "signal": "SALE",
    "low": 76.0,
@@ -999,11 +999,12 @@
    "size": "UK 10",
    "variant": "Brown Suede",
    "target": 130,
-   "note": "The Byrne Chelsea Don liked, in brown suede (matte). £120, was £280.",
+   "note": "The Byrne Chelsea Don liked, in brown suede (matte). £115, was £280. Brown UK 10 sold out 25 Nov: restock watched (cognac suede UK 10 still in stock at £115).",
    "fit": {
     "verdict": "good",
     "note": "Classic close-fitting Chelsea, snug over the instep. Calf suede (matte), leather-lined, chunky Vibram sole; suede needs protector spray."
    },
+   "restock_watch": true,
    "checked": "2026-11-25",
    "store": "John White",
    "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
@@ -1167,7 +1168,8 @@
    "note": "Replaces the French Connection 7-pack (product page gone). Logo-free; buy several.",
    "fit": {
     "verdict": "good",
-    "note": "Regular rise in soft cotton jersey with odour control; Uniqlo underwear runs true to size. Plain waistband, no branding."
+    "note": "Regular fit with ribbed cuffs and hem; on the 183cm model in size M the sleeves reach the wrist, so L should have length to spare. Uniqlo's size chart blocks bots, so reach isn't recorded.",
+    "_x": null
    },
    "bought": true,
    "checked": "2026-11-25",
@@ -1605,11 +1607,11 @@
   ]
  },
  "drop": {
-  "date": "2026-11-22",
-  "at": "2026-11-22T09:09:42.639948Z",
-  "subject": "The Drop · Sun 22 Nov: nothing new today",
+  "date": "2026-11-25",
+  "at": "2026-11-25T09:05:02.337719Z",
+  "subject": "The Drop · Wed 25 Nov: Maple suede Wallabees £79.20 (−20%) + 2 more picks, 1 price drop",
   "via": "smtp",
-  "images": 3,
-  "status": "waiting for today's review"
+  "images": 5,
+  "status": "sent"
  }
 }

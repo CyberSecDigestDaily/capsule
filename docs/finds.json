@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-25T06:15:55.342350Z",
+ "generated": "2026-11-25T09:05:02.337719Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -82,28 +82,72 @@
    "start_price": 24.5
   },
   {
-   "date": "2026-11-23",
-   "brand": "John White",
-   "name": "Byrne Chelsea Suede Boot, Brown Suede",
-   "short": "Brown suede Chelseas",
-   "url": "https://johnwhiteshoes.com/products/byrne-chelsea-suede-boot",
+   "date": "2026-11-25",
+   "brand": "Clarks Originals",
+   "name": "Wallabee Shoe, Maple Suede",
+   "short": "Maple suede Wallabees",
+   "url": "https://www.parasolstore.co.uk/products/clarks-wallabee-shoe-maple-suede",
    "size": "UK 10",
-   "variant": "Brown Suede",
-   "price": 115.0,
+   "price": 79.2,
    "category": "Footwear",
-   "why": "A watch-list BUY at £115, down from £280, with UK 10 in stock. There's no Chelsea boot in the wardrobe yet, and a matte brown suede one covers the office and date-night shoe slot with more polish than the Docs. Wear it with the fawn chinos and a navy knit, or the 502s and the waxed jacket; spray the suede first.",
-   "store": "John White",
-   "image": "https://cdn.shopify.com/s/files/1/0820/7597/5993/files/BryneChelsea-dkbrownseude-1.jpg?v=1783181399",
-   "price_now": 115.0,
-   "in_stock": false,
-   "discount_pct": 59,
-   "was": 280.0,
+   "why": "A Black Friday-list watch-list BUY at £79.20 (was £99), UK 10 in stock, and the brown suede Chelseas just sold out in 10. There's no smart-casual shoe besides the Docs, and a matte maple suede Wallabee covers office and date night with the fawn chinos and navy crew, or the 502s on weekends. Wallabees run large: true size for normal feet; spray the suede before rain.",
+   "store": "Parasol Store",
+   "image": "https://cdn.shopify.com/s/files/1/0581/4439/1351/files/ClarksOriginalsWallabeeShoeMapleSuede_1.jpg?v=1789029568",
+   "price_now": 79.2,
+   "in_stock": true,
+   "discount_pct": 20,
+   "was": 99.0,
    "verified": "2026-11-25",
-   "since": "2026-11-23",
-   "start_price": 115.0
+   "since": "2026-11-25",
+   "start_price": 79.2
   }
  ],
- "picks_updated": "2026-11-24",
+ "picks_updated": "2026-11-25",
  "errors": [],
- "candidates": []
+ "candidates": [
+  {
+   "key": "uskees.co.uk/3001-drill-overshirt-oatmeal",
+   "first_seen": "2026-11-25",
+   "store": "Uskees",
+   "brand": "Uskees",
+   "name": "3001 Drill overshirt, oatmeal",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-oatmeal-button-drill-overshirt-front.jpg?v=1787142412",
+   "url": "https://uskees.co.uk/products/3001-drill-overshirt-oatmeal",
+   "category": "Jackets & Overshirts",
+   "price": 66.5,
+   "was": 95.0,
+   "discount_pct": 30,
+   "size": "L",
+   "colour": "oatmeal",
+   "tier": "deal",
+   "score": 42.8,
+   "role": "overshirt",
+   "why": "30% off at Uskees · L in stock · oatmeal · jackets & overshirts",
+   "fit_words": [],
+   "composition": null,
+   "desc": "a take on the classic 20th century workwear jacket realised in hardcore drill. the 3001 in drill is a firm chore coat that’s practical and malleable getting better and better the more you wear it in.."
+  },
+  {
+   "key": "uskees.co.uk/7023-pennant-t-shirt-midnight-blue",
+   "first_seen": "2026-11-25",
+   "store": "Uskees",
+   "brand": "Uskees",
+   "name": "7023 Pennant t-shirt, midnight blue",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/7023-midnight-blue-pennant-tee-front.jpg?v=1787066388",
+   "url": "https://uskees.co.uk/products/7023-pennant-t-shirt-midnight-blue",
+   "category": "Tees",
+   "price": 24.5,
+   "was": 35.0,
+   "discount_pct": 30,
+   "size": "L",
+   "colour": "midnight",
+   "tier": "deal",
+   "score": 30.6,
+   "role": "tee",
+   "why": "30% off at Uskees · L in stock · midnight · tees",
+   "fit_words": [],
+   "composition": null,
+   "desc": "a plain uskees tee with woven pennant detailing. the 7023 is our new minimalist go-to. no frills style for low key looks.."
+  }
+ ]
 }
