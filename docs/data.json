@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-26T01:00:21.608432Z",
+ "generated": "2026-11-26T06:15:55.466537Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -10,8 +10,8 @@
  },
  "errors": 0,
  "counts": {
-  "SALE": 5,
-  "WATCHING": 15,
+  "SALE": 6,
+  "WATCHING": 14,
   "BOUGHT": 9,
   "BUY": 2,
   "SOLD OUT": 5
@@ -285,9 +285,9 @@
    "checked": "2026-11-26",
    "store": "Uniqlo",
    "image": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/450195/item/gbgoods_69_450195_3x4.jpg",
-   "price": 29.9,
-   "was": null,
-   "discount_pct": 0,
+   "price": 24.9,
+   "was": 29.9,
+   "discount_pct": 17,
    "in_stock": true,
    "alt_sizes": [
     "XS",
@@ -297,10 +297,10 @@
     "XXL",
     "3XL"
    ],
-   "signal": "WATCHING",
-   "low": 29.9,
-   "low_date": "2026-10-03",
-   "change": 0.0
+   "signal": "SALE",
+   "low": 24.9,
+   "low_date": "2026-11-26",
+   "change": -5.0
   },
   {
    "id": 13,
@@ -1013,7 +1013,6 @@
    "discount_pct": 59,
    "in_stock": false,
    "alt_sizes": [
-    "UK 8",
     "UK 9"
    ],
    "signal": "SOLD OUT",
