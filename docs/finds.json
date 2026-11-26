@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-26T06:15:55.466537Z",
+ "generated": "2026-11-26T09:08:58.419353Z",
  "finds": [
   {
    "key": "communityclothing.co.uk/mens-harrington-jacket-stone",
@@ -38,6 +38,25 @@
    "score": 56.3,
    "role": "jacket",
    "why": "50% off at Finisterre · L in stock · indigo · jackets & overshirts"
+  },
+  {
+   "key": "uskees.co.uk/3001-drill-overshirt-oatmeal",
+   "first_seen": "2026-11-26",
+   "store": "Uskees",
+   "brand": "Uskees",
+   "name": "3001 Drill overshirt, oatmeal",
+   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-oatmeal-button-drill-overshirt-front.jpg?v=1787142412",
+   "url": "https://uskees.co.uk/products/3001-drill-overshirt-oatmeal",
+   "category": "Jackets & Overshirts",
+   "price": 66.5,
+   "was": 95.0,
+   "discount_pct": 30,
+   "size": "L",
+   "colour": "oatmeal",
+   "tier": "deal",
+   "score": 42.8,
+   "role": "overshirt",
+   "why": "30% off at Uskees · L in stock · oatmeal · jackets & overshirts"
   }
  ],
  "picks": [
@@ -102,74 +121,7 @@
    "start_price": 79.2
   }
  ],
- "picks_updated": "2026-11-25",
+ "picks_updated": "2026-11-26",
  "errors": [],
- "candidates": [
-  {
-   "key": "uskees.co.uk/3001-drill-overshirt-oatmeal",
-   "first_seen": "2026-11-25",
-   "store": "Uskees",
-   "brand": "Uskees",
-   "name": "3001 Drill overshirt, oatmeal",
-   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3001-oatmeal-button-drill-overshirt-front.jpg?v=1787142412",
-   "url": "https://uskees.co.uk/products/3001-drill-overshirt-oatmeal",
-   "category": "Jackets & Overshirts",
-   "price": 66.5,
-   "was": 95.0,
-   "discount_pct": 30,
-   "size": "L",
-   "colour": "oatmeal",
-   "tier": "deal",
-   "score": 42.8,
-   "role": "overshirt",
-   "why": "30% off at Uskees · L in stock · oatmeal · jackets & overshirts",
-   "fit_words": [],
-   "composition": null,
-   "desc": "a take on the classic 20th century workwear jacket realised in hardcore drill. the 3001 in drill is a firm chore coat that’s practical and malleable getting better and better the more you wear it in.."
-  },
-  {
-   "key": "uskees.co.uk/3053-chalet-blouson-jacket-midnight-blue",
-   "first_seen": "2026-11-25",
-   "store": "Uskees",
-   "brand": "Uskees",
-   "name": "3053 Chalet blouson jacket, midnight blue",
-   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/3053-midnight-blue-chalet-blouson-jacket-model-standing.jpg?v=1792755476",
-   "url": "https://uskees.co.uk/products/3053-chalet-blouson-jacket-midnight-blue",
-   "category": "Jackets & Overshirts",
-   "price": 129.5,
-   "was": 185.0,
-   "discount_pct": 30,
-   "size": "L",
-   "colour": "midnight",
-   "tier": "deal",
-   "score": 35.8,
-   "role": "jacket",
-   "why": "30% off at Uskees · L in stock · midnight · jackets & overshirts",
-   "fit_words": [],
-   "composition": null,
-   "desc": "an a-1 flight jacket with a check flannel lining straight from the lodges of après ski. the 3053 embeds the warmth of a chalet blanket into a military garment crafted from strong yet soft workwear twill.."
-  },
-  {
-   "key": "uskees.co.uk/7023-pennant-t-shirt-midnight-blue",
-   "first_seen": "2026-11-25",
-   "store": "Uskees",
-   "brand": "Uskees",
-   "name": "7023 Pennant t-shirt, midnight blue",
-   "image": "https://cdn.shopify.com/s/files/1/0047/6921/8632/files/7023-midnight-blue-pennant-tee-front.jpg?v=1787066388",
-   "url": "https://uskees.co.uk/products/7023-pennant-t-shirt-midnight-blue",
-   "category": "Tees",
-   "price": 24.5,
-   "was": 35.0,
-   "discount_pct": 30,
-   "size": "L",
-   "colour": "midnight",
-   "tier": "deal",
-   "score": 30.6,
-   "role": "tee",
-   "why": "30% off at Uskees · L in stock · midnight · tees",
-   "fit_words": [],
-   "composition": null,
-   "desc": "a plain uskees tee with woven pennant detailing. the 7023 is our new minimalist go-to. no frills style for low key looks.."
-  }
- ]
+ "candidates": []
 }
