@@ -1,30 +1,8 @@
 {
- "updated": "2026-11-26",
+ "updated": "2026-11-27",
  "by": "Claude daily review",
- "strong": false,
+ "strong": true,
  "picks": [
-  {
-   "date": "2026-11-24",
-   "brand": "Community Clothing",
-   "name": "Lambswool Saddle Shoulder Crew Neck, Navy",
-   "short": "Navy lambswool crew",
-   "url": "https://communityclothing.co.uk/products/mens-lambswool-saddle-shoulder-crew-neck-navy",
-   "size": "L",
-   "price": 79.0,
-   "category": "Mid-layers & Knits",
-   "why": "Knits are still the biggest gap with none owned, and the office, date and outdoor outfits all lean on one. A plain navy lambswool crew knitted in Hawick, saddle shoulder rather than drop shoulder, no branding, L in stock. Wear it over a tee with the fawn chinos and brown Docs, or with the 502s under the waxed jacket."
-  },
-  {
-   "date": "2026-11-24",
-   "brand": "Uskees",
-   "name": "7006 Essential T-Shirt, Norway Spruce",
-   "short": "Dark spruce tee",
-   "url": "https://uskees.co.uk/products/7006-plain-t-shirt-norway-spruce",
-   "size": "L",
-   "price": 24.5,
-   "category": "Tees",
-   "why": "Tees are the other open gap. An enzyme-washed organic cotton crew in a dark muted green, 30% off, with only a tiny hem tab, and L is one of the last sizes left. Wear it under the navy crew or the grey marl raglan sweat with the 502s and Sambas."
-  },
   {
    "date": "2026-11-25",
    "brand": "Clarks Originals",
@@ -34,7 +12,29 @@
    "size": "UK 10",
    "price": 79.2,
    "category": "Footwear",
-   "why": "A Black Friday-list watch-list BUY at £79.20 (was £99), UK 10 in stock, and the brown suede Chelseas just sold out in 10. There's no smart-casual shoe besides the Docs, and a matte maple suede Wallabee covers office and date night with the fawn chinos and navy crew, or the 502s on weekends. Wallabees run large: true size for normal feet; spray the suede before rain."
+   "why": "Black Friday-list watch-list BUY, still £79.20 (was £99) with UK 10 in stock. It's the only smart-casual shoe option besides the Docs, so it covers office and date night with the fawn chinos and a navy knit, or the 502s at weekends. Wallabees run large: true size for normal feet; spray the suede before rain."
+  },
+  {
+   "date": "2026-11-27",
+   "brand": "Uskees",
+   "name": "3001 Overshirt, brown",
+   "short": "Brown cotton overshirt",
+   "url": "https://uskees.co.uk/products/3001-brown-button-overshirt",
+   "size": "L",
+   "price": 42.5,
+   "category": "Jackets & Overshirts",
+   "why": "No overshirts owned yet, and everyday, travel and date-night looks all want one. Same 3001 cut as the army green on the watch list, in a warm brown organic cotton at half price (£42.50, was £85), plain with a small woven label. Wear it open over a tee with the 502s and Sambas, or under the waxed jacket."
+  },
+  {
+   "date": "2026-11-27",
+   "brand": "Percival",
+   "name": "Fisherman Raglan Jumper, Heavy Cotton, Navy",
+   "short": "Navy rib fisherman knit",
+   "url": "https://www.percivalclo.com/products/fisherman-knitted-jumper-heavy-cotton-navy",
+   "size": "L",
+   "price": 90.0,
+   "category": "Mid-layers & Knits",
+   "why": "Knits are still the biggest gap with none owned, and office, date and outdoor outfits all lean on one. A heavy 100% cotton rib crew, regular fit with raglan sleeves rather than a dropped shoulder, no branding, 40% off (£90, was £150). Wear it over a tee with the fawn chinos and Wallabees, or with the 502s under the field jacket."
   }
  ]
 }
