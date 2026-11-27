@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-27T06:15:56.531919Z",
+ "generated": "2026-11-27T09:11:02.361587Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -8,14 +8,13 @@
   "boxer": "L",
   "shoe": "UK 10"
  },
- "errors": 1,
+ "errors": 0,
  "counts": {
   "SALE": 6,
   "WATCHING": 14,
   "BOUGHT": 9,
-  "BUY": 2,
-  "SOLD OUT": 4,
-  "LINK ERROR": 1
+  "BUY": 3,
+  "SOLD OUT": 4
  },
  "items": [
   {
@@ -867,26 +866,34 @@
    "role": "trainer",
    "tier": "budget",
    "brand": "Nike",
-   "name": "SB Zoom Janoski OG+, navy gum",
-   "url": "https://slamcity.com/products/nike-sb-zoom-janoski-og-navy-white-navy-gum-light-brown",
+   "name": "SB Zoom Janoski OG+ Premium, tan suede",
+   "url": "https://routeone.co.uk/products/nike-sb-zoom-janoski-og-plus-premium-skate-shoes-lt-british-tan-saturn-gold-hemp-black-001184050",
    "check": "shopify",
    "size": "UK 10",
-   "target": 45,
-   "restock_watch": true,
-   "note": "£40 (was £85) but UK 10 sold out: alerts on restock.",
+   "target": 60,
+   "note": "Re-linked: the navy gum listing is gone (404) and no UK 10 navy Janoski is left. Two-tone tan and brown suede with a dark sole, £59.95 (was £89.95), UK 10 in stock.",
    "fit": {
     "verdict": "good",
     "note": "The OG+ is roomier than the original Janoski and fits true to size."
    },
    "checked": "2026-11-27",
-   "store": "Slam City",
-   "image": "https://cdn.shopify.com/s/files/1/0020/1628/0646/files/001_34c52ef8-a08e-442c-b5fd-8d31a93f189c.jpg?v=1708345103",
-   "signal": "LINK ERROR",
-   "error": "HTTP Error 404: Not Found",
-   "last_seen_price": 39.99,
+   "store": "Route One",
+   "image": "https://cdn.shopify.com/s/files/1/0274/4293/7933/files/001184050.jpg?v=1753802126",
+   "price": 59.95,
+   "was": 89.95,
+   "discount_pct": 33,
+   "in_stock": true,
+   "alt_sizes": [
+    "5",
+    "6",
+    "7",
+    "8",
+    "9.5"
+   ],
+   "signal": "BUY",
    "low": 39.99,
    "low_date": "2026-10-03",
-   "change": 0.0
+   "change": 19.96
   },
   {
    "id": 43,
@@ -1601,11 +1608,11 @@
   ]
  },
  "drop": {
-  "date": "2026-11-25",
-  "at": "2026-11-25T09:05:02.337719Z",
-  "subject": "The Drop · Wed 25 Nov: Maple suede Wallabees £79.20 (−20%) + 2 more picks, 1 price drop",
+  "date": "2026-11-27",
+  "at": "2026-11-27T09:11:02.361587Z",
+  "subject": "The Drop · Fri 27 Nov: Brown cotton overshirt £42.50 (−50%) + 2 more picks, 1 back in your size, 1 new deal",
   "via": "smtp",
-  "images": 5,
-  "status": "waiting for today's review"
+  "images": 4,
+  "status": "sent"
  }
 }
