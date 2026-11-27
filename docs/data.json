@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-27T01:01:55.298866Z",
+ "generated": "2026-11-27T06:15:56.531919Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -8,13 +8,14 @@
   "boxer": "L",
   "shoe": "UK 10"
  },
- "errors": 0,
+ "errors": 1,
  "counts": {
   "SALE": 6,
   "WATCHING": 14,
   "BOUGHT": 9,
   "BUY": 2,
-  "SOLD OUT": 5
+  "SOLD OUT": 4,
+  "LINK ERROR": 1
  },
  "items": [
   {
@@ -880,14 +881,9 @@
    "checked": "2026-11-27",
    "store": "Slam City",
    "image": "https://cdn.shopify.com/s/files/1/0020/1628/0646/files/001_34c52ef8-a08e-442c-b5fd-8d31a93f189c.jpg?v=1708345103",
-   "price": 39.99,
-   "was": 84.99,
-   "discount_pct": 53,
-   "in_stock": false,
-   "alt_sizes": [
-    "UK6.5"
-   ],
-   "signal": "SOLD OUT",
+   "signal": "LINK ERROR",
+   "error": "HTTP Error 404: Not Found",
+   "last_seen_price": 39.99,
    "low": 39.99,
    "low_date": "2026-10-03",
    "change": 0.0
