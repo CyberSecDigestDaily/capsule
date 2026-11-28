@@ -1,0 +1,13 @@
+{
+  "name": "capsule",
+  "private": true,
+  "type": "module",
+  "description": "Capsule: a wardrobe site that learns your taste, builds outfits from what you own and finds deals in your size. The Worker is deployed by Cloudflare Workers Builds from the deploy branch.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "node tests/engine.test.mjs && node tests/outfits.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.150.0"
+  }
+}

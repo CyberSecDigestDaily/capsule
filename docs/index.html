@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Capsule</title>
+<meta name="description" content="Clothes you'll actually wear, in your size, from independent UK shops: a feed that learns your taste, complete outfits from what you own, and the deals worth having.">
+<meta name="theme-color" content="#E8E5DE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F0F0E" media="(prefers-color-scheme: dark)">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Capsule">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<script src="vendor/qrcode.js" defer></script>
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="bar">
+    <a class="mark" href="#for-you" aria-label="Capsule, home">Capsule</a>
+    <nav class="tabs" aria-label="Sections">
+      <button data-view="for-you" aria-current="page">For you</button>
+      <button data-view="train">Swipe</button>
+      <button data-view="outfits">Outfits</button>
+      <button data-view="deals">Deals</button>
+      <button data-view="saved">Saved</button>
+    </nav>
+    <button class="who" id="who" data-view="you" aria-label="Your account and settings"><span class="sync-dot" id="syncDot"></span><span id="whoText">Sign in</span><span class="av" aria-hidden="true"></span></button>
+  </div>
+</header>
+<div class="banner" id="banner" hidden><div class="in" id="bannerIn"></div></div>
+
+<main id="main" tabindex="-1">
+  <div class="loading" id="loading">Loading today's pieces</div>
+
+  <!-- FOR YOU -->
+  <section id="view-for-you" hidden>
+    <div class="head">
+      <h1>For you</h1>
+      <p id="fyLede">Everything in your size, best match first. Tap ♡ or ✕ and it learns.</p>
+      <p class="tally" id="fyTally" hidden></p>
+    </div>
+    <section class="welcome" id="welcome" hidden></section>
+    <div class="fybar">
+      <div class="chips" id="fyFilters" aria-label="Show"></div>
+      <div class="fytools">
+        <input type="search" id="fyQ" placeholder="Search brands, pieces, colours" aria-label="Search" autocomplete="off" maxlength="60">
+        <label class="sortby"><span class="sr">Sort</span>
+          <select id="fySort" aria-label="Sort">
+            <option value="match">Best match</option>
+            <option value="new">Newest</option>
+            <option value="low">Price: low to high</option>
+            <option value="disc">Biggest discount</option>
+          </select></label>
+      </div>
+    </div>
+    <section class="block" id="editBlock" hidden>
+      <h2 class="sec">This week's edit <small id="editWhen"></small></h2>
+      <div class="edit" id="editGrid"></div>
+    </section>
+    <section class="block" id="newBlock" hidden>
+      <h2 class="sec">New since your last visit <small id="newCount"></small></h2>
+      <div class="strip" id="newStrip"></div>
+    </section>
+    <section class="block">
+      <h2 class="sec" id="fyH">Ranked for you <small id="fyCount"></small></h2>
+      <p class="lede" id="fyHow"></p>
+      <div class="grid" id="fyGrid"></div>
+      <div class="more"><button class="btn ghost" id="fyMore" hidden>Show more</button></div>
+    </section>
+  </section>
+
+  <!-- SWIPE -->
+  <section id="view-train" hidden>
+    <div class="train" id="train"></div>
+  </section>
+
+  <!-- OUTFITS -->
+  <section id="view-outfits" hidden>
+    <div class="head">
+      <h1>Outfits</h1>
+      <p id="outfitLede">Complete looks for each occasion, from what you own and the best pieces in your size.</p>
+    </div>
+    <div class="chips" id="occChips" aria-label="Occasion"></div>
+    <section class="block today" id="todayBlock" hidden></section>
+    <div id="occasions"></div>
+    <section class="block" id="nextBlock" hidden>
+      <h2 class="sec">Best next buys</h2>
+      <p class="lede">The single pieces that complete the most looks with what you already own.</p>
+      <div class="trio" id="nextGrid"></div>
+    </section>
+    <section class="block" id="wardrobeBlock">
+      <h2 class="sec">Your wardrobe <small id="ownCount"></small></h2>
+      <p class="lede" id="ownLede">Add what you already own and the looks are built around it.</p>
+      <div id="owngrid"></div>
+    </section>
+  </section>
+
+  <!-- DEALS -->
+  <section id="view-deals" hidden>
+    <div class="head">
+      <h1>Deals</h1>
+      <p id="dealsLede">Reductions in your size, on pieces that match you.</p>
+    </div>
+    <div class="dealbar">
+      <div class="chips" id="dealCats" aria-label="Category"></div>
+      <label class="sortby"><span>Sort by</span>
+        <select id="dealSort" aria-label="Sort deals">
+          <option value="match">Best match for you</option>
+          <option value="gap">Fills an outfit gap</option>
+          <option value="disc">Biggest discount</option>
+          <option value="save">Biggest saving (£)</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+          <option value="new">Newest first</option>
+        </select></label>
+    </div>
+    <div class="grid" id="dealsGrid"></div>
+  </section>
+
+  <!-- SAVED -->
+  <section id="view-saved" hidden>
+    <div class="head">
+      <h1>Saved</h1>
+      <p id="savedLede">Everything you've loved, saved, bought or hidden.</p>
+    </div>
+    <div class="seg rtabs" id="savedTabs" role="group" aria-label="Show"></div>
+    <div id="savedBody">
+      <p class="soft" id="savedNote" hidden></p>
+      <div class="grid" id="savedGrid"></div>
+    </div>
+    <div id="watchBox" hidden>
+      <section class="progressline" id="progress" hidden aria-label="Capsule progress">
+        <div class="pg-bar" id="pgBar"></div>
+        <p id="pgLine"></p>
+      </section>
+      <p class="soft" id="sizesLine"></p>
+      <div class="filters">
+        <div class="cats" id="cats" aria-label="Category"></div>
+        <div class="row2">
+          <div class="status" id="status" aria-label="Availability"></div>
+          <div class="tools">
+            <input type="search" id="q" placeholder="Search" aria-label="Search the watch list" autocomplete="off">
+            <select id="sort" aria-label="Sort">
+              <option value="match">Best match</option>
+              <option value="rec">Ready to buy first</option>
+              <option value="low">Price, low to high</option>
+              <option value="high">Price, high to low</option>
+            </select>
+            <label><input type="checkbox" id="hideOwned"> Hide owned</label>
+          </div>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- YOU -->
+  <section id="view-you" hidden>
+    <div class="head">
+      <h1>You</h1>
+      <p>Your account, your style and sizes, and what Capsule has learned.</p>
+    </div>
+    <div class="you" id="you"></div>
+  </section>
+</main>
+
+<footer><div class="in">
+  <span id="footNote">Prices and stock are checked about three times a day.</span>
+  <span class="links"><a href="privacy.html">Privacy</a><a id="updaterLink" href="https://github.com/CyberSecDigestDaily/capsule/actions" target="_blank" rel="noopener" hidden>Updater status</a></span>
+</div></footer>
+
+<nav class="dock" id="dock" aria-label="Sections"></nav>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer closed" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" hidden>
+  <div class="d-close"><button id="dClose" aria-label="Close">&times;</button></div>
+  <div class="d-body" id="dBody"></div>
+</aside>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
