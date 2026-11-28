@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-28T09:08:46.440845Z",
+ "generated": "2026-11-28T12:15:55.884786Z",
  "sizes": {
   "top": "L",
   "waist": "W34",
@@ -10,11 +10,11 @@
  },
  "errors": 0,
  "counts": {
-  "SALE": 6,
+  "SALE": 5,
   "WATCHING": 14,
   "BOUGHT": 9,
   "BUY": 3,
-  "SOLD OUT": 4
+  "SOLD OUT": 5
  },
  "items": [
   {
@@ -46,7 +46,6 @@
     "S",
     "M",
     "XL",
-    "XXL",
     "3XL"
    ],
    "signal": "SALE",
@@ -585,7 +584,7 @@
    "price": 76.0,
    "was": 100.0,
    "discount_pct": 24,
-   "in_stock": true,
+   "in_stock": false,
    "alt_sizes": [
     "W29 L32",
     "W30 L32",
@@ -594,7 +593,7 @@
     "W32 L32",
     "W33 L34"
    ],
-   "signal": "SALE",
+   "signal": "SOLD OUT",
    "low": 76.0,
    "low_date": "2026-11-20",
    "change": 0.0
@@ -1612,6 +1611,6 @@
   "subject": "The Drop · Sat 28 Nov: Tan suede Janoskis £59.95 (−33%) + 2 more picks",
   "via": "smtp",
   "images": 6,
-  "status": "sent"
+  "status": "already sent today"
  }
 }
